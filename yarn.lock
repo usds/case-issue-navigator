@@ -1639,6 +1639,14 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
+arguments-extended@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/arguments-extended/-/arguments-extended-0.0.3.tgz#6107e4917d0eb6f0a4dd66320fc15afc72ef4946"
+  integrity sha1-YQfkkX0OtvCk3WYyD8Fa/HLvSUY=
+  dependencies:
+    extended "~0.0.3"
+    is-extended "~0.0.8"
+
 aria-query@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-3.0.0.tgz#65b3fcc1ca1155a8c9ae64d6eee297f15d5133cc"
@@ -1666,6 +1674,15 @@ array-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/array-equal/-/array-equal-1.0.0.tgz#8c2a5ef2472fd9ea742b04c77a75093ba2757c93"
   integrity sha1-jCpe8kcv2ep0KwTHenUJO6J1fJM=
+
+array-extended@~0.0.3, array-extended@~0.0.4, array-extended@~0.0.5:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/array-extended/-/array-extended-0.0.11.tgz#d7144ae748de93ca726f121009dbff1626d164bd"
+  integrity sha1-1xRK50jek8pybxIQCdv/FibRZL0=
+  dependencies:
+    arguments-extended "~0.0.3"
+    extended "~0.0.3"
+    is-extended "~0.0.3"
 
 array-filter@^1.0.0:
   version "1.0.0"
@@ -3043,6 +3060,15 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-extended@~0.0.3:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/date-extended/-/date-extended-0.0.6.tgz#23802d57dd1bf7818813fe0c32e851a86da267c9"
+  integrity sha1-I4AtV90b94GIE/4MMuhRqG2iZ8k=
+  dependencies:
+    array-extended "~0.0.3"
+    extended "~0.0.3"
+    is-extended "~0.0.3"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -3080,6 +3106,11 @@ decamelize@^2.0.0:
   integrity sha512-Ikpp5scV3MSYxY39ymh45ZLEecsTdv/Xj2CaQfI8RLMuwi7XvjX9H/fhraiSuU+C5w5NTDu4ZU72xNiZnurBPg==
   dependencies:
     xregexp "4.0.0"
+
+declare.js@~0.0.4:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/declare.js/-/declare.js-0.0.8.tgz#0478adff9564c004f51df73d8bc134019d28dcde"
+  integrity sha1-BHit/5VkwAT1Hfc9i8E0AZ0o3N4=
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
@@ -3838,6 +3869,20 @@ extend@^3.0.0, extend@~3.0.2:
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
+extended@0.0.6, extended@~0.0.3:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/extended/-/extended-0.0.6.tgz#7fb8bf7b9dae397586e48570acfd642c78e50669"
+  integrity sha1-f7i/e52uOXWG5IVwrP1kLHjlBmk=
+  dependencies:
+    extender "~0.0.5"
+
+extender@~0.0.5:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/extender/-/extender-0.0.10.tgz#589c07482be61a1460b6d81f9c24aa67e8f324cd"
+  integrity sha1-WJwHSCvmGhRgttgfnCSqZ+jzJM0=
+  dependencies:
+    declare.js "~0.0.4"
+
 external-editor@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-3.0.3.tgz#5866db29a97826dbe4bf3afd24070ead9ea43a27"
@@ -3870,6 +3915,17 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
+
+fast-csv@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/fast-csv/-/fast-csv-2.5.0.tgz#5332dfede3f59340cb8e9f46b2e6dff1e7612005"
+  integrity sha512-M/9ezLU9/uDwvDZTt9sNFJa0iLDUsbhYJwPtnE0D9MjeuB6DY9wRCyUPZta9iI6cSz5wBWGaUPL61QH8h92cNA==
+  dependencies:
+    extended "0.0.6"
+    is-extended "0.0.10"
+    object-extended "0.0.7"
+    safer-buffer "^2.1.2"
+    string-extended "0.0.8"
 
 fast-deep-equal@^2.0.1:
   version "2.0.1"
@@ -4955,6 +5011,13 @@ is-extendable@^1.0.1:
   integrity sha512-arnXMxT1hhoKo9k1LZdmlNyJdDDfy2v0fXjFlmok4+i8ul/6WlbVge9bhM74OpNPQPMGUToDtz+KXa1PneJxOA==
   dependencies:
     is-plain-object "^2.0.4"
+
+is-extended@0.0.10, is-extended@~0.0.3, is-extended@~0.0.8:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/is-extended/-/is-extended-0.0.10.tgz#244e140df75bb1c9a3106f412ff182fb534a6d62"
+  integrity sha1-JE4UDfdbscmjEG9BL/GC+1NKbWI=
+  dependencies:
+    extended "~0.0.3"
 
 is-extglob@^2.1.0, is-extglob@^2.1.1:
   version "2.1.1"
@@ -6516,6 +6579,15 @@ object-copy@^0.1.0:
     copy-descriptor "^0.1.0"
     define-property "^0.2.5"
     kind-of "^3.0.3"
+
+object-extended@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/object-extended/-/object-extended-0.0.7.tgz#84fd23f56b15582aeb3e88b05cb55d2432d68a33"
+  integrity sha1-hP0j9WsVWCrrPoiwXLVdJDLWijM=
+  dependencies:
+    array-extended "~0.0.4"
+    extended "~0.0.3"
+    is-extended "~0.0.3"
 
 object-hash@^1.1.4:
   version "1.3.1"
@@ -8405,7 +8477,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
+"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@^2.1.2, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
@@ -8906,6 +8978,16 @@ stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
   integrity sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
+
+string-extended@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/string-extended/-/string-extended-0.0.8.tgz#741957dff487b0272a79eec5a44f239ee6f17ccd"
+  integrity sha1-dBlX3/SHsCcqee7FpE8jnubxfM0=
+  dependencies:
+    array-extended "~0.0.5"
+    date-extended "~0.0.3"
+    extended "~0.0.3"
+    is-extended "~0.0.3"
 
 string-length@^2.0.0:
   version "2.0.0"
