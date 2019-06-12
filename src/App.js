@@ -1,26 +1,43 @@
-import React from 'react';
+import React, {Component} from 'react';
+import 'uswds';
 import './App.css';
-import ReceiptDisplayRow from './view/ReceiptDisplayRow';
+import ReceiptList from './view/ReceiptList';
+import CaseDetail from './view/CaseDetail';
 import fetchAll from "./model/FakeCaseFetcher";
 
-function App() {
-  return (
-    <div className="stuck-case-navigator">
-      <table className="usa-table usa-table--borderless">
-        <thead>
-        <tr>
-          <th>Receipt</th><th>Creation Date</th>
-            <th>Case Age</th>
-            <th>Case State</th><th>Case Status</th><th>Case Substatus</th><th>Application Reason</th>
-            <th>Pipeline</th><th>Filing Channel</th>
-        </tr>
-        </thead>
-        <tbody>
-          {fetchAll().map(ReceiptDisplayRow)}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+class App extends Component {
+    constructor(props) {
+      super(props);
+      this.state= {cases: fetchAll()};
+    }
 
+    render(){
+      const callbacks = {
+        delete: this.delete.bind(this),
+        details: this.detailView.bind(this),
+        backToList: this.backToList.bind(this),
+      };
+      let content;
+      if (this.state.caseDetails) {
+        content = <CaseDetail caseData={this.state.caseDetails} callback={callbacks}/>
+      } else {
+        content = <ReceiptList cases={this.state.cases} callback={callbacks} mode="table"/>
+      }
+
+      return <div className="stuck-case-navigator">{content}</div>;
+    }
+
+    delete(receiptNumber) {
+      this.setState(
+        {cases: this.state.cases.filter(c => (c.receiptNumber !== receiptNumber))}
+      );
+    }
+
+    detailView(rowData) {
+      this.setState({caseDetails: rowData});
+    }
+    backToList() {
+      this.setState({caseDetails: null});
+    }
+}
 export default App;
