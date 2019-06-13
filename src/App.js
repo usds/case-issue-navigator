@@ -3,12 +3,13 @@ import 'uswds';
 import './App.css';
 import ReceiptList from './view/ReceiptList';
 import CaseDetail from './view/CaseDetail';
+import PrimaryNavMenu from './view/PrimaryNavMenu';
 import fetchAll from "./model/FakeCaseFetcher";
 
 class App extends Component {
     constructor(props) {
       super(props);
-      this.state= {cases: fetchAll()};
+      this.state= {cases: fetchAll(), activeNavItem: null};
     }
 
     render(){
@@ -24,7 +25,23 @@ class App extends Component {
         content = <ReceiptList cases={this.state.cases} callback={callbacks} mode="table"/>
       }
 
-      return <div className="stuck-case-navigator">{content}</div>;
+      return (
+        <div className="stuck-case-navigator">
+          <div className="usa-overlay"></div>
+          <PrimaryNavMenu
+            title="Stuck Case Navigator"
+            items={["Cases to work","Snoozed Cases","Dummy entry", "Resolved Cases"]}
+            active_item={this.state.activeNavItem}
+            callback={{navSelect: this.setNav.bind(this)}}
+            />
+          <main id="main-content">{content}</main>
+        </div>
+      );
+    }
+
+    setNav(event) {
+      event.stopPropagation();
+      this.setState({activeNavItem: event.target.innerText})
     }
 
     delete(receiptNumber) {
