@@ -2,45 +2,53 @@ import React, {Component} from 'react';
 import 'uswds';
 import './App.css';
 import ReceiptList from './view/ReceiptList';
-import CaseDetail from './view/CaseDetail';
 import PrimaryNavMenu from './view/PrimaryNavMenu';
+import ModalDialog from './view/ModalDialog';
 import fetchAll from "./model/FakeCaseFetcher";
 
 class App extends Component {
     constructor(props) {
       super(props);
-      this.state= {cases: fetchAll(), activeNavItem: null};
+      this.state = {cases: fetchAll(), activeNavItem: null, showDialog: false, displayMode: "table"};
     }
 
     render(){
       const callbacks = {
         delete: this.delete.bind(this),
         details: this.detailView.bind(this),
-        backToList: this.backToList.bind(this),
+        closeDialog: this.closeDialog.bind(this),
       };
-      let content;
-      if (this.state.caseDetails) {
-        content = <CaseDetail caseData={this.state.caseDetails} callback={callbacks}/>
-      } else {
-        content = <ReceiptList cases={this.state.cases} callback={callbacks} mode="table"/>
-      }
+      let content = <ReceiptList cases={this.state.cases} callback={callbacks} mode={this.state.displayMode} />
+
 
       return (
         <div className="stuck-case-navigator">
           <div className="usa-overlay"></div>
           <PrimaryNavMenu
             title="Stuck Case Navigator"
-            items={["Cases to work","Snoozed Cases","Dummy entry", "Resolved Cases"]}
+            items={["Cases to work", "Snoozed Cases", "Resolved Cases"]}
             active_item={this.state.activeNavItem}
             callback={{navSelect: this.setNav.bind(this)}}
             />
-          <main id="main-content">{content}</main>
+          <main id="main-content">
+          <ModalDialog
+            show={this.state.showDialog}
+            modalTitle={this.state.dialogTitle}
+            callback={callbacks}
+            modalContent={
+              <form className="usa-form">
+                <input id="how" className="usa-checkbox__input" type="checkbox" name="checkybox" value="not" />
+                <label className="usa-checkbox__label" htmlFor="how">This is not how you do it</label>
+              </form>
+            }
+          />
+          {content}
+          </main>
         </div>
       );
     }
 
     setNav(event) {
-      event.stopPropagation();
       this.setState({activeNavItem: event.target.innerText})
     }
 
@@ -51,10 +59,10 @@ class App extends Component {
     }
 
     detailView(rowData) {
-      this.setState({caseDetails: rowData});
+      this.setState({showDialog: true, dialogTitle: rowData.receiptNumber, clickedRow: rowData});
     }
-    backToList() {
-      this.setState({caseDetails: null});
+    closeDialog() {
+      this.setState({showDialog: false, clickedRow: null})
     }
 }
 export default App;

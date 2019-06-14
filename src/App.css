@@ -1,1 +1,23 @@
 @import '~uswds/dist/css/uswds.css';
+
+.modal-dialog {
+    position: fixed;
+}
+
+/* copied out of USWDS to avoid triggering event handlers for .usa-overlay selector */
+.usa-overlay-copy {
+    /* from .usa-overlay */
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    position:fixed;
+    background:black;
+    -webkit-transition:opacity 0.2s ease-in-out;
+    transition:opacity 0.2s ease-in-out;
+    z-index:400;
+    /* from .usa-overlay.is-visible */
+    opacity:0.2;
+    visibility:visible;
+}
