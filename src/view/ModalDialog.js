@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 
 // Hacky McHackface
@@ -6,18 +6,46 @@ function uswds_image(img_name) {
     return require('../../node_modules/uswds/dist/img/' + img_name);
 }
 
-export default function ModalDialog(props) {
-    if (!props.show) {
-        return null;
+class ModalDialog extends Component {
+    constructor(props) {
+        super(props);
+        this.keyHandler = this.escFunction.bind(this);
     }
-    return(
-        <div id="case-modal">
-        <div className="usa-overlay-copy"/>
-        <div className="modal-dialog usa-grid grid-col-4 grid-offset-4 z-top bg-white border-primary border border-width-05 padding-2 radius-sm">
-            <h3>{props.modalTitle}<button id="modal-close" onClick={props.callback.closeDialog}><img src={uswds_image("close.svg")} alt="close" /></button>
-</h3>
-          {props.modalContent}
-        </div>
-      </div>
-    )
+    render() {
+        if (!this.props.show) {
+            return null;
+        }
+        return(
+            <div id="case-modal">
+            <div className="usa-overlay-copy"/>
+            <div className="modal-dialog usa-grid tablet:grid-col-4 tablet:grid-offset-4 z-top bg-white border-primary border border-width-05 padding-2 radius-sm">
+                <h3>{this.props.modalTitle}
+                    <img
+                        src={uswds_image("close.svg")}
+                        align="right"
+                        onClick={this.props.callback.closeDialog}
+                        alt="close" />
+                </h3>
+            {this.props.modalContent}
+            </div>
+            </div>
+        );
+    }
+    escFunction(event){
+        if(event.keyCode === 27) {
+          this.props.callback.closeDialog(event);
+        }
+    }
+
+    componentDidMount(){
+        document.body.classList.add("overflow-y-hidden")
+        document.addEventListener("keydown", this.keyHandler, false);
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.keyHandler, false);
+        document.body.classList.remove("overflow-y-hidden")
+    }
+
 }
+export default ModalDialog;
