@@ -35,12 +35,7 @@ class App extends Component {
             show={this.state.showDialog}
             modalTitle={this.state.dialogTitle}
             callback={callbacks}
-            modalContent={
-              <form className="usa-form">
-                <input id="how" className="usa-checkbox__input" type="checkbox" name="checkybox" value="not" />
-                <label className="usa-checkbox__label" htmlFor="how">This is not how you do it</label>
-              </form>
-            }
+            modalContent={<SnoozeForm/> }
           />
           {content}
           </main>
@@ -61,8 +56,44 @@ class App extends Component {
     detailView(rowData) {
       this.setState({showDialog: true, dialogTitle: rowData.receiptNumber, clickedRow: rowData});
     }
+
     closeDialog() {
       this.setState({showDialog: false, clickedRow: null})
     }
 }
+
+class SnoozeForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  formChange(e) {
+    const stateSetter = {};
+    stateSetter[e.target.name] = e.target.value;
+    if (e.target.name === "snooze-reason") {
+      stateSetter._enabled = true;
+    }
+    this.setState(stateSetter);
+  }
+
+  render() {
+    return (
+      <form className="usa-form">
+        <input id="how" className="usa-checkbox__input" type="checkbox" name="checkybox" value="not" />
+        <label className="usa-checkbox__label" htmlFor="how">This is not how you do it</label>
+        <label className  ="usa-label" htmlFor="snooze-reason">Reason to snooze this case:</label>
+        <select defaultValue={false} onChange={this.formChange.bind(this)} required={true} className="usa-select" name="snooze-reason" id="snooze-reason">
+          <option value={false} disabled={true}  hidden={true}>- Select Reason -</option>
+          <option value="test_data">Test Data</option>
+          <option value="assigned_case">Case has been assigned</option>
+          <option value="in_proceedings">Case is pending removal proceedings</option>
+        </select>
+        <button  className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>Do the thing</button>
+      </form>
+    );
+  }
+}
+
 export default App;
