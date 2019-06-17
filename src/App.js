@@ -21,7 +21,7 @@ class App extends Component {
 
     render(){
       const callbacks = {
-        delete: this.delete.bind(this),
+        snooze: this.snooze.bind(this),
         details: this.detailView.bind(this),
         closeDialog: this.closeDialog.bind(this),
       };
@@ -46,7 +46,7 @@ class App extends Component {
             show={this.state.showDialog}
             modalTitle={this.state.dialogTitle}
             callback={callbacks}
-            modalContent={<SnoozeForm callback={callbacks} /> }
+            modalContent={<SnoozeForm callback={callbacks} rowData={this.state.clickedRow} /> }
           />
           <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} />
           </main>
@@ -58,10 +58,11 @@ class App extends Component {
       this.setState({activeNavItem: event.target.innerText})
     }
 
-    delete(receiptNumber) {
-      this.setState(
-        {cases: this.state.cases.filter(c => (c.receiptNumber !== receiptNumber))}
-      );
+    snooze(rowData, days) {
+      this.setState({
+        active_cases: this.state.active_cases.filter(c => (c.receiptNumber !== rowData.receiptNumber)),
+        snoozed_cases: [...this.state.snoozed_cases, {...rowData, snoozed_for: days}]
+      });
     }
 
     detailView(rowData) {
@@ -89,6 +90,12 @@ class SnoozeForm extends Component {
     this.setState(stateSetter);
   }
 
+  formSubmit(e) {
+    e.preventDefault(); // nobody wants an actual form submission
+    this.props.callback.snooze(this.props.rowData, 15);
+    this.props.callback.closeDialog();
+  }
+
   render() {
     let buttonText = "Select a Reason";
     if (this.state._enabled) {
@@ -110,7 +117,11 @@ class SnoozeForm extends Component {
           <option value="assigned_case">Case has been assigned</option>
           <option value="in_proceedings">Case is pending removal proceedings</option>
         </select>
-        <button  className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>{buttonText}</button>
+        <button
+            onClick={this.formSubmit.bind(this)}
+            className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>
+          {buttonText}
+        </button>
       </form>
     );
   }
