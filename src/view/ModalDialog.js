@@ -31,6 +31,7 @@ class ModalDialog extends Component {
             </div>
         );
     }
+
     escFunction(event){
         if(event.keyCode === 27) {
           this.props.callback.closeDialog(event);
@@ -38,14 +39,25 @@ class ModalDialog extends Component {
     }
 
     componentDidMount(){
-        document.body.classList.add("overflow-y-hidden")
-        document.addEventListener("keydown", this.keyHandler, false);
+        this.toggleScrollLock({});
     }
 
-    componentWillUnmount(){
-        document.removeEventListener("keydown", this.keyHandler, false);
-        document.body.classList.remove("overflow-y-hidden")
+    componentDidUpdate(prevProps) { // prevState, snapshot
+        this.toggleScrollLock(prevProps)
     }
 
+    toggleScrollLock(prevProps) {
+        if (this.props.show === prevProps.show) {
+            return;
+        }
+        if (this.props.show) {
+            document.body.classList.add("overflow-y-hidden")
+            document.addEventListener("keydown", this.keyHandler, false);
+        } else {
+            document.body.classList.remove("overflow-y-hidden")
+            document.removeEventListener("keydown", this.keyHandler, false);
+        }
+
+    }
 }
 export default ModalDialog;
