@@ -4,12 +4,19 @@ import './App.css';
 import ReceiptList from './view/ReceiptList';
 import PrimaryNavMenu from './view/PrimaryNavMenu';
 import ModalDialog from './view/ModalDialog';
-import fetchAll from "./model/FakeCaseFetcher";
+import * as case_api from "./model/FakeCaseFetcher";
 
 class App extends Component {
     constructor(props) {
       super(props);
-      this.state = {cases: fetchAll(), activeNavItem: null, showDialog: false, displayMode: "table"};
+      this.state = {
+        active_cases: case_api.fetchAll(),
+        resolved_cases: case_api.fetchResolved(),
+        snoozed_cases : [],
+        activeNavItem: null,
+        showDialog: false,
+        displayMode: "table"
+      };
     }
 
     render(){
@@ -18,8 +25,12 @@ class App extends Component {
         details: this.detailView.bind(this),
         closeDialog: this.closeDialog.bind(this),
       };
-      let content = <ReceiptList cases={this.state.cases} callback={callbacks} mode={this.state.displayMode} />
-
+      let cases = this.state.active_cases;
+      if (this.state.activeNavItem === "Snoozed Cases") {
+        cases = this.state.snoozed_cases;
+      } else if (this.state.activeNavItem === "Resolved Cases") {
+        cases = this.state.resolved_cases;
+      }
 
       return (
         <div className="stuck-case-navigator">
@@ -35,9 +46,9 @@ class App extends Component {
             show={this.state.showDialog}
             modalTitle={this.state.dialogTitle}
             callback={callbacks}
-            modalContent={<SnoozeForm/> }
+            modalContent={<SnoozeForm callback={callbacks} /> }
           />
-          {content}
+          <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} />
           </main>
         </div>
       );
@@ -79,6 +90,15 @@ class SnoozeForm extends Component {
   }
 
   render() {
+    let buttonText = "Select a Reason";
+    if (this.state._enabled) {
+      const duration = {
+        test_data: 'one year',
+        assigned_case: 'five days',
+        in_proceedings: 'one month'
+      };
+      buttonText = "Snooze for " + duration[this.state['snooze-reason']];
+    }
     return (
       <form className="usa-form">
         <input id="how" className="usa-checkbox__input" type="checkbox" name="checkybox" value="not" />
@@ -90,7 +110,7 @@ class SnoozeForm extends Component {
           <option value="assigned_case">Case has been assigned</option>
           <option value="in_proceedings">Case is pending removal proceedings</option>
         </select>
-        <button  className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>Do the thing</button>
+        <button  className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>{buttonText}</button>
       </form>
     );
   }
