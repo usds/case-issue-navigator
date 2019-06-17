@@ -24,13 +24,17 @@ function _tabular_list(props) {
         </tr>
         </thead>
         <tbody>
-            {props.cases.map(r=><ReceiptDisplayRow data={r} callback={props.callback} mode="table"/>)}
+            {props.cases.map(r=><ReceiptDisplayRow
+                key={"ELIS-" + r.caseId}
+                data={r} callback={props.callback} mode="table"/>)}
         </tbody>
     </table>
     );
 }
 
 function _accordion_list(props) {
-    const rows = props.cases.map(r=><ReceiptDisplayRow data={r} callback={props.callback} mode="accordion"/>);
+    const rows = props.cases.map(r=><ReceiptDisplayRow
+        key={"ELIS-" + r.caseId}
+        data={r} callback={props.callback} mode="accordion"/>);
     return <div class="usa-accordion">{rows}</div>;
 }

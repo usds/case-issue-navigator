@@ -9,7 +9,7 @@ export default function ReceiptDisplayRow(props) {
 
 function _table_row(rowData, creationDate, caseUrl, callback) {
     return (
-        <tr key={"ELIS-" + rowData.caseId} onClick={()=>callback.details(rowData)}>
+        <tr onClick={()=>callback.details(rowData)}>
             <td>
                 <a href={caseUrl} target="_elis_viewer">{rowData.receiptNumber}</a>
             </td>
