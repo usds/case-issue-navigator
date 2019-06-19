@@ -5,6 +5,24 @@ class SnoozeForm extends Component {
     constructor(props) {
       super(props);
       this.state = {};
+      this._TEMP_DURATIONS = [
+        {
+            value: "test_data",
+            text: "Test Data",
+            snooze_days: 365,
+        },
+        {
+            value: "assigned_case",
+            text: "Case has been assigned",
+            snooze_days: 5,
+
+        },
+        {
+            value: "in_proceedings",
+            text: "Case is pending removal proceedings",
+            snooze_days: 30,
+        }
+      ];
     }
 
     formChange(e) {
@@ -18,19 +36,18 @@ class SnoozeForm extends Component {
 
     formSubmit(e) {
       e.preventDefault(); // nobody wants an actual form submission
-      this.props.callback.snooze(this.props.rowData, 15);
+      this.props.callback.snooze(this.props.rowData, this.snoozeDaysRequested());
       this.props.callback.closeDialog();
     }
 
+    snoozeDaysRequested() {
+        return this._TEMP_DURATIONS.filter(opt=>opt.value === this.state['snooze-reason'])[0].snooze_days;
+    }
     render() {
       let buttonText = "Select a Reason";
       if (this.state._enabled) {
-        const duration = {
-          test_data: 'one year',
-          assigned_case: 'five days',
-          in_proceedings: 'one month'
-        };
-        buttonText = "Snooze for " + duration[this.state['snooze-reason']];
+        const snooze_days = this.snoozeDaysRequested();
+        buttonText = "Snooze for " + snooze_days + " day" + (snooze_days === 1 ? "" : "s");
       }
       return (
         <form className="usa-form">
@@ -39,9 +56,9 @@ class SnoozeForm extends Component {
           <label className  ="usa-label" htmlFor="snooze-reason">Reason to snooze this case:</label>
           <select defaultValue={false} onChange={this.formChange.bind(this)} required={true} className="usa-select" name="snooze-reason" id="snooze-reason">
             <option value={false} disabled={true}  hidden={true}>- Select Reason -</option>
-            <option value="test_data">Test Data</option>
-            <option value="assigned_case">Case has been assigned</option>
-            <option value="in_proceedings">Case is pending removal proceedings</option>
+            {
+                this._TEMP_DURATIONS.map(opt=><option key={opt.value} value={opt.value}>{opt.text}</option>)
+            }
           </select>
           <button
               onClick={this.formSubmit.bind(this)}

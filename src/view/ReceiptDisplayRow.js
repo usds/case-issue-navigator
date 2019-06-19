@@ -1,39 +1,45 @@
 import React from 'react';
 
+
+// this should come from the DB
+const elisCaseUrlBase = "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
+
+const cellDispatch = {
+    LINK: (r => <a href={elisCaseUrlBase + r} target="_elis_viewer">{r}</a>),
+    DATE: (d => {
+        const datum = new Date(d);
+        return (datum.getMonth() + 1) + "/" + datum.getDate() + "/" + datum.getFullYear();
+    }),
+};
+
 export default function ReceiptDisplayRow(props) {
     const rowData = props.data;
-    const datey = new Date(rowData.creationDate);
-    const caseUrl = "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/" + rowData.receiptNumber;
-    return (props.mode === "table" ? _table_row : _accordion_row)(rowData, datey, caseUrl, props.callback)
+    return (props.mode === "table" ? _table_row : _accordion_row)(rowData, props.callback, props.headers)
 }
 
-function _table_row(rowData, creationDate, caseUrl, callback) {
-    return (
-        <tr onClick={()=>callback.details(rowData)}>
-            <td>
-                <a href={caseUrl} target="_elis_viewer">{rowData.receiptNumber}</a>
-            </td>
-            <td>{creationDate.getMonth()}/{creationDate.getDate()}/{creationDate.getFullYear()}</td>
-            <td>{rowData.caseAge}</td>
-            <td>{rowData.caseState}</td>
-            <td>{rowData.caseStatus}</td>
-            <td>{rowData.caseSubstatus}</td>
-            <td>{rowData.applicationReason}</td>
-            <td>{(rowData.i90SP === 'true') ? 'SP' : 'Legacy'}</td>
-            <td>{rowData.channelType}</td>
-        </tr>
-    );
+function _table_cell(rowData, header, callback) {
+    let datum = rowData[header.field];
+    if (header.content !== undefined) {
+        const processor = ("function" === typeof header.content) ?  header.content : cellDispatch[header.content];
+        datum = processor(datum, rowData, header, callback);
+    }
+    return <td key={header.header}>{datum}</td>
 }
 
-function _accordion_row(rowData, creationDate, caseUrl, callback) {
+function _table_row(rowData, callback, headers) {
+    return <tr>{headers.map(h=>_table_cell(rowData, h, callback))}</tr>
+}
+
+function _accordion_row(rowData, callback, headers) {
     const item_key = "ELIS-" + rowData.caseId;
+    const caseUrl = elisCaseUrlBase + rowData.receiptNumber;
     return (
         <div key={item_key} class="grid-container">
             <h2 class="usa-accordion__heading ">
                 <button class="usa-accordion__button grid-row"
-                    aria-controls={item_key}>
+                    aria-controls={item_key} aria-expanded="false">
                     {_gridcol(rowData.receiptNumber)}
-                    {_gridcol(creationDate.getMonth() +'/' + creationDate.getDate() +'/' + creationDate.getFullYear())}
+                    {_gridcol(cellDispatch.DATE(rowData.creationDate))}
                     {_gridcol(rowData.caseState)}
                 </button>
             </h2>

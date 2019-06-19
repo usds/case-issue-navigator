@@ -49,7 +49,7 @@ class App extends Component {
             callback={callbacks}
             modalContent={<SnoozeForm callback={callbacks} rowData={this.state.clickedRow} /> }
           />
-          <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} />
+          <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} view={this.state.activeNavItem}/>
           </main>
         </div>
       );
