@@ -11,7 +11,8 @@ const i90_headers = [
     {header: "Application Reason", field: "applicationReason"},
     {header: "Pipeline", field: "i90SP", content: ((d) => (d === "true") ? "SP" : "Legacy")},
     {header: "Filing Channel", field: "channelType"},
-    {header: "Actions", field: "_", content: (_, rowData, header, callback)=><button  onClick={()=>callback.details(rowData)} className="usa-button usa-button--outline">Show Actions</button>}
+    {header: "Actions", field: "_", content:
+        (_, rowData, header, callback)=><button  onClick={()=>callback.details(rowData)} className="usa-button usa-button--outline">Show Actions</button>}
 ];
 
 export default function ReceiptList(props) {
@@ -23,7 +24,11 @@ export default function ReceiptList(props) {
         header_definitions = i90_headers.slice(0,2);
         header_definitions.push(i90_headers[6], i90_headers[7], i90_headers[8])
     } else if (props.view === "Snoozed Cases") {
-        header_definitions = [...i90_headers.slice(0,9), {header:"Snooze Duration", field: "snoozed_for"}];
+        header_definitions = [
+            ...i90_headers.slice(0,9),
+            {header:"Reason", field: "snooze_option", content: (o)=>o.short_text},
+            {header:"Days Remaining", field: "snooze_option", content: (o)=>o.snooze_days}
+        ];
     }
     if (props.mode === "table") {
         return _tabular_list(props, header_definitions);

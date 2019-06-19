@@ -8,20 +8,40 @@ class SnoozeForm extends Component {
       this._TEMP_DURATIONS = [
         {
             value: "test_data",
-            text: "Test Data",
+            text: "Test Data - should be deleted",
+            short_text: "Test Data",
             snooze_days: 365,
         },
         {
             value: "assigned_case",
-            text: "Case has been assigned",
+            text: "Case has been assigned - remind me later",
+            short_text: "Assigned",
             snooze_days: 5,
+            follow_up: "Who is the case being assigned to?"
 
         },
         {
             value: "in_proceedings",
-            text: "Case is pending removal proceedings",
+            short_text: "In Proceedings",
+            text: "Case is pending removal proceedings - check back later",
             snooze_days: 30,
+        },
+        {
+            value: "fo_refferal",
+            text: "Stuck at field office - awaiting response",
+            short_text: "Field Office",
+            follow_up: "Enter Field Office location code:",
+            snooze_days: 5,
+        },
+        {
+            value: "technical_issue",
+            text: "Technical Issue - awaiting resolution through ServiceNow",
+            short_text: "Technical Bug",
+            follow_up: "ServiceNow ticket ID:",
+            snooze_days: 14,
         }
+
+
       ];
     }
 
@@ -36,23 +56,27 @@ class SnoozeForm extends Component {
 
     formSubmit(e) {
       e.preventDefault(); // nobody wants an actual form submission
-      this.props.callback.snooze(this.props.rowData, this.snoozeDaysRequested());
+      this.props.callback.snooze(this.props.rowData, this.getSelectedOption(), this.state["snooze-follow-up"]);
       this.props.callback.closeDialog();
     }
 
+    getSelectedOption() {
+        return this._TEMP_DURATIONS.find(opt=>opt.value === this.state['snooze-reason']);
+    }
+
     snoozeDaysRequested() {
-        return this._TEMP_DURATIONS.filter(opt=>opt.value === this.state['snooze-reason'])[0].snooze_days;
+        return this.getSelectedOption().snooze_days;
     }
     render() {
       let buttonText = "Select a Reason";
+      let selectedOption = {};
       if (this.state._enabled) {
-        const snooze_days = this.snoozeDaysRequested();
+        selectedOption = this.getSelectedOption();
+        const snooze_days = selectedOption.snooze_days;
         buttonText = "Snooze for " + snooze_days + " day" + (snooze_days === 1 ? "" : "s");
       }
       return (
         <form className="usa-form">
-          <input id="how" className="usa-checkbox__input" type="checkbox" name="checkybox" value="not" />
-          <label className="usa-checkbox__label" htmlFor="how">This is not how you do it</label>
           <label className  ="usa-label" htmlFor="snooze-reason">Reason to snooze this case:</label>
           <select defaultValue={false} onChange={this.formChange.bind(this)} required={true} className="usa-select" name="snooze-reason" id="snooze-reason">
             <option value={false} disabled={true}  hidden={true}>- Select Reason -</option>
@@ -60,6 +84,7 @@ class SnoozeForm extends Component {
                 this._TEMP_DURATIONS.map(opt=><option key={opt.value} value={opt.value}>{opt.text}</option>)
             }
           </select>
+          {_follow_up_entry(selectedOption)}
           <button
               onClick={this.formSubmit.bind(this)}
               className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>
@@ -68,6 +93,18 @@ class SnoozeForm extends Component {
         </form>
       );
     }
+}
+
+function _follow_up_entry(option) {
+    if (option.follow_up === undefined) {
+        return null;
+    }
+    return (
+        <div>
+            <label className="usa-label" htmlFor="snooze-follow-up">{option.follow_up}</label>
+            <input className="usa-input" id="snooze-follow-up" name="snooze-follow-up" type="text"></input>
+        </div>
+    );
 }
 
 export default SnoozeForm;

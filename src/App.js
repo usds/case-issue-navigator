@@ -59,10 +59,11 @@ class App extends Component {
       this.setState({activeNavItem: event.target.innerText})
     }
 
-    snooze(rowData, days) {
+    snooze(rowData, snooze_option, snooze_text) {
+      const new_snoozed = [...this.state.snoozed_cases, {...rowData, snooze_option: snooze_option, snooze_followup: snooze_text}]
       this.setState({
         active_cases: this.state.active_cases.filter(c => (c.receiptNumber !== rowData.receiptNumber)),
-        snoozed_cases: [...this.state.snoozed_cases, {...rowData, snoozed_for: days}]
+        snoozed_cases: new_snoozed.sort((a,b)=>(a.snooze_option.snooze_days - b.snooze_option.snooze_days))
       });
     }
 
