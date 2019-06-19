@@ -23,13 +23,14 @@ export default function PrimaryNavMenu(props) {
                 <button className="usa-menu-btn">Menu</button>
             </div>
             <nav role="navigation" className="usa-nav">
-                <button className="usa-nav__close"><img src={uswds_image("close.svg")} alt="close" /></button>
-
+                <button className="usa-nav__close">
+                    <img src={uswds_image("close.svg")} alt="close" />
+                </button>
                 <div className="usa-nav__inner">
                     <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
                 </div>
                 <div className="usa-nav__secondary">
-                    <form className="usa-search usa-search--small ">
+                    <form className="usa-search usa-search--small " onSubmit={(e)=>e.preventDefault()}>
                         <div role="search">
                             <label className="usa-sr-only" htmlFor="extended-search-field-small">Search small</label>
                             <input className="usa-input" id="extended-search-field-small" type="search" name="search" />
