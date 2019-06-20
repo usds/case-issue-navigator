@@ -39,9 +39,7 @@ class SnoozeForm extends Component {
             short_text: "Technical Bug",
             follow_up: "ServiceNow ticket ID:",
             snooze_days: 14,
-        }
-
-
+        },
       ];
     }
 
@@ -67,6 +65,23 @@ class SnoozeForm extends Component {
     snoozeDaysRequested() {
         return this.getSelectedOption().snooze_days;
     }
+    deSnoozeCheck() {
+        if(this.props.rowData.desnoozed) {
+            const now = new Date(); // cheating!
+
+            return (
+                <div class="usa-alert usa-alert--warning usa-alert--slim">
+                    <div class="usa-alert__body">
+                        <p class="usa-alert__text">
+                            Case was previously snoozed
+                            on {now.getMonth()+1}/{now.getDate()}/{now.getFullYear()}.
+                            Reason given: {this.props.rowData.snooze_option.short_text}.
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+    }
     render() {
       let buttonText = "Select a Reason";
       let selectedOption = {};
@@ -77,6 +92,7 @@ class SnoozeForm extends Component {
       }
       return (
         <form className="usa-form">
+          {this.deSnoozeCheck()}
           <label className  ="usa-label" htmlFor="snooze-reason">Reason to snooze this case:</label>
           <select defaultValue={false} onChange={this.formChange.bind(this)} required={true} className="usa-select" name="snooze-reason" id="snooze-reason">
             <option value={false} disabled={true}  hidden={true}>- Select Reason -</option>

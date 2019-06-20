@@ -7,6 +7,11 @@ import ModalDialog from './view/ModalDialog';
 import * as case_api from "./model/FakeCaseFetcher";
 import SnoozeForm from './controller/SnoozeForm';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fas);
+
 class App extends Component {
     constructor(props) {
       super(props);
@@ -25,6 +30,8 @@ class App extends Component {
         snooze: this.snooze.bind(this),
         details: this.detailView.bind(this),
         closeDialog: this.closeDialog.bind(this),
+        snoozeUpdate: this.detailView.bind(this),
+        deSnooze: this.deSnooze.bind(this),
       };
       let cases = this.state.active_cases;
       if (this.state.activeNavItem === "Snoozed Cases") {
@@ -47,7 +54,10 @@ class App extends Component {
             show={this.state.showDialog}
             modalTitle={this.state.dialogTitle}
             callback={callbacks}
-            modalContent={<SnoozeForm callback={callbacks} rowData={this.state.clickedRow} /> }
+            modalContent={this.state.activeNavItem !== "Snoozed Cases" 
+               ? <SnoozeForm callback={callbacks} rowData={this.state.clickedRow} /> 
+               : <DeSnoozeForm callback={callbacks} rowData={this.state.clickedRow} />
+              }
           />
           <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} view={this.state.activeNavItem}/>
           </main>
@@ -66,7 +76,14 @@ class App extends Component {
         snoozed_cases: new_snoozed.sort((a,b)=>(a.snooze_option.snooze_days - b.snooze_option.snooze_days))
       });
     }
-
+    deSnooze(rowData) {
+      let new_active = [...this.state.active_cases];
+      new_active.unshift({...rowData, desnoozed: true});
+      this.setState({
+        snoozed_cases: this.state.snoozed_cases.filter(c => (c.receiptNumber !== rowData.receiptNumber)),
+        active_cases: new_active,
+      });
+    }
     detailView(rowData) {
       this.setState({showDialog: true, dialogTitle: rowData.receiptNumber, clickedRow: rowData});
     }
@@ -74,6 +91,35 @@ class App extends Component {
     closeDialog() {
       this.setState({showDialog: false, clickedRow: null})
     }
+}
+
+function DeSnoozeForm(props) {
+  const rowData = props.rowData;
+  const updateSubform = rowData.snooze_option.follow_up === undefined ? <></> : (
+    <div>
+      <label className="usa-label" htmlFor="snooze-follow-up">{rowData.snooze_option.follow_up}</label>
+      <input className="usa-input" id="snooze-follow-up" name="snooze-follow-up" type="text" value={rowData.snooze_followup}></input>
+      <button className="usa-button usa-button--cool-accent" onClick={(e)=>e.preventDefault()}>
+            Update
+      </button>
+      <hr/>
+    </div>
+  );
+  const desnooze = (e) => {
+    e.preventDefault();
+    props.callback.deSnooze(rowData);
+    props.callback.closeDialog();
+  };
+  return (
+    <form className="usa-form">
+      {updateSubform}
+      <button
+          onClick={desnooze}
+          className={"usa-button usa-button--secondary"}>
+                  End Snooze
+      </button>
+    </form>
+  );
 }
 
 export default App;

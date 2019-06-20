@@ -1,11 +1,16 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 // this should come from the DB
 const elisCaseUrlBase = "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
 
 const cellDispatch = {
-    LINK: (r => <a href={elisCaseUrlBase + r} target="_elis_viewer">{r}</a>),
+    LINK: ((r, rowData)=> (<>
+        <a href={elisCaseUrlBase + r} target="_elis_viewer">{r}</a>
+        {rowData.desnoozed ? <FontAwesomeIcon icon="exclamation-triangle" className="text-accent-warm" /> : null }
+    </>
+    )),
     DATE: (d => {
         const datum = new Date(d);
         return (datum.getMonth() + 1) + "/" + datum.getDate() + "/" + datum.getFullYear();

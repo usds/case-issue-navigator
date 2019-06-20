@@ -1,6 +1,15 @@
 import React from 'react';
 import ReceiptDisplayRow from './ReceiptDisplayRow';
 
+function buttonizer(text, buttonClass, callbackKey) {
+    return (_, rowData, __, callback)=>(
+        <button
+                onClick={()=>callback[callbackKey](rowData)}
+                className={"usa-button usa-button--" + buttonClass}>
+            {text}
+        </button>
+    );
+}
 const i90_headers = [
     {header: "Receipt", field: "receiptNumber", content: "LINK"},
     {header: "Creation Date", field: "creationDate", content: "DATE"},
@@ -11,8 +20,14 @@ const i90_headers = [
     {header: "Application Reason", field: "applicationReason"},
     {header: "Pipeline", field: "i90SP", content: ((d) => (d === "true") ? "SP" : "Legacy")},
     {header: "Filing Channel", field: "channelType"},
-    {header: "Actions", field: "_", content:
-        (_, rowData, header, callback)=><button  onClick={()=>callback.details(rowData)} className="usa-button usa-button--outline">Show Actions</button>}
+    {header: "Actions", field: "_", content: buttonizer("Show Actions", "outline", "details")}
+];
+
+const minimal_headers = [
+    ...i90_headers.slice(0,2),
+    i90_headers[6],
+    i90_headers[7],
+    i90_headers[8]
 ];
 
 export default function ReceiptList(props) {
@@ -21,13 +36,12 @@ export default function ReceiptList(props) {
     }
     let header_definitions = i90_headers;
     if (props.view === "Resolved Cases") {
-        header_definitions = i90_headers.slice(0,2);
-        header_definitions.push(i90_headers[6], i90_headers[7], i90_headers[8])
+        header_definitions = minimal_headers;
     } else if (props.view === "Snoozed Cases") {
-        header_definitions = [
-            ...i90_headers.slice(0,9),
+        header_definitions = [...minimal_headers, 
             {header:"Reason", field: "snooze_option", content: (o)=>o.short_text},
-            {header:"Days Remaining", field: "snooze_option", content: (o)=>o.snooze_days}
+            {header:"Days Remaining", field: "snooze_option", content: (o)=>o.snooze_days},
+            {header: "Actions", field: "snooze_option", content: buttonizer("Update Case", "secondary", "snoozeUpdate")}
         ];
     }
     if (props.mode === "table") {
