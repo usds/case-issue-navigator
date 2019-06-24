@@ -70,9 +70,9 @@ class SnoozeForm extends Component {
             const now = new Date(); // cheating!
 
             return (
-                <div class="usa-alert usa-alert--warning usa-alert--slim">
-                    <div class="usa-alert__body">
-                        <p class="usa-alert__text">
+                <div className="usa-alert usa-alert--warning usa-alert--slim">
+                    <div className="usa-alert__body">
+                        <p className="usa-alert__text">
                             Case was previously snoozed
                             on {now.getMonth()+1}/{now.getDate()}/{now.getFullYear()}.
                             Reason given: {this.props.rowData.snooze_option.short_text}.

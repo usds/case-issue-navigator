@@ -74,5 +74,5 @@ function _accordion_list(props) {
     const rows = props.cases.map(r=><ReceiptDisplayRow
         key={"ELIS-" + r.caseId}
         data={r} callback={props.callback} mode="accordion"/>);
-    return <div class="usa-accordion" aria-multiselectable="true">{rows}</div>;
+    return <div className="usa-accordion" aria-multiselectable="true">{rows}</div>;
 }

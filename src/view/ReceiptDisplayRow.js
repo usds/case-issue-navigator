@@ -39,9 +39,9 @@ function _accordion_row(rowData, callback, headers) {
     const item_key = "ELIS-" + rowData.caseId;
     const caseUrl = elisCaseUrlBase + rowData.receiptNumber;
     return (
-        <div key={item_key} class="grid-container">
-            <h2 class="usa-accordion__heading ">
-                <button class="usa-accordion__button grid-row"
+        <div key={item_key} className="grid-container">
+            <h2 className="usa-accordion__heading ">
+                <button className="usa-accordion__button grid-row"
                     aria-controls={item_key} aria-expanded="false">
                     {_gridcol(rowData.receiptNumber)}
                     {_gridcol(cellDispatch.DATE(rowData.creationDate))}
@@ -50,7 +50,7 @@ function _accordion_row(rowData, callback, headers) {
             </h2>
             <div id={item_key} className="usa-accordion__content">
                 <div className="grid-row">
-                    <div class="grid-col"><a href={caseUrl} target="_elis_viewer">Open in ELIS</a></div>
+                    <div className="grid-col"><a href={caseUrl} target="_elis_viewer">Open in ELIS</a></div>
                     {_gridcol(rowData.i90SP === 'true' ? 'SP' : 'Legacy')}
                     {_gridcol(rowData.caseAge)}
                 </div>
@@ -65,5 +65,5 @@ function _accordion_row(rowData, callback, headers) {
 }
 
 function _gridcol(content) {
-    return <div class="grid-col">{content}</div>
+    return <div className="grid-col">{content}</div>
 }
