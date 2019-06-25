@@ -12,6 +12,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 
 library.add(fas);
 
+const ACTIVE_CASES_AT_START = 19171;
+
 class App extends Component {
     constructor(props) {
       super(props);
@@ -40,14 +42,21 @@ class App extends Component {
         cases = this.state.resolved_cases;
       }
 
+      const case_count = {
+        "Snoozed Cases": this.state.snoozed_cases.length,
+        "Cases to work": (ACTIVE_CASES_AT_START - this.state.snoozed_cases.length),
+        "Resolved Cases": 28, // that's the number right now, may as well be right
+      };
+
       return (
         <div className="stuck-case-navigator">
           <div className="usa-overlay"></div>
           <PrimaryNavMenu
-            title="Stuck Case Navigator"
+            title="Case Issue Navigator"
             items={["Cases to work", "Snoozed Cases", "Resolved Cases"]}
             active_item={this.state.activeNavItem}
             callback={{navSelect: this.setNav.bind(this)}}
+            case_count={case_count}
             />
           <main id="main-content">
           <ModalDialog
@@ -59,6 +68,7 @@ class App extends Component {
                : <DeSnoozeForm callback={callbacks} rowData={this.state.clickedRow} />
               }
           />
+          <p className="text-italic">Data last refreshed: June 17th, 2019</p>
           <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} view={this.state.activeNavItem}/>
           </main>
         </div>
@@ -66,7 +76,9 @@ class App extends Component {
     }
 
     setNav(event) {
-      this.setState({activeNavItem: event.target.innerText})
+      event.preventDefault();
+      // ridiculous workaround for not using Router reaches its apex here:
+      this.setState({activeNavItem: event.target.pathname.replace("/","").replace("%20", " ")})
     }
 
     snooze(rowData, snooze_option, snooze_text) {

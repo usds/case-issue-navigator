@@ -18,7 +18,7 @@ const i90_headers = [
     {header: "Case Status", field: "caseStatus"},
     {header: "Case Substatus", field: "caseSubstatus"},
     {header: "Application Reason", field: "applicationReason"},
-    {header: "Pipeline", field: "i90SP", content: ((d) => (d === "true") ? "SP" : "Legacy")},
+    {header: "Platform", field: "i90SP", content: ((d) => (d === "true") ? "SP" : "Legacy")},
     {header: "Filing Channel", field: "channelType"},
     {header: "Actions", field: "_", content: buttonizer("Show Actions", "outline", "details")}
 ];

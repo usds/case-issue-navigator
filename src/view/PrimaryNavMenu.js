@@ -9,9 +9,9 @@ export default function PrimaryNavMenu(props) {
     const active = props.active_item ? props.active_item : props.items[0];
     const navItems = props.items.map(i=>(
         <li key={i} className="usa-nav__primary-item">
-            <a href="javascript:void(0)" className={(i === active ? "usa-current " : "") +"usa-nav__link"}
+            <a href={i} className={(i === active ? "usa-current " : "") +"usa-nav__link"}
                 onClick={props.callback.navSelect}
-                >{i}</a>
+                >{i} ({props.case_count[i] || 0})</a>
         </li>
     ));
     return (

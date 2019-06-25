@@ -18,7 +18,6 @@ class SnoozeForm extends Component {
             short_text: "Assigned",
             snooze_days: 5,
             follow_up: "Who is the case being assigned to?"
-
         },
         {
             value: "in_proceedings",
@@ -39,6 +38,13 @@ class SnoozeForm extends Component {
             short_text: "Technical Bug",
             follow_up: "ServiceNow ticket ID:",
             snooze_days: 14,
+        },
+        {
+            value: "bcu",
+            text: "Referral to BCU or CFDO",
+            short_text: "Referring to BCU/CFDO",
+            follow_up: "Reason for referral",
+            snooze_days: 30,
         },
       ];
     }
