@@ -6,10 +6,10 @@ export default function UsaSelect(props) {
     // this might be better as props.children
     const label = props.label && <label className="usa-label" htmlFor={selectId}>{props.label}</label>
     const placeholder = props.placeholder && <option value={false} disabled={true}  hidden={true}>{props.placeholder}</option>
-
+    console.log("Default value passed in is", props.selected);
     return (
         <Fragment>
-            <select defaultValue={false} 
+            <select defaultValue={props.selected}
                 onChange={props.onChange}
                 required={true}
                 className="usa-select"
@@ -27,4 +27,8 @@ export default function UsaSelect(props) {
 UsaSelect.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string,
+};
+
+UsaSelect.defaultProps = {
+    selected: false,
 };

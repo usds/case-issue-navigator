@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import formConfig from "./config";
-import UsaSelect from "../view/forms/UsaSelect";
+import SnoozeInputs from "../view/forms/SnoozeInputs";
 
 class SnoozeForm extends Component {
 
@@ -59,13 +59,11 @@ class SnoozeForm extends Component {
       return (
         <form className="usa-form">
           {this.deSnoozeCheck()}
-          <UsaSelect label="Reason to snooze this case:"
+          <SnoozeInputs
             onChange={this.formChange.bind(this)}
             options={formConfig.snooze_options}
-            placeholder="- Select Reason -"
-            name="snooze-reason"
+            selectedOption={this.getSelectedOption()}
           />
-          {_follow_up_entry(selectedOption, this.formChange.bind(this))}
           <button
               onClick={this.formSubmit.bind(this)}
               className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>
@@ -74,18 +72,6 @@ class SnoozeForm extends Component {
         </form>
       );
     }
-}
-
-function _follow_up_entry(option, callback) {
-    if (option.follow_up === undefined) {
-        return null;
-    }
-    return (
-        <div>
-            <label className="usa-label" htmlFor="snooze-follow-up">{option.follow_up}</label>
-            <input onChange={callback} className="usa-input" id="snooze-follow-up" name="snooze-follow-up" type="text"></input>
-        </div>
-    );
 }
 
 export default SnoozeForm;
