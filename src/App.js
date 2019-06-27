@@ -35,6 +35,7 @@ class App extends Component {
         closeDialog: this.closeDialog.bind(this),
         snoozeUpdate: this.detailView.bind(this),
         deSnooze: this.deSnooze.bind(this),
+        reSnooze: this.reSnooze.bind(this),
       };
       let cases = this.state.active_cases;
       if (this.state.activeNavItem === "Snoozed Cases") {
@@ -82,13 +83,20 @@ class App extends Component {
       this.setState({activeNavItem: event.target.pathname.replace("/","").replace("%20", " ")})
     }
 
+    reSnooze(rowData, snooze_option, snooze_text) {
+      const new_snooze = this.state.snoozed_cases.filter(c => (c.receiptNumber !== rowData.receiptNumber));
+      new_snooze.push(_snoozeRow(rowData, snooze_option, snooze_text));
+      this.setState({snoozed_cases: new_snooze})
+    }
+
     snooze(rowData, snooze_option, snooze_text) {
-      const new_snoozed = [...this.state.snoozed_cases, {...rowData, snooze_option: snooze_option, snooze_followup: snooze_text}]
+      const new_snoozed = [...this.state.snoozed_cases, _snoozeRow(rowData, snooze_option, snooze_text)]
       this.setState({
         active_cases: this.state.active_cases.filter(c => (c.receiptNumber !== rowData.receiptNumber)),
         snoozed_cases: new_snoozed.sort((a,b)=>(a.snooze_option.snooze_days - b.snooze_option.snooze_days))
       });
     }
+
     deSnooze(rowData) {
       let new_active = [...this.state.active_cases];
       new_active.unshift({...rowData, desnoozed: true});
@@ -104,6 +112,10 @@ class App extends Component {
     closeDialog() {
       this.setState({showDialog: false, clickedRow: null})
     }
+}
+
+function _snoozeRow(rowData, option, follow_up_text) {
+  return {...rowData, snooze_option: option, snooze_followup: follow_up_text}
 }
 
 export default App;
