@@ -20,7 +20,6 @@ class App extends Component {
       super(props);
       this.state = {
         active_cases: case_api.fetchAll(),
-        resolved_cases: case_api.fetchResolved(),
         snoozed_cases : [],
         activeNavItem: null,
         showDialog: false,
@@ -40,14 +39,11 @@ class App extends Component {
       let cases = this.state.active_cases;
       if (this.state.activeNavItem === "Snoozed Cases") {
         cases = this.state.snoozed_cases;
-      } else if (this.state.activeNavItem === "Resolved Cases") {
-        cases = this.state.resolved_cases;
       }
 
       const case_count = {
         "Snoozed Cases": this.state.snoozed_cases.length,
         "Cases to work": (ACTIVE_CASES_AT_START - this.state.snoozed_cases.length),
-        "Resolved Cases": 28, // that's the number right now, may as well be right
       };
 
       return (
@@ -55,7 +51,7 @@ class App extends Component {
           <div className="usa-overlay"></div>
           <PrimaryNavMenu
             title="Case Issue Navigator"
-            items={["Cases to work", "Snoozed Cases", "Resolved Cases"]}
+            items={["Cases to work", "Snoozed Cases"]}
             active_item={this.state.activeNavItem}
             callback={{navSelect: this.setNav.bind(this)}}
             case_count={case_count}
