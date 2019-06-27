@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import SnoozeInputs from "../view/forms/SnoozeInputs";
+import UsaButton from "../view/util/UsaButton";
 
 import formConfig from "./config";
 
@@ -30,14 +31,12 @@ export default function DeSnoozeForm(props) {
                 selectedOption={rowData.snooze_option}
                 followUp={rowData.snooze_followup}
             />
-            <button onClick={reSnooze} className="usa-button usa-button--outline">Save Snooze</button>
+            <UsaButton onClick={reSnooze} buttonStyle="outline">Save Snooze</UsaButton>
             <hr />
         </div>
-        <button
-            onClick={desnooze}
-            className={"usa-button usa-button--secondary"}>
+        <UsaButton onClick={desnooze} buttonStyle="secondary">
                     End Current Snooze
-        </button>
+        </UsaButton>
       </form>
     );
   }

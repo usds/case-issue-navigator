@@ -1,4 +1,5 @@
 import React from 'react';
+import UsaButton from "./util/UsaButton";
 
 // Hacky McHackface
 function uswds_image(img_name) {
@@ -34,7 +35,7 @@ export default function PrimaryNavMenu(props) {
                         <div role="search">
                             <label className="usa-sr-only" htmlFor="extended-search-field-small">Search small</label>
                             <input className="usa-input" id="extended-search-field-small" type="search" name="search" />
-                            <button className="usa-button" type="submit"><span className="usa-sr-only">Search</span></button>
+                            <UsaButton type="submit"><span className="usa-sr-only">Search</span></UsaButton>
                         </div>
                     </form>
                 </div>

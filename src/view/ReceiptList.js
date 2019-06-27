@@ -1,13 +1,14 @@
 import React from 'react';
 import ReceiptDisplayRow from './ReceiptDisplayRow';
+import UsaButton from "./util/UsaButton";
 
 function buttonizer(text, buttonClass, callbackKey) {
     return (_, rowData, __, callback)=>(
-        <button
+        <UsaButton
                 onClick={()=>callback[callbackKey](rowData)}
-                className={"usa-button usa-button--" + buttonClass}>
+                buttonStyle={buttonClass} >
             {text}
-        </button>
+        </UsaButton>
     );
 }
 const i90_headers = [

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import formConfig from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
+import UsaButton from "../view/util/UsaButton";
 
 class SnoozeForm extends Component {
 
@@ -63,11 +64,10 @@ class SnoozeForm extends Component {
             options={formConfig.snooze_options}
             selectedOption={this.getSelectedOption()}
           />
-          <button
-              onClick={this.formSubmit.bind(this)}
-              className={"usa-button" + (this.state._enabled ? "" : " usa-button--disabled")}>
+          <UsaButton onClick={this.formSubmit.bind(this)}
+            disabled={!this.state._enabled}>
             {buttonText}
-          </button>
+          </UsaButton>
         </form>
       );
     }
