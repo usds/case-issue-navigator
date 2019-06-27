@@ -6,13 +6,12 @@ class SnoozeForm extends Component {
 
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {snoozeInputs: {}};
     }
 
-    formChange(e) {
-      const stateSetter = {};
-      stateSetter[e.target.name] = e.target.value;
-      if (e.target.name === "snooze-reason") {
+    formChange(snoozeState) {
+      const stateSetter = {snoozeInputs: snoozeState};
+      if (snoozeState.selectedOption !== null) {
         stateSetter._enabled = true;
       }
       this.setState(stateSetter);
@@ -20,12 +19,12 @@ class SnoozeForm extends Component {
 
     formSubmit(e) {
       e.preventDefault(); // nobody wants an actual form submission
-      this.props.callback.snooze(this.props.rowData, this.getSelectedOption(), this.state["snooze-follow-up"]);
+      this.props.callback.snooze(this.props.rowData, this.getSelectedOption(), this.state.snoozeInputs.followUp);
       this.props.callback.closeDialog();
     }
 
     getSelectedOption() {
-        return formConfig.snooze_options.find(opt=>opt.value === this.state['snooze-reason']);
+        return this.state.snoozeInputs.selectedOption;
     }
 
     snoozeDaysRequested() {

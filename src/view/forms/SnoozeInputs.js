@@ -1,30 +1,52 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import UsaSelect from './UsaSelect';
 import UsaTextInput from './UsaTextInput';
 
 export default function SnoozeInputs(props) {
+    const inputNames = {
+        select: props.prefix + '-reason',
+        followUp: props.prefix + '-follow-up',
+    }
+    const findOption = (value=>props.options.find(o=>value===o.value));
+    const [formState, storeValues] = useState({
+        selectedOption: props.selectedOption,
+        followUp: props.followUp
+    });
+
+    const elementChange = (e) => {
+        // this is probably not necessary
+        const updatedState = {...formState};
+        const value = e.target.value;
+        if(e.target.name === inputNames.followUp) {
+            updatedState.followUp = value;
+        } else {
+            updatedState.selectedOption = findOption(value);
+        }
+        storeValues(updatedState);
+        props.onChange(updatedState);
+    };
     let follow_up_fragment = null;
-    if (props.selectedOption && props.selectedOption.follow_up !== undefined) {
+    if (formState.selectedOption && formState.selectedOption.follow_up !== undefined) {
         follow_up_fragment = (
         <UsaTextInput
-            name="snooze-follow-up"
-            onChange={props.onChange}
-            defaultValue={props.followUp}
+            name={inputNames.followUp}
+            onChange={elementChange}
+            defaultValue={formState.followUp}
         >
-            {props.selectedOption.follow_up}
+            {formState.selectedOption.follow_up}
         </UsaTextInput>
         );
     }
-    const selectedValue = props.selectedOption && props.selectedOption.value;
+    const selectedValue = formState.selectedOption && formState.selectedOption.value;
     return (
         <Fragment>
             <UsaSelect
-                onChange={props.onChange}
+                onChange={elementChange}
                 options={props.options}
                 placeholder="- Select Reason -"
-                name="snooze-reason"
+                name={inputNames.select}
                 selected={selectedValue}
             >
                 Reason to snooze this case:
@@ -35,5 +57,11 @@ export default function SnoozeInputs(props) {
 }
 
 SnoozeInputs.propTypes = {
-    followUp: PropTypes.string
+    followUp: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object),
+    prefix: PropTypes.string,
+}
+
+SnoozeInputs.defaultProps = {
+    prefix: 'snooze',
 }
