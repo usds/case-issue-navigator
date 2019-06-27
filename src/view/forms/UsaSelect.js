@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 
 export default function UsaSelect(props) {
     const selectId = props.id || props.name;
-    // this might be better as props.children
-    const label = props.label && <label className="usa-label" htmlFor={selectId}>{props.label}</label>
+    const label = props.children && <label className="usa-label" htmlFor={selectId}>{props.children}</label>
     const placeholder = props.placeholder && <option value={false} disabled={true}  hidden={true}>{props.placeholder}</option>
-    console.log("Default value passed in is", props.selected);
     return (
         <Fragment>
+            {label}
             <select defaultValue={props.selected}
                 onChange={props.onChange}
                 required={true}
@@ -27,6 +26,9 @@ export default function UsaSelect(props) {
 UsaSelect.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string,
+    selected: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired, // should be objectOf, but can't deal yet
 };
 
 UsaSelect.defaultProps = {
