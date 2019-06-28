@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom'
 import UsaButton from "./util/UsaButton";
 
 // Hacky McHackface
@@ -7,15 +8,14 @@ function uswds_image(img_name) {
 }
 
 export default function PrimaryNavMenu(props) {
-    const active = props.active_item ? props.active_item : props.items[0];
     const navItems = props.items.map(i=>(
         <li key={i} className="usa-nav__primary-item">
-            <a href={i} className={(i === active ? "usa-current " : "") +"usa-nav__link"}
-                onClick={props.callback.navSelect}
-                >{i} ({props.case_count[i] || 0})</a>
+            <NavLink to={"/"+i} activeClassName="usa-current" className={"usa-nav__link"}>{i} ({props.case_count[i] || 0})</NavLink>
         </li>
     ));
     return (
+        <React.Fragment>
+        <div className="usa-overlay"></div>
         <header className="usa-header usa-header--extended" role="banner">
             <div className="usa-navbar">
                 <div className="usa-logo" id="extended-logo">
@@ -41,5 +41,6 @@ export default function PrimaryNavMenu(props) {
                 </div>
             </nav>
         </header>
+        </React.Fragment>
     );
 }

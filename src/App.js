@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route } from 'react-router-dom'
 import 'uswds';
 import './App.css';
 import ReceiptList from './view/ReceiptList';
@@ -21,7 +22,6 @@ class App extends Component {
       this.state = {
         active_cases: case_api.fetchAll(),
         snoozed_cases : [],
-        activeNavItem: null,
         showDialog: false,
         displayMode: "table"
       };
@@ -36,10 +36,6 @@ class App extends Component {
         deSnooze: this.deSnooze.bind(this),
         reSnooze: this.reSnooze.bind(this),
       };
-      let cases = this.state.active_cases;
-      if (this.state.activeNavItem === "Snoozed Cases") {
-        cases = this.state.snoozed_cases;
-      }
 
       const case_count = {
         "Snoozed Cases": this.state.snoozed_cases.length,
@@ -48,35 +44,35 @@ class App extends Component {
 
       return (
         <div className="stuck-case-navigator">
-          <div className="usa-overlay"></div>
           <PrimaryNavMenu
             title="Case Issue Navigator"
             items={["Cases to work", "Snoozed Cases"]}
-            active_item={this.state.activeNavItem}
-            callback={{navSelect: this.setNav.bind(this)}}
             case_count={case_count}
             />
           <main id="main-content">
-          <ModalDialog
-            show={this.state.showDialog}
-            modalTitle={this.state.dialogTitle}
-            callback={callbacks}
-            modalContent={this.state.activeNavItem !== "Snoozed Cases" 
-               ? <SnoozeForm callback={callbacks} rowData={this.state.clickedRow} /> 
-               : <DeSnoozeForm callback={callbacks} rowData={this.state.clickedRow} />
-              }
-          />
-          <p className="text-italic">Data last refreshed: June 17th, 2019</p>
-          <ReceiptList cases={cases} callback={callbacks} mode={this.state.displayMode} view={this.state.activeNavItem}/>
+          <Route path="/Cases to work" render={(props)=>
+            <ActiveCaseList {...props}
+              showDialog={this.state.showDialog}
+              dialogTitle={this.state.dialogTitle}
+              callbacks={callbacks}
+              clickedRow={this.state.clickedRow}
+              cases={this.state.active_cases}
+              displayMode={this.state.displayMode}
+            />
+          }/>
+          <Route path="/Snoozed Cases" render={(props)=>
+            <SnoozedCaseList {...props}
+              showDialog={this.state.showDialog}
+              dialogTitle={this.state.dialogTitle}
+              callbacks={callbacks}
+              clickedRow={this.state.clickedRow}
+              cases={this.state.snoozed_cases}
+              displayMode={this.state.displayMode}
+            />
+          }/>
           </main>
         </div>
       );
-    }
-
-    setNav(event) {
-      event.preventDefault();
-      // ridiculous workaround for not using Router reaches its apex here:
-      this.setState({activeNavItem: event.target.pathname.replace("/","").replace("%20", " ")})
     }
 
     reSnooze(rowData, snooze_option, snooze_text) {
@@ -108,6 +104,35 @@ class App extends Component {
     closeDialog() {
       this.setState({showDialog: false, clickedRow: null})
     }
+}
+
+function ActiveCaseList(props) {
+  return(
+    <React.Fragment>
+      <ModalDialog
+        show={props.showDialog}
+        modalTitle={props.dialogTitle}
+        callback={props.callbacks}
+        modalContent={<SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />}
+      />
+      <p className="text-italic">Data last refreshed: June 17th, 2019</p>
+    <ReceiptList cases={props.cases} callback={props.callbacks} mode={props.displayMode} view="Cases to work"/>
+    </React.Fragment>
+  );
+}
+
+function SnoozedCaseList(props) {
+  return(
+    <React.Fragment>
+      <ModalDialog
+        show={props.showDialog}
+        modalTitle={props.dialogTitle}
+        callback={props.callbacks}
+        modalContent={<DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />}
+      />
+      <ReceiptList cases={props.cases} callback={props.callbacks} mode={props.displayMode} view="Snoozed Cases"/>
+    </React.Fragment>
+  );
 }
 
 function _snoozeRow(rowData, option, follow_up_text) {
