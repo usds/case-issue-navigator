@@ -36,9 +36,7 @@ export default function ReceiptList(props) {
         return  <div>No cases found.</div>;
     }
     let header_definitions = i90_headers;
-    if (props.view === "Resolved Cases") {
-        header_definitions = minimal_headers;
-    } else if (props.view === "Snoozed Cases") {
+    if (props.view === "Snoozed Cases") {
         header_definitions = [...minimal_headers, 
             {header:"Reason", field: "snooze_option", content: (o)=>o.short_text},
             {header:"Days Remaining", field: "snooze_option", content: (o)=>o.snooze_days},
