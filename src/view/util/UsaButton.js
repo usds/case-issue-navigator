@@ -31,7 +31,7 @@ UsaButton.propTypes = {
     buttonStyle: PropTypes.oneOf(BUTTON_TYPES),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
-    type: PropTypes.oneOf("button", "submit", "reset"),
+    type: PropTypes.oneOf(["button", "submit", "reset"]),
 };
 
 UsaButton.defaultProps = {
