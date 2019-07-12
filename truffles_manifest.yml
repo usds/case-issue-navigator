@@ -1,0 +1,10 @@
+applications:
+- name: truffles
+  path: ./build
+  buildpack: staticfile_buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 512M
+  routes:
+  - route: truffles.app.cloud.gov
+  stack: cflinuxfs3

@@ -17,6 +17,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
+    "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
