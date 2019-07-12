@@ -43,7 +43,7 @@ class App extends Component {
       };
 
       return (
-        <div className="stuck-case-navigator">
+        <div className="case-issue-navigator">
           <PrimaryNavMenu
             title="Case Issue Navigator"
             items={["Cases to work", "Snoozed Cases"]}
