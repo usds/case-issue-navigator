@@ -27,10 +27,15 @@ const cellDispatch = {
   }
 };
 
-export default function ReceiptDisplayRow(props) {
-  const rowData = props.data;
-  return _table_row(rowData, props.callback, props.headers);
-}
+const ReceiptDisplayRow = props => (
+  <tr>
+    {props.headers.map(header =>
+      _table_cell(props.data, header, props.callback)
+    )}
+  </tr>
+);
+
+export default ReceiptDisplayRow;
 
 function _table_cell(rowData, header, callback) {
   let datum = rowData[header.field];
@@ -42,8 +47,4 @@ function _table_cell(rowData, header, callback) {
     datum = processor(datum, rowData, header, callback);
   }
   return <td key={header.header}>{datum}</td>;
-}
-
-function _table_row(rowData, callback, headers) {
-  return <tr>{headers.map(h => _table_cell(rowData, h, callback))}</tr>;
 }
