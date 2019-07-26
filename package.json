@@ -20,7 +20,8 @@
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier-all": "prettier --write '**/*.{js,jsx}'"
+    "prettier-all": "prettier --write '**/*.{js,jsx}'",
+    "storybook": "start-storybook -p 3333"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +39,12 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-storyshots": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "babel-plugin-macros": "^2.6.1",
+    "react-test-renderer": "^16.8.6",
+    "require-context.macro": "^1.1.0"
   }
 }

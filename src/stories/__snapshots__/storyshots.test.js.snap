@@ -1,0 +1,344 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots ReceiptList Empty Receipt List 1`] = `
+<div>
+  No cases found.
+</div>
+`;
+
+exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] = `
+<table
+  className="usa-table usa-table--borderless"
+>
+  <thead>
+    <tr>
+      <th>
+        Receipt
+      </th>
+      <th>
+        Creation Date
+      </th>
+      <th>
+        Case Age
+      </th>
+      <th>
+        Case State
+      </th>
+      <th>
+        Case Status
+      </th>
+      <th>
+        Case Substatus
+      </th>
+      <th>
+        Application Reason
+      </th>
+      <th>
+        Platform
+      </th>
+      <th>
+        Filing Channel
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          target="_elis_viewer"
+        >
+          FKE5381523
+        </a>
+      </td>
+      <td>
+        1/6/2015
+      </td>
+      <td>
+        1660
+      </td>
+      <td>
+        Happy
+      </td>
+      <td>
+        Pending
+      </td>
+      <td>
+        Printing
+      </td>
+      <td>
+        Boredom
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Pigeon
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Show Actions
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          target="_elis_viewer"
+        >
+          FKE8206743
+        </a>
+      </td>
+      <td>
+        1/19/2015
+      </td>
+      <td>
+        1647
+      </td>
+      <td>
+        Happy
+      </td>
+      <td>
+        Eschewing Obfuscation
+      </td>
+      <td>
+        Amazingly Successful
+      </td>
+      <td>
+        Boredom
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Semaphore
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Show Actions
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8731511"
+          target="_elis_viewer"
+        >
+          FKE8731511
+        </a>
+      </td>
+      <td>
+        1/20/2015
+      </td>
+      <td>
+        1646
+      </td>
+      <td>
+        Despondent
+      </td>
+      <td>
+        Eschewing Obfuscation
+      </td>
+      <td>
+        Printing
+      </td>
+      <td>
+        Enthusiasm
+      </td>
+      <td>
+        SP
+      </td>
+      <td>
+        Pigeon
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Show Actions
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = `
+<table
+  className="usa-table usa-table--borderless"
+>
+  <thead>
+    <tr>
+      <th>
+        Receipt
+      </th>
+      <th>
+        Creation Date
+      </th>
+      <th>
+        Application Reason
+      </th>
+      <th>
+        Platform
+      </th>
+      <th>
+        Filing Channel
+      </th>
+      <th>
+        Reason
+      </th>
+      <th>
+        Days Remaining
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          target="_elis_viewer"
+        >
+          FKE5381523
+        </a>
+      </td>
+      <td>
+        1/6/2015
+      </td>
+      <td>
+        Boredom
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Pigeon
+      </td>
+      <td>
+        Assigned
+      </td>
+      <td>
+        5
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update Case
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          target="_elis_viewer"
+        >
+          FKE8206743
+        </a>
+      </td>
+      <td>
+        1/19/2015
+      </td>
+      <td>
+        Boredom
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Semaphore
+      </td>
+      <td>
+        Assigned
+      </td>
+      <td>
+        5
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update Case
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8731511"
+          target="_elis_viewer"
+        >
+          FKE8731511
+        </a>
+      </td>
+      <td>
+        1/20/2015
+      </td>
+      <td>
+        Enthusiasm
+      </td>
+      <td>
+        SP
+      </td>
+      <td>
+        Pigeon
+      </td>
+      <td>
+        Assigned
+      </td>
+      <td>
+        5
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update Case
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Storyshots UsaButton Secondary button 1`] = `
+<button
+  className="usa-button usa-button--secondary"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Submit
+</button>
+`;
