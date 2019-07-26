@@ -7,7 +7,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "fast-csv": "^2.5.0",
-    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
@@ -21,6 +20,7 @@
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prettier-all": "prettier --write '**/*.{js,jsx}'",
     "storybook": "start-storybook -p 3333"
   },
   "eslintConfig": {
@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "prettier": "^1.18.2",
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-storyshots": "^5.1.9",
     "@storybook/react": "^5.1.9",
