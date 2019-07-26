@@ -61,11 +61,8 @@ export default function ReceiptList(props) {
       }
     ];
   }
-  if (props.mode === "table") {
-    return _tabular_list(props, header_definitions);
-  } else {
-    return _accordion_list(props, header_definitions);
-  }
+
+  return _tabular_list(props, header_definitions);
 }
 
 function _tabular_list(props, header_definitions) {
@@ -85,26 +82,9 @@ function _tabular_list(props, header_definitions) {
             data={r}
             headers={header_definitions}
             callback={props.callback}
-            mode="table"
           />
         ))}
       </tbody>
     </table>
-  );
-}
-
-function _accordion_list(props) {
-  const rows = props.cases.map(r => (
-    <ReceiptDisplayRow
-      key={"ELIS-" + r.caseId}
-      data={r}
-      callback={props.callback}
-      mode="accordion"
-    />
-  ));
-  return (
-    <div className="usa-accordion" aria-multiselectable="true">
-      {rows}
-    </div>
   );
 }
