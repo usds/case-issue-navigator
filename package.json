@@ -20,7 +20,8 @@
     "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 3333"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,5 +38,12 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-storyshots": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "babel-plugin-macros": "^2.6.1",
+    "react-test-renderer": "^16.8.6",
+    "require-context.macro": "^1.1.0"
+  }
 }
