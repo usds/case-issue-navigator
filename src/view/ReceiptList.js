@@ -59,7 +59,11 @@ const i90_headers = [
     field: "assigned",
     views: [CASES_TO_WORK, SNOOZED_CASES]
   },
-  { header: "SN Ticket #", field: "sn_ticket", views: [SNOOZED_CASES] },
+  {
+    header: "SN Ticket #",
+    field: "snooze_followup",
+    views: [SNOOZED_CASES]
+  },
   {
     header: "Actions",
     field: "_",
