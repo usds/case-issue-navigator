@@ -22,8 +22,7 @@ class App extends Component {
     this.state = {
       active_cases: case_api.fetchAll(),
       snoozed_cases: [],
-      showDialog: false,
-      displayMode: "table"
+      showDialog: false
     };
   }
 
@@ -60,7 +59,6 @@ class App extends Component {
                 callbacks={callbacks}
                 clickedRow={this.state.clickedRow}
                 cases={this.state.active_cases}
-                displayMode={this.state.displayMode}
               />
             )}
           />
@@ -74,7 +72,6 @@ class App extends Component {
                 callbacks={callbacks}
                 clickedRow={this.state.clickedRow}
                 cases={this.state.snoozed_cases}
-                displayMode={this.state.displayMode}
               />
             )}
           />
@@ -144,7 +141,6 @@ function ActiveCaseList(props) {
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
-        mode={props.displayMode}
         view="Cases to work"
       />
     </React.Fragment>
@@ -165,7 +161,6 @@ function SnoozedCaseList(props) {
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
-        mode={props.displayMode}
         view="Snoozed Cases"
       />
     </React.Fragment>

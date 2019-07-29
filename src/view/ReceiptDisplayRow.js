@@ -29,11 +29,7 @@ const cellDispatch = {
 
 export default function ReceiptDisplayRow(props) {
   const rowData = props.data;
-  return (props.mode === "table" ? _table_row : _accordion_row)(
-    rowData,
-    props.callback,
-    props.headers
-  );
+  return _table_row(rowData, props.callback, props.headers);
 }
 
 function _table_cell(rowData, header, callback) {
@@ -50,44 +46,4 @@ function _table_cell(rowData, header, callback) {
 
 function _table_row(rowData, callback, headers) {
   return <tr>{headers.map(h => _table_cell(rowData, h, callback))}</tr>;
-}
-
-function _accordion_row(rowData, callback, headers) {
-  const item_key = "ELIS-" + rowData.caseId;
-  const caseUrl = elisCaseUrlBase + rowData.receiptNumber;
-  return (
-    <div key={item_key} className="grid-container">
-      <h2 className="usa-accordion__heading ">
-        <button
-          className="usa-accordion__button grid-row"
-          aria-controls={item_key}
-          aria-expanded="false"
-        >
-          {_gridcol(rowData.receiptNumber)}
-          {_gridcol(cellDispatch.DATE(rowData.creationDate))}
-          {_gridcol(rowData.caseState)}
-        </button>
-      </h2>
-      <div id={item_key} className="usa-accordion__content">
-        <div className="grid-row">
-          <div className="grid-col">
-            <a href={caseUrl} target="_elis_viewer">
-              Open in ELIS
-            </a>
-          </div>
-          {_gridcol(rowData.i90SP === "true" ? "SP" : "Legacy")}
-          {_gridcol(rowData.caseAge)}
-        </div>
-        <div className="grid-row">
-          {_gridcol(rowData.caseState)}
-          {_gridcol(rowData.caseStatus)}
-          {_gridcol(rowData.caseSubstatus)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function _gridcol(content) {
-  return <div className="grid-col">{content}</div>;
 }
