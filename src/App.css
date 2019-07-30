@@ -33,3 +33,7 @@
 .usa-alert button:hover {
   color: #1a4480;
 }
+
+.usa-alert--fit-content {
+  width: fit-content;
+}

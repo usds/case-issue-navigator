@@ -2,8 +2,8 @@ import React from "react";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
 import UsaButton from "./util/UsaButton";
 
-const CASES_TO_WORK = "CASES_TO_WORK";
-const SNOOZED_CASES = "SNOOZED_CASES";
+export const CASES_TO_WORK = "CASES_TO_WORK";
+export const SNOOZED_CASES = "SNOOZED_CASES";
 
 function buttonizer(text, buttonClass, callbackKey) {
   return (_, rowData, __, callback) => (
