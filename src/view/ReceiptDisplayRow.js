@@ -27,23 +27,28 @@ const cellDispatch = {
   }
 };
 
-export default function ReceiptDisplayRow(props) {
-  const rowData = props.data;
-  return _table_row(rowData, props.callback, props.headers);
-}
+const ReceiptDisplayRow = props => (
+  <tr>
+    {props.headers.map(header => (
+      <TableCell
+        rowData={props.data}
+        header={header}
+        callback={props.callback}
+      />
+    ))}
+  </tr>
+);
 
-function _table_cell(rowData, header, callback) {
-  let datum = rowData[header.field];
-  if (header.content !== undefined) {
+export default ReceiptDisplayRow;
+
+const TableCell = props => {
+  let datum = props.rowData[props.header.field];
+  if (props.header.content !== undefined) {
     const processor =
-      "function" === typeof header.content
-        ? header.content
-        : cellDispatch[header.content];
-    datum = processor(datum, rowData, header, callback);
+      "function" === typeof props.header.content
+        ? props.header.content
+        : cellDispatch[props.header.content];
+    datum = processor(datum, props.rowData, props.header, props.callback);
   }
-  return <td key={header.header}>{datum}</td>;
-}
-
-function _table_row(rowData, callback, headers) {
-  return <tr>{headers.map(h => _table_cell(rowData, h, callback))}</tr>;
-}
+  return <td key={props.header.header}>{datum}</td>;
+};

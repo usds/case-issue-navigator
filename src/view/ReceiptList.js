@@ -62,15 +62,21 @@ export default function ReceiptList(props) {
     ];
   }
 
-  return _tabular_list(props, header_definitions);
+  return (
+    <TabularList
+      cases={props.cases}
+      callback={props.callback}
+      header_definitions={header_definitions}
+    />
+  );
 }
 
-function _tabular_list(props, header_definitions) {
+const TabularList = props => {
   return (
     <table className="usa-table usa-table--borderless">
       <thead>
         <tr>
-          {header_definitions.map(h => (
+          {props.header_definitions.map(h => (
             <th key={h.header}>{h.header}</th>
           ))}
         </tr>
@@ -80,11 +86,11 @@ function _tabular_list(props, header_definitions) {
           <ReceiptDisplayRow
             key={"ELIS-" + r.caseId}
             data={r}
-            headers={header_definitions}
+            headers={props.header_definitions}
             callback={props.callback}
           />
         ))}
       </tbody>
     </table>
   );
-}
+};
