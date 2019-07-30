@@ -201,6 +201,7 @@ function SnoozedCaseList(props) {
           <DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
         }
       />
+      <p className="text-italic">Data last refreshed: June 17th, 2019</p>
       {props.alerts
         .filter(alert => alert.views.includes(SNOOZED_CASES))
         .map(alert => (
