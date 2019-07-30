@@ -116,16 +116,16 @@ class App extends Component {
         (a, b) => a.snooze_option.snooze_days - b.snooze_option.snooze_days
       ),
       alerts: [
-        ...this.state.alerts,
         {
           alertType: "success",
           content: `${rowData.receiptNumber} has been Snoozed for ${
             snooze_option.snooze_days
-          } day${snooze_option.snooze_days !== 1 && ""} due to ${
+          } day${snooze_option.snooze_days !== 1 && "s"} due to ${
             snooze_option.short_text
           }.`,
           views: [CASES_TO_WORK]
-        }
+        },
+        ...this.state.alerts
       ]
     });
   }
@@ -137,7 +137,15 @@ class App extends Component {
       snoozed_cases: this.state.snoozed_cases.filter(
         c => c.receiptNumber !== rowData.receiptNumber
       ),
-      active_cases: new_active
+      active_cases: new_active,
+      alerts: [
+        {
+          alertType: "info",
+          content: `${rowData.receiptNumber} has been Unsnoozed.`,
+          views: [SNOOZED_CASES]
+        },
+        ...this.state.alerts
+      ]
     });
   }
   detailView(rowData) {
