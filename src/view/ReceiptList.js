@@ -2,6 +2,9 @@ import React from "react";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
 import UsaButton from "./util/UsaButton";
 
+const CASES_TO_WORK = "CASES_TO_WORK";
+const SNOOZED_CASES = "SNOOZED_CASES";
+
 function buttonizer(text, buttonClass, callbackKey) {
   return (_, rowData, __, callback) => (
     <UsaButton
@@ -13,53 +16,82 @@ function buttonizer(text, buttonClass, callbackKey) {
   );
 }
 const i90_headers = [
-  { header: "Receipt", field: "receiptNumber", content: "LINK" },
-  { header: "Creation Date", field: "creationDate", content: "DATE" },
-  { header: "Case Age", field: "caseAge" },
-  { header: "Case State", field: "caseState" },
-  { header: "Case Status", field: "caseStatus" },
-  { header: "Case Substatus", field: "caseSubstatus" },
-  { header: "Application Reason", field: "applicationReason" },
+  {
+    header: "Receipt Number",
+    field: "receiptNumber",
+    content: "LINK",
+    views: [CASES_TO_WORK, SNOOZED_CASES]
+  },
+  {
+    header: "Case Age",
+    field: "caseAge",
+    views: [CASES_TO_WORK, SNOOZED_CASES],
+    content: d => `${d} day${d !== 0 && "s"}`
+  },
+  {
+    header: "Case Creation",
+    field: "creationDate",
+    content: "DATE",
+    views: [CASES_TO_WORK, SNOOZED_CASES]
+  },
+  { header: "Case Status", field: "caseStatus", views: [CASES_TO_WORK] },
+  { header: "Case Substatus", field: "caseSubstatus", views: [CASES_TO_WORK] },
   {
     header: "Platform",
     field: "i90SP",
-    content: d => (d === "true" ? "SP" : "Legacy")
+    content: d => (d === "true" ? "SP" : "Legacy"),
+    views: [CASES_TO_WORK, SNOOZED_CASES]
   },
-  { header: "Filing Channel", field: "channelType" },
+  {
+    header: "Problem",
+    field: "snooze_option",
+    content: o => o.short_text,
+    views: [SNOOZED_CASES]
+  },
+  {
+    header: "Snoozed",
+    field: "snooze_option",
+    content: o => `${o.snooze_days} day${o.snooze_days !== 1 && "s"} left`,
+    views: [SNOOZED_CASES]
+  },
+  {
+    header: "Assigned",
+    field: "assigned",
+    views: [CASES_TO_WORK, SNOOZED_CASES]
+  },
+  {
+    header: "SN Ticket #",
+    field: "snooze_followup",
+    views: [SNOOZED_CASES]
+  },
   {
     header: "Actions",
     field: "_",
-    content: buttonizer("Show Actions", "outline", "details")
+    content: buttonizer("Snooze", "outline", "details"),
+    views: [CASES_TO_WORK]
+  },
+  {
+    header: "Actions",
+    field: "snooze_option",
+    content: buttonizer("Update", "outline", "snoozeUpdate"),
+    views: [SNOOZED_CASES]
   }
 ];
 
-const minimal_headers = [
-  ...i90_headers.slice(0, 2),
-  i90_headers[6],
-  i90_headers[7],
-  i90_headers[8]
-];
+const getCases = view =>
+  i90_headers.filter(header => header.views.includes(view));
 
 export default function ReceiptList(props) {
   if (!props.cases.length) {
     return <div>No cases found.</div>;
   }
-  let header_definitions = i90_headers;
+  let header_definitions;
   if (props.view === "Snoozed Cases") {
-    header_definitions = [
-      ...minimal_headers,
-      { header: "Reason", field: "snooze_option", content: o => o.short_text },
-      {
-        header: "Days Remaining",
-        field: "snooze_option",
-        content: o => o.snooze_days
-      },
-      {
-        header: "Actions",
-        field: "snooze_option",
-        content: buttonizer("Update Case", "secondary", "snoozeUpdate")
-      }
-    ];
+    header_definitions = getCases(SNOOZED_CASES);
+  }
+
+  if (props.view === "Cases to work") {
+    header_definitions = getCases(CASES_TO_WORK);
   }
 
   return (

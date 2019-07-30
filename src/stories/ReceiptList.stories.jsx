@@ -54,6 +54,7 @@ storiesOf("ReceiptList", module)
   .add("Empty Receipt List", () => <ReceiptList cases={[]} />)
   .add("Tabular Cases-to-Work List with some items", () => (
     <ReceiptList
+      view="Cases to work"
       cases={sampleCases}
       callback={{
         snoozeUpdate: action("show actions clicked!"),
