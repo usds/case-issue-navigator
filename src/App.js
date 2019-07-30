@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
-import ReceiptList, { CASES_TO_WORK, SNOOZED_CASES } from "./view/ReceiptList";
+import ReceiptList from "./view/ReceiptList";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
 import ModalDialog from "./view/ModalDialog";
 import * as case_api from "./model/FakeCaseFetcher";
@@ -51,21 +51,24 @@ class App extends Component {
           case_count={case_count}
         />
         <main id="main-content">
+          <p className="text-italic">Data last refreshed: June 17th, 2019</p>
+          {this.state.alerts.map(alert => (
+            <Alert alertType={alert.alertType}>
+              {alert.content}{" "}
+              <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
+            </Alert>
+          ))}
           <Route
             path="/Cases to work"
             render={props => (
-              <React.Fragment>
-                <ActiveCaseList
-                  {...props}
-                  showDialog={this.state.showDialog}
-                  dialogTitle={this.state.dialogTitle}
-                  callbacks={callbacks}
-                  clickedRow={this.state.clickedRow}
-                  cases={this.state.active_cases}
-                  alerts={this.state.alerts}
-                  dismissAlert={this.dismissAlert}
-                />
-              </React.Fragment>
+              <ActiveCaseList
+                {...props}
+                showDialog={this.state.showDialog}
+                dialogTitle={this.state.dialogTitle}
+                callbacks={callbacks}
+                clickedRow={this.state.clickedRow}
+                cases={this.state.active_cases}
+              />
             )}
           />
           <Route
@@ -78,8 +81,6 @@ class App extends Component {
                 callbacks={callbacks}
                 clickedRow={this.state.clickedRow}
                 cases={this.state.snoozed_cases}
-                alerts={this.state.alerts}
-                dismissAlert={this.dismissAlert}
               />
             )}
           />
@@ -103,7 +104,6 @@ class App extends Component {
   }
 
   snooze(rowData, snooze_option, snooze_text) {
-    console.log(rowData, snooze_option, snooze_text);
     const new_snoozed = [
       ...this.state.snoozed_cases,
       _snoozeRow(rowData, snooze_option, snooze_text)
@@ -122,8 +122,7 @@ class App extends Component {
             snooze_option.snooze_days
           } day${snooze_option.snooze_days !== 1 && "s"} due to ${
             snooze_option.short_text
-          }.`,
-          views: [CASES_TO_WORK]
+          }.`
         },
         ...this.state.alerts
       ]
@@ -141,8 +140,7 @@ class App extends Component {
       alerts: [
         {
           alertType: "info",
-          content: `${rowData.receiptNumber} has been Unsnoozed.`,
-          views: [SNOOZED_CASES]
+          content: `${rowData.receiptNumber} has been Unsnoozed.`
         },
         ...this.state.alerts
       ]
@@ -172,15 +170,6 @@ function ActiveCaseList(props) {
           <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
         }
       />
-      <p className="text-italic">Data last refreshed: June 17th, 2019</p>
-      {props.alerts
-        .filter(alert => alert.views.includes(CASES_TO_WORK))
-        .map(alert => (
-          <Alert alertType={alert.alertType}>
-            {alert.content}{" "}
-            <button onClick={() => props.dismissAlert(alert)}>Dismiss</button>.
-          </Alert>
-        ))}
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
@@ -201,15 +190,6 @@ function SnoozedCaseList(props) {
           <DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
         }
       />
-      <p className="text-italic">Data last refreshed: June 17th, 2019</p>
-      {props.alerts
-        .filter(alert => alert.views.includes(SNOOZED_CASES))
-        .map(alert => (
-          <Alert alertType={alert.alertType}>
-            {alert.content}{" "}
-            <button onClick={() => props.dismissAlert(alert)}>Dismiss</button>.
-          </Alert>
-        ))}
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
