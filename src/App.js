@@ -11,6 +11,7 @@ import DeSnoozeForm from "./controller/DeSnoozeForm";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { UsaAlert } from "./view/util/UsaAlert";
 
 library.add(fas);
 
@@ -22,7 +23,8 @@ class App extends Component {
     this.state = {
       active_cases: case_api.fetchAll(),
       snoozed_cases: [],
-      showDialog: false
+      showDialog: false,
+      alerts: []
     };
   }
 
@@ -49,6 +51,13 @@ class App extends Component {
           case_count={case_count}
         />
         <main id="main-content">
+          <p className="text-italic">Data last refreshed: June 17th, 2019</p>
+          {this.state.alerts.map(alert => (
+            <UsaAlert alertType={alert.alertType}>
+              {alert.content}{" "}
+              <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
+            </UsaAlert>
+          ))}
           <Route
             path="/Cases to work"
             render={props => (
@@ -80,6 +89,12 @@ class App extends Component {
     );
   }
 
+  dismissAlert = selectedAlert => {
+    this.setState({
+      alerts: this.state.alerts.filter(alert => alert !== selectedAlert)
+    });
+  };
+
   reSnooze(rowData, snooze_option, snooze_text) {
     const new_snooze = this.state.snoozed_cases.filter(
       c => c.receiptNumber !== rowData.receiptNumber
@@ -99,7 +114,18 @@ class App extends Component {
       ),
       snoozed_cases: new_snoozed.sort(
         (a, b) => a.snooze_option.snooze_days - b.snooze_option.snooze_days
-      )
+      ),
+      alerts: [
+        {
+          alertType: "success",
+          content: `${rowData.receiptNumber} has been Snoozed for ${
+            snooze_option.snooze_days
+          } day${snooze_option.snooze_days !== 1 && "s"} due to ${
+            snooze_option.short_text
+          }.`
+        },
+        ...this.state.alerts
+      ]
     });
   }
 
@@ -110,7 +136,14 @@ class App extends Component {
       snoozed_cases: this.state.snoozed_cases.filter(
         c => c.receiptNumber !== rowData.receiptNumber
       ),
-      active_cases: new_active
+      active_cases: new_active,
+      alerts: [
+        {
+          alertType: "info",
+          content: `${rowData.receiptNumber} has been Unsnoozed.`
+        },
+        ...this.state.alerts
+      ]
     });
   }
   detailView(rowData) {
@@ -137,7 +170,6 @@ function ActiveCaseList(props) {
           <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
         }
       />
-      <p className="text-italic">Data last refreshed: June 17th, 2019</p>
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
