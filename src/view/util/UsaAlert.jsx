@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Alert = props => (
+const UsaAlert = props => (
   <div
     className={`usa-alert--fit-content usa-alert usa-alert--${props.alertType} usa-alert--slim`}
   >
@@ -13,8 +13,8 @@ const Alert = props => (
 
 const alertTypes = ["success", "info", "warning", "error"];
 
-Alert.propTypes = {
+UsaAlert.propTypes = {
   alertType: PropTypes.oneOf(alertTypes)
 };
 
-export { Alert };
+export { UsaAlert };

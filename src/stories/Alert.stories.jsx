@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { storiesOf } from "@storybook/react";
-import { Alert } from "../view/util/Alert";
+import { UsaAlert } from "../view/util/UsaAlert";
 
-storiesOf("Alert", module)
-  .add("Success", () => <Alert alertType="success">Well done!</Alert>)
-  .add("info", () => <Alert alertType="info">This is some information.</Alert>)
-  .add("warning", () => <Alert alertType="warning">Watch out for this!</Alert>)
+storiesOf("UsaAlert", module)
+  .add("Success", () => <UsaAlert alertType="success">Well done!</UsaAlert>)
+  .add("info", () => (
+    <UsaAlert alertType="info">This is some information.</UsaAlert>
+  ))
+  .add("warning", () => (
+    <UsaAlert alertType="warning">Watch out for this!</UsaAlert>
+  ))
   .add("dismissible", () => {
     const initialAlerts = [
       { alertType: "success", content: "This is a success alert." },
@@ -22,10 +26,10 @@ storiesOf("Alert", module)
       return (
         <div>
           {alerts.map((alert, i) => (
-            <Alert key={i} alertType={alert.alertType}>
+            <UsaAlert key={i} alertType={alert.alertType}>
               {alert.content}{" "}
               <button onClick={() => dismissAlert(alert)}>Dismiss.</button>
-            </Alert>
+            </UsaAlert>
           ))}
         </div>
       );

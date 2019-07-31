@@ -11,7 +11,7 @@ import DeSnoozeForm from "./controller/DeSnoozeForm";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { Alert } from "./view/util/Alert";
+import { UsaAlert } from "./view/util/UsaAlert";
 
 library.add(fas);
 
@@ -53,10 +53,10 @@ class App extends Component {
         <main id="main-content">
           <p className="text-italic">Data last refreshed: June 17th, 2019</p>
           {this.state.alerts.map(alert => (
-            <Alert alertType={alert.alertType}>
+            <UsaAlert alertType={alert.alertType}>
               {alert.content}{" "}
               <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
-            </Alert>
+            </UsaAlert>
           ))}
           <Route
             path="/Cases to work"

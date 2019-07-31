@@ -320,6 +320,97 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
 </table>
 `;
 
+exports[`Storyshots UsaAlert Success 1`] = `
+<div
+  className="usa-alert--fit-content usa-alert usa-alert--success usa-alert--slim"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <p
+      className="usa-alert__text"
+    >
+      Well done!
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots UsaAlert dismissible 1`] = `
+<div>
+  <div
+    className="usa-alert--fit-content usa-alert usa-alert--success usa-alert--slim"
+  >
+    <div
+      className="usa-alert__body"
+    >
+      <p
+        className="usa-alert__text"
+      >
+        This is a success alert.
+         
+        <button
+          onClick={[Function]}
+        >
+          Dismiss.
+        </button>
+      </p>
+    </div>
+  </div>
+  <div
+    className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+  >
+    <div
+      className="usa-alert__body"
+    >
+      <p
+        className="usa-alert__text"
+      >
+        This is a warning alert
+         
+        <button
+          onClick={[Function]}
+        >
+          Dismiss.
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots UsaAlert info 1`] = `
+<div
+  className="usa-alert--fit-content usa-alert usa-alert--info usa-alert--slim"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <p
+      className="usa-alert__text"
+    >
+      This is some information.
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots UsaAlert warning 1`] = `
+<div
+  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <p
+      className="usa-alert__text"
+    >
+      Watch out for this!
+    </p>
+  </div>
+</div>
+`;
+
 exports[`Storyshots UsaButton Secondary button 1`] = `
 <button
   className="usa-button usa-button--secondary"
