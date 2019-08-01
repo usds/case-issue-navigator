@@ -31,6 +31,7 @@ parser.add_argument("-f", "--fake", action="store_true")
 parser.add_argument("-n", "--rows-wanted", type=int, default=1000)
 parser.add_argument("source_file", type=arg_opener, nargs="?")
 parser.add_argument("--previous-file", type=arg_opener)
+parser.add_argument("-o", "--output", choices=["json","csv"], default="json")
 a = parser.parse_args()
 
 
@@ -58,4 +59,16 @@ for i in range(a.rows_wanted):
     if rec["receiptNumber"] not in ignore_receipts:
         extracted.append({k: rec[k] for k in i90_generators})
 
-print json.dumps(extracted)
+if a.output == 'json':
+    print json.dumps(extracted)
+elif a.output == 'csv':
+    fields = ['receiptNumber', 'creationDate']
+    # dopey way of getting the important fields on the left
+    for k in i90_generators.keys():
+        if k not in fields:
+            fields.append(k)
+    writer = csv.DictWriter(sys.stdout, fields)
+    writer.writeheader()
+    writer.writerows(extracted)
+else:
+    raise Exception("Can't process output of type " + a.output)
