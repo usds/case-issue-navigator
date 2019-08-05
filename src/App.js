@@ -16,7 +16,6 @@ import UsaButton from "./view/util/UsaButton";
 
 library.add(fas);
 
-const ACTIVE_CASES_AT_START = 19171;
 const BASE_URL = "http://localhost:8080";
 const caseFetcher = configureCaseFetcher({
   baseUrl: BASE_URL,
@@ -31,7 +30,8 @@ class App extends Component {
       snoozed_cases: [],
       summary: null,
       showDialog: false,
-      alerts: []
+      alerts: [],
+      dataRefresh: null
     };
   }
 
@@ -46,7 +46,8 @@ class App extends Component {
       .then(data => {
         this.setState({
           active_cases: [...this.state.active_cases, ...data],
-          isLoading: false
+          isLoading: false,
+          dataRefresh: new Date()
         });
       })
       .catch(e => {
@@ -66,7 +67,8 @@ class App extends Component {
         console.log(data);
         this.setState({
           snoozed_cases: [...this.state.snoozed_cases, ...data],
-          isLoading: false
+          isLoading: false,
+          dataRefresh: new Date()
         });
       })
       .catch(e => {
@@ -107,21 +109,21 @@ class App extends Component {
       reSnooze: this.reSnooze.bind(this)
     };
 
-    const case_count = {
-      "Snoozed Cases": this.state.snoozed_cases.length,
-      "Cases to work": ACTIVE_CASES_AT_START - this.state.snoozed_cases.length
-    };
-
     return (
       <div className="case-issue-navigator">
         <PrimaryNavMenu
           title="Case Issue Navigator"
           items={["Cases to work", "Snoozed Cases"]}
-          case_count={case_count}
           summary={this.state.summary}
         />
         <main id="main-content">
-          <p className="text-italic">Data last refreshed: June 17th, 2019</p>
+          <p>
+            Data sync:{" "}
+            {this.state.dataRefresh &&
+              `${this.state.dataRefresh.toLocaleDateString(
+                "en-US"
+              )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
+          </p>
           {this.state.alerts.map(alert => (
             <UsaAlert alertType={alert.alertType}>
               {alert.content}{" "}
