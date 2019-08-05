@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
 import ReceiptList from "./view/ReceiptList";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
-import * as case_api from "./model/FakeCaseFetcher";
 import SnoozeForm from "./controller/SnoozeForm";
 import DeSnoozeForm from "./controller/DeSnoozeForm";
 
@@ -12,21 +11,71 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { UsaAlert } from "./view/util/UsaAlert";
 import { ActionModal } from "./view/util/ActionModal";
+import configureCaseFetcher from "./model/caseFetcher";
+import UsaButton from "./view/util/UsaButton";
 
 library.add(fas);
 
 const ACTIVE_CASES_AT_START = 19171;
+const BASE_URL = "http://localhost:8080";
+const caseFetcher = configureCaseFetcher({
+  baseUrl: BASE_URL,
+  resultsPerPage: 20
+});
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active_cases: case_api.fetchAll(),
+      active_cases: [],
       snoozed_cases: [],
       showDialog: false,
       alerts: []
     };
   }
+
+  loadActiveCases = page => {
+    if (page === 0) {
+      this.clearActiveCases();
+    }
+
+    this.setState({ isLoading: true });
+    caseFetcher
+      .getActiveCases(page)
+      .then(data => {
+        this.setState({
+          active_cases: [...this.state.active_cases, ...data],
+          isLoading: false
+        });
+      })
+      .catch(e => {
+        console.error(e.message);
+      });
+  };
+
+  loadSnoozedCases = page => {
+    if (page === 0) {
+      this.clearSnoozedCases();
+    }
+
+    this.setState({ isLoading: true });
+    caseFetcher
+      .getSnoozedCases(page)
+      .then(data => {
+        console.log(data);
+        this.setState({
+          snoozed_cases: [...this.state.snoozed_cases, ...data],
+          isLoading: false
+        });
+      })
+      .catch(e => {
+        console.error(e.message);
+      });
+  };
+
+  clearActiveCases = () => this.setState({ active_cases: [] });
+
+  clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
 
   render() {
     const callbacks = {
@@ -68,6 +117,8 @@ class App extends Component {
                 callbacks={callbacks}
                 clickedRow={this.state.clickedRow}
                 cases={this.state.active_cases}
+                isLoading={this.state.isLoading}
+                loadCases={this.loadActiveCases}
               />
             )}
           />
@@ -81,6 +132,8 @@ class App extends Component {
                 callbacks={callbacks}
                 clickedRow={this.state.clickedRow}
                 cases={this.state.snoozed_cases}
+                isLoading={this.state.isLoading}
+                loadCases={this.loadSnoozedCases}
               />
             )}
           />
@@ -160,6 +213,13 @@ class App extends Component {
 }
 
 function ActiveCaseList(props) {
+  const { loadCases } = props;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    loadCases(currentPage);
+  }, [loadCases, currentPage]);
+
   return (
     <React.Fragment>
       {props.showDialog && (
@@ -175,12 +235,23 @@ function ActiveCaseList(props) {
         cases={props.cases}
         callback={props.callbacks}
         view="Cases to work"
+        isLoading={props.isLoading}
       />
+      <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
+        Load More Cases
+      </UsaButton>
     </React.Fragment>
   );
 }
 
 function SnoozedCaseList(props) {
+  const { loadCases } = props;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    loadCases(currentPage);
+  }, [loadCases, currentPage]);
+
   return (
     <React.Fragment>
       {props.showDialog && (
@@ -197,6 +268,9 @@ function SnoozedCaseList(props) {
         callback={props.callbacks}
         view="Snoozed Cases"
       />
+      <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
+        Load More Cases
+      </UsaButton>
     </React.Fragment>
   );
 }

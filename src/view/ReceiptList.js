@@ -24,34 +24,54 @@ const i90_headers = [
   },
   {
     header: "Case Age",
-    field: "caseAge",
+    field: "caseCreation",
     views: [CASES_TO_WORK, SNOOZED_CASES],
-    content: d => `${d} day${d !== 0 && "s"}`
+    content: d => {
+      const days = Math.ceil((new Date() - new Date(d)) / 86400000);
+      const plural = days === 1 ? "" : "s";
+      return `${days} day${plural}`;
+    }
   },
   {
     header: "Case Creation",
-    field: "creationDate",
+    field: "caseCreation",
     content: "DATE",
     views: [CASES_TO_WORK, SNOOZED_CASES]
   },
-  { header: "Case Status", field: "caseStatus", views: [CASES_TO_WORK] },
-  { header: "Case Substatus", field: "caseSubstatus", views: [CASES_TO_WORK] },
+  {
+    header: "Case Status",
+    field: "extraData",
+    content: field => field.caseStatus,
+    views: [CASES_TO_WORK]
+  },
+  {
+    header: "Case Substatus",
+    field: "extraData",
+    content: field => field.caseSubstatus,
+    views: [CASES_TO_WORK]
+  },
   {
     header: "Platform",
-    field: "i90SP",
-    content: d => (d === "true" ? "SP" : "Legacy"),
+    field: "extraData",
+    content: d => (d.streamlinedProcess === "true" ? "SP" : "Legacy"),
     views: [CASES_TO_WORK, SNOOZED_CASES]
   },
   {
     header: "Problem",
-    field: "snooze_option",
-    content: o => o.short_text,
+    field: "snoozeInformation",
+    content: field => field.snoozeReason,
     views: [SNOOZED_CASES]
   },
   {
     header: "Snoozed",
-    field: "snooze_option",
-    content: o => `${o.snooze_days} day${o.snooze_days !== 1 && "s"} left`,
+    field: "snoozeInformation",
+    content: field => {
+      const days = Math.ceil(
+        (new Date(field.snoozeEnd) - new Date()) / 86400000
+      );
+      const plural = days === 1 ? "" : "s";
+      return `${days} day${plural}`;
+    },
     views: [SNOOZED_CASES]
   },
   {
@@ -61,7 +81,11 @@ const i90_headers = [
   },
   {
     header: "SN Ticket #",
-    field: "snooze_followup",
+    field: "snoozeInformation",
+    content: field => {
+      // TODO: Only return snoozeDetails that match Regex
+      return field.snoozeDetails;
+    },
     views: [SNOOZED_CASES]
   },
   {
@@ -83,7 +107,7 @@ const getCases = view =>
 
 export default function ReceiptList(props) {
   if (!props.cases.length) {
-    return <p>No cases found.</p>;
+    return <p>{props.isLoading ? "Loading..." : "No cases found."}</p>;
   }
   let header_definitions;
   if (props.view === "Snoozed Cases") {
@@ -116,7 +140,7 @@ const TabularList = props => {
       <tbody>
         {props.cases.map(r => (
           <ReceiptDisplayRow
-            key={"ELIS-" + r.caseId}
+            key={"ELIS-" + r.receiptNumber}
             data={r}
             headers={props.header_definitions}
             callback={props.callback}
