@@ -49,7 +49,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1660
+        1660 days
       </td>
       <td>
         1/6/2015
@@ -63,9 +63,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         Legacy
       </td>
-      <td>
-        n/a
-      </td>
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -87,7 +85,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1647
+        1647 days
       </td>
       <td>
         1/19/2015
@@ -101,9 +99,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         Legacy
       </td>
-      <td>
-        n/a
-      </td>
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -125,7 +121,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1646
+        1646 days
       </td>
       <td>
         1/20/2015
@@ -139,9 +135,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         SP
       </td>
-      <td>
-        n/a
-      </td>
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -203,7 +197,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1660
+        1660 days
       </td>
       <td>
         1/6/2015
@@ -217,12 +211,8 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         5 days left
       </td>
-      <td>
-        n/a
-      </td>
-      <td>
-        n/a
-      </td>
+      <td />
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -244,7 +234,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1647
+        1647 days
       </td>
       <td>
         1/19/2015
@@ -258,12 +248,8 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         5 days left
       </td>
-      <td>
-        n/a
-      </td>
-      <td>
-        n/a
-      </td>
+      <td />
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -285,7 +271,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1646
+        1646 days
       </td>
       <td>
         1/20/2015
@@ -299,12 +285,8 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         5 days left
       </td>
-      <td>
-        n/a
-      </td>
-      <td>
-        n/a
-      </td>
+      <td />
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"

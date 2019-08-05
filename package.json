@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
     "deploy": "cf push -f truffles_manifest.yml",
-    "test": "react-scripts test",
+    "test": "TZ=America/New_York react-scripts test",
     "eject": "react-scripts eject",
     "prettier-all": "prettier --write '**/*.{js,jsx}'",
     "storybook": "start-storybook -p 3333"
