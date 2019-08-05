@@ -83,7 +83,7 @@ const getCases = view =>
 
 export default function ReceiptList(props) {
   if (!props.cases.length) {
-    return <div>No cases found.</div>;
+    return <p>No cases found.</p>;
   }
   let header_definitions;
   if (props.view === "Snoozed Cases") {
@@ -105,7 +105,7 @@ export default function ReceiptList(props) {
 
 const TabularList = props => {
   return (
-    <table className="usa-table usa-table--borderless">
+    <table className="usa-table usa-table--borderless width-full">
       <thead>
         <tr>
           {props.header_definitions.map(h => (

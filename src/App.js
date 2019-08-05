@@ -4,7 +4,6 @@ import "uswds";
 import "./App.css";
 import ReceiptList from "./view/ReceiptList";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
-import ModalDialog from "./view/ModalDialog";
 import * as case_api from "./model/FakeCaseFetcher";
 import SnoozeForm from "./controller/SnoozeForm";
 import DeSnoozeForm from "./controller/DeSnoozeForm";
@@ -12,6 +11,7 @@ import DeSnoozeForm from "./controller/DeSnoozeForm";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { UsaAlert } from "./view/util/UsaAlert";
+import { ActionModal } from "./view/util/ActionModal";
 
 library.add(fas);
 
@@ -162,14 +162,15 @@ class App extends Component {
 function ActiveCaseList(props) {
   return (
     <React.Fragment>
-      <ModalDialog
-        show={props.showDialog}
-        modalTitle={props.dialogTitle}
-        callback={props.callbacks}
-        modalContent={
+      {props.showDialog && (
+        <ActionModal
+          isOpen={props.showDialog}
+          title={props.dialogTitle}
+          closeModal={props.callbacks.closeDialog}
+        >
           <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        }
-      />
+        </ActionModal>
+      )}
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
@@ -182,14 +183,15 @@ function ActiveCaseList(props) {
 function SnoozedCaseList(props) {
   return (
     <React.Fragment>
-      <ModalDialog
-        show={props.showDialog}
-        modalTitle={props.dialogTitle}
-        callback={props.callbacks}
-        modalContent={
+      {props.showDialog && (
+        <ActionModal
+          isOpen={props.showDialog}
+          title={props.dialogTitle}
+          closeModal={props.callbacks.closeDialog}
+        >
           <DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        }
-      />
+        </ActionModal>
+      )}
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
