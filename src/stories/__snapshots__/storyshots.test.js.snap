@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots ReceiptList Empty Receipt List 1`] = `
-<div>
+<p>
   No cases found.
-</div>
+</p>
 `;
 
 exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] = `
 <table
-  className="usa-table usa-table--borderless"
+  className="usa-table usa-table--borderless width-full"
 >
   <thead>
     <tr>
@@ -49,10 +49,10 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1660 days
+        1558 days
       </td>
       <td>
-        1/6/2015
+        5/1/2015
       </td>
       <td>
         Pending
@@ -85,55 +85,15 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1647 days
+        1539 days
       </td>
       <td>
-        1/19/2015
-      </td>
-      <td>
-        Eschewing Obfuscation
-      </td>
-      <td>
-        Amazingly Successful
-      </td>
-      <td>
-        Legacy
+        5/20/2015
       </td>
       <td />
+      <td />
       <td>
-        <button
-          className="usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Snooze
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8731511"
-          target="_elis_viewer"
-        >
-          FKE8731511
-        </a>
-      </td>
-      <td>
-        1646 days
-      </td>
-      <td>
-        1/20/2015
-      </td>
-      <td>
-        Eschewing Obfuscation
-      </td>
-      <td>
-        Printing
-      </td>
-      <td>
-        SP
+        Legacy
       </td>
       <td />
       <td>
@@ -153,7 +113,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
 
 exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = `
 <table
-  className="usa-table usa-table--borderless"
+  className="usa-table usa-table--borderless width-full"
 >
   <thead>
     <tr>
@@ -197,19 +157,19 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1660 days
+        1558 days
       </td>
       <td>
-        1/6/2015
+        5/1/2015
       </td>
       <td>
         Legacy
       </td>
       <td>
-        Assigned
+        Just Because
       </td>
       <td>
-        5 days left
+        2 days
       </td>
       <td />
       <td />
@@ -234,56 +194,19 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1647 days
+        1539 days
       </td>
       <td>
-        1/19/2015
+        5/20/2015
       </td>
       <td>
         Legacy
       </td>
       <td>
-        Assigned
+        Just Because
       </td>
       <td>
-        5 days left
-      </td>
-      <td />
-      <td />
-      <td>
-        <button
-          className="usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Update
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8731511"
-          target="_elis_viewer"
-        >
-          FKE8731511
-        </a>
-      </td>
-      <td>
-        1646 days
-      </td>
-      <td>
-        1/20/2015
-      </td>
-      <td>
-        SP
-      </td>
-      <td>
-        Assigned
-      </td>
-      <td>
-        5 days left
+        2 days
       </td>
       <td />
       <td />

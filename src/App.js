@@ -64,7 +64,6 @@ class App extends Component {
     caseFetcher
       .getSnoozedCases(page)
       .then(data => {
-        console.log(data);
         this.setState({
           snoozed_cases: [...this.state.snoozed_cases, ...data],
           isLoading: false,
