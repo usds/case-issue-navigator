@@ -29,6 +29,7 @@ class App extends Component {
     this.state = {
       active_cases: [],
       snoozed_cases: [],
+      summary: null,
       showDialog: false,
       alerts: []
     };
@@ -77,6 +78,25 @@ class App extends Component {
 
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
 
+  updateSummaryData = () => {
+    caseFetcher.getCaseSummary().then(data => {
+      const currentlySnoozed = data.CURRENTLY_SNOOZED || 0;
+      const neverSnoozed = data.NEVER_SNOOZED || 0;
+      const previouslySnoozed = data.PREVIOUSLY_SNOOZED || 0;
+
+      this.setState({
+        summary: {
+          "Cases to work": neverSnoozed + previouslySnoozed,
+          "Snoozed Cases": currentlySnoozed
+        }
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.updateSummaryData();
+  }
+
   render() {
     const callbacks = {
       snooze: this.snooze.bind(this),
@@ -98,6 +118,7 @@ class App extends Component {
           title="Case Issue Navigator"
           items={["Cases to work", "Snoozed Cases"]}
           case_count={case_count}
+          summary={this.state.summary}
         />
         <main id="main-content">
           <p className="text-italic">Data last refreshed: June 17th, 2019</p>
