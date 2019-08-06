@@ -48,7 +48,7 @@ export default function SnoozeInputs(props) {
     <Fragment>
       <UsaSelect
         onChange={elementChange}
-        options={props.options}
+        options={props.options.map(opt => ({ ...opt, text: opt.snoozeReason }))}
         placeholder="- Select Reason -"
         name={inputNames.select}
         selected={selectedValue}
