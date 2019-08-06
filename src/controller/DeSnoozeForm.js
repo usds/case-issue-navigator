@@ -31,8 +31,8 @@ export default function DeSnoozeForm(props) {
         <SnoozeInputs
           label="New snooze reason:"
           onChange={updateInputs}
-          options={formConfig.snooze_options}
-          selectedOption={rowData.snooze_option}
+          options={formConfig.snoozeOptions}
+          selectedOption={rowData.snoozeOptions}
           followUp={rowData.snooze_followup}
         />
         <UsaButton onClick={reSnooze} buttonStyle="outline">

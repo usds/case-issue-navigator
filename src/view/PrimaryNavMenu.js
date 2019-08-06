@@ -15,7 +15,7 @@ export default function PrimaryNavMenu(props) {
         activeClassName="usa-current"
         className={"usa-nav__link"}
       >
-        {i} ({props.case_count[i] || 0})
+        {i} {props.summary && `(${props.summary[i]})`}
       </NavLink>
     </li>
   ));

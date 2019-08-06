@@ -19,11 +19,7 @@ class SnoozeForm extends Component {
 
   formSubmit(e) {
     e.preventDefault(); // nobody wants an actual form submission
-    this.props.callback.snooze(
-      this.props.rowData,
-      this.getSelectedOption(),
-      this.state.snoozeInputs.followUp
-    );
+    this.props.callback.snooze(this.props.rowData, this.getSelectedOption());
     this.props.callback.closeDialog();
   }
 
@@ -32,19 +28,20 @@ class SnoozeForm extends Component {
   }
 
   snoozeDaysRequested() {
-    return this.getSelectedOption().snooze_days;
+    return this.getSelectedOption().duration;
   }
   deSnoozeCheck() {
-    if (this.props.rowData.desnoozed) {
-      const now = new Date(); // cheating!
+    if (this.props.rowData.previouslySnoozed) {
+      const snoozeStart = new Date(
+        this.props.rowData.snoozeInformation.snoozeStart
+      ).toLocaleDateString("en-US");
 
       return (
         <div className="usa-alert usa-alert--warning usa-alert--slim">
           <div className="usa-alert__body">
             <p className="usa-alert__text">
-              Case was previously snoozed on {now.getMonth() + 1}/
-              {now.getDate()}/{now.getFullYear()}. Reason given:{" "}
-              {this.props.rowData.snooze_option.short_text}.
+              Case was previously snoozed on {snoozeStart}. Reason given:{" "}
+              {this.props.rowData.snoozeInformation.snoozeReason}.
             </p>
           </div>
         </div>
@@ -56,16 +53,16 @@ class SnoozeForm extends Component {
     let selectedOption = {};
     if (this.state._enabled) {
       selectedOption = this.getSelectedOption();
-      const snooze_days = selectedOption.snooze_days;
+      const duration = selectedOption.duration;
       buttonText =
-        "Snooze for " + snooze_days + " day" + (snooze_days === 1 ? "" : "s");
+        "Snooze for " + duration + " day" + (duration === 1 ? "" : "s");
     }
     return (
       <form className="usa-form">
         {this.deSnoozeCheck()}
         <SnoozeInputs
           onChange={this.formChange.bind(this)}
-          options={formConfig.snooze_options}
+          options={formConfig.snoozeOptions}
           selectedOption={this.getSelectedOption()}
         />
         <UsaButton

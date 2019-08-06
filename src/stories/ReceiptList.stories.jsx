@@ -5,49 +5,40 @@ import ReceiptList from "../view/ReceiptList";
 
 const sampleCases = [
   {
-    caseAge: 1660,
-    i90SP: "false",
-    caseStatus: "Pending",
-    caseState: "Happy",
-    caseId: "18446",
-    caseSubstatus: "Printing",
-    channelType: "Pigeon",
-    creationDate: "2015-01-07",
     receiptNumber: "FKE5381523",
-    applicationReason: "Boredom"
+    caseCreation: "2015-05-01T19:00:00-00:00",
+    extraData: {
+      caseStatus: "Pending",
+      caseState: "Happy",
+      caseSubstatus: "Printing",
+      channelType: "Pigeon",
+      streamlinedProcess: false,
+      applicationReason: "Boredom"
+    }
   },
   {
-    caseAge: 1647,
-    i90SP: "false",
-    caseStatus: "Eschewing Obfuscation",
-    caseState: "Happy",
-    caseId: "96585",
-    caseSubstatus: "Amazingly Successful",
-    channelType: "Semaphore",
-    creationDate: "2015-01-20",
     receiptNumber: "FKE8206743",
-    applicationReason: "Boredom"
-  },
-  {
-    caseAge: 1646,
-    i90SP: "true",
-    caseStatus: "Eschewing Obfuscation",
-    caseState: "Despondent",
-    caseId: "16433",
-    caseSubstatus: "Printing",
-    channelType: "Pigeon",
-    creationDate: "2015-01-21",
-    receiptNumber: "FKE8731511",
-    applicationReason: "Enthusiasm"
+    caseCreation: "2015-05-20T19:00:00-00:00",
+    extraData: {
+      extraData: {
+        caseStatus: "Eschewing Obfuscation",
+        caseState: "Happy",
+        caseSubstatus: "Amazingly Successful",
+        channelType: "Semaphore",
+        streamlinedProcess: true,
+        applicationReason: "Enthusiasm"
+      }
+    }
   }
 ];
 
-const snoozeOption = {
-  follow_up: "Who is the case being assigned to?",
-  short_text: "Assigned",
-  snooze_days: 5,
-  text: "Case has been assigned - remind me later",
-  value: "assigned_case"
+const tomorrow = new Date().setDate(new Date().getDate() + 1);
+
+const snoozeInformation = {
+  snoozeEnd: tomorrow,
+  snoozeReason: "Just Because",
+  snoozeDetails: null,
+  snoozeStart: "2019-08-05T18:33:08.063408-04:00"
 };
 
 storiesOf("ReceiptList", module)
@@ -67,7 +58,7 @@ storiesOf("ReceiptList", module)
       view="Snoozed Cases"
       cases={sampleCases.map(sample => ({
         ...sample,
-        snooze_option: snoozeOption
+        snoozeInformation
       }))}
       callback={{
         snoozeUpdate: action("show actions clicked!"),
