@@ -30,7 +30,7 @@ export default function SnoozeInputs(props) {
   let follow_up_fragment = null;
   if (
     formState.selectedOption &&
-    formState.selectedOption.follow_up !== undefined
+    formState.selectedOption.followUp !== undefined
   ) {
     follow_up_fragment = (
       <UsaTextInput
@@ -38,7 +38,7 @@ export default function SnoozeInputs(props) {
         onChange={elementChange}
         defaultValue={formState.followUp}
       >
-        {formState.selectedOption.follow_up}
+        {formState.selectedOption.followUp}
       </UsaTextInput>
     );
   }
