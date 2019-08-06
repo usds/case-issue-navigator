@@ -3,6 +3,7 @@ import { ActionModal } from "../util/ActionModal";
 import DeSnoozeForm from "../../controller/DeSnoozeForm";
 import ReceiptList from "../ReceiptList";
 import UsaButton from "../util/UsaButton";
+import { VIEWS } from "../../controller/config";
 
 const SnoozedCaseList = props => {
   const { loadCases } = props;
@@ -26,7 +27,7 @@ const SnoozedCaseList = props => {
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
-        view="Snoozed Cases"
+        view={VIEWS.SNOOZED_CASES.TITLE}
       />
       {!props.isLoading && (
         <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>

@@ -1,14 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// this should come from the DB
-const elisCaseUrlBase =
-  "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
+import { ELIS_CASE_BASE_URL } from "../controller/config";
 
 const cellDispatch = {
   LINK: (r, rowData) => (
     <>
-      <a href={elisCaseUrlBase + r} target="_elis_viewer">
+      <a href={ELIS_CASE_BASE_URL + r} target="_elis_viewer">
         {r}
       </a>
       {rowData.desnoozed ? (

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
-import formConfig from "./config";
+import { SNOOZE_OPTIONS } from "./config";
 
 export default function DeSnoozeForm(props) {
   const rowData = props.rowData;
@@ -31,8 +31,8 @@ export default function DeSnoozeForm(props) {
         <SnoozeInputs
           label="New snooze reason:"
           onChange={updateInputs}
-          options={formConfig.snoozeOptions}
-          selectedOption={rowData.snoozeOptions}
+          options={SNOOZE_OPTIONS}
+          selectedOption={rowData.snoozeInformation}
           followUp={rowData.snooze_followup}
         />
         <UsaButton onClick={reSnooze} buttonStyle="outline">

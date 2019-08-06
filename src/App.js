@@ -10,10 +10,10 @@ import { UsaAlert } from "./view/util/UsaAlert";
 import configureCaseFetcher from "./model/caseFetcher";
 import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
+import { BASE_URL, VIEWS } from "./controller/config";
 
 library.add(fas);
 
-const BASE_URL = "http://localhost:8080";
 const caseFetcher = configureCaseFetcher({
   baseUrl: BASE_URL,
   resultsPerPage: 20
@@ -85,8 +85,8 @@ class App extends Component {
 
       this.setState({
         summary: {
-          "Cases to work": neverSnoozed + previouslySnoozed,
-          "Snoozed Cases": currentlySnoozed
+          [VIEWS.CASES_TO_WORK.TITLE]: neverSnoozed + previouslySnoozed,
+          [VIEWS.SNOOZED_CASES.TITLE]: currentlySnoozed
         }
       });
     });
@@ -182,7 +182,7 @@ class App extends Component {
       <div className="case-issue-navigator">
         <PrimaryNavMenu
           title="Case Issue Navigator"
-          items={["Cases to work", "Snoozed Cases"]}
+          views={VIEWS}
           summary={this.state.summary}
         />
         <main id="main-content">
@@ -200,7 +200,7 @@ class App extends Component {
             </UsaAlert>
           ))}
           <Route
-            path="/Cases to work"
+            path={`/${VIEWS.CASES_TO_WORK.ROUTE}`}
             render={props => (
               <ActiveCaseList
                 {...props}
@@ -215,7 +215,7 @@ class App extends Component {
             )}
           />
           <Route
-            path="/Snoozed Cases"
+            path={`/${VIEWS.SNOOZED_CASES.ROUTE}`}
             render={props => (
               <SnoozedCaseList
                 {...props}

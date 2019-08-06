@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import ReceiptList from "../view/ReceiptList";
+import { VIEWS } from "../controller/config";
 
 const sampleCases = [
   {
@@ -45,7 +46,7 @@ storiesOf("ReceiptList", module)
   .add("Empty Receipt List", () => <ReceiptList cases={[]} />)
   .add("Tabular Cases-to-Work List with some items", () => (
     <ReceiptList
-      view="Cases to work"
+      view={VIEWS.CASES_TO_WORK.TITLE}
       cases={sampleCases}
       callback={{
         snoozeUpdate: action("show actions clicked!"),
@@ -55,7 +56,7 @@ storiesOf("ReceiptList", module)
   ))
   .add("Tabular Snoozed Case List with some items", () => (
     <ReceiptList
-      view="Snoozed Cases"
+      view={VIEWS.SNOOZED_CASES.TITLE}
       cases={sampleCases.map(sample => ({
         ...sample,
         snoozeInformation

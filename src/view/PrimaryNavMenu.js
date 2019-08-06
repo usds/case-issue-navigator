@@ -8,14 +8,14 @@ function uswds_image(img_name) {
 }
 
 export default function PrimaryNavMenu(props) {
-  const navItems = props.items.map(i => (
-    <li key={i} className="usa-nav__primary-item">
+  const navItems = Object.values(props.views).map(view => (
+    <li key={view.ROUTE} className="usa-nav__primary-item">
       <NavLink
-        to={"/" + i}
+        to={"/" + view.ROUTE}
         activeClassName="usa-current"
         className={"usa-nav__link"}
       >
-        {i} {props.summary && `(${props.summary[i]})`}
+        {view.TITLE} {props.summary && `(${props.summary[view.TITLE]})`}
       </NavLink>
     </li>
   ));

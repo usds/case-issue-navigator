@@ -3,6 +3,7 @@ import { ActionModal } from "../util/ActionModal";
 import SnoozeForm from "../../controller/SnoozeForm";
 import ReceiptList from "../ReceiptList";
 import UsaButton from "../util/UsaButton";
+import { VIEWS } from "../../controller/config";
 
 const ActiveCaseList = props => {
   const { loadCases } = props;
@@ -26,7 +27,7 @@ const ActiveCaseList = props => {
       <ReceiptList
         cases={props.cases}
         callback={props.callbacks}
-        view="Cases to work"
+        view={VIEWS.CASES_TO_WORK.TITLE}
         isLoading={props.isLoading}
       />
       {!props.isLoading && (

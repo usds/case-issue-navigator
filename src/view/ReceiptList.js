@@ -1,9 +1,7 @@
 import React from "react";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
 import UsaButton from "./util/UsaButton";
-
-const CASES_TO_WORK = "CASES_TO_WORK";
-const SNOOZED_CASES = "SNOOZED_CASES";
+import { VIEWS } from "../controller/config";
 
 function buttonizer(text, buttonClass, callbackKey) {
   return (_, rowData, __, callback) => (
@@ -20,12 +18,12 @@ const i90_headers = [
     header: "Receipt Number",
     field: "receiptNumber",
     content: "LINK",
-    views: [CASES_TO_WORK, SNOOZED_CASES]
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Case Age",
     field: "caseCreation",
-    views: [CASES_TO_WORK, SNOOZED_CASES],
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE],
     content: d => {
       const days = Math.ceil((new Date() - new Date(d)) / 86400000);
       const plural = days === 1 ? "" : "s";
@@ -36,31 +34,31 @@ const i90_headers = [
     header: "Case Creation",
     field: "caseCreation",
     content: "DATE",
-    views: [CASES_TO_WORK, SNOOZED_CASES]
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Case Status",
     field: "extraData",
     content: field => field.caseStatus,
-    views: [CASES_TO_WORK]
+    views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Case Substatus",
     field: "extraData",
     content: field => field.caseSubstatus,
-    views: [CASES_TO_WORK]
+    views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Platform",
     field: "extraData",
     content: d => (d.streamlinedProcess === "true" ? "SP" : "Legacy"),
-    views: [CASES_TO_WORK, SNOOZED_CASES]
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Problem",
     field: "snoozeInformation",
     content: field => field.snoozeReason,
-    views: [SNOOZED_CASES]
+    views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Snoozed",
@@ -72,12 +70,12 @@ const i90_headers = [
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     },
-    views: [SNOOZED_CASES]
+    views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Assigned",
     field: "assigned",
-    views: [CASES_TO_WORK, SNOOZED_CASES]
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "SN Ticket #",
@@ -86,19 +84,19 @@ const i90_headers = [
       // TODO: Only return snoozeDetails that match Regex
       return field.snoozeDetails;
     },
-    views: [SNOOZED_CASES]
+    views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Actions",
     field: "_",
     content: buttonizer("Snooze", "outline", "details"),
-    views: [CASES_TO_WORK]
+    views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Actions",
     field: "snooze_option",
     content: buttonizer("Update", "outline", "snoozeUpdate"),
-    views: [SNOOZED_CASES]
+    views: [VIEWS.SNOOZED_CASES.TITLE]
   }
 ];
 
@@ -109,14 +107,8 @@ export default function ReceiptList(props) {
   if (!props.cases.length) {
     return <p>{props.isLoading ? "Loading..." : "No cases found."}</p>;
   }
-  let header_definitions;
-  if (props.view === "Snoozed Cases") {
-    header_definitions = getCases(SNOOZED_CASES);
-  }
 
-  if (props.view === "Cases to work") {
-    header_definitions = getCases(CASES_TO_WORK);
-  }
+  const header_definitions = getCases(props.view);
 
   return (
     <TabularList
