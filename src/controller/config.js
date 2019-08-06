@@ -1,44 +1,38 @@
 export default {
-  snooze_options: [
+  snoozeOptions: [
     {
       value: "test_data",
-      text: "Test Data - should be deleted",
-      short_text: "Test Data",
-      snooze_days: 365
+      snoozeReason: "Test Data - should be deleted",
+      duration: 365
     },
     {
       value: "assigned_case",
-      text: "Case has been assigned - remind me later",
-      short_text: "Assigned",
-      snooze_days: 5,
-      follow_up: "Who is the case being assigned to?"
+      snoozeReason: "Case has been assigned - remind me later",
+      duration: 5,
+      followUp: "Who is the case being assigned to?"
     },
     {
       value: "in_proceedings",
-      short_text: "In Proceedings",
-      text: "Case is pending removal proceedings - check back later",
-      snooze_days: 30
+      snoozeReason: "Case is pending removal proceedings - check back later",
+      duration: 30
     },
     {
       value: "fo_refferal",
-      text: "Stuck at field office - awaiting response",
-      short_text: "Field Office",
-      follow_up: "Enter Field Office location code:",
-      snooze_days: 5
+      snoozeReason: "Stuck at field office - awaiting response",
+      followUp: "Enter Field Office location code:",
+      duration: 5
     },
     {
       value: "technical_issue",
-      text: "Technical Issue - awaiting resolution through ServiceNow",
-      short_text: "Technical Bug",
-      follow_up: "ServiceNow ticket ID:",
-      snooze_days: 14
+      snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
+      followUp: "ServiceNow ticket ID:",
+      duration: 14
     },
     {
       value: "bcu",
-      text: "Referral to BCU or CFDO",
-      short_text: "Referring to BCU/CFDO",
-      follow_up: "Reason for referral",
-      snooze_days: 30
+      snoozeReason: "Referral to BCU or CFDO",
+      followUp: "Reason for referral",
+      duration: 30
     }
   ]
 };

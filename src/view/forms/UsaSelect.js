@@ -27,7 +27,7 @@ export default function UsaSelect(props) {
         {placeholder}
         {props.options.map(opt => (
           <option key={opt.value} value={opt.value}>
-            {opt.text}
+            {opt.snoozeReason}
           </option>
         ))}
       </select>

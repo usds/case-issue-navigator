@@ -178,25 +178,27 @@ class App extends Component {
     this.setState({ snoozed_cases: new_snooze });
   }
 
-  snooze(rowData, snooze_option, snooze_text) {
+  snooze(rowData, snoozeOption) {
     const new_snoozed = [
       ...this.state.snoozed_cases,
-      _snoozeRow(rowData, snooze_option, snooze_text)
+      _snoozeRow(rowData, snoozeOption)
     ];
     this.setState({
       active_cases: this.state.active_cases.filter(
         c => c.receiptNumber !== rowData.receiptNumber
       ),
       snoozed_cases: new_snoozed.sort(
-        (a, b) => a.snooze_option.snooze_days - b.snooze_option.snooze_days
+        (a, b) =>
+          new Date(a.snoozeInformation.snoozeEnd) -
+          new Date(b.snoozeInformation.snoozeEnd)
       ),
       alerts: [
         {
           alertType: "success",
           content: `${rowData.receiptNumber} has been Snoozed for ${
-            snooze_option.snooze_days
-          } day${snooze_option.snooze_days !== 1 && "s"} due to ${
-            snooze_option.short_text
+            snoozeOption.duration
+          } day${snoozeOption.duration !== 1 && "s"} due to ${
+            snoozeOption.snoozeReason
           }.`
         },
         ...this.state.alerts
@@ -297,8 +299,8 @@ function SnoozedCaseList(props) {
   );
 }
 
-function _snoozeRow(rowData, option, follow_up_text) {
-  return { ...rowData, snooze_option: option, snooze_followup: follow_up_text };
+function _snoozeRow(rowData, snoozeInformation) {
+  return { ...rowData, snoozeInformation };
 }
 
 export default App;
