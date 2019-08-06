@@ -32,8 +32,10 @@ const sampleCases = [
   }
 ];
 
+const tomorrow = new Date().setDate(new Date().getDate() + 1);
+
 const snoozeInformation = {
-  snoozeEnd: "2019-08-07T03:00:00-04:00",
+  snoozeEnd: tomorrow,
   snoozeReason: "Just Because",
   snoozeDetails: null,
   snoozeStart: "2019-08-05T18:33:08.063408-04:00"
