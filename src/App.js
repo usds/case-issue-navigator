@@ -1,18 +1,15 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
-import ReceiptList from "./view/ReceiptList";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
-import SnoozeForm from "./controller/SnoozeForm";
-import DeSnoozeForm from "./controller/DeSnoozeForm";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { UsaAlert } from "./view/util/UsaAlert";
-import { ActionModal } from "./view/util/ActionModal";
 import configureCaseFetcher from "./model/caseFetcher";
-import UsaButton from "./view/util/UsaButton";
+import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
+import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
 
 library.add(fas);
 
@@ -95,6 +92,78 @@ class App extends Component {
     });
   };
 
+  dismissAlert = selectedAlert => {
+    this.setState({
+      alerts: this.state.alerts.filter(alert => alert !== selectedAlert)
+    });
+  };
+
+  reSnooze(rowData, snooze_option, snooze_text) {
+    const new_snooze = this.state.snoozed_cases.filter(
+      c => c.receiptNumber !== rowData.receiptNumber
+    );
+    new_snooze.push(_snoozeRow(rowData, snooze_option, snooze_text));
+    this.setState({ snoozed_cases: new_snooze });
+  }
+
+  snooze(rowData, snoozeOption) {
+    const new_snoozed = [
+      ...this.state.snoozed_cases,
+      _snoozeRow(rowData, snoozeOption)
+    ];
+    this.setState({
+      active_cases: this.state.active_cases.filter(
+        c => c.receiptNumber !== rowData.receiptNumber
+      ),
+      snoozed_cases: new_snoozed.sort(
+        (a, b) =>
+          new Date(a.snoozeInformation.snoozeEnd) -
+          new Date(b.snoozeInformation.snoozeEnd)
+      ),
+      alerts: [
+        {
+          alertType: "success",
+          content: `${rowData.receiptNumber} has been Snoozed for ${
+            snoozeOption.duration
+          } day${snoozeOption.duration !== 1 && "s"} due to ${
+            snoozeOption.snoozeReason
+          }.`
+        },
+        ...this.state.alerts
+      ]
+    });
+  }
+
+  deSnooze(rowData) {
+    let new_active = [...this.state.active_cases];
+    new_active.unshift({ ...rowData, desnoozed: true });
+    this.setState({
+      snoozed_cases: this.state.snoozed_cases.filter(
+        c => c.receiptNumber !== rowData.receiptNumber
+      ),
+      active_cases: new_active,
+      alerts: [
+        {
+          alertType: "info",
+          content: `${rowData.receiptNumber} has been Unsnoozed.`
+        },
+        ...this.state.alerts
+      ]
+    });
+  }
+
+  detailView(rowData) {
+    this.setState({
+      showDialog: true,
+      dialogTitle: rowData.receiptNumber,
+      clickedRow: rowData
+    });
+  }
+
+  closeDialog() {
+    this.setState({ showDialog: false, clickedRow: null });
+  }
+
   componentDidMount() {
     this.updateSummaryData();
   }
@@ -164,144 +233,6 @@ class App extends Component {
       </div>
     );
   }
-
-  dismissAlert = selectedAlert => {
-    this.setState({
-      alerts: this.state.alerts.filter(alert => alert !== selectedAlert)
-    });
-  };
-
-  reSnooze(rowData, snooze_option, snooze_text) {
-    const new_snooze = this.state.snoozed_cases.filter(
-      c => c.receiptNumber !== rowData.receiptNumber
-    );
-    new_snooze.push(_snoozeRow(rowData, snooze_option, snooze_text));
-    this.setState({ snoozed_cases: new_snooze });
-  }
-
-  snooze(rowData, snoozeOption) {
-    const new_snoozed = [
-      ...this.state.snoozed_cases,
-      _snoozeRow(rowData, snoozeOption)
-    ];
-    this.setState({
-      active_cases: this.state.active_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      snoozed_cases: new_snoozed.sort(
-        (a, b) =>
-          new Date(a.snoozeInformation.snoozeEnd) -
-          new Date(b.snoozeInformation.snoozeEnd)
-      ),
-      alerts: [
-        {
-          alertType: "success",
-          content: `${rowData.receiptNumber} has been Snoozed for ${
-            snoozeOption.duration
-          } day${snoozeOption.duration !== 1 && "s"} due to ${
-            snoozeOption.snoozeReason
-          }.`
-        },
-        ...this.state.alerts
-      ]
-    });
-  }
-
-  deSnooze(rowData) {
-    let new_active = [...this.state.active_cases];
-    new_active.unshift({ ...rowData, desnoozed: true });
-    this.setState({
-      snoozed_cases: this.state.snoozed_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      active_cases: new_active,
-      alerts: [
-        {
-          alertType: "info",
-          content: `${rowData.receiptNumber} has been Unsnoozed.`
-        },
-        ...this.state.alerts
-      ]
-    });
-  }
-  detailView(rowData) {
-    this.setState({
-      showDialog: true,
-      dialogTitle: rowData.receiptNumber,
-      clickedRow: rowData
-    });
-  }
-
-  closeDialog() {
-    this.setState({ showDialog: false, clickedRow: null });
-  }
-}
-
-function ActiveCaseList(props) {
-  const { loadCases } = props;
-  const [currentPage, setCurrentPage] = useState(0);
-
-  useEffect(() => {
-    loadCases(currentPage);
-  }, [loadCases, currentPage]);
-
-  return (
-    <React.Fragment>
-      {props.showDialog && (
-        <ActionModal
-          isOpen={props.showDialog}
-          title={props.dialogTitle}
-          closeModal={props.callbacks.closeDialog}
-        >
-          <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        </ActionModal>
-      )}
-      <ReceiptList
-        cases={props.cases}
-        callback={props.callbacks}
-        view="Cases to work"
-        isLoading={props.isLoading}
-      />
-      {!props.isLoading && (
-        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-          Load More Cases
-        </UsaButton>
-      )}
-    </React.Fragment>
-  );
-}
-
-function SnoozedCaseList(props) {
-  const { loadCases } = props;
-  const [currentPage, setCurrentPage] = useState(0);
-
-  useEffect(() => {
-    loadCases(currentPage);
-  }, [loadCases, currentPage]);
-
-  return (
-    <React.Fragment>
-      {props.showDialog && (
-        <ActionModal
-          isOpen={props.showDialog}
-          title={props.dialogTitle}
-          closeModal={props.callbacks.closeDialog}
-        >
-          <DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        </ActionModal>
-      )}
-      <ReceiptList
-        cases={props.cases}
-        callback={props.callbacks}
-        view="Snoozed Cases"
-      />
-      {!props.isLoading && (
-        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-          Load More Cases
-        </UsaButton>
-      )}
-    </React.Fragment>
-  );
 }
 
 function _snoozeRow(rowData, snoozeInformation) {
