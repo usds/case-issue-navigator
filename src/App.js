@@ -31,7 +31,8 @@ class App extends Component {
       summary: null,
       showDialog: false,
       alerts: [],
-      dataRefresh: null
+      dataRefresh: null,
+      isLoading: false
     };
   }
 
@@ -261,9 +262,11 @@ function ActiveCaseList(props) {
         view="Cases to work"
         isLoading={props.isLoading}
       />
-      <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-        Load More Cases
-      </UsaButton>
+      {!props.isLoading && (
+        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
+          Load More Cases
+        </UsaButton>
+      )}
     </React.Fragment>
   );
 }
@@ -292,9 +295,11 @@ function SnoozedCaseList(props) {
         callback={props.callbacks}
         view="Snoozed Cases"
       />
-      <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-        Load More Cases
-      </UsaButton>
+      {!props.isLoading && (
+        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
+          Load More Cases
+        </UsaButton>
+      )}
     </React.Fragment>
   );
 }
