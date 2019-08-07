@@ -8,7 +8,7 @@ import { getHeaders } from "../view/util/getHeaders";
 const sampleCases = [
   {
     receiptNumber: "FKE5381523",
-    caseCreation: "2015-05-01T19:00:00-00:00",
+    caseCreation: new Date().setDate(new Date().getDate() - 100),
     extraData: {
       caseStatus: "Pending",
       caseState: "Happy",
@@ -20,7 +20,7 @@ const sampleCases = [
   },
   {
     receiptNumber: "FKE8206743",
-    caseCreation: "2015-05-20T19:00:00-00:00",
+    caseCreation: new Date().setDate(new Date().getDate() - 150),
     extraData: {
       extraData: {
         caseStatus: "Eschewing Obfuscation",

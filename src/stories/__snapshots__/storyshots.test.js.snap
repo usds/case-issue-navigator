@@ -49,10 +49,10 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1559 days
+        101 days
       </td>
       <td>
-        5/1/2015
+        4/29/2019
       </td>
       <td>
         Pending
@@ -85,10 +85,10 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
-        1540 days
+        151 days
       </td>
       <td>
-        5/20/2015
+        3/10/2019
       </td>
       <td />
       <td />
@@ -157,10 +157,10 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1559 days
+        101 days
       </td>
       <td>
-        5/1/2015
+        4/29/2019
       </td>
       <td>
         Legacy
@@ -194,10 +194,10 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        1540 days
+        151 days
       </td>
       <td>
-        5/20/2015
+        3/10/2019
       </td>
       <td>
         Legacy
