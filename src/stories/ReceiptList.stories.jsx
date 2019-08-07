@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import ReceiptList from "../view/ReceiptList";
 import { VIEWS } from "../controller/config";
+import ReceiptList from "../view/tables/ReceiptList";
 
 const sampleCases = [
   {

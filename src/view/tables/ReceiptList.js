@@ -1,18 +1,8 @@
 import React from "react";
-import ReceiptDisplayRow from "./ReceiptDisplayRow";
-import UsaButton from "./util/UsaButton";
-import { VIEWS } from "../controller/config";
+import { VIEWS } from "../../controller/config";
+import { buttonizer } from "../util/buttonizer";
+import { TabularList } from "./TabularList";
 
-function buttonizer(text, buttonClass, callbackKey) {
-  return (_, rowData, __, callback) => (
-    <UsaButton
-      onClick={() => callback[callbackKey](rowData)}
-      buttonStyle={buttonClass}
-    >
-      {text}
-    </UsaButton>
-  );
-}
 const i90_headers = [
   {
     header: "Receipt Number",
@@ -118,27 +108,3 @@ export default function ReceiptList(props) {
     />
   );
 }
-
-const TabularList = props => {
-  return (
-    <table className="usa-table usa-table--borderless width-full">
-      <thead>
-        <tr>
-          {props.header_definitions.map(h => (
-            <th key={h.header}>{h.header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {props.cases.map(r => (
-          <ReceiptDisplayRow
-            key={"ELIS-" + r.receiptNumber}
-            data={r}
-            headers={props.header_definitions}
-            callback={props.callback}
-          />
-        ))}
-      </tbody>
-    </table>
-  );
-};

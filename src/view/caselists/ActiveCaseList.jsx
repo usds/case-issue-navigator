@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ActionModal } from "../util/ActionModal";
 import SnoozeForm from "../../controller/SnoozeForm";
-import ReceiptList from "../ReceiptList";
+import ReceiptList from "../tables/ReceiptList";
 import UsaButton from "../util/UsaButton";
 import { VIEWS } from "../../controller/config";
 
