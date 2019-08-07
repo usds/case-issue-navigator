@@ -10,7 +10,8 @@ import { UsaAlert } from "./view/util/UsaAlert";
 import configureCaseFetcher from "./model/caseFetcher";
 import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
-import { BASE_URL, VIEWS } from "./controller/config";
+import { BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
+import { getHeaders } from "./view/util/getHeaders";
 
 library.add(fas);
 
@@ -211,6 +212,7 @@ class App extends Component {
                 cases={this.state.active_cases}
                 isLoading={this.state.isLoading}
                 loadCases={this.loadActiveCases}
+                headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
               />
             )}
           />
@@ -226,6 +228,7 @@ class App extends Component {
                 cases={this.state.snoozed_cases}
                 isLoading={this.state.isLoading}
                 loadCases={this.loadSnoozedCases}
+                headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
               />
             )}
           />

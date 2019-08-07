@@ -29,6 +29,7 @@ const ActiveCaseList = props => {
         callback={props.callbacks}
         view={VIEWS.CASES_TO_WORK.TITLE}
         isLoading={props.isLoading}
+        headers={props.headers}
       />
       {!props.isLoading && (
         <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>

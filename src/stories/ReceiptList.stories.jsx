@@ -1,8 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { VIEWS } from "../controller/config";
+import { VIEWS, I90_HEADERS } from "../controller/config";
 import ReceiptList from "../view/tables/ReceiptList";
+import { getHeaders } from "../view/util/getHeaders";
 
 const sampleCases = [
   {
@@ -52,6 +53,7 @@ storiesOf("ReceiptList", module)
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
       }}
+      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
     />
   ))
   .add("Tabular Snoozed Case List with some items", () => (
@@ -65,5 +67,6 @@ storiesOf("ReceiptList", module)
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
       }}
+      headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
     />
   ));

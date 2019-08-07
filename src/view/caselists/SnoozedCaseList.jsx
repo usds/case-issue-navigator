@@ -28,6 +28,7 @@ const SnoozedCaseList = props => {
         cases={props.cases}
         callback={props.callbacks}
         view={VIEWS.SNOOZED_CASES.TITLE}
+        headers={props.headers}
       />
       {!props.isLoading && (
         <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
