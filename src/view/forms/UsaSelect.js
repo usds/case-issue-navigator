@@ -38,11 +38,11 @@ export default function UsaSelect(props) {
 UsaSelect.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string,
-  selected: PropTypes.string,
+  selected: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.object).isRequired // should be objectOf, but can't deal yet
 };
 
 UsaSelect.defaultProps = {
-  selected: false
+  selected: ""
 };

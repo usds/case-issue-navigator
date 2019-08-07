@@ -44,7 +44,16 @@ const snoozeInformation = {
 };
 
 storiesOf("ReceiptList", module)
-  .add("Empty Receipt List", () => <ReceiptList cases={[]} />)
+  .add("Empty Receipt List", () => (
+    <ReceiptList
+      cases={[]}
+      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+      callback={{
+        snoozeUpdate: action("show actions clicked!"),
+        details: action("details clicked!")
+      }}
+    />
+  ))
   .add("Tabular Cases-to-Work List with some items", () => (
     <ReceiptList
       view={VIEWS.CASES_TO_WORK.TITLE}

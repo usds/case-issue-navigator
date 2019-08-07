@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
@@ -46,3 +47,8 @@ export default function DeSnoozeForm(props) {
     </form>
   );
 }
+
+DeSnoozeForm.propTypes = {
+  rowData: PropTypes.object.isRequired,
+  callback: PropTypes.objectOf(PropTypes.func).isRequired
+};

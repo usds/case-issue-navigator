@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 import close from "uswds/dist/img/close.svg";
 
 Modal.setAppElement("#root");
@@ -25,6 +26,12 @@ const ActionModal = props => {
       {props.children}
     </Modal>
   );
+};
+
+ActionModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 
 export { ActionModal };

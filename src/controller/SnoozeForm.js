@@ -1,9 +1,15 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
 class SnoozeForm extends Component {
+  static propTypes = {
+    rowData: PropTypes.object.isRequired,
+    callback: PropTypes.objectOf(PropTypes.func).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = { snoozeInputs: {} };

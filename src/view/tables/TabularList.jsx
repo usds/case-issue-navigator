@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
 
 const TabularList = props => {
@@ -23,6 +24,12 @@ const TabularList = props => {
       </tbody>
     </table>
   );
+};
+
+TabularList.propTypes = {
+  header_definitions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cases: PropTypes.arrayOf(PropTypes.object).isRequired,
+  callback: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 export { TabularList };

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import UsaButton from "./util/UsaButton";
 import close from "uswds/dist/img/close.svg";
@@ -61,3 +62,9 @@ export default function PrimaryNavMenu(props) {
     </React.Fragment>
   );
 }
+
+PrimaryNavMenu.propTypes = {
+  views: PropTypes.objectOf(PropTypes.object).isRequired,
+  summary: PropTypes.objectOf(PropTypes.number),
+  title: PropTypes.string.isRequired
+};

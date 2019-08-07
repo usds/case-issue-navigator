@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { ActionModal } from "../util/ActionModal";
 import SnoozeForm from "../../controller/SnoozeForm";
 import ReceiptList from "../tables/ReceiptList";
@@ -38,6 +39,17 @@ const ActiveCaseList = props => {
       )}
     </React.Fragment>
   );
+};
+
+ActiveCaseList.propTypes = {
+  loadCases: PropTypes.func.isRequired,
+  showDialog: PropTypes.bool.isRequired,
+  dialogTitle: PropTypes.string,
+  callbacks: PropTypes.objectOf(PropTypes.func).isRequired,
+  clickedRow: PropTypes.object,
+  cases: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool.isRequired,
+  headers: PropTypes.arrayOf(PropTypes.object)
 };
 
 export { ActiveCaseList };

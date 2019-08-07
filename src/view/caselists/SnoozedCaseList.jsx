@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { ActionModal } from "../util/ActionModal";
 import DeSnoozeForm from "../../controller/DeSnoozeForm";
 import ReceiptList from "../tables/ReceiptList";
@@ -37,6 +38,17 @@ const SnoozedCaseList = props => {
       )}
     </React.Fragment>
   );
+};
+
+SnoozedCaseList.propTypes = {
+  loadCases: PropTypes.func.isRequired,
+  showDialog: PropTypes.bool.isRequired,
+  dialogTitle: PropTypes.string,
+  callbacks: PropTypes.objectOf(PropTypes.func).isRequired,
+  clickedRow: PropTypes.object,
+  cases: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool.isRequired,
+  headers: PropTypes.arrayOf(PropTypes.object)
 };
 
 export { SnoozedCaseList };

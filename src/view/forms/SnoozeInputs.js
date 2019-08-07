@@ -63,7 +63,9 @@ export default function SnoozeInputs(props) {
 SnoozeInputs.propTypes = {
   followUp: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
-  prefix: PropTypes.string
+  prefix: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  selectedOption: PropTypes.object
 };
 
 SnoozeInputs.defaultProps = {
