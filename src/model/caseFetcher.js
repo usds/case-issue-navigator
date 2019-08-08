@@ -1,6 +1,8 @@
+import { CASE_MANAGEMENT_SYSTEM, CASE_TYPE } from "../controller/config";
+
 const caseFetcher = ({ baseUrl, resultsPerPage }) => {
-  const caseManagementSystem = "DEFAULT";
-  const caseType = "STANDARD";
+  const caseManagementSystem = CASE_MANAGEMENT_SYSTEM;
+  const caseType = CASE_TYPE;
 
   const getCases = (activeOrSnoozed, page) => {
     return fetch(

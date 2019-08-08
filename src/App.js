@@ -1,22 +1,20 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
-import ReceiptList from "./view/ReceiptList";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
-import SnoozeForm from "./controller/SnoozeForm";
-import DeSnoozeForm from "./controller/DeSnoozeForm";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { UsaAlert } from "./view/util/UsaAlert";
-import { ActionModal } from "./view/util/ActionModal";
 import configureCaseFetcher from "./model/caseFetcher";
-import UsaButton from "./view/util/UsaButton";
+import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
+import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
+import { BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
+import { getHeaders } from "./view/util/getHeaders";
 
 library.add(fas);
 
-const BASE_URL = "http://localhost:8080";
 const caseFetcher = configureCaseFetcher({
   baseUrl: BASE_URL,
   resultsPerPage: 20
@@ -88,82 +86,12 @@ class App extends Component {
 
       this.setState({
         summary: {
-          "Cases to work": neverSnoozed + previouslySnoozed,
-          "Snoozed Cases": currentlySnoozed
+          [VIEWS.CASES_TO_WORK.TITLE]: neverSnoozed + previouslySnoozed,
+          [VIEWS.SNOOZED_CASES.TITLE]: currentlySnoozed
         }
       });
     });
   };
-
-  componentDidMount() {
-    this.updateSummaryData();
-  }
-
-  render() {
-    const callbacks = {
-      snooze: this.snooze.bind(this),
-      details: this.detailView.bind(this),
-      closeDialog: this.closeDialog.bind(this),
-      snoozeUpdate: this.detailView.bind(this),
-      deSnooze: this.deSnooze.bind(this),
-      reSnooze: this.reSnooze.bind(this)
-    };
-
-    return (
-      <div className="case-issue-navigator">
-        <PrimaryNavMenu
-          title="Case Issue Navigator"
-          items={["Cases to work", "Snoozed Cases"]}
-          summary={this.state.summary}
-        />
-        <main id="main-content">
-          <p>
-            Data sync:{" "}
-            {this.state.dataRefresh &&
-              `${this.state.dataRefresh.toLocaleDateString(
-                "en-US"
-              )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
-          </p>
-          {this.state.alerts.map(alert => (
-            <UsaAlert alertType={alert.alertType}>
-              {alert.content}{" "}
-              <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
-            </UsaAlert>
-          ))}
-          <Route
-            path="/Cases to work"
-            render={props => (
-              <ActiveCaseList
-                {...props}
-                showDialog={this.state.showDialog}
-                dialogTitle={this.state.dialogTitle}
-                callbacks={callbacks}
-                clickedRow={this.state.clickedRow}
-                cases={this.state.active_cases}
-                isLoading={this.state.isLoading}
-                loadCases={this.loadActiveCases}
-              />
-            )}
-          />
-          <Route
-            path="/Snoozed Cases"
-            render={props => (
-              <SnoozedCaseList
-                {...props}
-                showDialog={this.state.showDialog}
-                dialogTitle={this.state.dialogTitle}
-                callbacks={callbacks}
-                clickedRow={this.state.clickedRow}
-                cases={this.state.snoozed_cases}
-                isLoading={this.state.isLoading}
-                loadCases={this.loadSnoozedCases}
-              />
-            )}
-          />
-        </main>
-      </div>
-    );
-  }
 
   dismissAlert = selectedAlert => {
     this.setState({
@@ -224,6 +152,7 @@ class App extends Component {
       ]
     });
   }
+
   detailView(rowData) {
     this.setState({
       showDialog: true,
@@ -235,73 +164,78 @@ class App extends Component {
   closeDialog() {
     this.setState({ showDialog: false, clickedRow: null });
   }
-}
 
-function ActiveCaseList(props) {
-  const { loadCases } = props;
-  const [currentPage, setCurrentPage] = useState(0);
+  componentDidMount() {
+    this.updateSummaryData();
+  }
 
-  useEffect(() => {
-    loadCases(currentPage);
-  }, [loadCases, currentPage]);
+  render() {
+    const callbacks = {
+      snooze: this.snooze.bind(this),
+      details: this.detailView.bind(this),
+      closeDialog: this.closeDialog.bind(this),
+      snoozeUpdate: this.detailView.bind(this),
+      deSnooze: this.deSnooze.bind(this),
+      reSnooze: this.reSnooze.bind(this)
+    };
 
-  return (
-    <React.Fragment>
-      {props.showDialog && (
-        <ActionModal
-          isOpen={props.showDialog}
-          title={props.dialogTitle}
-          closeModal={props.callbacks.closeDialog}
-        >
-          <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        </ActionModal>
-      )}
-      <ReceiptList
-        cases={props.cases}
-        callback={props.callbacks}
-        view="Cases to work"
-        isLoading={props.isLoading}
-      />
-      {!props.isLoading && (
-        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-          Load More Cases
-        </UsaButton>
-      )}
-    </React.Fragment>
-  );
-}
-
-function SnoozedCaseList(props) {
-  const { loadCases } = props;
-  const [currentPage, setCurrentPage] = useState(0);
-
-  useEffect(() => {
-    loadCases(currentPage);
-  }, [loadCases, currentPage]);
-
-  return (
-    <React.Fragment>
-      {props.showDialog && (
-        <ActionModal
-          isOpen={props.showDialog}
-          title={props.dialogTitle}
-          closeModal={props.callbacks.closeDialog}
-        >
-          <DeSnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
-        </ActionModal>
-      )}
-      <ReceiptList
-        cases={props.cases}
-        callback={props.callbacks}
-        view="Snoozed Cases"
-      />
-      {!props.isLoading && (
-        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-          Load More Cases
-        </UsaButton>
-      )}
-    </React.Fragment>
-  );
+    return (
+      <div className="case-issue-navigator">
+        <PrimaryNavMenu
+          title="Case Issue Navigator"
+          views={VIEWS}
+          summary={this.state.summary}
+        />
+        <main id="main-content">
+          <p>
+            Data sync:{" "}
+            {this.state.dataRefresh &&
+              `${this.state.dataRefresh.toLocaleDateString(
+                "en-US"
+              )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
+          </p>
+          {this.state.alerts.map(alert => (
+            <UsaAlert alertType={alert.alertType}>
+              {alert.content}{" "}
+              <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
+            </UsaAlert>
+          ))}
+          <Route
+            path={`/${VIEWS.CASES_TO_WORK.ROUTE}`}
+            render={props => (
+              <ActiveCaseList
+                {...props}
+                showDialog={this.state.showDialog}
+                dialogTitle={this.state.dialogTitle}
+                callbacks={callbacks}
+                clickedRow={this.state.clickedRow}
+                cases={this.state.active_cases}
+                isLoading={this.state.isLoading}
+                loadCases={this.loadActiveCases}
+                headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+              />
+            )}
+          />
+          <Route
+            path={`/${VIEWS.SNOOZED_CASES.ROUTE}`}
+            render={props => (
+              <SnoozedCaseList
+                {...props}
+                showDialog={this.state.showDialog}
+                dialogTitle={this.state.dialogTitle}
+                callbacks={callbacks}
+                clickedRow={this.state.clickedRow}
+                cases={this.state.snoozed_cases}
+                isLoading={this.state.isLoading}
+                loadCases={this.loadSnoozedCases}
+                headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
+              />
+            )}
+          />
+        </main>
+      </div>
+    );
+  }
 }
 
 function _snoozeRow(rowData, snoozeInformation) {

@@ -1,9 +1,15 @@
 import React, { Component } from "react";
-import formConfig from "./config";
+import PropTypes from "prop-types";
+import { SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
 class SnoozeForm extends Component {
+  static propTypes = {
+    rowData: PropTypes.object.isRequired,
+    callback: PropTypes.objectOf(PropTypes.func).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = { snoozeInputs: {} };
@@ -62,7 +68,7 @@ class SnoozeForm extends Component {
         {this.deSnoozeCheck()}
         <SnoozeInputs
           onChange={this.formChange.bind(this)}
-          options={formConfig.snoozeOptions}
+          options={SNOOZE_OPTIONS}
           selectedOption={this.getSelectedOption()}
         />
         <UsaButton

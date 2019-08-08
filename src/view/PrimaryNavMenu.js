@@ -1,21 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import UsaButton from "./util/UsaButton";
-
-// Hacky McHackface
-function uswds_image(img_name) {
-  return require("../../node_modules/uswds/dist/img/" + img_name);
-}
+import close from "uswds/dist/img/close.svg";
 
 export default function PrimaryNavMenu(props) {
-  const navItems = props.items.map(i => (
-    <li key={i} className="usa-nav__primary-item">
+  const navItems = Object.values(props.views).map(view => (
+    <li key={view.ROUTE} className="usa-nav__primary-item">
       <NavLink
-        to={"/" + i}
+        to={"/" + view.ROUTE}
         activeClassName="usa-current"
         className={"usa-nav__link"}
       >
-        {i} {props.summary && `(${props.summary[i]})`}
+        {view.TITLE} {props.summary && `(${props.summary[view.TITLE]})`}
       </NavLink>
     </li>
   ));
@@ -31,7 +28,7 @@ export default function PrimaryNavMenu(props) {
         </div>
         <nav role="navigation" className="usa-nav">
           <button className="usa-nav__close">
-            <img src={uswds_image("close.svg")} alt="close" />
+            <img src={close} alt="close" />
           </button>
           <div className="usa-nav__inner">
             <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
@@ -65,3 +62,9 @@ export default function PrimaryNavMenu(props) {
     </React.Fragment>
   );
 }
+
+PrimaryNavMenu.propTypes = {
+  views: PropTypes.objectOf(PropTypes.object).isRequired,
+  summary: PropTypes.objectOf(PropTypes.number),
+  title: PropTypes.string.isRequired
+};
