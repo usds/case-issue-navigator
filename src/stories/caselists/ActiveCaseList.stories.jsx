@@ -3,6 +3,11 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { ActiveCaseList } from "../../view/caselists/ActiveCaseList";
 
+// Known workaround to mock createPortal for jest testing
+jest.mock("react-dom", () => ({
+  createPortal: node => node
+}));
+
 storiesOf("ActiveCaseList", module)
   .add("Empty case list", () => (
     <ActiveCaseList

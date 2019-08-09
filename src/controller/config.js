@@ -1,5 +1,7 @@
 import { buttonizer } from "../view/util/buttonizer";
 
+const IS_TEST_ENV = process.env.NODE_ENV === "test";
+
 const SNOOZE_OPTIONS = [
   {
     value: "test_data",
@@ -150,6 +152,7 @@ export {
   CASE_TYPE,
   ELIS_CASE_BASE_URL,
   I90_HEADERS,
+  IS_TEST_ENV,
   SNOOZE_OPTIONS,
   VIEWS
 };
