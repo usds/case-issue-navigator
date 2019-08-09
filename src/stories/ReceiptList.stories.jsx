@@ -43,11 +43,15 @@ const snoozeInformation = {
   snoozeStart: "2019-08-05T18:33:08.063408-04:00"
 };
 
+const modifiedHeaders = I90_HEADERS.filter(
+  header => header.field !== "caseCreation"
+);
+
 storiesOf("ReceiptList", module)
   .add("Empty Receipt List", () => (
     <ReceiptList
       cases={[]}
-      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+      headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
       callback={{
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
@@ -62,7 +66,7 @@ storiesOf("ReceiptList", module)
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
       }}
-      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+      headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
     />
   ))
   .add("Tabular Snoozed Case List with some items", () => (
@@ -76,6 +80,6 @@ storiesOf("ReceiptList", module)
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
       }}
-      headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
+      headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
     />
   ));

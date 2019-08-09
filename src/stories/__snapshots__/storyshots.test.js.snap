@@ -276,12 +276,6 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         Receipt Number
       </th>
       <th>
-        Case Age
-      </th>
-      <th>
-        Case Creation
-      </th>
-      <th>
         Case Status
       </th>
       <th>
@@ -307,12 +301,6 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         >
           FKE5381523
         </a>
-      </td>
-      <td>
-        101 days
-      </td>
-      <td>
-        4/29/2019
       </td>
       <td>
         Pending
@@ -343,12 +331,6 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         >
           FKE8206743
         </a>
-      </td>
-      <td>
-        151 days
-      </td>
-      <td>
-        3/10/2019
       </td>
       <td />
       <td />
@@ -381,12 +363,6 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         Receipt Number
       </th>
       <th>
-        Case Age
-      </th>
-      <th>
-        Case Creation
-      </th>
-      <th>
         Platform
       </th>
       <th>
@@ -415,12 +391,6 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           FKE5381523
         </a>
-      </td>
-      <td>
-        101 days
-      </td>
-      <td>
-        4/29/2019
       </td>
       <td>
         Legacy
@@ -452,12 +422,6 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           FKE8206743
         </a>
-      </td>
-      <td>
-        151 days
-      </td>
-      <td>
-        3/10/2019
       </td>
       <td>
         Legacy

@@ -24,12 +24,13 @@ export const cellDispatch = {
   },
   DATE: d => {
     const datum = new Date(d);
-    if (typeof d !== "string" || isNaN(datum.getMonth())) {
-      return "Invalid date";
+
+    if (d && !isNaN(datum)) {
+      return (
+        datum.getMonth() + 1 + "/" + datum.getDate() + "/" + datum.getFullYear()
+      );
     }
 
-    return (
-      datum.getMonth() + 1 + "/" + datum.getDate() + "/" + datum.getFullYear()
-    );
+    return "Invalid date";
   }
 };
