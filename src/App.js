@@ -161,17 +161,24 @@ class App extends Component {
     }
   };
 
-  deSnooze(rowData) {
-    let new_active = [...this.state.active_cases];
-    new_active.unshift({ ...rowData, desnoozed: true });
-    this.setState({
-      snoozed_cases: this.state.snoozed_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      active_cases: new_active
-    });
-    this.notify(`${rowData.receiptNumber} has been Unsnoozed.`, "info");
-  }
+  deSnooze = async rowData => {
+    try {
+      const desnoozed = await caseFetcher.deleteActiveSnooze(
+        rowData.receiptNumber
+      );
+
+      this.updateSummaryData();
+
+      this.setState({
+        snoozed_cases: this.state.snoozed_cases.filter(
+          snoozedCase => snoozedCase.receiptNumber !== desnoozed
+        )
+      });
+      this.notify(`${desnoozed} has been Unsnoozed.`, "info");
+    } catch (e) {
+      this.notify("There was an error unsnoozing this case.", "error");
+    }
+  };
 
   detailView(rowData) {
     this.setState({
@@ -195,7 +202,7 @@ class App extends Component {
       details: this.detailView.bind(this),
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
-      deSnooze: this.deSnooze.bind(this),
+      deSnooze: this.deSnooze,
       reSnooze: this.snooze
     };
 
