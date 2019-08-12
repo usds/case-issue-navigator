@@ -83,6 +83,13 @@ class App extends Component {
       });
   };
 
+  updateActiveSnooze = (receiptNumber, snoozeOption) => {
+    return caseFetcher.updateActiveSnooze(receiptNumber, {
+      duration: snoozeOption.duration,
+      reason: snoozeOption.reason
+    });
+  };
+
   clearActiveCases = () => this.setState({ active_cases: [] });
 
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
@@ -116,30 +123,46 @@ class App extends Component {
     this.setState({ snoozed_cases: new_snooze });
   }
 
-  snooze(rowData, snoozeOption) {
-    const new_snoozed = [
-      ...this.state.snoozed_cases,
-      _snoozeRow(rowData, snoozeOption)
-    ];
-    this.setState({
-      active_cases: this.state.active_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      snoozed_cases: new_snoozed.sort(
-        (a, b) =>
-          new Date(a.snoozeInformation.snoozeEnd) -
-          new Date(b.snoozeInformation.snoozeEnd)
-      )
-    });
-    this.notify(
-      `${rowData.receiptNumber} has been Snoozed for ${
-        snoozeOption.duration
-      } day${snoozeOption.duration !== 1 && "s"} due to ${
-        snoozeOption.snoozeReason
-      }.`,
-      "success"
-    );
-  }
+  snooze = async (rowData, snoozeOption) => {
+    try {
+      const snoozeData = await this.updateActiveSnooze(rowData.receiptNumber, {
+        duration: snoozeOption.duration,
+        reason: snoozeOption.value
+      });
+
+      this.updateSummaryData();
+
+      const new_snoozed = [
+        ...this.state.snoozed_cases,
+        _snoozeRow(rowData, snoozeOption)
+      ];
+      this.setState({
+        active_cases: this.state.active_cases.filter(
+          c => c.receiptNumber !== rowData.receiptNumber
+        ),
+        snoozed_cases: new_snoozed.sort(
+          (a, b) =>
+            new Date(a.snoozeInformation.snoozeEnd) -
+            new Date(b.snoozeInformation.snoozeEnd)
+        )
+      });
+
+      const snoozeDays = Math.ceil(
+        (new Date(snoozeData.snoozeEnd) - new Date(snoozeData.snoozeStart)) /
+          86400000
+      );
+
+      this.notify(
+        `${
+          rowData.receiptNumber
+        } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
+          "s"} due to ${snoozeData.snoozeReason}.`,
+        "success"
+      );
+    } catch (e) {
+      this.notify(e.message, "error");
+    }
+  };
 
   deSnooze(rowData) {
     let new_active = [...this.state.active_cases];
@@ -171,7 +194,7 @@ class App extends Component {
 
   render() {
     const callbacks = {
-      snooze: this.snooze.bind(this),
+      snooze: this.snooze,
       details: this.detailView.bind(this),
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
