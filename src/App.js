@@ -99,11 +99,13 @@ class App extends Component {
 
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
 
-  updateSummaryData = () => {
-    caseFetcher.getCaseSummary().then(data => {
-      const currentlySnoozed = data.CURRENTLY_SNOOZED || 0;
-      const neverSnoozed = data.NEVER_SNOOZED || 0;
-      const previouslySnoozed = data.PREVIOUSLY_SNOOZED || 0;
+  updateSummaryData = async () => {
+    try {
+      const summary = await caseFetcher.getCaseSummary();
+
+      const currentlySnoozed = summary.CURRENTLY_SNOOZED || 0;
+      const neverSnoozed = summary.NEVER_SNOOZED || 0;
+      const previouslySnoozed = summary.PREVIOUSLY_SNOOZED || 0;
 
       this.setState({
         summary: {
@@ -111,7 +113,9 @@ class App extends Component {
           [VIEWS.SNOOZED_CASES.TITLE]: currentlySnoozed
         }
       });
-    });
+    } catch (e) {
+      console.error(e.message);
+    }
   };
 
   dismissAlert = selectedAlert => {
