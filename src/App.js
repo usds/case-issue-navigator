@@ -14,6 +14,7 @@ import { BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { approximateDays } from "./view/util/approximateDays";
 
 library.add(fas);
 
@@ -115,14 +116,6 @@ class App extends Component {
     });
   };
 
-  reSnooze(rowData, snooze_option, snooze_text) {
-    const new_snooze = this.state.snoozed_cases.filter(
-      c => c.receiptNumber !== rowData.receiptNumber
-    );
-    new_snooze.push(_snoozeRow(rowData, snooze_option, snooze_text));
-    this.setState({ snoozed_cases: new_snooze });
-  }
-
   snooze = async (rowData, snoozeOption) => {
     try {
       const snoozeData = await this.updateActiveSnooze(rowData.receiptNumber, {
@@ -132,25 +125,29 @@ class App extends Component {
 
       this.updateSummaryData();
 
-      const new_snoozed = [
-        ...this.state.snoozed_cases,
-        _snoozeRow(rowData, snoozeOption)
-      ];
-      this.setState({
-        active_cases: this.state.active_cases.filter(
-          c => c.receiptNumber !== rowData.receiptNumber
-        ),
-        snoozed_cases: new_snoozed.sort(
+      const { active_cases, snoozed_cases } = this.state;
+
+      const newSnoozed = snoozed_cases
+        .filter(
+          snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
+        )
+        .sort(
           (a, b) =>
             new Date(a.snoozeInformation.snoozeEnd) -
             new Date(b.snoozeInformation.snoozeEnd)
-        )
+        );
+
+      this.setState({
+        active_cases: active_cases.filter(
+          c => c.receiptNumber !== rowData.receiptNumber
+        ),
+        snoozed_cases: newSnoozed
       });
 
-      const snoozeDays = Math.ceil(
-        (new Date(snoozeData.snoozeEnd) - new Date(snoozeData.snoozeStart)) /
-          86400000
-      );
+      const snoozeDays = approximateDays({
+        startDate: snoozeData.snoozeStart,
+        endDate: snoozeData.snoozeEnd
+      });
 
       this.notify(
         `${
@@ -199,7 +196,7 @@ class App extends Component {
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
       deSnooze: this.deSnooze.bind(this),
-      reSnooze: this.reSnooze.bind(this)
+      reSnooze: this.snooze
     };
 
     return (
@@ -260,10 +257,6 @@ class App extends Component {
       </div>
     );
   }
-}
-
-function _snoozeRow(rowData, snoozeInformation) {
-  return { ...rowData, snoozeInformation };
 }
 
 export default App;
