@@ -32,7 +32,35 @@ const caseFetcher = ({ baseUrl, resultsPerPage }) => {
     });
   };
 
-  return { getActiveCases, getCaseSummary, getSnoozedCases };
+  const updateActiveSnooze = (receiptNumber, snoozeInputs) => {
+    return fetch(
+      `${baseUrl}/api/caseDetails/${caseManagementSystem}/${receiptNumber}/activeSnooze`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          details: snoozeInputs.details || "",
+          duration: snoozeInputs.duration,
+          reason: snoozeInputs.reason
+        })
+      }
+    ).then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+
+      return response.json();
+    });
+  };
+
+  return {
+    getActiveCases,
+    getCaseSummary,
+    getSnoozedCases,
+    updateActiveSnooze
+  };
 };
 
 export default caseFetcher;
