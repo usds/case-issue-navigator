@@ -61,6 +61,8 @@ class App extends Component {
       })
       .catch(e => {
         console.error(e.message);
+        this.setState({ isLoading: false });
+        this.notify("There was an error loading cases.", "error");
       });
   };
 
@@ -81,6 +83,8 @@ class App extends Component {
       })
       .catch(e => {
         console.error(e.message);
+        this.setState({ isLoading: false });
+        this.notify("There was an error loading cases.", "error");
       });
   };
 
@@ -157,6 +161,7 @@ class App extends Component {
         "success"
       );
     } catch (e) {
+      console.error(e.message);
       this.notify(e.message, "error");
     }
   };
