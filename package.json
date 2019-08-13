@@ -21,6 +21,7 @@
     "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "TZ=America/New_York react-scripts test",
+    "coverage": "TZ=America/New_York react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "prettier-all": "prettier --write '**/*.{js,jsx}'",
     "storybook": "start-storybook -p 3333"
@@ -45,8 +46,16 @@
     "@storybook/addon-storyshots": "^5.1.9",
     "@storybook/react": "^5.1.9",
     "babel-plugin-macros": "^2.6.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.6",
     "require-context.macro": "^1.1.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/stories/**"
+    ]
   }
 }

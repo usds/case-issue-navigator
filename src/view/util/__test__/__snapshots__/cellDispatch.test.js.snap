@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cellDispatch LINK should return a valid link with a desnoozed notification 1`] = `
+<React.Fragment>
+  <a
+    href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FAK123"
+    target="_elis_viewer"
+  >
+    FAK123
+  </a>
+  <FontAwesomeIcon
+    border={false}
+    className="text-accent-warm"
+    fixedWidth={false}
+    flip={null}
+    icon="exclamation-triangle"
+    inverse={false}
+    listItem={false}
+    mask={null}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</React.Fragment>
+`;
+
+exports[`cellDispatch LINK should return a valid link with no desnoozed notification 1`] = `
+<React.Fragment>
+  <a
+    href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FAK123"
+    target="_elis_viewer"
+  >
+    FAK123
+  </a>
+</React.Fragment>
+`;
