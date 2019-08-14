@@ -1,4 +1,7 @@
-import { buttonizer } from "../view/util/buttonizer";
+import React from "react";
+import UsaButton from "../view/util/UsaButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { approximateDays } from "../view/util/approximateDays";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -62,56 +65,79 @@ const ELIS_CASE_BASE_URL =
 const I90_HEADERS = [
   {
     header: "Receipt Number",
-    field: "receiptNumber",
-    content: "LINK",
+    content: data => (
+      <React.Fragment>
+        <a href={ELIS_CASE_BASE_URL + data.receiptNumber} target="_elis_viewer">
+          {data.receiptNumber}
+        </a>
+        {data && data.desnoozed ? (
+          <FontAwesomeIcon
+            icon="exclamation-triangle"
+            className="text-accent-warm"
+          />
+        ) : null}
+      </React.Fragment>
+    ),
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Case Age",
-    field: "caseCreation",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE],
-    content: d => {
-      const days = Math.ceil((new Date() - new Date(d)) / 86400000);
+    content: data => {
+      const days = approximateDays({
+        startDate: data.caseCreation,
+        endDate: Date()
+      });
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     }
   },
   {
     header: "Case Creation",
-    field: "caseCreation",
-    content: "DATE",
+    content: data => {
+      const datum = new Date(data.caseCreation);
+
+      if (data.caseCreation && !isNaN(datum)) {
+        return (
+          datum.getMonth() +
+          1 +
+          "/" +
+          datum.getDate() +
+          "/" +
+          datum.getFullYear()
+        );
+      }
+
+      return "Invalid date";
+    },
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Case Status",
-    field: "extraData",
-    content: field => field.caseStatus,
+    content: data => data.extraData.caseStatus,
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Case Substatus",
-    field: "extraData",
-    content: field => field.caseSubstatus,
+    content: data => data.extraData.caseSubstatus,
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Platform",
-    field: "extraData",
-    content: d => (d.streamlinedProcess === "true" ? "SP" : "Legacy"),
+    content: data =>
+      data.extraData.streamlinedProcess === "true" ? "SP" : "Legacy",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Problem",
-    field: "snoozeInformation",
-    content: field => field.snoozeReason,
+    content: data => data.snoozeInformation.snoozeReason,
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Snoozed",
-    field: "snoozeInformation",
-    content: field => {
+    content: data => {
       const days = Math.ceil(
-        (new Date(field.snoozeEnd) - new Date()) / 86400000
+        (new Date(data.snoozeInformation.snoozeEnd) - new Date()) / 86400000
       );
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
@@ -120,28 +146,36 @@ const I90_HEADERS = [
   },
   {
     header: "Assigned",
-    field: "assigned",
+    content: () => "TBD",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "SN Ticket #",
-    field: "snoozeInformation",
-    content: field => {
+    content: data => {
       // TODO: Only return snoozeDetails that match Regex
-      return field.snoozeDetails;
+      return data.snoozeInformation.snoozeDetails;
     },
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Actions",
-    field: "_",
-    content: buttonizer("Snooze", "outline", "details"),
+    content: (data, callbacks) => (
+      <UsaButton buttonStyle="outline" onClick={() => callbacks.details(data)}>
+        Snooze
+      </UsaButton>
+    ),
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Actions",
-    field: "snooze_option",
-    content: buttonizer("Update", "outline", "snoozeUpdate"),
+    content: (data, callbacks) => (
+      <UsaButton
+        buttonStyle="outline"
+        onClick={() => callbacks.snoozeUpdate(data)}
+      >
+        Update
+      </UsaButton>
+    ),
     views: [VIEWS.SNOOZED_CASES.TITLE]
   }
 ];
