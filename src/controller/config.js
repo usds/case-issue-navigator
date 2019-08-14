@@ -2,42 +2,48 @@ import { buttonizer } from "../view/util/buttonizer";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
-const SNOOZE_OPTIONS = [
-  {
-    value: "test_data",
+const SNOOZE_OPTIONS = {
+  test_data: {
     snoozeReason: "Test Data - should be deleted",
     duration: 365
   },
-  {
-    value: "assigned_case",
+  assigned_case: {
     snoozeReason: "Case has been assigned - remind me later",
     duration: 5,
     followUp: "Who is the case being assigned to?"
   },
-  {
-    value: "in_proceedings",
+  in_proceedings: {
     snoozeReason: "Case is pending removal proceedings - check back later",
     duration: 30
   },
-  {
-    value: "fo_refferal",
+  fo_refferal: {
     snoozeReason: "Stuck at field office - awaiting response",
     followUp: "Enter Field Office location code:",
     duration: 5
   },
-  {
-    value: "technical_issue",
+  technical_issue: {
     snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
     followUp: "ServiceNow ticket ID:",
     duration: 14
   },
-  {
-    value: "bcu",
+  bcu: {
     snoozeReason: "Referral to BCU or CFDO",
     followUp: "Reason for referral",
     duration: 30
   }
-];
+};
+const SNOOZE_OPTIONS_SELECT = Object.entries(SNOOZE_OPTIONS).reduce(
+  (acc, [key, val]) => {
+    return [
+      ...acc,
+      {
+        ...val,
+        value: key
+      }
+    ];
+  },
+  []
+);
 
 const BASE_URL = "http://localhost:8080";
 
@@ -103,7 +109,10 @@ const I90_HEADERS = [
   {
     header: "Problem",
     field: "snoozeInformation",
-    content: field => field.snoozeReason,
+    content: field =>
+      SNOOZE_OPTIONS[field.snoozeReason]
+        ? SNOOZE_OPTIONS[field.snoozeReason].snoozeReason
+        : field.snoozeReason,
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },
   {
@@ -154,5 +163,6 @@ export {
   I90_HEADERS,
   IS_TEST_ENV,
   SNOOZE_OPTIONS,
+  SNOOZE_OPTIONS_SELECT,
   VIEWS
 };
