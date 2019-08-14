@@ -39,7 +39,8 @@ const SNOOZE_OPTIONS = [
   }
 ];
 
-const BASE_URL = "http://localhost:8080";
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
 const CASE_MANAGEMENT_SYSTEM = "DEFAULT";
 
@@ -147,7 +148,7 @@ const I90_HEADERS = [
 ];
 
 export {
-  BASE_URL,
+  API_BASE_URL,
   CASE_MANAGEMENT_SYSTEM,
   CASE_TYPE,
   ELIS_CASE_BASE_URL,
