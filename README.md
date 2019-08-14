@@ -35,6 +35,14 @@ Launches the test runner and collects code coverage. Outputs results to the `/co
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
+#### BaseUrl Environment Variable
+
+By default, the base URL is assumed to be the local Spring back-end url, `http://localhost:8080`. If building for a different environment, simply add the `REACT_APP_API_BASE_URL` environment variable. For example, if the API is located at `https://truffles-api.app.cloud.gov`, you could build the application using the following command:
+
+```bash
+REACT_APP_API_BASE_URL=https://truffles-api.app.cloud.gov yarn build
+```
+
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 

@@ -10,7 +10,7 @@ import { UsaAlert } from "./view/util/UsaAlert";
 import configureCaseFetcher from "./model/caseFetcher";
 import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
-import { BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
+import { API_BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 library.add(fas);
 
 const caseFetcher = configureCaseFetcher({
-  baseUrl: BASE_URL,
+  baseUrl: API_BASE_URL,
   resultsPerPage: 20
 });
 
