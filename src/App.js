@@ -133,25 +133,6 @@ class App extends Component {
 
       this.updateSummaryData();
 
-      const { active_cases, snoozed_cases } = this.state;
-
-      const newSnoozed = snoozed_cases
-        .filter(
-          snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
-        )
-        .sort(
-          (a, b) =>
-            new Date(a.snoozeInformation.snoozeEnd) -
-            new Date(b.snoozeInformation.snoozeEnd)
-        );
-
-      this.setState({
-        active_cases: active_cases.filter(
-          c => c.receiptNumber !== rowData.receiptNumber
-        ),
-        snoozed_cases: newSnoozed
-      });
-
       const snoozeDays = approximateDays({
         startDate: snoozeData.snoozeStart,
         endDate: snoozeData.snoozeEnd
@@ -164,6 +145,57 @@ class App extends Component {
           "s"} due to ${snoozeData.snoozeReason}.`,
         "success"
       );
+
+      return snoozeData;
+    } catch (e) {
+      console.error(e.message);
+      this.notify(e.message, "error");
+    }
+  };
+
+  createSnooze = async (rowData, snoozeOption) => {
+    try {
+      await this.snooze(rowData, snoozeOption);
+      this.setState({
+        active_cases: this.state.active_cases.filter(
+          c => c.receiptNumber !== rowData.receiptNumber
+        )
+      });
+    } catch (e) {
+      console.error(e.message);
+      this.notify(e.message, "error");
+    }
+  };
+
+  reSnooze = async (rowData, snoozeOption) => {
+    try {
+      const snoozeData = await this.snooze(rowData, snoozeOption);
+      const snoozedCases = this.state.snoozed_cases
+        .map(snoozedCase => {
+          if (snoozedCase.receiptNumber === rowData.receiptNumber) {
+            return { ...snoozedCase, snoozeInformation: snoozeData };
+          }
+
+          return snoozedCase;
+        })
+        .sort((a, b) => {
+          return (
+            new Date(a.snoozeInformation.snoozeEnd) -
+            new Date(a.snoozeInformation.snoozeStart) -
+            (new Date(b.snoozeInformation.snoozeEnd) -
+              new Date(b.snoozeInformation.snoozeStart))
+          );
+        });
+
+      if (
+        snoozedCases[snoozedCases.length - 1].receiptNumber ===
+          rowData.receiptNumber &&
+        snoozedCases.length < this.state.summary[VIEWS.SNOOZED_CASES.TITLE]
+      ) {
+        snoozedCases.pop();
+      }
+
+      this.setState({ snoozed_cases: snoozedCases });
     } catch (e) {
       console.error(e.message);
       this.notify(e.message, "error");
@@ -207,12 +239,12 @@ class App extends Component {
 
   render() {
     const callbacks = {
-      snooze: this.snooze,
+      snooze: this.createSnooze,
       details: this.detailView.bind(this),
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
       deSnooze: this.deSnooze,
-      reSnooze: this.snooze
+      reSnooze: this.reSnooze
     };
 
     return (
