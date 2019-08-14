@@ -44,7 +44,7 @@ const snoozeInformation = {
 };
 
 const modifiedHeaders = I90_HEADERS.filter(
-  header => header.field !== "caseCreation"
+  header => header.header !== "Case Creation" && header.header !== "Case Age"
 );
 
 storiesOf("ReceiptList", module)

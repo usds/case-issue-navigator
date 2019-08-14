@@ -18,9 +18,9 @@ storiesOf("ActiveCaseList", module)
       cases={[{}]}
       isLoading={false}
       headers={[
-        { header: "header 1" },
-        { header: "header 2" },
-        { header: "header 3" }
+        { header: "header 1", content: () => "" },
+        { header: "header 2", content: () => "" },
+        { header: "header 3", content: () => "" }
       ]}
     />
   ))
@@ -40,9 +40,9 @@ storiesOf("ActiveCaseList", module)
       }
     ];
     const headers = [
-      { header: "header 1", field: "field1" },
-      { header: "header 2", field: "field2" },
-      { header: "header 3", field: "field3" }
+      { header: "header 1", content: data => data.field1 },
+      { header: "header 2", content: data => data.field2 },
+      { header: "header 3", content: data => data.field3 }
     ];
 
     return (
@@ -60,9 +60,9 @@ storiesOf("ActiveCaseList", module)
   .add("Case list while loading data", () => {
     const cases = [];
     const headers = [
-      { header: "header 1", field: "field1" },
-      { header: "header 2", field: "field2" },
-      { header: "header 3", field: "field3" }
+      { header: "header 1", content: data => data.field1 },
+      { header: "header 2", content: data => data.field2 },
+      { header: "header 3", content: data => data.field3 }
     ];
     return (
       <ActiveCaseList
@@ -92,9 +92,9 @@ storiesOf("ActiveCaseList", module)
       }
     ];
     const headers = [
-      { header: "header 1", field: "field1" },
-      { header: "header 2", field: "field2" },
-      { header: "header 3", field: "field3" }
+      { header: "header 1", content: data => data.field1 },
+      { header: "header 2", content: data => data.field2 },
+      { header: "header 3", content: data => data.field3 }
     ];
     return (
       <ActiveCaseList

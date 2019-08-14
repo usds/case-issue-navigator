@@ -256,9 +256,15 @@ Array [
     </thead>
     <tbody>
       <tr>
-        <td />
-        <td />
-        <td />
+        <td>
+          
+        </td>
+        <td>
+          
+        </td>
+        <td>
+          
+        </td>
       </tr>
     </tbody>
   </table>,
@@ -324,7 +330,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         Legacy
       </td>
-      <td />
+      <td>
+        TBD
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -350,7 +358,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         Legacy
       </td>
-      <td />
+      <td>
+        TBD
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -414,7 +424,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        TBD
+      </td>
       <td />
       <td>
         <button
@@ -445,7 +457,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        TBD
+      </td>
       <td />
       <td>
         <button
