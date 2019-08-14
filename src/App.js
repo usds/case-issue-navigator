@@ -12,6 +12,8 @@ import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
 import { BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 library.add(fas);
 
@@ -33,6 +35,13 @@ class App extends Component {
       isLoading: false
     };
   }
+
+  notify = (message, type) => {
+    if (toast[type]) {
+      return toast[type](message);
+    }
+    toast(message);
+  };
 
   loadActiveCases = page => {
     if (page === 0) {
@@ -120,19 +129,16 @@ class App extends Component {
         (a, b) =>
           new Date(a.snoozeInformation.snoozeEnd) -
           new Date(b.snoozeInformation.snoozeEnd)
-      ),
-      alerts: [
-        {
-          alertType: "success",
-          content: `${rowData.receiptNumber} has been Snoozed for ${
-            snoozeOption.duration
-          } day${snoozeOption.duration !== 1 && "s"} due to ${
-            snoozeOption.snoozeReason
-          }.`
-        },
-        ...this.state.alerts
-      ]
+      )
     });
+    this.notify(
+      `${rowData.receiptNumber} has been Snoozed for ${
+        snoozeOption.duration
+      } day${snoozeOption.duration !== 1 && "s"} due to ${
+        snoozeOption.snoozeReason
+      }.`,
+      "success"
+    );
   }
 
   deSnooze(rowData) {
@@ -142,15 +148,9 @@ class App extends Component {
       snoozed_cases: this.state.snoozed_cases.filter(
         c => c.receiptNumber !== rowData.receiptNumber
       ),
-      active_cases: new_active,
-      alerts: [
-        {
-          alertType: "info",
-          content: `${rowData.receiptNumber} has been Unsnoozed.`
-        },
-        ...this.state.alerts
-      ]
+      active_cases: new_active
     });
+    this.notify(`${rowData.receiptNumber} has been Unsnoozed.`, "info");
   }
 
   detailView(rowData) {
@@ -181,6 +181,7 @@ class App extends Component {
 
     return (
       <div className="case-issue-navigator">
+        <ToastContainer />
         <PrimaryNavMenu
           title="Case Issue Navigator"
           views={VIEWS}
