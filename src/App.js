@@ -260,10 +260,11 @@ class App extends Component {
                 )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
             </p>
             {this.state.alerts.map(alert => (
-              <UsaAlert alertType={alert.alertType}>
-                {alert.content}{" "}
-                <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
-              </UsaAlert>
+              <UsaAlert
+                alertType={alert.alertType}
+                content={alert.content}
+                onClick={() => this.dismissAlert(alert)}
+              />
             ))}
             <Route
               path="/"
