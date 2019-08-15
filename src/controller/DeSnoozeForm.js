@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
-import { SNOOZE_OPTIONS } from "./config";
+import { SNOOZE_OPTIONS_SELECT } from "./config";
 
 export default function DeSnoozeForm(props) {
   const rowData = props.rowData;
@@ -32,7 +32,7 @@ export default function DeSnoozeForm(props) {
         <SnoozeInputs
           label="New snooze reason:"
           onChange={updateInputs}
-          options={SNOOZE_OPTIONS}
+          options={SNOOZE_OPTIONS_SELECT}
           selectedOption={rowData.snoozeInformation}
           followUp={rowData.snooze_followup}
         />

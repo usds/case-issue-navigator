@@ -14,6 +14,7 @@ import { API_BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { approximateDays } from "./view/util/approximateDays";
 
 library.add(fas);
 
@@ -60,6 +61,8 @@ class App extends Component {
       })
       .catch(e => {
         console.error(e.message);
+        this.setState({ isLoading: false });
+        this.notify("There was an error loading cases.", "error");
       });
   };
 
@@ -80,18 +83,29 @@ class App extends Component {
       })
       .catch(e => {
         console.error(e.message);
+        this.setState({ isLoading: false });
+        this.notify("There was an error loading cases.", "error");
       });
+  };
+
+  updateActiveSnooze = (receiptNumber, snoozeOption) => {
+    return caseFetcher.updateActiveSnooze(receiptNumber, {
+      duration: snoozeOption.duration,
+      reason: snoozeOption.reason
+    });
   };
 
   clearActiveCases = () => this.setState({ active_cases: [] });
 
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
 
-  updateSummaryData = () => {
-    caseFetcher.getCaseSummary().then(data => {
-      const currentlySnoozed = data.CURRENTLY_SNOOZED || 0;
-      const neverSnoozed = data.NEVER_SNOOZED || 0;
-      const previouslySnoozed = data.PREVIOUSLY_SNOOZED || 0;
+  updateSummaryData = async () => {
+    try {
+      const summary = await caseFetcher.getCaseSummary();
+
+      const currentlySnoozed = summary.CURRENTLY_SNOOZED || 0;
+      const neverSnoozed = summary.NEVER_SNOOZED || 0;
+      const previouslySnoozed = summary.PREVIOUSLY_SNOOZED || 0;
 
       this.setState({
         summary: {
@@ -99,7 +113,9 @@ class App extends Component {
           [VIEWS.SNOOZED_CASES.TITLE]: currentlySnoozed
         }
       });
-    });
+    } catch (e) {
+      console.error(e.message);
+    }
   };
 
   dismissAlert = selectedAlert => {
@@ -108,50 +124,102 @@ class App extends Component {
     });
   };
 
-  reSnooze(rowData, snooze_option, snooze_text) {
-    const new_snooze = this.state.snoozed_cases.filter(
-      c => c.receiptNumber !== rowData.receiptNumber
-    );
-    new_snooze.push(_snoozeRow(rowData, snooze_option, snooze_text));
-    this.setState({ snoozed_cases: new_snooze });
-  }
+  snooze = async (rowData, snoozeOption) => {
+    try {
+      const snoozeData = await this.updateActiveSnooze(rowData.receiptNumber, {
+        duration: snoozeOption.duration,
+        reason: snoozeOption.value
+      });
 
-  snooze(rowData, snoozeOption) {
-    const new_snoozed = [
-      ...this.state.snoozed_cases,
-      _snoozeRow(rowData, snoozeOption)
-    ];
-    this.setState({
-      active_cases: this.state.active_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      snoozed_cases: new_snoozed.sort(
-        (a, b) =>
-          new Date(a.snoozeInformation.snoozeEnd) -
-          new Date(b.snoozeInformation.snoozeEnd)
-      )
-    });
-    this.notify(
-      `${rowData.receiptNumber} has been Snoozed for ${
-        snoozeOption.duration
-      } day${snoozeOption.duration !== 1 && "s"} due to ${
-        snoozeOption.snoozeReason
-      }.`,
-      "success"
-    );
-  }
+      this.updateSummaryData();
 
-  deSnooze(rowData) {
-    let new_active = [...this.state.active_cases];
-    new_active.unshift({ ...rowData, desnoozed: true });
-    this.setState({
-      snoozed_cases: this.state.snoozed_cases.filter(
-        c => c.receiptNumber !== rowData.receiptNumber
-      ),
-      active_cases: new_active
-    });
-    this.notify(`${rowData.receiptNumber} has been Unsnoozed.`, "info");
-  }
+      const snoozeDays = approximateDays({
+        startDate: snoozeData.snoozeStart,
+        endDate: snoozeData.snoozeEnd
+      });
+
+      this.notify(
+        `${
+          rowData.receiptNumber
+        } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
+          "s"} due to ${snoozeData.snoozeReason}.`,
+        "success"
+      );
+
+      return snoozeData;
+    } catch (e) {
+      console.error(e.message);
+      this.notify(e.message, "error");
+    }
+  };
+
+  createSnooze = async (rowData, snoozeOption) => {
+    try {
+      await this.snooze(rowData, snoozeOption);
+      this.setState({
+        active_cases: this.state.active_cases.filter(
+          c => c.receiptNumber !== rowData.receiptNumber
+        )
+      });
+    } catch (e) {
+      console.error(e.message);
+      this.notify(e.message, "error");
+    }
+  };
+
+  reSnooze = async (rowData, snoozeOption) => {
+    try {
+      const snoozeData = await this.snooze(rowData, snoozeOption);
+      const snoozedCases = this.state.snoozed_cases
+        .map(snoozedCase => {
+          if (snoozedCase.receiptNumber === rowData.receiptNumber) {
+            return { ...snoozedCase, snoozeInformation: snoozeData };
+          }
+
+          return snoozedCase;
+        })
+        .sort((a, b) => {
+          return (
+            new Date(a.snoozeInformation.snoozeEnd) -
+            new Date(a.snoozeInformation.snoozeStart) -
+            (new Date(b.snoozeInformation.snoozeEnd) -
+              new Date(b.snoozeInformation.snoozeStart))
+          );
+        });
+
+      if (
+        snoozedCases[snoozedCases.length - 1].receiptNumber ===
+          rowData.receiptNumber &&
+        snoozedCases.length < this.state.summary[VIEWS.SNOOZED_CASES.TITLE]
+      ) {
+        snoozedCases.pop();
+      }
+
+      this.setState({ snoozed_cases: snoozedCases });
+    } catch (e) {
+      console.error(e.message);
+      this.notify(e.message, "error");
+    }
+  };
+
+  deSnooze = async rowData => {
+    try {
+      const desnoozed = await caseFetcher.deleteActiveSnooze(
+        rowData.receiptNumber
+      );
+
+      this.updateSummaryData();
+
+      this.setState({
+        snoozed_cases: this.state.snoozed_cases.filter(
+          snoozedCase => snoozedCase.receiptNumber !== desnoozed
+        )
+      });
+      this.notify(`${desnoozed} has been Unsnoozed.`, "info");
+    } catch (e) {
+      this.notify("There was an error unsnoozing this case.", "error");
+    }
+  };
 
   detailView(rowData) {
     this.setState({
@@ -171,12 +239,12 @@ class App extends Component {
 
   render() {
     const callbacks = {
-      snooze: this.snooze.bind(this),
+      snooze: this.createSnooze,
       details: this.detailView.bind(this),
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
-      deSnooze: this.deSnooze.bind(this),
-      reSnooze: this.reSnooze.bind(this)
+      deSnooze: this.deSnooze,
+      reSnooze: this.reSnooze
     };
 
     return (
@@ -237,10 +305,6 @@ class App extends Component {
       </div>
     );
   }
-}
-
-function _snoozeRow(rowData, snoozeInformation) {
-  return { ...rowData, snoozeInformation };
 }
 
 export default App;

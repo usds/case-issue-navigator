@@ -32,11 +32,12 @@ const ActiveCaseList = props => {
         isLoading={props.isLoading}
         headers={props.headers}
       />
-      {!props.isLoading && (
-        <UsaButton onClick={() => setCurrentPage(currentPage + 1)}>
-          Load More Cases
-        </UsaButton>
-      )}
+      <UsaButton
+        onClick={() => setCurrentPage(currentPage + 1)}
+        disabled={props.isLoading}
+      >
+        {props.isLoading ? "Loading..." : "Load More Cases"}
+      </UsaButton>
     </React.Fragment>
   );
 };

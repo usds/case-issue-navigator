@@ -4,6 +4,21 @@ const caseFetcher = ({ baseUrl, resultsPerPage }) => {
   const caseManagementSystem = CASE_MANAGEMENT_SYSTEM;
   const caseType = CASE_TYPE;
 
+  const deleteActiveSnooze = receiptNumber => {
+    return fetch(
+      `${baseUrl}/api/caseDetails/${caseManagementSystem}/${receiptNumber}/activeSnooze`,
+      {
+        method: "DELETE"
+      }
+    ).then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+
+      return receiptNumber;
+    });
+  };
+
   const getCases = (activeOrSnoozed, page) => {
     return fetch(
       `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/${activeOrSnoozed}?page=${page}&size=${resultsPerPage}`
@@ -32,7 +47,36 @@ const caseFetcher = ({ baseUrl, resultsPerPage }) => {
     });
   };
 
-  return { getActiveCases, getCaseSummary, getSnoozedCases };
+  const updateActiveSnooze = (receiptNumber, snoozeInputs) => {
+    return fetch(
+      `${baseUrl}/api/caseDetails/${caseManagementSystem}/${receiptNumber}/activeSnooze`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          details: snoozeInputs.details || "",
+          duration: snoozeInputs.duration,
+          reason: snoozeInputs.reason
+        })
+      }
+    ).then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+
+      return response.json();
+    });
+  };
+
+  return {
+    deleteActiveSnooze,
+    getActiveCases,
+    getCaseSummary,
+    getSnoozedCases,
+    updateActiveSnooze
+  };
 };
 
 export default caseFetcher;

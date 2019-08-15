@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { SNOOZE_OPTIONS } from "./config";
+import { SNOOZE_OPTIONS_SELECT } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
@@ -68,7 +68,7 @@ class SnoozeForm extends Component {
         {this.deSnoozeCheck()}
         <SnoozeInputs
           onChange={this.formChange.bind(this)}
-          options={SNOOZE_OPTIONS}
+          options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
         />
         <UsaButton

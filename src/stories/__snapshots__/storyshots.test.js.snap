@@ -1,9 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots ActiveCaseList Case list while loading data 1`] = `
-<p>
+<button
+  className="usa-button"
+  disabled={true}
+  onClick={[Function]}
+  type="button"
+>
   Loading...
-</p>
+</button>
 `;
 
 exports[`Storyshots ActiveCaseList Case list with modal 1`] = `
@@ -166,6 +171,14 @@ Array [
       </tr>
     </tbody>
   </table>,
+  <button
+    className="usa-button"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    Loading...
+  </button>,
 ]
 `;
 
