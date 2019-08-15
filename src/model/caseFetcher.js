@@ -1,6 +1,10 @@
-import { CASE_MANAGEMENT_SYSTEM, CASE_TYPE } from "../controller/config";
+import {
+  API_BASE_URL, DEFAULT_RESULTS_PER_PAGE, CASE_MANAGEMENT_SYSTEM, CASE_TYPE
+} from "../controller/config";
 
-const caseFetcher = ({ baseUrl, resultsPerPage }) => {
+const baseUrl = API_BASE_URL;
+
+const caseFetcher = () => {
   const caseManagementSystem = CASE_MANAGEMENT_SYSTEM;
   const caseType = CASE_TYPE;
 
@@ -20,6 +24,7 @@ const caseFetcher = ({ baseUrl, resultsPerPage }) => {
   };
 
   const getCases = (activeOrSnoozed, page) => {
+    const resultsPerPage = DEFAULT_RESULTS_PER_PAGE;
     return fetch(
       `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/${activeOrSnoozed}?page=${page}&size=${resultsPerPage}`
     ).then(response => {
@@ -79,4 +84,4 @@ const caseFetcher = ({ baseUrl, resultsPerPage }) => {
   };
 };
 
-export default caseFetcher;
+export default caseFetcher();

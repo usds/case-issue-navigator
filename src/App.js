@@ -7,21 +7,16 @@ import PrimaryNavMenu from "./view/PrimaryNavMenu";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { UsaAlert } from "./view/util/UsaAlert";
-import configureCaseFetcher from "./model/caseFetcher";
+import caseFetcher from "./model/caseFetcher";
 import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
-import { API_BASE_URL, VIEWS, I90_HEADERS } from "./controller/config";
+import { VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { approximateDays } from "./view/util/approximateDays";
 
 library.add(fas);
-
-const caseFetcher = configureCaseFetcher({
-  baseUrl: API_BASE_URL,
-  resultsPerPage: 20
-});
 
 class App extends Component {
   constructor(props) {
