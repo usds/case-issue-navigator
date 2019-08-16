@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
 import PrimaryNavMenu from "./view/PrimaryNavMenu";
+import FormattedDate from "./view/util/FormattedDate";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -252,13 +253,10 @@ class App extends Component {
         />
         <main id="main-content">
           <div class="grid-container">
-            <p>
-              Data sync:{" "}
-              {this.state.dataRefresh &&
-                `${this.state.dataRefresh.toLocaleDateString(
-                  "en-US"
-                )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
-            </p>
+            <FormattedDate 
+              label="Last Refresh"
+              date={this.state.dataRefresh}
+            />
             {this.state.alerts.map(alert => (
               <UsaAlert
                 alertType={alert.alertType}
