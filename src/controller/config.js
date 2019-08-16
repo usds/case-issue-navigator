@@ -54,7 +54,7 @@ const CASE_TYPE = "STANDARD";
 
 const VIEWS = {
   CASES_TO_WORK: {
-    ROUTE: "cases-to-work",
+    ROUTE: "",
     TITLE: "Cases to Work"
   },
   SNOOZED_CASES: {

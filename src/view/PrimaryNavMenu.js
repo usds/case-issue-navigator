@@ -11,6 +11,7 @@ export default function PrimaryNavMenu(props) {
         to={"/" + view.ROUTE}
         activeClassName="usa-current"
         className={"usa-nav__link"}
+        exact={true}
       >
         {view.TITLE} {props.summary && `(${props.summary[view.TITLE]})`}
       </NavLink>
