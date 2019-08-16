@@ -270,7 +270,8 @@ class App extends Component {
             </UsaAlert>
           ))}
           <Route
-            path={`/${VIEWS.CASES_TO_WORK.ROUTE}`}
+            path="/"
+            exact={true}
             render={props => (
               <ActiveCaseList
                 {...props}
