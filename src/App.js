@@ -256,52 +256,54 @@ class App extends Component {
           summary={this.state.summary}
         />
         <main id="main-content">
-          <p>
-            Data sync:{" "}
-            {this.state.dataRefresh &&
-              `${this.state.dataRefresh.toLocaleDateString(
-                "en-US"
-              )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
-          </p>
-          {this.state.alerts.map(alert => (
-            <UsaAlert alertType={alert.alertType}>
-              {alert.content}{" "}
-              <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
-            </UsaAlert>
-          ))}
-          <Route
-            path="/"
-            exact={true}
-            render={props => (
-              <ActiveCaseList
-                {...props}
-                showDialog={this.state.showDialog}
-                dialogTitle={this.state.dialogTitle}
-                callbacks={callbacks}
-                clickedRow={this.state.clickedRow}
-                cases={this.state.active_cases}
-                isLoading={this.state.isLoading}
-                loadCases={this.loadActiveCases}
-                headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
-              />
-            )}
-          />
-          <Route
-            path={`/${VIEWS.SNOOZED_CASES.ROUTE}`}
-            render={props => (
-              <SnoozedCaseList
-                {...props}
-                showDialog={this.state.showDialog}
-                dialogTitle={this.state.dialogTitle}
-                callbacks={callbacks}
-                clickedRow={this.state.clickedRow}
-                cases={this.state.snoozed_cases}
-                isLoading={this.state.isLoading}
-                loadCases={this.loadSnoozedCases}
-                headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
-              />
-            )}
-          />
+          <div class="grid-container">
+            <p>
+              Data sync:{" "}
+              {this.state.dataRefresh &&
+                `${this.state.dataRefresh.toLocaleDateString(
+                  "en-US"
+                )} ${this.state.dataRefresh.toLocaleTimeString("en-US")}`}
+            </p>
+            {this.state.alerts.map(alert => (
+              <UsaAlert alertType={alert.alertType}>
+                {alert.content}{" "}
+                <button onClick={() => this.dismissAlert(alert)}>Dismiss</button>.
+              </UsaAlert>
+            ))}
+            <Route
+              path="/"
+              exact={true}
+              render={props => (
+                <ActiveCaseList
+                  {...props}
+                  showDialog={this.state.showDialog}
+                  dialogTitle={this.state.dialogTitle}
+                  callbacks={callbacks}
+                  clickedRow={this.state.clickedRow}
+                  cases={this.state.active_cases}
+                  isLoading={this.state.isLoading}
+                  loadCases={this.loadActiveCases}
+                  headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+                />
+              )}
+            />
+            <Route
+              path={`/${VIEWS.SNOOZED_CASES.ROUTE}`}
+              render={props => (
+                <SnoozedCaseList
+                  {...props}
+                  showDialog={this.state.showDialog}
+                  dialogTitle={this.state.dialogTitle}
+                  callbacks={callbacks}
+                  clickedRow={this.state.clickedRow}
+                  cases={this.state.snoozed_cases}
+                  isLoading={this.state.isLoading}
+                  loadCases={this.loadSnoozedCases}
+                  headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
+                />
+              )}
+            />
+          </div>
         </main>
       </div>
     );
