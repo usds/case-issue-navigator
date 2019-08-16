@@ -273,6 +273,14 @@ Array [
 ]
 `;
 
+exports[`Storyshots FormattedDate Last Refresh 1`] = `
+<p>
+  Last Refresh
+  : 
+  8/11/2014, 12:00:00 AM
+</p>
+`;
+
 exports[`Storyshots ReceiptList Empty Receipt List 1`] = `
 <p>
   No cases found.
