@@ -1,3 +1,11 @@
+## Setup
+- [Install Brew](https://brew.sh/#install)
+- [Install yarn](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
+- Install dependencies
+   ```bash
+   $ yarn
+   ```
+
 ## Demo and Sample Data
 
 This project is the front end for an API that does not yet exist. In order to generate
