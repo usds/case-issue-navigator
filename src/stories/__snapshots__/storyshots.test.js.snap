@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots ActiveCaseList Case list while loading data 1`] = `
+exports[`Storyshots CaseList Case list while loading data 1`] = `
 <button
   className="usa-button"
   disabled={true}
@@ -11,178 +11,7 @@ exports[`Storyshots ActiveCaseList Case list while loading data 1`] = `
 </button>
 `;
 
-exports[`Storyshots ActiveCaseList Case list with modal 1`] = `
-Array [
-  <div
-    className="ReactModal__Overlay ReactModal__Overlay--after-open"
-    onClick={[Function]}
-    onMouseDown={[Function]}
-    style={
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 0.75)",
-        "bottom": 0,
-        "left": 0,
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-  >
-    <div
-      className="ReactModal__Content ReactModal__Content--after-open"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      onMouseDown={[Function]}
-      onMouseUp={[Function]}
-      role="dialog"
-      style={
-        Object {
-          "WebkitOverflowScrolling": "touch",
-          "background": "#fff",
-          "border": "1px solid #ccc",
-          "borderRadius": "4px",
-          "bottom": "auto",
-          "left": "50%",
-          "marginRight": "-50%",
-          "outline": "none",
-          "overflow": "auto",
-          "padding": "20px",
-          "position": "absolute",
-          "right": "auto",
-          "top": "50%",
-          "transform": "translate(-50%, -50%)",
-        }
-      }
-      tabIndex="-1"
-    >
-      <h3>
-        FAK1
-        <img
-          align="right"
-          alt="close"
-          onClick={[Function]}
-          src="close.svg"
-        />
-      </h3>
-      <form
-        className="usa-form"
-      >
-        <label
-          className="usa-label"
-          htmlFor="snooze-reason"
-        >
-          Reason to snooze this case:
-        </label>
-        <select
-          className="usa-select"
-          defaultValue=""
-          id="snooze-reason"
-          name="snooze-reason"
-          onChange={[Function]}
-          required={true}
-        >
-          <option
-            disabled={true}
-            hidden={true}
-            value={false}
-          >
-            - Select Reason -
-          </option>
-          <option
-            value="test_data"
-          >
-            Test Data - should be deleted
-          </option>
-          <option
-            value="assigned_case"
-          >
-            Case has been assigned - remind me later
-          </option>
-          <option
-            value="in_proceedings"
-          >
-            Case is pending removal proceedings - check back later
-          </option>
-          <option
-            value="fo_refferal"
-          >
-            Stuck at field office - awaiting response
-          </option>
-          <option
-            value="technical_issue"
-          >
-            Technical Issue - awaiting resolution through ServiceNow
-          </option>
-          <option
-            value="bcu"
-          >
-            Referral to BCU or CFDO
-          </option>
-        </select>
-        <button
-          className="usa-button"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Select a Reason
-        </button>
-      </form>
-    </div>
-  </div>,
-  <table
-    className="usa-table usa-table--borderless width-full"
-  >
-    <thead>
-      <tr>
-        <th>
-          header 1
-        </th>
-        <th>
-          header 2
-        </th>
-        <th>
-          header 3
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          foobar
-        </td>
-        <td>
-          Hello world
-        </td>
-        <td>
-          ABC
-        </td>
-      </tr>
-      <tr>
-        <td>
-          foobar2
-        </td>
-        <td>
-          Hello world2
-        </td>
-        <td>
-          ABC2
-        </td>
-      </tr>
-    </tbody>
-  </table>,
-  <button
-    className="usa-button"
-    disabled={true}
-    onClick={[Function]}
-    type="button"
-  >
-    Loading...
-  </button>,
-]
-`;
-
-exports[`Storyshots ActiveCaseList Case list with some data 1`] = `
+exports[`Storyshots CaseList Case list with some data 1`] = `
 Array [
   <table
     className="usa-table usa-table--borderless width-full"
@@ -236,7 +65,7 @@ Array [
 ]
 `;
 
-exports[`Storyshots ActiveCaseList Empty case list 1`] = `
+exports[`Storyshots CaseList Empty case list 1`] = `
 Array [
   <table
     className="usa-table usa-table--borderless width-full"
