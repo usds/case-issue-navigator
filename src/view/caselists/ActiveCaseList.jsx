@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { approximateDays } from "../util/approximateDays";
-import { toast } from "react-toastify";
 import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
@@ -24,16 +23,9 @@ const ActiveCaseList = props => {
       .catch(e => {
         console.error(e.message);
         setIsLoading(false);
-        notify("There was an error loading cases.", "error");
+        props.notify("There was an error loading cases.", "error");
       });
   }, [currentPage, setIsLoading]);
-
-  const notify = (message, type) => {
-    if (toast[type]) {
-      return toast[type](message);
-    }
-    toast(message);
-  };
 
   const snooze = async (rowData, snoozeOption) => {
     try {
@@ -51,7 +43,7 @@ const ActiveCaseList = props => {
       });
 
       props.updateSummaryData();
-      notify(
+      props.notify(
         `${
           rowData.receiptNumber
         } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
@@ -62,7 +54,7 @@ const ActiveCaseList = props => {
       setCases(cases.filter(c => c.receiptNumber !== rowData.receiptNumber));
     } catch (e) {
       console.error(e.message);
-      notify(e.message, "error");
+      props.notify(e.message, "error");
     }
   };
 
@@ -85,7 +77,8 @@ const ActiveCaseList = props => {
 };
 
 ActiveCaseList.propTypes = {
-  updateSummaryData: PropTypes.func
+  updateSummaryData: PropTypes.func,
+  notify: PropTypes.func
 };
 
 export { ActiveCaseList };

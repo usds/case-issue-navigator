@@ -21,7 +21,6 @@ class App extends Component {
     this.state = {
       snoozed_cases: [],
       showDialog: false,
-      dataRefresh: null,
       isLoading: false
     };
   }
@@ -166,13 +165,16 @@ class App extends Component {
 
     return (
       <Layout
-        render={updateSummaryData => (
+        render={(updateSummaryData, notify) => (
           <React.Fragment>
             <Route
               path="/"
               exact={true}
               render={() => (
-                <ActiveCaseList updateSummaryData={updateSummaryData} />
+                <ActiveCaseList
+                  updateSummaryData={updateSummaryData}
+                  notify={notify}
+                />
               )}
             />
             <Route

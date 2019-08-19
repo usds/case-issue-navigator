@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+import {
+  ToastContainer,
+  toast,
+  ToastContent,
+  ToastOptions
+} from "react-toastify";
 import PrimaryNavMenu from "../PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
@@ -7,7 +12,7 @@ import caseFetcher from "../../model/caseFetcher";
 import "react-toastify/dist/ReactToastify.css";
 
 interface LayoutProps {
-  render: (updateSummaryData: Function) => React.Component;
+  render: (updateSummaryData: Function, notify: Function) => React.Component;
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = props => {
@@ -33,6 +38,10 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
     }
   };
 
+  const notify = (message: ToastContent, type: ToastOptions["type"]): void => {
+    toast(message, { type });
+  };
+
   useEffect(() => {
     updateSummaryData();
   }, []);
@@ -49,7 +58,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
         <div className="grid-container">
           <FormattedDate label="Last Refresh" date={new Date()} />
         </div>
-        {props.render(updateSummaryData)}
+        {props.render(updateSummaryData, notify)}
       </main>
     </div>
   );
