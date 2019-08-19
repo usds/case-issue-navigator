@@ -7,7 +7,6 @@ import caseFetcher from "../../model/caseFetcher";
 import "react-toastify/dist/ReactToastify.css";
 
 interface LayoutProps {
-  dataRefresh: Date;
   render: (updateSummaryData: Function) => React.Component;
 }
 
@@ -48,7 +47,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       />
       <main id="main-content">
         <div className="grid-container">
-          <FormattedDate label="Last Refresh" date={props.dataRefresh} />
+          <FormattedDate label="Last Refresh" date={new Date()} />
         </div>
         {props.render(updateSummaryData)}
       </main>

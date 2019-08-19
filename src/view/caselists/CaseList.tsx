@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ActionModal } from "../util/ActionModal";
-import SnoozeForm from "../../controller/SnoozeForm";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
 
@@ -9,9 +8,12 @@ interface CaseListProps {
   headers: Array<Object>;
   callbacks: { [x: string]: (...args: any[]) => any };
   cases: Array<Object>;
-  clickedRow: object;
   currentPage: number;
   setCurrentPage: Function;
+  ModalContent: React.JSXElementConstructor<{
+    callback: Object;
+    rowData: Object;
+  }>;
   view: string;
 }
 
@@ -21,7 +23,22 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
     title: ""
   });
 
+  const [clickedRow, setClickedRow] = useState({ receiptNumber: "" });
+
+  useEffect(() => {
+    clickedRow.receiptNumber &&
+      setDialog({ show: true, title: clickedRow.receiptNumber });
+  }, [clickedRow]);
+
   const closeModal = () => setDialog({ show: false, title: "" });
+
+  const callbacks = {
+    ...props.callbacks,
+    details: setClickedRow,
+    closeDialog: closeModal
+  };
+
+  const { ModalContent } = props;
 
   return (
     <React.Fragment>
@@ -31,12 +48,12 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
           title={dialog.title}
           closeModal={closeModal}
         >
-          <SnoozeForm callback={props.callbacks} rowData={props.clickedRow} />
+          <ModalContent callback={callbacks} rowData={clickedRow} />
         </ActionModal>
       )}
       <ReceiptList
         cases={props.cases}
-        callback={props.callbacks}
+        callback={callbacks}
         isLoading={props.isLoading}
         headers={props.headers}
       />

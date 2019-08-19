@@ -19,11 +19,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active_cases: [],
       snoozed_cases: [],
-      summary: null,
       showDialog: false,
-      alerts: [],
       dataRefresh: null,
       isLoading: false
     };
@@ -34,28 +31,6 @@ class App extends Component {
       return toast[type](message);
     }
     toast(message);
-  };
-
-  loadActiveCases = page => {
-    if (page === 0) {
-      this.clearActiveCases();
-    }
-
-    this.setState({ isLoading: true });
-    caseFetcher
-      .getActiveCases(page)
-      .then(data => {
-        this.setState({
-          active_cases: [...this.state.active_cases, ...data],
-          isLoading: false,
-          dataRefresh: new Date()
-        });
-      })
-      .catch(e => {
-        console.error(e.message);
-        this.setState({ isLoading: false });
-        this.notify("There was an error loading cases.", "error");
-      });
   };
 
   loadSnoozedCases = page => {
@@ -87,15 +62,7 @@ class App extends Component {
     });
   };
 
-  clearActiveCases = () => this.setState({ active_cases: [] });
-
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
-
-  dismissAlert = selectedAlert => {
-    this.setState({
-      alerts: this.state.alerts.filter(alert => alert !== selectedAlert)
-    });
-  };
 
   snooze = async (rowData, snoozeOption) => {
     try {
@@ -118,20 +85,6 @@ class App extends Component {
       );
 
       return snoozeData;
-    } catch (e) {
-      console.error(e.message);
-      this.notify(e.message, "error");
-    }
-  };
-
-  createSnooze = async (rowData, snoozeOption) => {
-    try {
-      await this.snooze(rowData, snoozeOption);
-      this.setState({
-        active_cases: this.state.active_cases.filter(
-          c => c.receiptNumber !== rowData.receiptNumber
-        )
-      });
     } catch (e) {
       console.error(e.message);
       this.notify(e.message, "error");
@@ -204,7 +157,6 @@ class App extends Component {
 
   render() {
     const callbacks = {
-      snooze: this.createSnooze,
       details: this.detailView.bind(this),
       closeDialog: this.closeDialog.bind(this),
       snoozeUpdate: this.detailView.bind(this),
@@ -214,25 +166,13 @@ class App extends Component {
 
     return (
       <Layout
-        summary={this.state.summary}
-        dataRefresh={this.state.dataRefresh}
-        render={() => (
+        render={updateSummaryData => (
           <React.Fragment>
             <Route
               path="/"
               exact={true}
-              render={props => (
-                <ActiveCaseList
-                  {...props}
-                  showDialog={this.state.showDialog}
-                  dialogTitle={this.state.dialogTitle}
-                  callbacks={callbacks}
-                  clickedRow={this.state.clickedRow}
-                  cases={this.state.active_cases}
-                  isLoading={this.state.isLoading}
-                  loadCases={this.loadActiveCases}
-                  headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
-                />
+              render={() => (
+                <ActiveCaseList updateSummaryData={updateSummaryData} />
               )}
             />
             <Route
