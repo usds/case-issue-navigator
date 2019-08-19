@@ -38,7 +38,8 @@ const ActionModal = props => {
 ActionModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  children: PropTypes.any
 };
 
 export { ActionModal };
