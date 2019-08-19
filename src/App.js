@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
-import PrimaryNavMenu from "./view/PrimaryNavMenu";
-import FormattedDate from "./view/util/FormattedDate";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { UsaAlert } from "./view/util/UsaAlert";
 import caseFetcher from "./model/caseFetcher";
 import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
 import { VIEWS, I90_HEADERS } from "./controller/config";
 import { getHeaders } from "./view/util/getHeaders";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { approximateDays } from "./view/util/approximateDays";
+import { Layout } from "./view/layout/Layout";
 
 library.add(fas);
 
@@ -95,25 +91,6 @@ class App extends Component {
 
   clearSnoozedCases = () => this.setState({ snoozed_cases: [] });
 
-  updateSummaryData = async () => {
-    try {
-      const summary = await caseFetcher.getCaseSummary();
-
-      const currentlySnoozed = summary.CURRENTLY_SNOOZED || 0;
-      const neverSnoozed = summary.NEVER_SNOOZED || 0;
-      const previouslySnoozed = summary.PREVIOUSLY_SNOOZED || 0;
-
-      this.setState({
-        summary: {
-          [VIEWS.CASES_TO_WORK.TITLE]: neverSnoozed + previouslySnoozed,
-          [VIEWS.SNOOZED_CASES.TITLE]: currentlySnoozed
-        }
-      });
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
-
   dismissAlert = selectedAlert => {
     this.setState({
       alerts: this.state.alerts.filter(alert => alert !== selectedAlert)
@@ -126,8 +103,6 @@ class App extends Component {
         duration: snoozeOption.duration,
         reason: snoozeOption.value
       });
-
-      this.updateSummaryData();
 
       const snoozeDays = approximateDays({
         startDate: snoozeData.snoozeStart,
@@ -204,8 +179,6 @@ class App extends Component {
         rowData.receiptNumber
       );
 
-      this.updateSummaryData();
-
       this.setState({
         snoozed_cases: this.state.snoozed_cases.filter(
           snoozedCase => snoozedCase.receiptNumber !== desnoozed
@@ -229,10 +202,6 @@ class App extends Component {
     this.setState({ showDialog: false, clickedRow: null });
   }
 
-  componentDidMount() {
-    this.updateSummaryData();
-  }
-
   render() {
     const callbacks = {
       snooze: this.createSnooze,
@@ -244,26 +213,11 @@ class App extends Component {
     };
 
     return (
-      <div className="case-issue-navigator">
-        <ToastContainer />
-        <PrimaryNavMenu
-          title="Case Issue Navigator"
-          views={VIEWS}
-          summary={this.state.summary}
-        />
-        <main id="main-content">
-          <div class="grid-container">
-            <FormattedDate 
-              label="Last Refresh"
-              date={this.state.dataRefresh}
-            />
-            {this.state.alerts.map(alert => (
-              <UsaAlert
-                alertType={alert.alertType}
-                content={alert.content}
-                onClick={() => this.dismissAlert(alert)}
-              />
-            ))}
+      <Layout
+        summary={this.state.summary}
+        dataRefresh={this.state.dataRefresh}
+        render={() => (
+          <React.Fragment>
             <Route
               path="/"
               exact={true}
@@ -297,9 +251,9 @@ class App extends Component {
                 />
               )}
             />
-          </div>
-        </main>
-      </div>
+          </React.Fragment>
+        )}
+      />
     );
   }
 }

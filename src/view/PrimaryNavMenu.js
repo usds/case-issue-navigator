@@ -5,7 +5,7 @@ import UsaButton from "./util/UsaButton";
 import close from "uswds/dist/img/close.svg";
 
 export default function PrimaryNavMenu(props) {
-  const navItems = Object.values(props.views).map(view => (
+  const navItems = Object.entries(props.views).map(([key, view]) => (
     <li key={view.ROUTE} className="usa-nav__primary-item">
       <NavLink
         to={"/" + view.ROUTE}
@@ -13,7 +13,7 @@ export default function PrimaryNavMenu(props) {
         className={"usa-nav__link"}
         exact={true}
       >
-        {view.TITLE} {props.summary && `(${props.summary[view.TITLE]})`}
+        {view.TITLE} {props.summary && `(${props.summary[key]})`}
       </NavLink>
     </li>
   ));
