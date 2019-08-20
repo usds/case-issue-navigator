@@ -27,7 +27,7 @@ const ActiveCaseList = props => {
         setIsLoading(false);
         notify("There was an error loading cases.", "error");
       });
-  }, [currentPage, setIsLoading, notify]);
+  }, [currentPage, setIsLoading]);
 
   const snooze = async (rowData, snoozeOption) => {
     try {
