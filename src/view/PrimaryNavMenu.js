@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import UsaButton from "./util/UsaButton";
 import close from "uswds/dist/img/close.svg";
+import "./PrimaryNavMenu.css";
 
 export default function PrimaryNavMenu(props) {
   const navItems = Object.entries(props.views).map(([key, view]) => (
@@ -20,14 +21,17 @@ export default function PrimaryNavMenu(props) {
   return (
     <React.Fragment>
       <div className="usa-overlay"></div>
-      <header className="usa-header usa-header--extended" role="banner">
+      <header
+        className="usa-header usa-header--extended sp-full-width"
+        role="banner"
+      >
         <div className="usa-navbar">
           <div className="usa-logo" id="extended-logo">
             <em className="usa-logo__text">{props.title}</em>
           </div>
           <button className="usa-menu-btn">Menu</button>
         </div>
-        <nav role="navigation" className="usa-nav">
+        <nav role="navigation" className="usa-nav ">
           <button className="usa-nav__close">
             <img src={close} alt="close" />
           </button>

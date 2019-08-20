@@ -1,0 +1,6 @@
+.sp-full-width .usa-nav__inner,
+.sp-full-width .usa-navbar {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

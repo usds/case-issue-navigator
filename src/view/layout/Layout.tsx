@@ -59,9 +59,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
         summary={summary}
       />
       <main id="main-content">
-        <div className="grid-container">
-          <FormattedDate label="Last Refresh" date={new Date()} />
-        </div>
+        <FormattedDate label="Last Refresh" date={new Date()} />
         {props.render(updateSummaryData, notify, summary)}
       </main>
     </div>
