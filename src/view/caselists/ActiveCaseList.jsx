@@ -12,20 +12,22 @@ const ActiveCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
+  const { notify } = props;
+
   useEffect(() => {
     setIsLoading(true);
     caseFetcher
       .getActiveCases(currentPage)
       .then(data => {
-        setCases([...cases, ...data]);
+        setCases(previousCases => [...previousCases, ...data]);
         setIsLoading(false);
       })
       .catch(e => {
         console.error(e.message);
         setIsLoading(false);
-        props.notify("There was an error loading cases.", "error");
+        notify("There was an error loading cases.", "error");
       });
-  }, [currentPage, setIsLoading]);
+  }, [currentPage, setIsLoading, notify]);
 
   const snooze = async (rowData, snoozeOption) => {
     try {
@@ -43,7 +45,7 @@ const ActiveCaseList = props => {
       });
 
       props.updateSummaryData();
-      props.notify(
+      notify(
         `${
           rowData.receiptNumber
         } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
@@ -54,7 +56,7 @@ const ActiveCaseList = props => {
       setCases(cases.filter(c => c.receiptNumber !== rowData.receiptNumber));
     } catch (e) {
       console.error(e.message);
-      props.notify(e.message, "error");
+      notify(e.message, "error");
     }
   };
 

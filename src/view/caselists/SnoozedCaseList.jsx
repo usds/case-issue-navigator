@@ -12,20 +12,22 @@ const SnoozedCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
+  const { notify } = props;
+
   useEffect(() => {
     setIsLoading(true);
     caseFetcher
       .getSnoozedCases(currentPage)
       .then(data => {
-        setCases([...cases, ...data]);
+        setCases(previousCases => [...previousCases, ...data]);
         setIsLoading(false);
       })
       .catch(e => {
         console.error(e.message);
         setIsLoading(false);
-        props.notify("There was an error loading cases.", "error");
+        notify("There was an error loading cases.", "error");
       });
-  }, [setCases, currentPage]);
+  }, [setCases, currentPage, notify]);
 
   const reSnooze = async (rowData, snoozeOption) => {
     try {
@@ -39,7 +41,7 @@ const SnoozedCaseList = props => {
         endDate: snoozeData.snoozeEnd
       });
 
-      props.notify(
+      notify(
         `${
           rowData.receiptNumber
         } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
@@ -73,7 +75,7 @@ const SnoozedCaseList = props => {
       setCases(snoozedCases);
     } catch (e) {
       console.error(e.message);
-      props.notify(e.message, "error");
+      notify(e.message, "error");
     }
   };
 
@@ -86,9 +88,9 @@ const SnoozedCaseList = props => {
         cases.filter(snoozedCase => snoozedCase.receiptNumber !== desnoozed)
       );
       props.updateSummaryData();
-      props.notify(`${desnoozed} has been Unsnoozed.`, "info");
+      notify(`${desnoozed} has been Unsnoozed.`, "info");
     } catch (e) {
-      props.notify("There was an error unsnoozing this case.", "error");
+      notify("There was an error unsnoozing this case.", "error");
     }
   };
 
