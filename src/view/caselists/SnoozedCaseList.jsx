@@ -104,7 +104,7 @@ const SnoozedCaseList = props => {
       cases={cases}
       callbacks={callbacks}
       view={VIEWS.SNOOZED_CASES.TITLE}
-      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+      headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
       isLoading={isLoading}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
