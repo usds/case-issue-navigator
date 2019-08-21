@@ -42,15 +42,13 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
 
   return (
     <React.Fragment>
-      {dialog.show && (
-        <ActionModal
-          isOpen={dialog.show}
-          title={dialog.title}
-          closeModal={closeModal}
-        >
-          <ModalContent callback={callbacks} rowData={clickedRow} />
-        </ActionModal>
-      )}
+      <ActionModal
+        isOpen={dialog.show}
+        title={dialog.title}
+        closeModal={closeModal}
+      >
+        <ModalContent callback={callbacks} rowData={clickedRow} />
+      </ActionModal>
       <ReceiptList
         cases={props.cases}
         callback={callbacks}
