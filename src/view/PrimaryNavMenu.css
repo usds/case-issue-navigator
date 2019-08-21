@@ -1,6 +1,8 @@
-.sp-full-width .usa-nav__inner,
+.sp-full-width.usa-header--extended .usa-nav__inner,
 .sp-full-width .usa-navbar {
-  max-width: 100% !important;
+  max-width: 100%;
   padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
