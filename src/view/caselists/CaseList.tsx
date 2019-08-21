@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { ActionModal } from "../util/ActionModal";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
+import { Callbacks, Header, Case } from "../../types";
 
 interface CaseListProps {
   isLoading: boolean;
-  headers: Array<Object>;
-  callbacks: { [x: string]: (...args: any[]) => any };
-  cases: Array<Object>;
+  headers: Array<Header>;
+  callbacks: Callbacks;
+  cases: Array<Case>;
   currentPage: number;
-  setCurrentPage: Function;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
   ModalContent: React.JSXElementConstructor<{
-    callback: Object;
-    rowData: Object;
+    callback: Callbacks;
+    rowData: Case | {};
   }>;
-  view: string;
 }
 
 const CaseList: React.FunctionComponent<CaseListProps> = props => {
@@ -38,7 +38,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
     closeDialog: closeModal
   };
 
-  const { ModalContent } = props;
+  const { currentPage, ModalContent, setCurrentPage } = props;
 
   return (
     <React.Fragment>
@@ -58,7 +58,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
         headers={props.headers}
       />
       <UsaButton
-        onClick={() => props.setCurrentPage(props.currentPage + 1)}
+        onClick={() => setCurrentPage(currentPage + 1)}
         disabled={props.isLoading}
       >
         {props.isLoading ? "Loading..." : "Load More Cases"}

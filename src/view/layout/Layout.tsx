@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import {
-  ToastContainer,
-  toast,
-  ToastContent,
-  ToastOptions
-} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import PrimaryNavMenu from "../PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
 import caseFetcher from "../../model/caseFetcher";
 import "react-toastify/dist/ReactToastify.css";
+import { Summary, ToastNotifier } from "../../types";
 
 interface LayoutProps {
   render: (
-    updateSummaryData: Function,
-    notify: Function,
-    summary: object
+    updateSummaryData: () => Promise<void>,
+    notify: ToastNotifier,
+    summary: Summary
   ) => React.Component;
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = props => {
-  const [summary, setSummary] = useState({
+  const [summary, setSummary] = useState<Summary>({
     CASES_TO_WORK: 0,
     SNOOZED_CASES: 0
   });
@@ -42,7 +38,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
     }
   };
 
-  const notify = (message: ToastContent, type: ToastOptions["type"]): void => {
+  const notify: ToastNotifier = (message, type) => {
     toast(message, { type });
   };
 
