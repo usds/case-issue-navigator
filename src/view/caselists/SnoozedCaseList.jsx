@@ -31,10 +31,13 @@ const SnoozedCaseList = props => {
 
   const reSnooze = async (rowData, snoozeOption) => {
     try {
-      const snoozeData = caseFetcher.updateActiveSnooze(rowData.receiptNumber, {
-        duration: snoozeOption.duration,
-        reason: snoozeOption.value
-      });
+      const snoozeData = await caseFetcher.updateActiveSnooze(
+        rowData.receiptNumber,
+        {
+          duration: snoozeOption.duration,
+          reason: snoozeOption.value
+        }
+      );
 
       const snoozeDays = approximateDays({
         startDate: snoozeData.snoozeStart,
@@ -48,7 +51,7 @@ const SnoozedCaseList = props => {
           "s"} due to ${snoozeData.snoozeReason}.`,
         "success"
       );
-      const snoozedCases = this.state.snoozed_cases
+      const snoozedCases = cases
         .map(snoozedCase => {
           if (snoozedCase.receiptNumber === rowData.receiptNumber) {
             return { ...snoozedCase, snoozeInformation: snoozeData };
@@ -67,7 +70,7 @@ const SnoozedCaseList = props => {
       if (
         snoozedCases[snoozedCases.length - 1].receiptNumber ===
           rowData.receiptNumber &&
-        snoozedCases.length < props.summary[VIEWS.SNOOZED_CASES.TITLE]
+        snoozedCases.length < props.summary["SNOOZED_CASES"]
       ) {
         snoozedCases.pop();
       }
