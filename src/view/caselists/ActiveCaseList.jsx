@@ -30,12 +30,31 @@ const ActiveCaseList = props => {
   }, [currentPage, setIsLoading]);
 
   const snooze = async (rowData, snoozeOption) => {
+    const notes = [];
+
+    if (snoozeOption.caseIssueNotes) {
+      notes.push({
+        type: "COMMENT",
+        content: snoozeOption.caseIssueNotes
+      });
+    }
+
+    // if(snoozeOption.followUp && snoozeOption.snoozeReason) {
+    //   notes.push({
+
+    //   })
+    // }
+
+    // followUp: "Nick"
+    // snoozeReason: "assigned_case"
+
     try {
       const snoozeData = await caseFetcher.updateActiveSnooze(
         rowData.receiptNumber,
         {
           duration: snoozeOption.duration,
-          reason: snoozeOption.value
+          reason: snoozeOption.snoozeReason,
+          notes
         }
       );
 

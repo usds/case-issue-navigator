@@ -7,7 +7,20 @@ import { SNOOZE_OPTIONS_SELECT } from "./config";
 
 export default function DeSnoozeForm(props) {
   const rowData = props.rowData;
-  const [inputState, updateInputs] = useState();
+  const [inputState, updateInputs] = useState({});
+
+  const formChange = e => {
+    updateInputs({
+      ...inputState,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const getSelectedOption = () => {
+    return SNOOZE_OPTIONS_SELECT.find(
+      opt => opt.value === inputState.snoozeReason
+    );
+  };
 
   const desnooze = e => {
     e.preventDefault();
@@ -17,21 +30,16 @@ export default function DeSnoozeForm(props) {
 
   const reSnooze = e => {
     e.preventDefault();
-    props.callback.reSnooze(
-      rowData,
-      inputState.selectedOption,
-      inputState.followUp
-    );
+    props.callback.reSnooze(rowData, getSelectedOption(), inputState);
     props.callback.closeDialog();
   };
 
   return (
-    <form className="usa-form">
+    <form className="usa-form" onChange={formChange}>
       <div>
         <h4>Re-snooze or update the snooze information for this case:</h4>
         <SnoozeInputs
           label="New snooze reason:"
-          onChange={updateInputs}
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={rowData.snoozeInformation}
           followUp={rowData.snooze_followup}

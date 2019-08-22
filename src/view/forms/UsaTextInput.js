@@ -27,5 +27,5 @@ UsaTextInput.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string,
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func
 };

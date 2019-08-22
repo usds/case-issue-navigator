@@ -1,5 +1,8 @@
 import {
-  API_BASE_URL, DEFAULT_RESULTS_PER_PAGE, CASE_MANAGEMENT_SYSTEM, CASE_TYPE
+  API_BASE_URL,
+  DEFAULT_RESULTS_PER_PAGE,
+  CASE_MANAGEMENT_SYSTEM,
+  CASE_TYPE
 } from "../controller/config";
 
 const baseUrl = API_BASE_URL;
@@ -60,11 +63,7 @@ const caseFetcher = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          details: snoozeInputs.details || "",
-          duration: snoozeInputs.duration,
-          reason: snoozeInputs.reason
-        })
+        body: JSON.stringify(snoozeInputs)
       }
     ).then(response => {
       if (!response.ok) {
