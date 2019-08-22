@@ -54,3 +54,24 @@ export type Case = {
     snoozeStart: string;
   };
 };
+
+export interface Note {
+  content: string;
+  type: string | null;
+  subType: string | null;
+}
+
+type SnoozeReason =
+  | "assigned_case"
+  | "test_data"
+  | "in_proceedings"
+  | "fo_referral"
+  | "technical_issue"
+  | "bcu";
+
+export interface SnoozeOption {
+  snoozeReason: SnoozeReason;
+  duration: number;
+  followUp?: string;
+  caseIssueNotes?: string;
+}

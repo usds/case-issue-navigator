@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
-import { VIEWS, I90_HEADERS } from "../../controller/config";
+import { VIEWS, I90_HEADERS, SNOOZE_OPTIONS } from "../../controller/config";
 import { approximateDays } from "../util/approximateDays";
 import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
+import { formatNotes } from "../util/formatNotes";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -30,24 +31,7 @@ const ActiveCaseList = props => {
   }, [currentPage, setIsLoading]);
 
   const snooze = async (rowData, snoozeOption) => {
-    const notes = [];
-
-    if (snoozeOption.caseIssueNotes) {
-      notes.push({
-        type: "COMMENT",
-        content: snoozeOption.caseIssueNotes
-      });
-    }
-
-    // if(snoozeOption.followUp && snoozeOption.snoozeReason) {
-    //   notes.push({
-
-    //   })
-    // }
-
-    // followUp: "Nick"
-    // snoozeReason: "assigned_case"
-
+    const notes = formatNotes(snoozeOption);
     try {
       const snoozeData = await caseFetcher.updateActiveSnooze(
         rowData.receiptNumber,

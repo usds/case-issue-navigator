@@ -340,7 +340,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       Case is pending removal proceedings - check back later
     </option>
     <option
-      value="fo_refferal"
+      value="fo_referral"
     >
       Stuck at field office - awaiting response
     </option>
