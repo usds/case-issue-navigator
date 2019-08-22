@@ -1,3 +1,4 @@
+import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
@@ -144,15 +145,34 @@ const I90_HEADERS = [
   },
   {
     header: "Assigned",
-    field: "assigned",
+    field: "notes",
+    content: notes => {
+      return notes
+        .reverse()
+        .filter(note => note.subType === "assignee")
+        .map(assignee => assignee.content)
+        .join(", ");
+    },
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "SN Ticket #",
-    field: "snoozeInformation",
-    content: field => {
-      // TODO: Only return snoozeDetails that match Regex
-      return field.snoozeDetails;
+    field: "notes",
+    content: notes => {
+      const tickets = notes
+        .reverse()
+        .filter(note => note.subType === "troubleticket");
+      if (tickets.length === 0) {
+        return null;
+      }
+      return tickets.map(ticket => (
+        <React.Fragment>
+          <a href={ticket.href} target="_blank" rel="noopener noreferrer">
+            {ticket.content}
+          </a>
+          <br />
+        </React.Fragment>
+      ));
     },
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },
