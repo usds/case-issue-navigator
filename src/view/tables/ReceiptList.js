@@ -23,5 +23,6 @@ export default function ReceiptList(props) {
 ReceiptList.propTypes = {
   cases: PropTypes.arrayOf(PropTypes.object),
   callback: PropTypes.objectOf(PropTypes.func).isRequired,
-  headers: PropTypes.arrayOf(PropTypes.object).isRequired
+  headers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoading: PropTypes.bool.isRequired
 };

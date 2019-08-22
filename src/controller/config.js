@@ -153,7 +153,7 @@ const I90_HEADERS = [
   {
     header: "Actions",
     field: "snooze_option",
-    content: buttonizer("Update", "outline", "snoozeUpdate"),
+    content: buttonizer("Update", "outline", "details"),
     views: [VIEWS.SNOOZED_CASES.TITLE]
   }
 ];

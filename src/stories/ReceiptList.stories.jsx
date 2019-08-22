@@ -56,6 +56,7 @@ storiesOf("ReceiptList", module)
         snoozeUpdate: action("show actions clicked!"),
         details: action("details clicked!")
       }}
+      isLoading={false}
     />
   ))
   .add("Tabular Cases-to-Work List with some items", () => (
@@ -67,6 +68,7 @@ storiesOf("ReceiptList", module)
         details: action("details clicked!")
       }}
       headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
+      isLoading={false}
     />
   ))
   .add("Tabular Snoozed Case List with some items", () => (
@@ -81,5 +83,6 @@ storiesOf("ReceiptList", module)
         details: action("details clicked!")
       }}
       headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
+      isLoading={false}
     />
   ));

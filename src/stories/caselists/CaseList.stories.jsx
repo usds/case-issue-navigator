@@ -1,16 +1,19 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { ActiveCaseList } from "../../view/caselists/ActiveCaseList";
+import { CaseList } from "../../view/caselists/CaseList";
+import { IS_TEST_ENV } from "../../controller/config";
 
 // Known workaround to mock createPortal for jest testing
-jest.mock("react-dom", () => ({
-  createPortal: node => node
-}));
+if (IS_TEST_ENV) {
+  jest.mock("react-dom", () => ({
+    createPortal: node => node
+  }));
+}
 
-storiesOf("ActiveCaseList", module)
+storiesOf("CaseList", module)
   .add("Empty case list", () => (
-    <ActiveCaseList
+    <CaseList
       loadCases={() => null}
       showDialog={false}
       callbacks={{ a: () => null, b: () => null }}
@@ -46,7 +49,7 @@ storiesOf("ActiveCaseList", module)
     ];
 
     return (
-      <ActiveCaseList
+      <CaseList
         loadCases={() => null}
         showDialog={false}
         callbacks={{ a: () => null, b: () => null }}
@@ -65,47 +68,11 @@ storiesOf("ActiveCaseList", module)
       { header: "header 3", field: "field3" }
     ];
     return (
-      <ActiveCaseList
+      <CaseList
         loadCases={() => null}
         showDialog={false}
         callbacks={{ a: () => null, b: () => null }}
         clickedRow={null}
-        cases={cases}
-        isLoading={true}
-        headers={headers}
-      />
-    );
-  })
-  .add("Case list with modal", () => {
-    const cases = [
-      {
-        receiptNumber: "FAK1",
-        field1: "foobar",
-        field2: "Hello world",
-        field3: "ABC"
-      },
-      {
-        receiptNumber: "FAK2",
-        field1: "foobar2",
-        field2: "Hello world2",
-        field3: "ABC2"
-      }
-    ];
-    const headers = [
-      { header: "header 1", field: "field1" },
-      { header: "header 2", field: "field2" },
-      { header: "header 3", field: "field3" }
-    ];
-    return (
-      <ActiveCaseList
-        loadCases={() => null}
-        showDialog={true}
-        callbacks={{
-          closeDialog: action("close modal"),
-          snooze: action("snoozed")
-        }}
-        clickedRow={cases[0]}
-        dialogTitle={cases[0].receiptNumber}
         cases={cases}
         isLoading={true}
         headers={headers}

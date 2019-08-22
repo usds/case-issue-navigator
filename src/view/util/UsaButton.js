@@ -30,8 +30,9 @@ export default function UsaButton(props) {
 UsaButton.propTypes = {
   buttonStyle: PropTypes.oneOf(BUTTON_TYPES),
   disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-  type: PropTypes.oneOf(["button", "submit", "reset"])
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(["button", "submit", "reset"]),
+  children: PropTypes.any
 };
 
 UsaButton.defaultProps = {
