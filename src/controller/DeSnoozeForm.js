@@ -6,7 +6,7 @@ import UsaButton from "../view/util/UsaButton";
 import { SNOOZE_OPTIONS_SELECT } from "./config";
 
 export default function DeSnoozeForm(props) {
-  const rowData = props.rowData;
+  const { rowData } = props;
   const [inputState, updateInputs] = useState({});
 
   const formChange = e => {
@@ -17,8 +17,10 @@ export default function DeSnoozeForm(props) {
   };
 
   const getSelectedOption = () => {
-    return SNOOZE_OPTIONS_SELECT.find(
-      opt => opt.value === inputState.snoozeReason
+    return (
+      SNOOZE_OPTIONS_SELECT.find(
+        opt => opt.value === inputState.snoozeReason
+      ) || {}
     );
   };
 
@@ -30,7 +32,10 @@ export default function DeSnoozeForm(props) {
 
   const reSnooze = e => {
     e.preventDefault();
-    props.callback.reSnooze(rowData, getSelectedOption(), inputState);
+    props.callback.reSnooze(rowData, {
+      ...inputState,
+      duration: getSelectedOption().duration
+    });
     props.callback.closeDialog();
   };
 
@@ -41,8 +46,7 @@ export default function DeSnoozeForm(props) {
         <SnoozeInputs
           label="New snooze reason:"
           options={SNOOZE_OPTIONS_SELECT}
-          selectedOption={rowData.snoozeInformation}
-          followUp={rowData.snooze_followup}
+          selectedOption={getSelectedOption()}
         />
         <UsaButton onClick={reSnooze} buttonStyle="outline">
           Save Snooze
