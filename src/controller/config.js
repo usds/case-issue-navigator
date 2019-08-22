@@ -147,6 +147,9 @@ const I90_HEADERS = [
     header: "Assigned",
     field: "notes",
     content: notes => {
+      if (!notes || !Array.isArray(notes)) {
+        return null;
+      }
       return notes
         .reverse()
         .filter(note => note.subType === "assignee")
@@ -159,6 +162,9 @@ const I90_HEADERS = [
     header: "SN Ticket #",
     field: "notes",
     content: notes => {
+      if (!notes || !Array.isArray(notes)) {
+        return null;
+      }
       const tickets = notes
         .reverse()
         .filter(note => note.subType === "troubleticket");
