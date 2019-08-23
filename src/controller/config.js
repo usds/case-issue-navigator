@@ -1,5 +1,7 @@
 import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UsaButton from "../view/util/UsaButton";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -82,6 +84,26 @@ const ELIS_CASE_BASE_URL =
   "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
 
 const I90_HEADERS = [
+  {
+    header: "",
+    field: "showDetails",
+    content: (showDetails, rowData, _, callback) => {
+      const icon = showDetails ? (
+        <FontAwesomeIcon icon="chevron-down" />
+      ) : (
+        <FontAwesomeIcon icon="chevron-right" />
+      );
+      return (
+        <UsaButton
+          buttonStyle="none"
+          onClick={() => callback.toggleDetails(rowData.receiptNumber)}
+        >
+          {icon}
+        </UsaButton>
+      );
+    },
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+  },
   {
     header: "Receipt Number",
     field: "receiptNumber",
