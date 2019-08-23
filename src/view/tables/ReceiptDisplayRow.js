@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TableCell } from "./TableCell";
+import { DetailDisplay } from "./DetailDisplay";
 import "./ReceiptDisplayRow.scss";
 
 const ReceiptDisplayRow = props => {
@@ -26,7 +27,7 @@ const ReceiptDisplayRow = props => {
             </td>
           </tr>
           {data.notes && data.notes.length > 0 ? (
-            data.notes.map(note => {
+            data.notes.reverse().map(note => {
               return (
                 <tr className="row--show-details">
                   <td colSpan={2}>
@@ -34,7 +35,9 @@ const ReceiptDisplayRow = props => {
                       {new Date(note.timestamp).toLocaleDateString("en-US")}
                     </strong>
                   </td>
-                  <td colSpan={numberOfColumns - 2}>{JSON.stringify(note)}</td>
+                  <td colSpan={numberOfColumns - 2}>
+                    <DetailDisplay note={note} />
+                  </td>
                 </tr>
               );
             })

@@ -59,6 +59,7 @@ export interface Note {
   content: string;
   type: string | null;
   subType: string | null;
+  href?: string | null;
 }
 
 type SnoozeReason =
