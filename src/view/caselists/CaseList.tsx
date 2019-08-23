@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
+import React, { useState, SetStateAction, Dispatch } from "react";
 import { ActionModal } from "../util/ActionModal";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";

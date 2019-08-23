@@ -9,7 +9,7 @@ const ReceiptDisplayRow = props => {
   const numberOfColumns = headers.length;
   return (
     <React.Fragment>
-      <tr className={data.showDetails ? "row--show-details" : ""}>
+      <tr className={data.showDetails ? "row--show-details" : undefined}>
         {headers.map((header, i) => (
           <TableCell
             key={`${data.caseId}-${i}`}

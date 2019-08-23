@@ -30,9 +30,7 @@ Array [
       </tr>
     </thead>
     <tbody>
-      <tr
-        className=""
-      >
+      <tr>
         <td>
           foobar
         </td>
@@ -43,9 +41,7 @@ Array [
           ABC
         </td>
       </tr>
-      <tr
-        className=""
-      >
+      <tr>
         <td>
           foobar2
         </td>
@@ -88,9 +84,7 @@ Array [
       </tr>
     </thead>
     <tbody>
-      <tr
-        className=""
-      >
+      <tr>
         <td />
         <td />
         <td />
@@ -128,7 +122,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
 >
   <thead>
     <tr>
-      <th>
+      <th
+        className="min"
+      >
         
       </th>
       <th>
@@ -152,10 +148,10 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
     </tr>
   </thead>
   <tbody>
-    <tr
-      className=""
-    >
-      <td>
+    <tr>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -210,10 +206,10 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </button>
       </td>
     </tr>
-    <tr
-      className=""
-    >
-      <td>
+    <tr>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -274,7 +270,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
 >
   <thead>
     <tr>
-      <th>
+      <th
+        className="min"
+      >
         
       </th>
       <th>
@@ -301,10 +299,10 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
     </tr>
   </thead>
   <tbody>
-    <tr
-      className=""
-    >
-      <td>
+    <tr>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -360,10 +358,10 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </button>
       </td>
     </tr>
-    <tr
-      className=""
-    >
-      <td>
+    <tr>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
