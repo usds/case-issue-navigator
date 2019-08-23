@@ -22,6 +22,7 @@ const ReceiptDisplayRow = props => {
       {data.showDetails && (
         <React.Fragment>
           <tr className="row--show-details ">
+            <td colSpan={1}></td>
             <td colSpan={numberOfColumns} className="bg-primary-light">
               <h3>View Details</h3>
             </td>
@@ -30,6 +31,7 @@ const ReceiptDisplayRow = props => {
             data.notes.reverse().map(note => {
               return (
                 <tr className="row--show-details">
+                  <td colSpan={1}></td>
                   <td colSpan={2}>
                     <strong>
                       {new Date(note.timestamp).toLocaleDateString("en-US")}
@@ -43,6 +45,7 @@ const ReceiptDisplayRow = props => {
             })
           ) : (
             <tr className="row--show-details">
+              <td colSpan={1}></td>
               <td colSpan={numberOfColumns}>No details available.</td>
             </tr>
           )}

@@ -77,9 +77,24 @@ const ActiveCaseList = props => {
     );
   };
 
+  const toggleSelected = receiptNumber => {
+    setCases(cases =>
+      cases.map(caseInformation => {
+        if (caseInformation.receiptNumber === receiptNumber) {
+          return {
+            ...caseInformation,
+            selected: !caseInformation.selected
+          };
+        }
+        return caseInformation;
+      })
+    );
+  };
+
   const callbacks = {
     snooze,
-    toggleDetails
+    toggleDetails,
+    toggleSelected
   };
 
   return (

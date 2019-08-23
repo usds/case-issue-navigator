@@ -2,6 +2,7 @@ import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UsaButton from "../view/util/UsaButton";
+import { UsaCheckbox } from "../view/util/UsaCheckbox";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -90,6 +91,20 @@ const ELIS_CASE_BASE_URL =
   "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
 
 const I90_HEADERS = [
+  {
+    header: "",
+    field: "receiptNumber",
+    content: (receiptNumber, rowData, _, callback) => {
+      return (
+        <UsaCheckbox
+          onChange={() => callback.toggleSelected(rowData)}
+          name={`select-${receiptNumber}`}
+          checked={rowData.selected}
+        />
+      );
+    },
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+  },
   {
     header: "",
     field: "showDetails",

@@ -164,6 +164,11 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         
       </th>
       <th
+        className="min"
+      >
+        
+      </th>
+      <th
         className=""
       >
         Receipt Number
@@ -199,6 +204,24 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
     <tr
       className=""
     >
+      <td
+        className="min"
+      >
+        <input
+          className="usa-checkbox__input"
+          id="select-FKE5381523"
+          name="select-FKE5381523"
+          onChange={[Function]}
+          type="checkbox"
+          value="select-FKE5381523"
+        />
+        <label
+          className="usa-checkbox__label"
+          htmlFor="select-FKE5381523"
+        >
+          
+        </label>
+      </td>
       <td
         className="min"
       >
@@ -271,6 +294,24 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
     <tr
       className=""
     >
+      <td
+        className="min"
+      >
+        <input
+          className="usa-checkbox__input"
+          id="select-FKE8206743"
+          name="select-FKE8206743"
+          onChange={[Function]}
+          type="checkbox"
+          value="select-FKE8206743"
+        />
+        <label
+          className="usa-checkbox__label"
+          htmlFor="select-FKE8206743"
+        >
+          
+        </label>
+      </td>
       <td
         className="min"
       >
@@ -352,6 +393,11 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         
       </th>
       <th
+        className="min"
+      >
+        
+      </th>
+      <th
         className=""
       >
         Receipt Number
@@ -392,6 +438,24 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
     <tr
       className=""
     >
+      <td
+        className="min"
+      >
+        <input
+          className="usa-checkbox__input"
+          id="select-FKE5381523"
+          name="select-FKE5381523"
+          onChange={[Function]}
+          type="checkbox"
+          value="select-FKE5381523"
+        />
+        <label
+          className="usa-checkbox__label"
+          htmlFor="select-FKE5381523"
+        >
+          
+        </label>
+      </td>
       <td
         className="min"
       >
@@ -467,6 +531,24 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
     <tr
       className=""
     >
+      <td
+        className="min"
+      >
+        <input
+          className="usa-checkbox__input"
+          id="select-FKE8206743"
+          name="select-FKE8206743"
+          onChange={[Function]}
+          type="checkbox"
+          value="select-FKE8206743"
+        />
+        <label
+          className="usa-checkbox__label"
+          htmlFor="select-FKE8206743"
+        >
+          
+        </label>
+      </td>
       <td
         className="min"
       >
@@ -724,4 +806,24 @@ exports[`Storyshots UsaButton Secondary button 1`] = `
 >
   Submit
 </button>
+`;
+
+exports[`Storyshots UsaCheckbox Default checkbox 1`] = `
+Array [
+  <input
+    checked={true}
+    className="usa-checkbox__input"
+    id="checkbox-1"
+    name="checkbox-1"
+    onChange={[Function]}
+    type="checkbox"
+    value="my-value"
+  />,
+  <label
+    className="usa-checkbox__label"
+    htmlFor="checkbox-1"
+  >
+    Some checkbox
+  </label>,
+]
 `;
