@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
+import "./TableCell.scss";
 
 const TabularList = props => {
   return (
@@ -8,7 +9,9 @@ const TabularList = props => {
       <thead>
         <tr>
           {props.header_definitions.map(h => (
-            <th key={h.header}>{h.header}</th>
+            <th className={h.header === "" ? "min" : ""} key={h.header}>
+              {h.header}
+            </th>
           ))}
         </tr>
       </thead>

@@ -18,13 +18,19 @@ Array [
   >
     <thead>
       <tr>
-        <th>
+        <th
+          className=""
+        >
           header 1
         </th>
-        <th>
+        <th
+          className=""
+        >
           header 2
         </th>
-        <th>
+        <th
+          className=""
+        >
           header 3
         </th>
       </tr>
@@ -33,26 +39,38 @@ Array [
       <tr
         className=""
       >
-        <td>
+        <td
+          className=""
+        >
           foobar
         </td>
-        <td>
+        <td
+          className=""
+        >
           Hello world
         </td>
-        <td>
+        <td
+          className=""
+        >
           ABC
         </td>
       </tr>
       <tr
         className=""
       >
-        <td>
+        <td
+          className=""
+        >
           foobar2
         </td>
-        <td>
+        <td
+          className=""
+        >
           Hello world2
         </td>
-        <td>
+        <td
+          className=""
+        >
           ABC2
         </td>
       </tr>
@@ -76,13 +94,19 @@ Array [
   >
     <thead>
       <tr>
-        <th>
+        <th
+          className=""
+        >
           header 1
         </th>
-        <th>
+        <th
+          className=""
+        >
           header 2
         </th>
-        <th>
+        <th
+          className=""
+        >
           header 3
         </th>
       </tr>
@@ -91,9 +115,15 @@ Array [
       <tr
         className=""
       >
-        <td />
-        <td />
-        <td />
+        <td
+          className=""
+        />
+        <td
+          className=""
+        />
+        <td
+          className=""
+        />
       </tr>
     </tbody>
   </table>,
@@ -128,25 +158,39 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
 >
   <thead>
     <tr>
-      <th>
+      <th
+        className="min"
+      >
         
       </th>
-      <th>
+      <th
+        className=""
+      >
         Receipt Number
       </th>
-      <th>
+      <th
+        className=""
+      >
         Case Status
       </th>
-      <th>
+      <th
+        className=""
+      >
         Case Substatus
       </th>
-      <th>
+      <th
+        className=""
+      >
         Platform
       </th>
-      <th>
+      <th
+        className=""
+      >
         Assigned
       </th>
-      <th>
+      <th
+        className=""
+      >
         Actions
       </th>
     </tr>
@@ -155,7 +199,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
     <tr
       className=""
     >
-      <td>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -181,7 +227,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className=""
+      >
         <a
           href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
           target="_elis_viewer"
@@ -189,17 +237,27 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
           FKE5381523
         </a>
       </td>
-      <td>
+      <td
+        className=""
+      >
         Pending
       </td>
-      <td>
+      <td
+        className=""
+      >
         Printing
       </td>
-      <td>
+      <td
+        className=""
+      >
         Legacy
       </td>
-      <td />
-      <td>
+      <td
+        className=""
+      />
+      <td
+        className=""
+      >
         <button
           className="usa-button usa-button--outline"
           disabled={false}
@@ -213,7 +271,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
     <tr
       className=""
     >
-      <td>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -239,7 +299,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className=""
+      >
         <a
           href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
           target="_elis_viewer"
@@ -247,13 +309,23 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
           FKE8206743
         </a>
       </td>
-      <td />
-      <td />
-      <td>
+      <td
+        className=""
+      />
+      <td
+        className=""
+      />
+      <td
+        className=""
+      >
         Legacy
       </td>
-      <td />
-      <td>
+      <td
+        className=""
+      />
+      <td
+        className=""
+      >
         <button
           className="usa-button usa-button--outline"
           disabled={false}
@@ -274,28 +346,44 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
 >
   <thead>
     <tr>
-      <th>
+      <th
+        className="min"
+      >
         
       </th>
-      <th>
+      <th
+        className=""
+      >
         Receipt Number
       </th>
-      <th>
+      <th
+        className=""
+      >
         Platform
       </th>
-      <th>
+      <th
+        className=""
+      >
         Problem
       </th>
-      <th>
+      <th
+        className=""
+      >
         Snoozed
       </th>
-      <th>
+      <th
+        className=""
+      >
         Assigned
       </th>
-      <th>
+      <th
+        className=""
+      >
         SN Ticket #
       </th>
-      <th>
+      <th
+        className=""
+      >
         Actions
       </th>
     </tr>
@@ -304,7 +392,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
     <tr
       className=""
     >
-      <td>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -330,7 +420,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className=""
+      >
         <a
           href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
           target="_elis_viewer"
@@ -338,18 +430,30 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
           FKE5381523
         </a>
       </td>
-      <td>
+      <td
+        className=""
+      >
         Legacy
       </td>
-      <td>
+      <td
+        className=""
+      >
         Just Because
       </td>
-      <td>
+      <td
+        className=""
+      >
         1 day
       </td>
-      <td />
-      <td />
-      <td>
+      <td
+        className=""
+      />
+      <td
+        className=""
+      />
+      <td
+        className=""
+      >
         <button
           className="usa-button usa-button--outline"
           disabled={false}
@@ -363,7 +467,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
     <tr
       className=""
     >
-      <td>
+      <td
+        className="min"
+      >
         <button
           className="usa-button usa-button--none"
           disabled={false}
@@ -389,7 +495,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className=""
+      >
         <a
           href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
           target="_elis_viewer"
@@ -397,18 +505,30 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
           FKE8206743
         </a>
       </td>
-      <td>
+      <td
+        className=""
+      >
         Legacy
       </td>
-      <td>
+      <td
+        className=""
+      >
         Just Because
       </td>
-      <td>
+      <td
+        className=""
+      >
         1 day
       </td>
-      <td />
-      <td />
-      <td>
+      <td
+        className=""
+      />
+      <td
+        className=""
+      />
+      <td
+        className=""
+      >
         <button
           className="usa-button usa-button--outline"
           disabled={false}

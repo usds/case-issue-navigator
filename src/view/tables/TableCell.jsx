@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { cellDispatch } from "../util/cellDispatch";
+import "./TableCell.scss";
 
 const TableCell = props => {
   let datum = props.rowData[props.header.field];
@@ -11,7 +12,14 @@ const TableCell = props => {
         : cellDispatch[props.header.content];
     datum = processor(datum, props.rowData, props.header, props.callback);
   }
-  return <td key={props.header.header}>{datum}</td>;
+  return (
+    <td
+      className={props.header.header === "" ? "min" : ""}
+      key={props.header.header}
+    >
+      {datum}
+    </td>
+  );
 };
 
 TableCell.propTypes = {
