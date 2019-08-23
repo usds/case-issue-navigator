@@ -8,12 +8,14 @@ const IS_TEST_ENV = process.env.NODE_ENV === "test";
 const SNOOZE_OPTIONS = {
   test_data: {
     snoozeReason: "Test Data - should be deleted",
+    shortText: "Test Data",
     duration: 365,
     type: null,
     subType: null
   },
   assigned_case: {
     snoozeReason: "Case has been assigned - remind me later",
+    shortText: "Assigned",
     duration: 5,
     followUp: "Who is the case being assigned to?",
     type: "TAG",
@@ -21,12 +23,14 @@ const SNOOZE_OPTIONS = {
   },
   in_proceedings: {
     snoozeReason: "Case is pending removal proceedings - check back later",
+    shortText: "Pending Removal",
     duration: 30,
     type: null,
     subType: null
   },
   fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
+    shortText: "Stuck at Field Office",
     followUp: "Enter Field Office location code:",
     duration: 5,
     type: "COMMENT",
@@ -34,6 +38,7 @@ const SNOOZE_OPTIONS = {
   },
   technical_issue: {
     snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
+    shortText: "Technical Issue",
     followUp: "ServiceNow ticket ID:",
     duration: 14,
     type: "LINK",
@@ -41,6 +46,7 @@ const SNOOZE_OPTIONS = {
   },
   bcu: {
     snoozeReason: "Referral to BCU or CFDO",
+    shortText: "Referral",
     followUp: "Reason for referral",
     duration: 30,
     type: "COMMENT",
@@ -149,7 +155,7 @@ const I90_HEADERS = [
     field: "snoozeInformation",
     content: field =>
       SNOOZE_OPTIONS[field.snoozeReason]
-        ? SNOOZE_OPTIONS[field.snoozeReason].snoozeReason
+        ? SNOOZE_OPTIONS[field.snoozeReason].shortText
         : field.snoozeReason,
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },
