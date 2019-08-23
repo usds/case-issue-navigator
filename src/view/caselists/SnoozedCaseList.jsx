@@ -100,9 +100,24 @@ const SnoozedCaseList = props => {
     }
   };
 
+  const toggleDetails = receiptNumber => {
+    setCases(cases =>
+      cases.map(caseInformation => {
+        if (caseInformation.receiptNumber === receiptNumber) {
+          return {
+            ...caseInformation,
+            showDetails: !caseInformation.showDetails
+          };
+        }
+        return caseInformation;
+      })
+    );
+  };
+
   const callbacks = {
     reSnooze,
-    deSnooze
+    deSnooze,
+    toggleDetails
   };
 
   return (

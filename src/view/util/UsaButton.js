@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./UsaButton.scss";
 
 const BUTTON_TYPES = [
   "secondary",
@@ -7,7 +8,8 @@ const BUTTON_TYPES = [
   "base",
   "outline",
   "inverse",
-  "big"
+  "big",
+  "none"
 ];
 
 export default function UsaButton(props) {
