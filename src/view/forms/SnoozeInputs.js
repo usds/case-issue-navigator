@@ -13,7 +13,13 @@ export default function SnoozeInputs(props) {
   };
 
   const followUpFragment = props.selectedOption.followUp ? (
-    <UsaTextInput name="followUp">{props.selectedOption.followUp}</UsaTextInput>
+    <UsaTextInput
+      onChange={props.changeHandlers.followUpChange}
+      name="followUp"
+      value={props.inputState.followUp}
+    >
+      {props.selectedOption.followUp}
+    </UsaTextInput>
   ) : null;
 
   return (
@@ -26,6 +32,8 @@ export default function SnoozeInputs(props) {
         placeholder="- Select Reason -"
         name={inputNames.select}
         selected={props.selectedOption.value}
+        onChange={props.changeHandlers.snoozeReasonChange}
+        value={props.inputState.select}
       >
         Reason to snooze this case:
       </UsaSelect>
@@ -34,6 +42,8 @@ export default function SnoozeInputs(props) {
         <UsaTextArea
           label="Case Issue Notes"
           name={inputNames.caseIssueNotes}
+          onChange={props.changeHandlers.caseIssueNotesChange}
+          value={props.inputState.caseIssueNotes}
         />
       )}
     </React.Fragment>
@@ -43,7 +53,9 @@ export default function SnoozeInputs(props) {
 SnoozeInputs.propTypes = {
   followUp: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
-  selectedOption: PropTypes.object
+  selectedOption: PropTypes.object,
+  changeHandlers: PropTypes.objectOf(PropTypes.func).isRequired,
+  inputState: PropTypes.objectOf(PropTypes.string)
 };
 
 SnoozeInputs.defaultProps = {

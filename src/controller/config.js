@@ -151,8 +151,10 @@ const I90_HEADERS = [
         return null;
       }
       return notes
-        .reverse()
         .filter(note => note.subType === "assignee")
+        .sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        })
         .map(assignee => assignee.content)
         .join(", ");
     },
@@ -166,8 +168,10 @@ const I90_HEADERS = [
         return null;
       }
       const tickets = notes
-        .reverse()
-        .filter(note => note.subType === "troubleticket");
+        .filter(note => note.subType === "troubleticket")
+        .sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        });
       if (tickets.length === 0) {
         return null;
       }

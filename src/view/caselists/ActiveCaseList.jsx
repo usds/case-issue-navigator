@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
-import { VIEWS, I90_HEADERS, SNOOZE_OPTIONS } from "../../controller/config";
+import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { approximateDays } from "../util/approximateDays";
 import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";

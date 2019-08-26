@@ -3,25 +3,40 @@ import PropTypes from "prop-types";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
-import { SNOOZE_OPTIONS_SELECT } from "./config";
+import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
 export default function DeSnoozeForm(props) {
   const { rowData } = props;
-  const [inputState, updateInputs] = useState({});
+  const [inputState, updateInputs] = useState({
+    snoozeReason: SNOOZE_OPTIONS_SELECT[0].value
+  });
 
-  const formChange = e => {
+  const snoozeReasonChange = e => {
     updateInputs({
       ...inputState,
-      [e.target.name]: e.target.value
+      snoozeReason: e.target.value
     });
+  };
+  const followUpChange = e =>
+    updateInputs({
+      ...inputState,
+      followUp: e.target.value
+    });
+
+  const caseIssueNotesChange = e =>
+    updateInputs({
+      ...inputState,
+      caseIssueNotes: e.target.value
+    });
+
+  const changeHandlers = {
+    snoozeReasonChange,
+    followUpChange,
+    caseIssueNotesChange
   };
 
   const getSelectedOption = () => {
-    return (
-      SNOOZE_OPTIONS_SELECT.find(
-        opt => opt.value === inputState.snoozeReason
-      ) || {}
-    );
+    return SNOOZE_OPTIONS[inputState.snoozeReason] || {};
   };
 
   const desnooze = e => {
@@ -40,13 +55,15 @@ export default function DeSnoozeForm(props) {
   };
 
   return (
-    <form className="usa-form" onChange={formChange}>
+    <form className="usa-form">
       <div>
         <h4>Re-snooze or update the snooze information for this case:</h4>
         <SnoozeInputs
           label="New snooze reason:"
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={getSelectedOption()}
+          changeHandlers={changeHandlers}
+          inputState={inputState}
         />
         <UsaButton onClick={reSnooze} buttonStyle="outline">
           Save Snooze

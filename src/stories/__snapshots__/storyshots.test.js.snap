@@ -302,7 +302,6 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
 exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
 <form
   className="usa-form"
-  onChange={[Function]}
 >
   <label
     className="usa-label"
@@ -312,9 +311,10 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
   </label>
   <select
     className="usa-select"
-    defaultValue="test_data"
+    defaultValue=""
     id="snoozeReason"
     name="snoozeReason"
+    onChange={[Function]}
     required={true}
   >
     <option
@@ -365,6 +365,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     className="usa-textarea"
     id="caseIssueNotes"
     name="caseIssueNotes"
+    onChange={[Function]}
   />
   <button
     className="usa-button"

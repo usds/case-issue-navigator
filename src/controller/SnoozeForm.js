@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { SNOOZE_OPTIONS_SELECT } from "./config";
+import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
@@ -15,15 +15,34 @@ class SnoozeForm extends Component {
     this.state = {
       snoozeReason: SNOOZE_OPTIONS_SELECT[0].value
     };
-    this.formChange = this.formChange.bind(this);
   }
 
-  formChange(e) {
+  snoozeReasonChange(e) {
     this.setState({
       ...this.state,
-      [e.target.name]: e.target.value
+      snoozeReason: e.target.value
     });
   }
+
+  followUpChange(e) {
+    this.setState({
+      ...this.state,
+      followUp: e.target.value
+    });
+  }
+
+  caseIssueNotesChange(e) {
+    this.setState({
+      ...this.state,
+      caseIssueNotes: e.target.value
+    });
+  }
+
+  changeHandlers = {
+    snoozeReasonChange: this.snoozeReasonChange.bind(this),
+    followUpChange: this.followUpChange.bind(this),
+    caseIssueNotesChange: this.caseIssueNotesChange.bind(this)
+  };
 
   formSubmit(e) {
     e.preventDefault();
@@ -36,9 +55,7 @@ class SnoozeForm extends Component {
   }
 
   getSelectedOption() {
-    return SNOOZE_OPTIONS_SELECT.find(
-      opt => opt.value === this.state.snoozeReason
-    );
+    return SNOOZE_OPTIONS[this.state.snoozeReason];
   }
 
   deSnoozeCheck() {
@@ -68,11 +85,13 @@ class SnoozeForm extends Component {
     buttonText =
       "Snooze for " + duration + " day" + (duration === 1 ? "" : "s");
     return (
-      <form className="usa-form" onChange={this.formChange}>
+      <form className="usa-form">
         {this.deSnoozeCheck()}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
+          changeHandlers={this.changeHandlers}
+          inputState={this.state}
         />
         <UsaButton onClick={this.formSubmit.bind(this)}>{buttonText}</UsaButton>
       </form>
