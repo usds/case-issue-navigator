@@ -1,3 +1,4 @@
+import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
@@ -5,31 +6,43 @@ const IS_TEST_ENV = process.env.NODE_ENV === "test";
 const SNOOZE_OPTIONS = {
   test_data: {
     snoozeReason: "Test Data - should be deleted",
-    duration: 365
+    duration: 365,
+    type: null,
+    subType: null
   },
   assigned_case: {
     snoozeReason: "Case has been assigned - remind me later",
     duration: 5,
-    followUp: "Who is the case being assigned to?"
+    followUp: "Who is the case being assigned to?",
+    type: "TAG",
+    subType: "assignee"
   },
   in_proceedings: {
     snoozeReason: "Case is pending removal proceedings - check back later",
-    duration: 30
+    duration: 30,
+    type: null,
+    subType: null
   },
-  fo_refferal: {
+  fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
     followUp: "Enter Field Office location code:",
-    duration: 5
+    duration: 5,
+    type: "COMMENT",
+    subType: null
   },
   technical_issue: {
     snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
     followUp: "ServiceNow ticket ID:",
-    duration: 14
+    duration: 14,
+    type: "LINK",
+    subType: "troubleticket"
   },
   bcu: {
     snoozeReason: "Referral to BCU or CFDO",
     followUp: "Reason for referral",
-    duration: 30
+    duration: 30,
+    type: "COMMENT",
+    subType: null
   }
 };
 const SNOOZE_OPTIONS_SELECT = Object.entries(SNOOZE_OPTIONS).reduce(
@@ -132,15 +145,44 @@ const I90_HEADERS = [
   },
   {
     header: "Assigned",
-    field: "assigned",
+    field: "notes",
+    content: notes => {
+      if (!notes || !Array.isArray(notes)) {
+        return null;
+      }
+      return notes
+        .filter(note => note.subType === "assignee")
+        .sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        })
+        .map(assignee => assignee.content)
+        .join(", ");
+    },
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "SN Ticket #",
-    field: "snoozeInformation",
-    content: field => {
-      // TODO: Only return snoozeDetails that match Regex
-      return field.snoozeDetails;
+    field: "notes",
+    content: notes => {
+      if (!notes || !Array.isArray(notes)) {
+        return null;
+      }
+      const tickets = notes
+        .filter(note => note.subType === "troubleticket")
+        .sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        });
+      if (tickets.length === 0) {
+        return null;
+      }
+      return tickets.map(ticket => (
+        <React.Fragment>
+          <a href={ticket.href} target="_blank" rel="noopener noreferrer">
+            {ticket.content}
+          </a>
+          <br />
+        </React.Fragment>
+      ));
     },
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },

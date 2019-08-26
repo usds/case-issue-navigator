@@ -6,6 +6,7 @@ import { approximateDays } from "../util/approximateDays";
 import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
+import { formatNotes } from "../util/formatNotes";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -30,12 +31,14 @@ const ActiveCaseList = props => {
   }, [currentPage, setIsLoading]);
 
   const snooze = async (rowData, snoozeOption) => {
+    const notes = formatNotes(snoozeOption);
     try {
       const snoozeData = await caseFetcher.updateActiveSnooze(
         rowData.receiptNumber,
         {
           duration: snoozeOption.duration,
-          reason: snoozeOption.value
+          reason: snoozeOption.snoozeReason,
+          notes
         }
       );
 

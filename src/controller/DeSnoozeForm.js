@@ -3,11 +3,41 @@ import PropTypes from "prop-types";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
-import { SNOOZE_OPTIONS_SELECT } from "./config";
+import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
 export default function DeSnoozeForm(props) {
-  const rowData = props.rowData;
-  const [inputState, updateInputs] = useState();
+  const { rowData } = props;
+  const [inputState, updateInputs] = useState({
+    snoozeReason: SNOOZE_OPTIONS_SELECT[0].value
+  });
+
+  const snoozeReasonChange = e => {
+    updateInputs({
+      ...inputState,
+      snoozeReason: e.target.value
+    });
+  };
+  const followUpChange = e =>
+    updateInputs({
+      ...inputState,
+      followUp: e.target.value
+    });
+
+  const caseIssueNotesChange = e =>
+    updateInputs({
+      ...inputState,
+      caseIssueNotes: e.target.value
+    });
+
+  const changeHandlers = {
+    snoozeReasonChange,
+    followUpChange,
+    caseIssueNotesChange
+  };
+
+  const getSelectedOption = () => {
+    return SNOOZE_OPTIONS[inputState.snoozeReason] || {};
+  };
 
   const desnooze = e => {
     e.preventDefault();
@@ -17,11 +47,10 @@ export default function DeSnoozeForm(props) {
 
   const reSnooze = e => {
     e.preventDefault();
-    props.callback.reSnooze(
-      rowData,
-      inputState.selectedOption,
-      inputState.followUp
-    );
+    props.callback.reSnooze(rowData, {
+      ...inputState,
+      duration: getSelectedOption().duration
+    });
     props.callback.closeDialog();
   };
 
@@ -31,10 +60,10 @@ export default function DeSnoozeForm(props) {
         <h4>Re-snooze or update the snooze information for this case:</h4>
         <SnoozeInputs
           label="New snooze reason:"
-          onChange={updateInputs}
           options={SNOOZE_OPTIONS_SELECT}
-          selectedOption={rowData.snoozeInformation}
-          followUp={rowData.snooze_followup}
+          selectedOption={getSelectedOption()}
+          changeHandlers={changeHandlers}
+          inputState={inputState}
         />
         <UsaButton onClick={reSnooze} buttonStyle="outline">
           Save Snooze

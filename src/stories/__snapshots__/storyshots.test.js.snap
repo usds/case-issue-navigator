@@ -299,6 +299,85 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
 </table>
 `;
 
+exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
+<form
+  className="usa-form"
+>
+  <label
+    className="usa-label"
+    htmlFor="snoozeReason"
+  >
+    Reason to snooze this case:
+  </label>
+  <select
+    className="usa-select"
+    defaultValue=""
+    id="snoozeReason"
+    name="snoozeReason"
+    onChange={[Function]}
+    required={true}
+  >
+    <option
+      disabled={true}
+      hidden={true}
+      value={false}
+    >
+      - Select Reason -
+    </option>
+    <option
+      value="test_data"
+    >
+      Test Data - should be deleted
+    </option>
+    <option
+      value="assigned_case"
+    >
+      Case has been assigned - remind me later
+    </option>
+    <option
+      value="in_proceedings"
+    >
+      Case is pending removal proceedings - check back later
+    </option>
+    <option
+      value="fo_referral"
+    >
+      Stuck at field office - awaiting response
+    </option>
+    <option
+      value="technical_issue"
+    >
+      Technical Issue - awaiting resolution through ServiceNow
+    </option>
+    <option
+      value="bcu"
+    >
+      Referral to BCU or CFDO
+    </option>
+  </select>
+  <label
+    className="usa-label"
+    htmlFor="caseIssueNotes"
+  >
+    Case Issue Notes
+  </label>
+  <textarea
+    className="usa-textarea"
+    id="caseIssueNotes"
+    name="caseIssueNotes"
+    onChange={[Function]}
+  />
+  <button
+    className="usa-button"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Snooze for 365 days
+  </button>
+</form>
+`;
+
 exports[`Storyshots UsaAlert Success 1`] = `
 <div
   className="usa-alert--fit-content usa-alert usa-alert--success usa-alert--slim"

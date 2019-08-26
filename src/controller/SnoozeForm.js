@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { SNOOZE_OPTIONS_SELECT } from "./config";
+import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 
@@ -12,30 +12,52 @@ class SnoozeForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { snoozeInputs: {} };
+    this.state = {
+      snoozeReason: SNOOZE_OPTIONS_SELECT[0].value
+    };
   }
 
-  formChange(snoozeState) {
-    const stateSetter = { snoozeInputs: snoozeState };
-    if (snoozeState.selectedOption !== null) {
-      stateSetter._enabled = true;
-    }
-    this.setState(stateSetter);
+  snoozeReasonChange(e) {
+    this.setState({
+      ...this.state,
+      snoozeReason: e.target.value
+    });
   }
+
+  followUpChange(e) {
+    this.setState({
+      ...this.state,
+      followUp: e.target.value
+    });
+  }
+
+  caseIssueNotesChange(e) {
+    this.setState({
+      ...this.state,
+      caseIssueNotes: e.target.value
+    });
+  }
+
+  changeHandlers = {
+    snoozeReasonChange: this.snoozeReasonChange.bind(this),
+    followUpChange: this.followUpChange.bind(this),
+    caseIssueNotesChange: this.caseIssueNotesChange.bind(this)
+  };
 
   formSubmit(e) {
-    e.preventDefault(); // nobody wants an actual form submission
-    this.props.callback.snooze(this.props.rowData, this.getSelectedOption());
+    e.preventDefault();
+    this.props.callback.snooze(this.props.rowData, {
+      ...this.state,
+      duration: this.getSelectedOption().duration
+    });
+
     this.props.callback.closeDialog();
   }
 
   getSelectedOption() {
-    return this.state.snoozeInputs.selectedOption;
+    return SNOOZE_OPTIONS[this.state.snoozeReason];
   }
 
-  snoozeDaysRequested() {
-    return this.getSelectedOption().duration;
-  }
   deSnoozeCheck() {
     if (this.props.rowData.previouslySnoozed) {
       const snoozeStart = new Date(
@@ -54,29 +76,24 @@ class SnoozeForm extends Component {
       );
     }
   }
+
   render() {
     let buttonText = "Select a Reason";
     let selectedOption = {};
-    if (this.state._enabled) {
-      selectedOption = this.getSelectedOption();
-      const duration = selectedOption.duration;
-      buttonText =
-        "Snooze for " + duration + " day" + (duration === 1 ? "" : "s");
-    }
+    selectedOption = this.getSelectedOption();
+    const duration = selectedOption.duration;
+    buttonText =
+      "Snooze for " + duration + " day" + (duration === 1 ? "" : "s");
     return (
       <form className="usa-form">
         {this.deSnoozeCheck()}
         <SnoozeInputs
-          onChange={this.formChange.bind(this)}
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
+          changeHandlers={this.changeHandlers}
+          inputState={this.state}
         />
-        <UsaButton
-          onClick={this.formSubmit.bind(this)}
-          disabled={!this.state._enabled}
-        >
-          {buttonText}
-        </UsaButton>
+        <UsaButton onClick={this.formSubmit.bind(this)}>{buttonText}</UsaButton>
       </form>
     );
   }
