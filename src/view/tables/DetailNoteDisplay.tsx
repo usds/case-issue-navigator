@@ -1,11 +1,13 @@
 import React, { ReactElement } from "react";
 import { Note } from "../../types";
 
-interface DetailDisplayProps {
+interface DetailNoteDisplayProps {
   note: Note;
 }
 
-const DetailDisplay: React.FunctionComponent<DetailDisplayProps> = props => {
+const DetailNoteDisplay: React.FunctionComponent<
+  DetailNoteDisplayProps
+> = props => {
   const { note } = props;
   let content: ReactElement | string = note.content;
   if (note.subType === "troubleticket" && note.href) {
@@ -24,4 +26,4 @@ const DetailDisplay: React.FunctionComponent<DetailDisplayProps> = props => {
   return <React.Fragment>{content}</React.Fragment>;
 };
 
-export { DetailDisplay };
+export { DetailNoteDisplay };

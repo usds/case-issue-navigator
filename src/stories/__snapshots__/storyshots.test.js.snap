@@ -102,11 +102,11 @@ Array [
 ]
 `;
 
-exports[`Storyshots DetailDisplay Assignee 1`] = `"Joe was assigned to follow-up on this case."`;
+exports[`Storyshots DetailNoteDisplay Assignee 1`] = `"Joe was assigned to follow-up on this case."`;
 
-exports[`Storyshots DetailDisplay General comment 1`] = `"This is a general comment."`;
+exports[`Storyshots DetailNoteDisplay General comment 1`] = `"This is a general comment."`;
 
-exports[`Storyshots DetailDisplay Trouble ticket 1`] = `
+exports[`Storyshots DetailNoteDisplay Trouble ticket 1`] = `
 Array [
   "ServiceNow ticket ",
   <a

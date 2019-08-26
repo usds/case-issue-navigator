@@ -62,6 +62,10 @@ export interface Note {
   href?: string | null;
 }
 
+export interface DBNote extends Note {
+  timestamp: string;
+}
+
 type SnoozeReason =
   | "assigned_case"
   | "test_data"
