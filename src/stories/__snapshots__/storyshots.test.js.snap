@@ -102,6 +102,23 @@ Array [
 ]
 `;
 
+exports[`Storyshots DetailDisplay Assignee 1`] = `"Joe was assigned to follow-up on this case."`;
+
+exports[`Storyshots DetailDisplay General comment 1`] = `"This is a general comment."`;
+
+exports[`Storyshots DetailDisplay Trouble ticket 1`] = `
+Array [
+  "ServiceNow ticket ",
+  <a
+    href="http://localhost:1111/12345"
+  >
+    #
+    12345
+  </a>,
+  " was associated with this case.",
+]
+`;
+
 exports[`Storyshots FormattedDate Last Refresh 1`] = `
 <p>
   Last Refresh
@@ -114,6 +131,286 @@ exports[`Storyshots ReceiptList Empty Receipt List 1`] = `
 <p>
   No cases found.
 </p>
+`;
+
+exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion 1`] = `
+<table
+  className="usa-table usa-table--borderless width-full"
+>
+  <thead>
+    <tr>
+      <th
+        className="min"
+      >
+        
+      </th>
+      <th>
+        Receipt Number
+      </th>
+      <th>
+        Platform
+      </th>
+      <th>
+        Problem
+      </th>
+      <th>
+        Snoozed
+      </th>
+      <th>
+        Assigned
+      </th>
+      <th>
+        SN Ticket #
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="min"
+      >
+        <button
+          className="usa-button usa-button--none"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-chevron-right fa-w-10 "
+            data-icon="chevron-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 320 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </button>
+      </td>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          target="_elis_viewer"
+        >
+          FKE5381523
+        </a>
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Just Because
+      </td>
+      <td>
+        1 day
+      </td>
+      <td />
+      <td />
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="min"
+      >
+        <button
+          className="usa-button usa-button--none"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-chevron-right fa-w-10 "
+            data-icon="chevron-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 320 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </button>
+      </td>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          target="_elis_viewer"
+        >
+          FKE8206743
+        </a>
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Just Because
+      </td>
+      <td>
+        1 day
+      </td>
+      <td />
+      <td />
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+    <tr
+      className="row--show-details"
+    >
+      <td
+        className="min"
+      >
+        <button
+          className="usa-button usa-button--none"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-chevron-down fa-w-14 "
+            data-icon="chevron-down"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </button>
+      </td>
+      <td>
+        <a
+          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE123123"
+          target="_elis_viewer"
+        >
+          FKE123123
+        </a>
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        Just Because
+      </td>
+      <td>
+        1 day
+      </td>
+      <td>
+        
+      </td>
+      <td>
+        <a
+          href="http://localhost:1111/12345"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          12345
+        </a>
+        <br />
+      </td>
+      <td>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+    <tr
+      className="row--show-details "
+    >
+      <td
+        className="bg-primary-light"
+        colSpan={8}
+      >
+        <h3>
+          View Details
+        </h3>
+      </td>
+    </tr>
+    <tr
+      className="row--show-details"
+    >
+      <td
+        colSpan={2}
+      >
+        <strong>
+          7/11/2019
+        </strong>
+      </td>
+      <td
+        colSpan={6}
+      >
+        ServiceNow ticket 
+        <a
+          href="http://localhost:1111/12345"
+        >
+          #
+          12345
+        </a>
+         was associated with this case.
+      </td>
+    </tr>
+    <tr
+      className="row--show-details"
+    >
+      <td
+        colSpan={2}
+      >
+        <strong>
+          6/11/2019
+        </strong>
+      </td>
+      <td
+        colSpan={6}
+      >
+        Here's another note
+      </td>
+    </tr>
+  </tbody>
+</table>
 `;
 
 exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] = `
@@ -243,8 +540,12 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
           FKE8206743
         </a>
       </td>
-      <td />
-      <td />
+      <td>
+        Eschewing Obfuscation
+      </td>
+      <td>
+        Amazingly Successful
+      </td>
       <td>
         Legacy
       </td>

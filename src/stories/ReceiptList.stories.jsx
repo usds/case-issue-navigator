@@ -16,20 +16,19 @@ const sampleCases = [
       channelType: "Pigeon",
       streamlinedProcess: false,
       applicationReason: "Boredom"
-    }
+    },
+    previouslySnoozed: true
   },
   {
     receiptNumber: "FKE8206743",
     caseCreation: new Date().setDate(new Date().getDate() - 150),
     extraData: {
-      extraData: {
-        caseStatus: "Eschewing Obfuscation",
-        caseState: "Happy",
-        caseSubstatus: "Amazingly Successful",
-        channelType: "Semaphore",
-        streamlinedProcess: true,
-        applicationReason: "Enthusiasm"
-      }
+      caseStatus: "Eschewing Obfuscation",
+      caseState: "Happy",
+      caseSubstatus: "Amazingly Successful",
+      channelType: "Semaphore",
+      streamlinedProcess: true,
+      applicationReason: "Enthusiasm"
     }
   }
 ];
@@ -85,4 +84,48 @@ storiesOf("ReceiptList", module)
       headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
       isLoading={false}
     />
-  ));
+  ))
+  .add("Snoozed Case List with an open details accordion", () => {
+    const modifiedSampleCases = [...sampleCases];
+    modifiedSampleCases.push({
+      showDetails: true,
+      notes: [
+        {
+          subType: "troubleticket",
+          content: "12345",
+          href: "http://localhost:1111/12345",
+          timestamp: new Date("July 11, 2019")
+        },
+        {
+          content: "Here's another note",
+          timestamp: new Date("June 11, 2019")
+        }
+      ],
+      receiptNumber: "FKE123123",
+      caseCreation: new Date().setDate(new Date().getDate() - 150),
+      extraData: {
+        caseStatus: "Eschewing Obfuscation",
+        caseState: "Happy",
+        caseSubstatus: "Amazingly Successful",
+        channelType: "Semaphore",
+        streamlinedProcess: true,
+        applicationReason: "Enthusiasm"
+      }
+    });
+
+    return (
+      <ReceiptList
+        view={VIEWS.SNOOZED_CASES.TITLE}
+        cases={modifiedSampleCases.map(sample => ({
+          ...sample,
+          snoozeInformation
+        }))}
+        callback={{
+          snoozeUpdate: action("show actions clicked!"),
+          details: action("details clicked!")
+        }}
+        headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
+        isLoading={false}
+      />
+    );
+  });

@@ -27,20 +27,22 @@ const ReceiptDisplayRow = props => {
             </td>
           </tr>
           {data.notes && data.notes.length > 0 ? (
-            data.notes.reverse().map(note => {
-              return (
-                <tr className="row--show-details">
-                  <td colSpan={2}>
-                    <strong>
-                      {new Date(note.timestamp).toLocaleDateString("en-US")}
-                    </strong>
-                  </td>
-                  <td colSpan={numberOfColumns - 2}>
-                    <DetailDisplay note={note} />
-                  </td>
-                </tr>
-              );
-            })
+            data.notes
+              .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+              .map(note => {
+                return (
+                  <tr className="row--show-details">
+                    <td colSpan={2}>
+                      <strong>
+                        {new Date(note.timestamp).toLocaleDateString("en-US")}
+                      </strong>
+                    </td>
+                    <td colSpan={numberOfColumns - 2}>
+                      <DetailDisplay note={note} />
+                    </td>
+                  </tr>
+                );
+              })
           ) : (
             <tr className="row--show-details">
               <td colSpan={numberOfColumns}>No details available.</td>
