@@ -4,12 +4,12 @@ describe("cellDispatch", () => {
   describe("LINK", () => {
     it("should return a valid link with no desnoozed notification", () => {
       expect(
-        cellDispatch["LINK"]("FAK123", { desnoozed: false })
+        cellDispatch["LINK"]("FAK123", { previouslySnoozed: false })
       ).toMatchSnapshot();
     });
     it("should return a valid link with a desnoozed notification", () => {
       expect(
-        cellDispatch["LINK"]("FAK123", { desnoozed: true })
+        cellDispatch["LINK"]("FAK123", { previouslySnoozed: true })
       ).toMatchSnapshot();
     });
     it("should handle return null for invalid inputs", () => {

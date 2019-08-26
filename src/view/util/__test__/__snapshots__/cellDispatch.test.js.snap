@@ -8,24 +8,28 @@ exports[`cellDispatch LINK should return a valid link with a desnoozed notificat
   >
     FAK123
   </a>
-  <FontAwesomeIcon
-    border={false}
-    className="text-accent-warm"
-    fixedWidth={false}
-    flip={null}
-    icon="exclamation-triangle"
-    inverse={false}
-    listItem={false}
-    mask={null}
-    pull={null}
-    pulse={false}
-    rotation={null}
-    size={null}
-    spin={false}
-    symbol={false}
-    title=""
-    transform={null}
-  />
+  <React.Fragment>
+     
+    <FontAwesomeIcon
+      aria-label="This case has been previously snoozed"
+      border={false}
+      className="text-accent-warm"
+      fixedWidth={false}
+      flip={null}
+      icon="exclamation-triangle"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </React.Fragment>
 </React.Fragment>
 `;
 
