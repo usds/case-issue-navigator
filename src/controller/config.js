@@ -1,7 +1,6 @@
 import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UsaButton from "../view/util/UsaButton";
+import { ChevronToggle } from "../view/util/ChevronToggle";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -94,19 +93,8 @@ const I90_HEADERS = [
     header: "",
     field: "showDetails",
     content: (showDetails, rowData, _, callback) => {
-      const icon = showDetails ? (
-        <FontAwesomeIcon icon="chevron-down" />
-      ) : (
-        <FontAwesomeIcon icon="chevron-right" />
-      );
-      return (
-        <UsaButton
-          buttonStyle="none"
-          onClick={() => callback.toggleDetails(rowData.receiptNumber)}
-        >
-          {icon}
-        </UsaButton>
-      );
+      const toggle = () => callback.toggleDetails(rowData.receiptNumber);
+      return <ChevronToggle toggle={toggle} open={showDetails} />;
     },
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
