@@ -13,7 +13,7 @@ const SnoozedCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { notify } = props;
+  const { setNotification } = props;
 
   useEffect(() => {
     setIsLoading(true);
@@ -26,9 +26,12 @@ const SnoozedCaseList = props => {
       .catch(e => {
         console.error(e.message);
         setIsLoading(false);
-        notify("There was an error loading cases.", "error");
+        setNotification({
+          message: "There was an error loading cases.",
+          type: "error"
+        });
       });
-  }, [setCases, currentPage]);
+  }, [setCases, currentPage, setNotification]);
 
   const reSnooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -48,13 +51,13 @@ const SnoozedCaseList = props => {
         endDate: snoozeData.snoozeEnd
       });
 
-      notify(
-        `${
+      setNotification({
+        message: `${
           rowData.receiptNumber
         } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
           "s"} due to ${snoozeData.snoozeReason}.`,
-        "success"
-      );
+        type: "success"
+      });
       const snoozedCases = cases
         .map(snoozedCase => {
           if (snoozedCase.receiptNumber === rowData.receiptNumber) {
@@ -86,7 +89,7 @@ const SnoozedCaseList = props => {
       setCases(snoozedCases);
     } catch (e) {
       console.error(e.message);
-      notify(e.message, "error");
+      setNotification({ message: e.message, type: "error" });
     }
   };
 
@@ -99,9 +102,15 @@ const SnoozedCaseList = props => {
         cases.filter(snoozedCase => snoozedCase.receiptNumber !== desnoozed)
       );
       props.updateSummaryData();
-      notify(`${desnoozed} has been Unsnoozed.`, "info");
+      setNotification({
+        message: `${desnoozed} has been Unsnoozed.`,
+        type: "info"
+      });
     } catch (e) {
-      notify("There was an error unsnoozing this case.", "error");
+      setNotification({
+        message: "There was an error unsnoozing this case.",
+        type: "error"
+      });
     }
   };
 
@@ -140,7 +149,7 @@ const SnoozedCaseList = props => {
 };
 
 SnoozedCaseList.propTypes = {
-  notify: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
   summary: PropTypes.object.isRequired,
   updateSummaryData: PropTypes.func.isRequired
 };
