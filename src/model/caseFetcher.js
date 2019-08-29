@@ -15,7 +15,8 @@ const caseFetcher = () => {
     return fetch(
       `${baseUrl}/api/caseDetails/${caseManagementSystem}/${receiptNumber}/activeSnooze`,
       {
-        method: "DELETE"
+        method: "DELETE",
+        credentials: "include"
       }
     ).then(response => {
       if (!response.ok) {
@@ -29,7 +30,8 @@ const caseFetcher = () => {
   const getCases = (activeOrSnoozed, page) => {
     const resultsPerPage = DEFAULT_RESULTS_PER_PAGE;
     return fetch(
-      `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/${activeOrSnoozed}?page=${page}&size=${resultsPerPage}`
+      `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/${activeOrSnoozed}?page=${page}&size=${resultsPerPage}`,
+      { credentials: "include" }
     ).then(response => {
       if (!response.ok) {
         throw new Error(response.status);
@@ -45,7 +47,8 @@ const caseFetcher = () => {
 
   const getCaseSummary = () => {
     return fetch(
-      `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/summary`
+      `${baseUrl}/api/cases/${caseManagementSystem}/${caseType}/summary`,
+      { credentials: "include" }
     ).then(response => {
       if (!response.ok) {
         throw new Error(response.status);
@@ -63,7 +66,8 @@ const caseFetcher = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(snoozeInputs)
+        body: JSON.stringify(snoozeInputs),
+        credentials: "include"
       }
     ).then(response => {
       if (!response.ok) {
