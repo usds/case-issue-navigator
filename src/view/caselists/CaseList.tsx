@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
+import React, { useState, SetStateAction, Dispatch } from "react";
 import { ActionModal } from "../util/ActionModal";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
@@ -25,16 +25,16 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
 
   const [clickedRow, setClickedRow] = useState({ receiptNumber: "" });
 
-  useEffect(() => {
-    clickedRow.receiptNumber &&
-      setDialog({ show: true, title: clickedRow.receiptNumber });
-  }, [clickedRow]);
+  const openModal = (rowData: Case) => {
+    setClickedRow(rowData);
+    setDialog({ show: true, title: clickedRow.receiptNumber });
+  };
 
   const closeModal = () => setDialog({ show: false, title: "" });
 
   const callbacks = {
     ...props.callbacks,
-    details: setClickedRow,
+    details: openModal,
     closeDialog: closeModal
   };
 

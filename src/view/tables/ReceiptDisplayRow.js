@@ -1,19 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TableCell } from "./TableCell";
+import "./ReceiptDisplayRow.scss";
+import { CaseDetails } from "./CaseDetails";
 
-const ReceiptDisplayRow = props => (
-  <tr>
-    {props.headers.map((header, i) => (
-      <TableCell
-        key={`${props.data.caseId}-${i}`}
-        rowData={props.data}
-        header={header}
-        callback={props.callback}
-      />
-    ))}
-  </tr>
-);
+const ReceiptDisplayRow = props => {
+  const { data, callback, headers } = props;
+  const numberOfColumns = headers.length;
+  return (
+    <React.Fragment>
+      <tr className={data.showDetails ? "row--show-details" : undefined}>
+        {headers.map((header, i) => (
+          <TableCell
+            key={`${data.caseId}-${i}`}
+            rowData={data}
+            header={header}
+            callback={callback}
+          />
+        ))}
+      </tr>
+      {data.showDetails && (
+        <CaseDetails numberOfColumns={numberOfColumns} notes={data.notes} />
+      )}
+    </React.Fragment>
+  );
+};
 
 ReceiptDisplayRow.propTypes = {
   headers: PropTypes.arrayOf(PropTypes.object).isRequired,

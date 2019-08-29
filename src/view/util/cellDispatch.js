@@ -13,12 +13,16 @@ export const cellDispatch = {
         <a href={ELIS_CASE_BASE_URL + r} target="_elis_viewer">
           {r}
         </a>
-        {rowData && rowData.desnoozed ? (
-          <FontAwesomeIcon
-            icon="exclamation-triangle"
-            className="text-accent-warm"
-          />
-        ) : null}
+        {rowData && rowData.previouslySnoozed && (
+          <React.Fragment>
+            &nbsp;
+            <FontAwesomeIcon
+              icon="exclamation-triangle"
+              className="text-accent-warm"
+              aria-label="This case has been previously snoozed"
+            />
+          </React.Fragment>
+        )}
       </>
     );
   },

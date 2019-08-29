@@ -1,17 +1,20 @@
 import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
+import { ChevronToggle } from "../view/util/ChevronToggle";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 const SNOOZE_OPTIONS = {
   test_data: {
     snoozeReason: "Test Data - should be deleted",
+    shortText: "Test Data",
     duration: 365,
     type: null,
     subType: null
   },
   assigned_case: {
     snoozeReason: "Case has been assigned - remind me later",
+    shortText: "Assigned",
     duration: 5,
     followUp: "Who is the case being assigned to?",
     type: "TAG",
@@ -19,12 +22,14 @@ const SNOOZE_OPTIONS = {
   },
   in_proceedings: {
     snoozeReason: "Case is pending removal proceedings - check back later",
+    shortText: "Pending Removal",
     duration: 30,
     type: null,
     subType: null
   },
   fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
+    shortText: "Stuck at Field Office",
     followUp: "Enter Field Office location code:",
     duration: 5,
     type: "COMMENT",
@@ -32,6 +37,7 @@ const SNOOZE_OPTIONS = {
   },
   technical_issue: {
     snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
+    shortText: "Technical Issue",
     followUp: "ServiceNow ticket ID:",
     duration: 14,
     type: "LINK",
@@ -39,6 +45,7 @@ const SNOOZE_OPTIONS = {
   },
   bcu: {
     snoozeReason: "Referral to BCU or CFDO",
+    shortText: "Referral",
     followUp: "Reason for referral",
     duration: 30,
     type: "COMMENT",
@@ -82,6 +89,15 @@ const ELIS_CASE_BASE_URL =
   "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
 
 const I90_HEADERS = [
+  {
+    header: "",
+    field: "showDetails",
+    content: (showDetails, rowData, _, callback) => {
+      const toggle = () => callback.toggleDetails(rowData.receiptNumber);
+      return <ChevronToggle toggle={toggle} open={showDetails} />;
+    },
+    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+  },
   {
     header: "Receipt Number",
     field: "receiptNumber",
@@ -127,7 +143,7 @@ const I90_HEADERS = [
     field: "snoozeInformation",
     content: field =>
       SNOOZE_OPTIONS[field.snoozeReason]
-        ? SNOOZE_OPTIONS[field.snoozeReason].snoozeReason
+        ? SNOOZE_OPTIONS[field.snoozeReason].shortText
         : field.snoozeReason,
     views: [VIEWS.SNOOZED_CASES.TITLE]
   },

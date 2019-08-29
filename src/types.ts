@@ -59,6 +59,11 @@ export interface Note {
   content: string;
   type: string | null;
   subType: string | null;
+  href?: string | null;
+}
+
+export interface DBNote extends Note {
+  timestamp: string;
 }
 
 type SnoozeReason =

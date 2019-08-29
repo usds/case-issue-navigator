@@ -33,6 +33,7 @@ const SnoozedCaseList = props => {
   const reSnooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
     try {
+      // TODO: notes[].timestamp is null
       const snoozeData = await caseFetcher.updateActiveSnooze(
         rowData.receiptNumber,
         {
@@ -57,7 +58,11 @@ const SnoozedCaseList = props => {
       const snoozedCases = cases
         .map(snoozedCase => {
           if (snoozedCase.receiptNumber === rowData.receiptNumber) {
-            return { ...snoozedCase, snoozeInformation: snoozeData };
+            return {
+              ...snoozedCase,
+              snoozeInformation: snoozeData,
+              notes: snoozeData.notes
+            };
           }
 
           return snoozedCase;
@@ -100,9 +105,24 @@ const SnoozedCaseList = props => {
     }
   };
 
+  const toggleDetails = receiptNumber => {
+    setCases(cases =>
+      cases.map(caseInformation => {
+        if (caseInformation.receiptNumber === receiptNumber) {
+          return {
+            ...caseInformation,
+            showDetails: !caseInformation.showDetails
+          };
+        }
+        return caseInformation;
+      })
+    );
+  };
+
   const callbacks = {
     reSnooze,
-    deSnooze
+    deSnooze,
+    toggleDetails
   };
 
   return (
