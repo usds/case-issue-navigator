@@ -27,7 +27,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
 
   const openModal = (rowData: Case) => {
     setClickedRow(rowData);
-    setDialog({ show: true, title: clickedRow.receiptNumber });
+    setDialog({ show: true, title: rowData.receiptNumber });
   };
 
   const closeModal = () => setDialog({ show: false, title: "" });
