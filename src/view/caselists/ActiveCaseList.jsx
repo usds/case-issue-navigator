@@ -13,7 +13,7 @@ const ActiveCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { notify } = props;
+  const { setNotification } = props;
 
   useEffect(() => {
     setIsLoading(true);
@@ -26,9 +26,12 @@ const ActiveCaseList = props => {
       .catch(e => {
         console.error(e.message);
         setIsLoading(false);
-        notify("There was an error loading cases.", "error");
+        setNotification({
+          message: "There was an error loading cases.",
+          type: "error"
+        });
       });
-  }, [currentPage, setIsLoading]);
+  }, [currentPage, setIsLoading, setNotification]);
 
   const snooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -48,18 +51,18 @@ const ActiveCaseList = props => {
       });
 
       props.updateSummaryData();
-      notify(
-        `${
+      setNotification({
+        message: `${
           rowData.receiptNumber
         } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
           "s"} due to ${snoozeData.snoozeReason}.`,
-        "success"
-      );
+        type: "success"
+      });
 
       setCases(cases.filter(c => c.receiptNumber !== rowData.receiptNumber));
     } catch (e) {
       console.error(e.message);
-      notify(e.message, "error");
+      setNotification({ message: e.message, type: "error" });
     }
   };
 
@@ -98,7 +101,7 @@ const ActiveCaseList = props => {
 
 ActiveCaseList.propTypes = {
   updateSummaryData: PropTypes.func,
-  notify: PropTypes.func
+  setNotification: PropTypes.func
 };
 
 export { ActiveCaseList };

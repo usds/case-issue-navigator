@@ -13,7 +13,7 @@ library.add(fas);
 
 const App = () => (
   <Layout
-    render={(updateSummaryData, notify, summary) => (
+    render={(updateSummaryData, setNotification, summary) => (
       <React.Fragment>
         <Route
           path="/"
@@ -21,7 +21,7 @@ const App = () => (
           render={() => (
             <ActiveCaseList
               updateSummaryData={updateSummaryData}
-              notify={notify}
+              setNotification={setNotification}
             />
           )}
         />
@@ -30,7 +30,7 @@ const App = () => (
           render={() => (
             <SnoozedCaseList
               updateSummaryData={updateSummaryData}
-              notify={notify}
+              setNotification={setNotification}
               summary={summary}
             />
           )}
