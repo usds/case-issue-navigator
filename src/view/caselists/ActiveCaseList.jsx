@@ -7,6 +7,7 @@ import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
+import RestAPIClient from "../../model/RestAPIClient";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -17,20 +18,22 @@ const ActiveCaseList = props => {
 
   useEffect(() => {
     setIsLoading(true);
-    caseFetcher
-      .getActiveCases(currentPage)
-      .then(data => {
-        setCases(previousCases => [...previousCases, ...data]);
-        setIsLoading(false);
-      })
-      .catch(e => {
-        console.error(e.message);
-        setIsLoading(false);
-        setNotification({
-          message: "There was an error loading cases.",
-          type: "error"
-        });
+    (async page => {
+      const response = await RestAPIClient.cases.getActive(page);
+      setIsLoading(false);
+      if (response.succeeded) {
+        return setCases(previousCases => [
+          ...previousCases,
+          ...response.payload
+        ]);
+      }
+      setNotification({
+        message: "There was an error loading cases.",
+        type: "error"
       });
+      const errorJson = await response.responseError.getJson();
+      console.error(errorJson);
+    })(currentPage);
   }, [currentPage, setIsLoading, setNotification]);
 
   const snooze = async (rowData, snoozeOption) => {
