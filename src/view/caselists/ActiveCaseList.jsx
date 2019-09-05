@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
-import { approximateDays } from "../util/approximateDays";
-import caseFetcher from "../../model/caseFetcher";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
+import RestAPIClient from "../../model/RestAPIClient";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -17,52 +16,55 @@ const ActiveCaseList = props => {
 
   useEffect(() => {
     setIsLoading(true);
-    caseFetcher
-      .getActiveCases(currentPage)
-      .then(data => {
-        setCases(previousCases => [...previousCases, ...data]);
-        setIsLoading(false);
-      })
-      .catch(e => {
-        console.error(e.message);
-        setIsLoading(false);
-        setNotification({
-          message: "There was an error loading cases.",
-          type: "error"
-        });
+    (async page => {
+      const response = await RestAPIClient.cases.getActive(page);
+      setIsLoading(false);
+      if (response.succeeded) {
+        return setCases(previousCases => [
+          ...previousCases,
+          ...response.payload
+        ]);
+      }
+      setNotification({
+        message: "There was an error loading cases.",
+        type: "error"
       });
+      if (response.responseReceived) {
+        const errorJson = await response.responseError.getJson();
+        console.error(errorJson);
+      }
+    })(currentPage);
   }, [currentPage, setIsLoading, setNotification]);
 
   const snooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
-    try {
-      const snoozeData = await caseFetcher.updateActiveSnooze(
-        rowData.receiptNumber,
-        {
-          duration: snoozeOption.duration,
-          reason: snoozeOption.snoozeReason,
-          notes
-        }
-      );
-
-      const snoozeDays = approximateDays({
-        startDate: snoozeData.snoozeStart,
-        endDate: snoozeData.snoozeEnd
-      });
-
+    const response = await RestAPIClient.cases.updateActiveSnooze(
+      rowData.receiptNumber,
+      {
+        duration: snoozeOption.duration,
+        reason: snoozeOption.snoozeReason,
+        notes
+      }
+    );
+    if (response.succeeded) {
       props.updateSummaryData();
       setNotification({
-        message: `${
-          rowData.receiptNumber
-        } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
-          "s"} due to ${snoozeData.snoozeReason}.`,
+        message: `${rowData.receiptNumber} has been Snoozed for ${
+          snoozeOption.duration
+        } day${snoozeOption.duration !== 1 ? "s" : ""} due to ${
+          snoozeOption.snoozeReason
+        }.`,
         type: "success"
       });
+      return setCases(
+        cases.filter(c => c.receiptNumber !== rowData.receiptNumber)
+      );
+    }
 
-      setCases(cases.filter(c => c.receiptNumber !== rowData.receiptNumber));
-    } catch (e) {
-      console.error(e.message);
-      setNotification({ message: e.message, type: "error" });
+    setNotification("There was an error updating the case.", "error");
+    if (response.responseReceived) {
+      const errorJson = await response.responseError.getJson();
+      console.error(errorJson);
     }
   };
 

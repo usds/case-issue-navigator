@@ -3,9 +3,9 @@ import { ToastContainer, toast } from "react-toastify";
 import PrimaryNavMenu from "../PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
-import caseFetcher from "../../model/caseFetcher";
 import "react-toastify/dist/ReactToastify.css";
 import { Summary } from "../../types";
+import RestAPIClient from "../../model/RestAPIClient";
 
 type Notification = {
   message: string;
@@ -48,26 +48,22 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       return;
     }
 
-    let canceled = false;
     const updateSummaryData = async () => {
-      try {
-        const summary = await caseFetcher.getCaseSummary();
-
-        const currentlySnoozed = summary.CURRENTLY_SNOOZED || 0;
-        const neverSnoozed = summary.NEVER_SNOOZED || 0;
-        const previouslySnoozed = summary.PREVIOUSLY_SNOOZED || 0;
-
-        if (!canceled) {
-          setSummary({
-            CASES_TO_WORK: neverSnoozed + previouslySnoozed,
-            SNOOZED_CASES: currentlySnoozed
-          });
-        }
-        setUpdateSummary(false);
-      } catch (e) {
-        console.error(e.message);
+      const response = await RestAPIClient.cases.getCaseSummary();
+      if (response.succeeded) {
+        const currentlySnoozed = response.payload.CURRENTLY_SNOOZED || 0;
+        const neverSnoozed = response.payload.NEVER_SNOOZED || 0;
+        const previouslySnoozed = response.payload.PREVIOUSLY_SNOOZED || 0;
+        setSummary({
+          CASES_TO_WORK: neverSnoozed + previouslySnoozed,
+          SNOOZED_CASES: currentlySnoozed
+        });
+        return setUpdateSummary(false);
       }
-      return () => (canceled = true);
+      if (response.responseReceived) {
+        const errorJson = await response.responseError.getJson();
+        console.error(errorJson);
+      }
     };
     updateSummaryData();
   }, [updateSummary]);

@@ -4,9 +4,8 @@ import DeSnoozeForm from "../../controller/DeSnoozeForm";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { getHeaders } from "../util/getHeaders";
 import { CaseList } from "./CaseList";
-import caseFetcher from "../../model/caseFetcher";
-import { approximateDays } from "../util/approximateDays";
 import { formatNotes } from "../util/formatNotes";
+import RestAPIClient from "../../model/RestAPIClient";
 
 const SnoozedCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -17,45 +16,41 @@ const SnoozedCaseList = props => {
 
   useEffect(() => {
     setIsLoading(true);
-    caseFetcher
-      .getSnoozedCases(currentPage)
-      .then(data => {
-        setCases(previousCases => [...previousCases, ...data]);
-        setIsLoading(false);
-      })
-      .catch(e => {
-        console.error(e.message);
-        setIsLoading(false);
-        setNotification({
-          message: "There was an error loading cases.",
-          type: "error"
-        });
+    (async page => {
+      const response = await RestAPIClient.cases.getSnoozed(page);
+      if (response.succeeded) {
+        setCases(previousCases => [...previousCases, ...response.payload]);
+        return setIsLoading(false);
+      }
+      setNotification({
+        message: "There was an error loading cases.",
+        type: "error"
       });
+      if (response.responseReceived) {
+        const errorJson = await response.responseError.getJson();
+        console.error(errorJson);
+      }
+    })(currentPage);
   }, [setCases, currentPage, setNotification]);
 
   const reSnooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
-    try {
-      // TODO: notes[].timestamp is null
-      const snoozeData = await caseFetcher.updateActiveSnooze(
-        rowData.receiptNumber,
-        {
-          duration: snoozeOption.duration,
-          reason: snoozeOption.snoozeReason,
-          notes
-        }
-      );
+    const response = await RestAPIClient.cases.updateActiveSnooze(
+      rowData.receiptNumber,
+      {
+        duration: snoozeOption.duration,
+        reason: snoozeOption.snoozeReason,
+        notes
+      }
+    );
 
-      const snoozeDays = approximateDays({
-        startDate: snoozeData.snoozeStart,
-        endDate: snoozeData.snoozeEnd
-      });
-
+    if (response.succeeded) {
       setNotification({
-        message: `${
-          rowData.receiptNumber
-        } has been Snoozed for ${snoozeDays} day${snoozeDays !== 1 &&
-          "s"} due to ${snoozeData.snoozeReason}.`,
+        message: `${rowData.receiptNumber} has been Snoozed for ${
+          snoozeOption.duration
+        } day${snoozeOption.duration !== 1 ? "s" : ""} due to ${
+          snoozeOption.snoozeReason
+        }.`,
         type: "success"
       });
       const snoozedCases = cases
@@ -63,11 +58,10 @@ const SnoozedCaseList = props => {
           if (snoozedCase.receiptNumber === rowData.receiptNumber) {
             return {
               ...snoozedCase,
-              snoozeInformation: snoozeData,
-              notes: snoozeData.notes
+              snoozeInformation: response.payload,
+              notes: response.payload.notes
             };
           }
-
           return snoozedCase;
         })
         .sort((a, b) => {
@@ -86,31 +80,44 @@ const SnoozedCaseList = props => {
         snoozedCases.pop();
       }
 
-      setCases(snoozedCases);
-    } catch (e) {
-      console.error(e.message);
-      setNotification({ message: e.message, type: "error" });
+      return setCases(snoozedCases);
+    }
+
+    setNotification({
+      message: "There was an error saving the snooze.",
+      type: "error"
+    });
+    if (response.responseReceived) {
+      const errorJson = await response.responseError.getJson();
+      console.error(errorJson);
     }
   };
 
   const deSnooze = async rowData => {
-    try {
-      const desnoozed = await caseFetcher.deleteActiveSnooze(
-        rowData.receiptNumber
-      );
-      setCases(
-        cases.filter(snoozedCase => snoozedCase.receiptNumber !== desnoozed)
-      );
+    const response = await RestAPIClient.cases.deleteActiveSnooze(
+      rowData.receiptNumber
+    );
+
+    if (response.succeeded) {
       props.updateSummaryData();
-      setNotification({
-        message: `${desnoozed} has been Unsnoozed.`,
+      setCases(
+        cases.filter(
+          snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
+        )
+      );
+      return setNotification({
+        message: `${rowData.receiptNumber} has been Unsnoozed.`,
         type: "info"
       });
-    } catch (e) {
-      setNotification({
-        message: "There was an error unsnoozing this case.",
-        type: "error"
-      });
+    }
+
+    setNotification({
+      message: "There was an error unsnoozing this case.",
+      type: "error"
+    });
+    if (response.responseReceived) {
+      const errorJson = await response.responseError.getJson();
+      console.error(errorJson);
     }
   };
 
