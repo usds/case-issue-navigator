@@ -17,9 +17,15 @@ const ActiveCaseList = props => {
   const { setNotification, summary } = props;
 
   useEffect(() => {
+    let cancelRequest = false;
+
     setIsLoading(true);
     (async page => {
       const response = await RestAPIClient.cases.getActive(page);
+      if (cancelRequest) {
+        return;
+      }
+
       setIsLoading(false);
       if (response.succeeded) {
         return setCases(previousCases => [
@@ -36,6 +42,10 @@ const ActiveCaseList = props => {
         console.error(errorJson);
       }
     })(currentPage);
+
+    return () => {
+      cancelRequest = true;
+    };
   }, [currentPage, setIsLoading, setNotification]);
 
   const snooze = async (rowData, snoozeOption) => {

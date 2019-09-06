@@ -45,8 +45,14 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       return;
     }
 
+    let cancelRequest = false;
+
     const updateSummaryData = async () => {
       const response = await RestAPIClient.cases.getCaseSummary();
+      if (cancelRequest) {
+        return;
+      }
+
       if (response.succeeded) {
         const currentlySnoozed = response.payload.CURRENTLY_SNOOZED || 0;
         const neverSnoozed = response.payload.NEVER_SNOOZED || 0;
@@ -64,6 +70,10 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       }
     };
     updateSummaryData();
+
+    return () => {
+      cancelRequest = true;
+    };
   }, [updateSummary]);
 
   return (

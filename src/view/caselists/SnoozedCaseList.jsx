@@ -15,9 +15,15 @@ const SnoozedCaseList = props => {
   const { setNotification, summary } = props;
 
   useEffect(() => {
+    let cancelRequest = false;
+
     setIsLoading(true);
     (async page => {
       const response = await RestAPIClient.cases.getSnoozed(page);
+      if (cancelRequest) {
+        return;
+      }
+
       if (response.succeeded) {
         setCases(previousCases => [...previousCases, ...response.payload]);
         return setIsLoading(false);
@@ -31,6 +37,10 @@ const SnoozedCaseList = props => {
         console.error(errorJson);
       }
     })(currentPage);
+
+    return () => {
+      cancelRequest = true;
+    };
   }, [setCases, currentPage, setNotification]);
 
   const reSnooze = async (rowData, snoozeOption) => {
