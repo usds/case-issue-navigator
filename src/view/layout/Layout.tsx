@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import PrimaryNavMenu from "../PrimaryNavMenu";
+import PrimaryNavMenu from "./PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
 import "react-toastify/dist/ReactToastify.css";

@@ -192,7 +192,7 @@ const I90_HEADERS = [
         return null;
       }
       return tickets.map(ticket => (
-        <React.Fragment>
+        <React.Fragment key={ticket.content}>
           <a href={ticket.href} target="_blank" rel="noopener noreferrer">
             {ticket.content}
           </a>

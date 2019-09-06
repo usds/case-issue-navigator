@@ -17,7 +17,7 @@ const NoteList: React.FunctionComponent<NoteListProps> = props => {
         )
         .map(note => {
           return (
-            <tr className="row--show-details">
+            <tr className="row--show-details" key={note.content}>
               <td colSpan={2}>
                 <strong>
                   {new Date(note.timestamp).toLocaleDateString("en-US")}

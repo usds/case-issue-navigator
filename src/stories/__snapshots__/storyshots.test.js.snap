@@ -67,30 +67,9 @@ Array [
 
 exports[`Storyshots CaseList Empty case list 1`] = `
 Array [
-  <table
-    className="usa-table usa-table--borderless width-full"
-  >
-    <thead>
-      <tr>
-        <th>
-          header 1
-        </th>
-        <th>
-          header 2
-        </th>
-        <th>
-          header 3
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td />
-        <td />
-        <td />
-      </tr>
-    </tbody>
-  </table>,
+  <p>
+    No cases found.
+  </p>,
   <button
     className="usa-button"
     disabled={false}
