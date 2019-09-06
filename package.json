@@ -65,5 +65,9 @@
       "src/**/*.{js,jsx}",
       "!src/stories/**"
     ]
+  },
+  "engines": {
+    "yarn": "1.17.3",
+    "node": ">=v12 <v13"
   }
 }
