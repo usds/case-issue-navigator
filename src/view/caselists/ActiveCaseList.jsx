@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
@@ -6,15 +6,17 @@ import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
-import { UsaAlert } from "../util/UsaAlert";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
+import { AuthContext } from "../auth/AuthContainer";
 
 const ActiveCaseList = props => {
+  const { setLoggedIn } = useContext(AuthContext);
+
   const [cases, setCases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setNotification, summary } = props;
+  const { setNotification, setError, summary } = props;
 
   useEffect(() => {
     let cancelRequest = false;
@@ -33,20 +35,20 @@ const ActiveCaseList = props => {
           ...response.payload
         ]);
       }
-      setNotification({
-        message: "There was an error loading cases.",
-        type: "error"
-      });
+
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        console.error(errorJson);
+        setError(errorJson);
+      } else {
+        // Workaround for lack of 401 response
+        setError({ status: 401 });
       }
     })(currentPage);
 
     return () => {
       cancelRequest = true;
     };
-  }, [currentPage, setIsLoading, setNotification]);
+  }, [currentPage, setIsLoading, setNotification, setLoggedIn, setError]);
 
   const snooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -73,10 +75,12 @@ const ActiveCaseList = props => {
       );
     }
 
-    setNotification("There was an error updating the case.", "error");
     if (response.responseReceived) {
       const errorJson = await response.responseError.getJson();
-      console.error(errorJson);
+      setError(errorJson);
+    } else {
+      // Workaround for lack of 401 response
+      setError({ status: 401 });
     }
   };
 
@@ -122,7 +126,8 @@ const ActiveCaseList = props => {
 ActiveCaseList.propTypes = {
   updateSummaryData: PropTypes.func,
   setNotification: PropTypes.func,
-  summary: PropTypes.object.isRequired
+  summary: PropTypes.object.isRequired,
+  setError: PropTypes.func.isRequired
 };
 
 export { ActiveCaseList };

@@ -15,7 +15,7 @@ library.add(fas);
 const App = () => (
   <AuthContainer>
     <Layout
-      render={(updateSummaryData, setNotification, summary) => (
+      render={(updateSummaryData, setError, setNotification, summary) => (
         <React.Fragment>
           <Route
             path="/"
@@ -25,6 +25,7 @@ const App = () => (
                 updateSummaryData={updateSummaryData}
                 setNotification={setNotification}
                 summary={summary}
+                setError={setError}
               />
             )}
           />
@@ -35,6 +36,7 @@ const App = () => (
                 updateSummaryData={updateSummaryData}
                 setNotification={setNotification}
                 summary={summary}
+                setError={setError}
               />
             )}
           />
