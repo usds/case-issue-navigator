@@ -178,7 +178,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          href="FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -256,7 +256,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          href="FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
@@ -317,7 +317,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE123123"
+          href="FKE123123"
           target="_elis_viewer"
         >
           FKE123123
@@ -474,7 +474,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          href="FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -551,7 +551,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          href="FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
@@ -648,7 +648,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE5381523"
+          href="FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -726,7 +726,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       </td>
       <td>
         <a
-          href="https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/FKE8206743"
+          href="FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
