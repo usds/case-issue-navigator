@@ -130,7 +130,8 @@ Array [
     #
     12345
   </a>,
-  " was associated with this case.",
+  " ",
+  "was associated with this case.",
 ]
 `;
 
@@ -421,54 +422,12 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       <td
         colSpan={7}
       >
-        <div
-          className="grid-container"
-        >
-          <div
-            className="grid-row"
-          >
-            <div
-              className="grid-col-auto snooze-list"
-            >
-              <div
-                className="grid-container detail-list"
-              >
-                <div
-                  className="grid-row"
-                >
-                  <h3>
-                    Snooze History
-                  </h3>
-                </div>
-                <div
-                  className="grid-row"
-                >
-                  No snooze history.
-                </div>
-              </div>
-            </div>
-            <div
-              className="grid-col"
-            >
-              <div
-                className="grid-container detail-list"
-              >
-                <div
-                  className="grid-row"
-                >
-                  <h3>
-                    Case Issue Notes
-                  </h3>
-                </div>
-                <div
-                  className="grid-row"
-                >
-                  No case issue notes.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h3>
+          Case Details
+        </h3>
+        <p>
+          No case details.
+        </p>
       </td>
     </tr>
   </tbody>

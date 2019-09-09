@@ -9,18 +9,18 @@ storiesOf("DetailNoteDisplay", module)
       href: "http://localhost:1111/12345",
       content: "12345"
     };
-    return <DetailNoteDisplay note={note} />;
+    return <DetailNoteDisplay caseDetail={note} />;
   })
   .add("Assignee", () => {
     const note = {
       subType: "assignee",
       content: "Joe"
     };
-    return <DetailNoteDisplay note={note} />;
+    return <DetailNoteDisplay caseDetail={note} />;
   })
   .add("General comment", () => {
     const note = {
       content: "This is a general comment."
     };
-    return <DetailNoteDisplay note={note} />;
+    return <DetailNoteDisplay caseDetail={note} />;
   });
