@@ -89,3 +89,13 @@ export type SnoozeEvent = {
   startOrEnd: "start" | "end";
   snoozeReason: SnoozeReason;
 };
+
+export type CaseDetail = {
+  date: Date;
+  noteOrSnooze: "note" | "snooze";
+  type: string | null;
+  subType?: string | null;
+  snoozeReason?: SnoozeReason;
+  href?: string | null;
+  content?: string;
+};

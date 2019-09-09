@@ -1,26 +1,26 @@
 import React, { ReactElement } from "react";
-import { DBNote } from "../../types";
+import { CaseDetail } from "../../types";
 
 interface DetailNoteDisplayProps {
-  note: DBNote;
+  caseDetail: CaseDetail;
 }
 
 const DetailNoteDisplay: React.FunctionComponent<
   DetailNoteDisplayProps
 > = props => {
-  const { note } = props;
-  let content: ReactElement | string = note.content;
-  if (note.subType === "troubleticket" && note.href) {
+  const { caseDetail } = props;
+  let content: ReactElement | string = caseDetail.content || "";
+  if (caseDetail.subType === "troubleticket" && caseDetail.href) {
     content = (
       <React.Fragment>
-        ServiceNow ticket <a href={note.href}>#{note.content}</a> was associated
-        with this case.
+        ServiceNow ticket <a href={caseDetail.href}>#{caseDetail.content}</a>{" "}
+        was associated with this case.
       </React.Fragment>
     );
   }
 
-  if (note.subType === "assignee") {
-    content = `${note.content} was assigned to follow-up on this case.`;
+  if (caseDetail.subType === "assignee") {
+    content = `${caseDetail.content} was assigned to follow-up on this case.`;
   }
 
   return <React.Fragment>{content}</React.Fragment>;

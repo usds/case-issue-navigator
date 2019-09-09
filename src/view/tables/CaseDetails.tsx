@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { NoteList } from "./NoteList";
-import { DBNote, SnoozeEvent, SnoozeInformation } from "../../types";
+import { DBNote, SnoozeInformation, CaseDetail } from "../../types";
 import RestAPIClient from "../../model/RestAPIClient";
-import { SnoozeHistoryList } from "./SnoozeHistoryList";
 import "./CaseDetails.scss";
+import { CaseDetailList } from "./CaseDetailList";
 
 interface CaseDetailsProps {
   receiptNumber: string;
@@ -11,34 +10,42 @@ interface CaseDetailsProps {
 }
 
 const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
-  const [notes, setNotes] = useState<Array<DBNote>>([]);
-  const [snoozeEvents, setSnoozeEvents] = useState<Array<SnoozeEvent>>([]);
+  const [caseDetails, setCaseDetails] = useState<Array<CaseDetail>>([]);
   const { receiptNumber } = props;
 
   useEffect(() => {
     const getCaseDetails = async () => {
       const response = await RestAPIClient.cases.getCaseDetails(receiptNumber);
       if (response.succeeded) {
-        setNotes(response.payload.notes as Array<DBNote>);
-        setSnoozeEvents(
-          response.payload.snoozes.reduce(
-            (agg: Array<SnoozeEvent>, snooze: SnoozeInformation) => {
-              agg.push({
-                date: new Date(snooze.snoozeStart),
-                startOrEnd: "start",
-                snoozeReason: snooze.snoozeReason
-              });
-              if (new Date(snooze.snoozeEnd) < new Date()) {
-                agg.push({
-                  date: new Date(snooze.snoozeEnd),
-                  startOrEnd: "end",
-                  snoozeReason: snooze.snoozeReason
-                });
-              }
-              return agg;
-            },
-            []
-          )
+        const caseEvents: Array<CaseDetail> = [];
+        response.payload.notes.forEach((note: DBNote) => {
+          caseEvents.push({
+            date: new Date(note.timestamp),
+            noteOrSnooze: "note",
+            type: note.type,
+            subType: note.subType,
+            href: note.href,
+            content: note.content
+          });
+        });
+        response.payload.snoozes.forEach((snooze: SnoozeInformation) => {
+          caseEvents.push({
+            noteOrSnooze: "snooze",
+            date: new Date(snooze.snoozeStart),
+            type: "snoozeStart",
+            snoozeReason: snooze.snoozeReason
+          });
+          if (new Date(snooze.snoozeEnd) < new Date()) {
+            caseEvents.push({
+              noteOrSnooze: "snooze",
+              date: new Date(snooze.snoozeEnd),
+              type: "snoozeEnd",
+              snoozeReason: snooze.snoozeReason
+            });
+          }
+        });
+        setCaseDetails(
+          caseEvents.sort((a, b) => b.date.valueOf() - a.date.valueOf())
         );
       }
     };
@@ -50,16 +57,12 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
       <tr className="row--detail-display">
         <td colSpan={1}></td>
         <td colSpan={props.numberOfColumns - 1}>
-          <div className="grid-container">
-            <div className="grid-row">
-              <div className="grid-col-auto snooze-list">
-                <SnoozeHistoryList snoozeEvents={snoozeEvents} />
-              </div>
-              <div className="grid-col">
-                <NoteList notes={notes} />
-              </div>
-            </div>
-          </div>
+          <h3>Case Details</h3>
+          {caseDetails.length === 0 ? (
+            <p>No case details.</p>
+          ) : (
+            <CaseDetailList caseDetails={caseDetails} />
+          )}
         </td>
       </tr>
     </React.Fragment>
