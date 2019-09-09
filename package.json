@@ -70,5 +70,8 @@
   "engines": {
     "yarn": "1.17.3",
     "node": ">=v10 <v13"
+  },
+  "resolutions": {
+    "**/**/set-value": "^2.0.1"
   }
 }
