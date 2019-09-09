@@ -135,7 +135,7 @@ const I90_HEADERS = [
   {
     header: "Platform",
     field: "extraData",
-    content: d => (d.streamlinedProcess === "true" ? "SP" : "Legacy"),
+    content: d => (d.streamlinedProcess === true ? "SP" : "Legacy"),
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {

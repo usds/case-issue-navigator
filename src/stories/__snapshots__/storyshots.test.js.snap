@@ -263,7 +263,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </a>
       </td>
       <td>
-        Legacy
+        SP
       </td>
       <td>
         Just Because
@@ -324,7 +324,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </a>
       </td>
       <td>
-        Legacy
+        SP
       </td>
       <td>
         Just Because
@@ -564,7 +564,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         Amazingly Successful
       </td>
       <td>
-        Legacy
+        SP
       </td>
       <td />
       <td>
@@ -733,7 +733,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </a>
       </td>
       <td>
-        Legacy
+        SP
       </td>
       <td>
         Just Because
