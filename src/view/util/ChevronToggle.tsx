@@ -9,9 +9,9 @@ interface ChevronToggleProps {
 
 const ChevronToggle: React.FunctionComponent<ChevronToggleProps> = props => {
   const icon = props.open ? (
-    <FontAwesomeIcon icon="chevron-down" />
+    <FontAwesomeIcon icon="minus" />
   ) : (
-    <FontAwesomeIcon icon="chevron-right" />
+    <FontAwesomeIcon icon="plus" />
   );
   return (
     <UsaButton buttonStyle="none" onClick={props.toggle}>

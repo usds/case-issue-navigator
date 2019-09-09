@@ -1,6 +1,23 @@
 .row--show-details td {
-  border-color: transparent;
-  background-color: #e7f6f8;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.row--show-details td:first-child {
+  border-left: 1px solid #333;
+}
+
+.row--show-details td:last-child {
+  border-right: 1px solid #333;
+}
+
+.row--detail-display td {
+  border: 1px solid #333;
+  border-top: 0px;
+}
+
+.row--detail-display td:first-child {
+  border-right: 1px solid transparent;
 }
 
 .row--show-details h3 {

@@ -47,7 +47,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
 
   return (
     <React.Fragment>
-      <tr className="row--show-details">
+      <tr className="row--detail-display">
         <td colSpan={1}></td>
         <td colSpan={props.numberOfColumns - 1}>
           <div className="grid-container">
