@@ -1,34 +1,40 @@
 import React from "react";
-import { DBNote } from "../../types";
 import { DetailNoteDisplay } from "./DetailNoteDisplay";
+import { DBNote } from "../../types";
+import "./CaseDetails";
 
 interface NoteListProps {
   notes: Array<DBNote>;
-  numberOfColumns: number;
 }
 
 const NoteList: React.FunctionComponent<NoteListProps> = props => {
   return (
     <React.Fragment>
-      {props.notes
-        .sort(
-          (a, b) =>
-            new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
-        )
-        .map(note => {
-          return (
-            <tr className="row--show-details" key={note.content}>
-              <td colSpan={2}>
-                <strong>
+      <div className="grid-container detail-list">
+        <div className="grid-row">
+          <h3>Case Issue Notes</h3>
+        </div>
+        {props.notes.length === 0 && (
+          <div className="grid-row">No case issue notes.</div>
+        )}
+        {props.notes
+          .sort(
+            (a, b) =>
+              new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
+          )
+          .map(note => {
+            return (
+              <div className="grid-row">
+                <div className="grid-col-auto date">
                   {new Date(note.timestamp).toLocaleDateString("en-US")}
-                </strong>
-              </td>
-              <td colSpan={props.numberOfColumns - 2}>
-                <DetailNoteDisplay note={note} />
-              </td>
-            </tr>
-          );
-        })}
+                </div>
+                <div className="grid-col content">
+                  <DetailNoteDisplay note={note} />
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </React.Fragment>
   );
 };

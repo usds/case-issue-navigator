@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
-import { Note } from "../../types";
+import { DBNote } from "../../types";
 
 interface DetailNoteDisplayProps {
-  note: Note;
+  note: DBNote;
 }
 
 const DetailNoteDisplay: React.FunctionComponent<

@@ -24,6 +24,14 @@ class CaseIssueAPIClient extends ClientBase {
     );
   }
 
+  public async getCaseDetails(receiptNumber: string) {
+    return await this.getAsJson(
+      CaseIssueAPIClient.createApiUrl(
+        `/api/caseDetails/${this.caseManagementSystem}/${receiptNumber}`
+      )
+    );
+  }
+
   public async getCaseSummary() {
     return await this.getAsJson(
       CaseIssueAPIClient.createApiUrl(

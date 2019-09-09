@@ -413,54 +413,62 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
     </tr>
     <tr
-      className="row--show-details "
-    >
-      <td
-        className="bg-primary-light"
-        colSpan={9}
-      >
-        <h3>
-          View Details
-        </h3>
-      </td>
-    </tr>
-    <tr
       className="row--show-details"
     >
       <td
-        colSpan={2}
-      >
-        <strong>
-          7/11/2019
-        </strong>
-      </td>
+        colSpan={1}
+      />
       <td
         colSpan={7}
       >
-        ServiceNow ticket 
-        <a
-          href="http://localhost:1111/12345"
+        <div
+          className="grid-container"
         >
-          #
-          12345
-        </a>
-         was associated with this case.
-      </td>
-    </tr>
-    <tr
-      className="row--show-details"
-    >
-      <td
-        colSpan={2}
-      >
-        <strong>
-          6/11/2019
-        </strong>
-      </td>
-      <td
-        colSpan={7}
-      >
-        Here's another note
+          <div
+            className="grid-row"
+          >
+            <div
+              className="grid-col-auto snooze-list"
+            >
+              <div
+                className="grid-container detail-list"
+              >
+                <div
+                  className="grid-row"
+                >
+                  <h3>
+                    Snooze History
+                  </h3>
+                </div>
+                <div
+                  className="grid-row"
+                >
+                  No snooze history.
+                </div>
+              </div>
+            </div>
+            <div
+              className="grid-col"
+            >
+              <div
+                className="grid-container detail-list"
+              >
+                <div
+                  className="grid-row"
+                >
+                  <h3>
+                    Case Issue Notes
+                  </h3>
+                </div>
+                <div
+                  className="grid-row"
+                >
+                  No case issue notes.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>

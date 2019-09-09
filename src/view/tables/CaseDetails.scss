@@ -1,0 +1,33 @@
+.detail-list {
+  margin-left: 0;
+  padding-left: 0;
+
+  .grid-row {
+    margin: 0.5em 0 0.5em 0;
+  }
+
+  .date {
+    font-weight: bold;
+    margin-right: 1em;
+  }
+
+  .content {
+    margin-right: 2em;
+  }
+
+  h3 {
+    margin-right: 2em;
+  }
+}
+
+.snooze-list {
+  max-width: 50%;
+}
+
+.grid-container {
+  margin-left: 0;
+  padding-left: 0;
+  margin-right: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
