@@ -86,7 +86,7 @@ const VIEWS = {
 };
 
 const ELIS_CASE_BASE_URL =
-  "https://internal-prod-elis2.uscis.dhs.gov/InternalApp/app/#/case/";
+  process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
 const I90_HEADERS = [
   {
