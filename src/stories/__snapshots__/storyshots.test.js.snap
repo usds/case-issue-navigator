@@ -420,7 +420,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         colSpan={1}
       />
       <td
-        colSpan={7}
+        colSpan={8}
       >
         <h3>
           Case Details
