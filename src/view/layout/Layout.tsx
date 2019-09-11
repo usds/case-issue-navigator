@@ -21,10 +21,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = props => {
-  const [summary, setSummary] = useState<Summary>({
-    CASES_TO_WORK: 0,
-    SNOOZED_CASES: 0
-  });
+  const [summary, setSummary] = useState<Summary>({} as Summary);
 
   const [notification, setNotification] = useState<Notification>({
     message: "",
@@ -56,7 +53,8 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
         const previouslySnoozed = response.payload.PREVIOUSLY_SNOOZED || 0;
         setSummary({
           CASES_TO_WORK: neverSnoozed + previouslySnoozed,
-          SNOOZED_CASES: currentlySnoozed
+          SNOOZED_CASES: currentlySnoozed,
+          PREVIOUSLY_SNOOZED: previouslySnoozed
         });
         return setUpdateSummary(false);
       }

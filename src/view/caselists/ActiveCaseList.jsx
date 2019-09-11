@@ -6,13 +6,15 @@ import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
+import { UsaAlert } from "../util/UsaAlert";
+import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setNotification } = props;
+  const { setNotification, summary } = props;
 
   useEffect(() => {
     setIsLoading(true);
@@ -88,22 +90,28 @@ const ActiveCaseList = props => {
   };
 
   return (
-    <CaseList
-      cases={cases}
-      callbacks={callbacks}
-      view={VIEWS.CASES_TO_WORK.TITLE}
-      headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
-      isLoading={isLoading}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      ModalContent={SnoozeForm}
-    />
+    <React.Fragment>
+      <DesnoozedWarning
+        previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
+      />
+      <CaseList
+        cases={cases}
+        callbacks={callbacks}
+        view={VIEWS.CASES_TO_WORK.TITLE}
+        headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+        isLoading={isLoading}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        ModalContent={SnoozeForm}
+      />
+    </React.Fragment>
   );
 };
 
 ActiveCaseList.propTypes = {
   updateSummaryData: PropTypes.func,
-  setNotification: PropTypes.func
+  setNotification: PropTypes.func,
+  summary: PropTypes.object.isRequired
 };
 
 export { ActiveCaseList };
