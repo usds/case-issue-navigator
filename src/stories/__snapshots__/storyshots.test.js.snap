@@ -1,14 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots CaseList Case list while loading data 1`] = `
-<div
-  className="display-flex flex-column flex-align-center"
->
-  There are no more cases on this list.
-</div>
+Array [
+  <table
+    className="usa-table usa-table--borderless width-full"
+  >
+    <thead>
+      <tr>
+        <th>
+          header 1
+        </th>
+        <th>
+          header 2
+        </th>
+        <th>
+          header 3
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          foobar
+        </td>
+        <td>
+          hello world
+        </td>
+        <td>
+          abc
+        </td>
+      </tr>
+      <tr>
+        <td>
+          foobar2
+        </td>
+        <td>
+          hello world2
+        </td>
+        <td>
+          abc2
+        </td>
+      </tr>
+    </tbody>
+  </table>,
+  <div
+    className="display-flex flex-column flex-align-center"
+  >
+    <button
+      className="usa-button usa-button--outline"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Loading...
+    </button>
+  </div>,
+]
 `;
 
 exports[`Storyshots CaseList Case list with some data 1`] = `
+Array [
+  <table
+    className="usa-table usa-table--borderless width-full"
+  >
+    <thead>
+      <tr>
+        <th>
+          header 1
+        </th>
+        <th>
+          header 2
+        </th>
+        <th>
+          header 3
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          foobar
+        </td>
+        <td>
+          hello world
+        </td>
+        <td>
+          abc
+        </td>
+      </tr>
+      <tr>
+        <td>
+          foobar2
+        </td>
+        <td>
+          hello world2
+        </td>
+        <td>
+          abc2
+        </td>
+      </tr>
+    </tbody>
+  </table>,
+  <div
+    className="display-flex flex-column flex-align-center"
+  >
+    There are no more cases on this list.
+  </div>,
+]
+`;
+
+exports[`Storyshots CaseList Caselist with more cases to load 1`] = `
 Array [
   <table
     className="usa-table usa-table--borderless width-full"
@@ -54,7 +155,14 @@ Array [
   <div
     className="display-flex flex-column flex-align-center"
   >
-    There are no more cases on this list.
+    <button
+      className="usa-button usa-button--outline"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Show More
+    </button>
   </div>,
 ]
 `;
