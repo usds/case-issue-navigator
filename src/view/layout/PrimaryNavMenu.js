@@ -37,30 +37,6 @@ export default function PrimaryNavMenu(props) {
           </button>
           <div className="usa-nav__inner">
             <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
-            <div className="usa-nav__secondary">
-              <form
-                className="usa-search usa-search--small "
-                onSubmit={e => e.preventDefault()}
-              >
-                <div role="search">
-                  <label
-                    className="usa-sr-only"
-                    htmlFor="extended-search-field-small"
-                  >
-                    Search small
-                  </label>
-                  <input
-                    className="usa-input"
-                    id="extended-search-field-small"
-                    type="search"
-                    name="search"
-                  />
-                  <UsaButton type="submit">
-                    <span className="usa-sr-only">Search</span>
-                  </UsaButton>
-                </div>
-              </form>
-            </div>
           </div>
         </nav>
       </header>
