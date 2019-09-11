@@ -1,4 +1,5 @@
 import { ToastContent, ToastOptions } from "react-toastify";
+import { number } from "prop-types";
 
 interface Views {
   CASES_TO_WORK: {
@@ -14,7 +15,7 @@ interface Views {
 type ViewTitles = Views[keyof Views]["title"];
 
 export type Summary = {
-  [key in keyof Views]: number;
+  [key in keyof Views | "PREVIOUSLY_SNOOZED"]: number;
 };
 
 export type ToastNotifier = (

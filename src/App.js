@@ -22,6 +22,7 @@ const App = () => (
             <ActiveCaseList
               updateSummaryData={updateSummaryData}
               setNotification={setNotification}
+              summary={summary}
             />
           )}
         />
