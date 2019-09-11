@@ -127,6 +127,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         Receipt Number
       </th>
       <th>
+        Application Reason
+      </th>
+      <th>
         Platform
       </th>
       <th>
@@ -204,6 +207,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </svg>
       </td>
       <td>
+        Boredom
+      </td>
+      <td>
         Legacy
       </td>
       <td>
@@ -261,6 +267,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         >
           FKE8206743
         </a>
+      </td>
+      <td>
+        Enthusiasm
       </td>
       <td>
         SP
@@ -324,6 +333,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </a>
       </td>
       <td>
+        Enthusiasm
+      </td>
+      <td>
         SP
       </td>
       <td>
@@ -361,7 +373,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
     >
       <td
         className="bg-primary-light"
-        colSpan={8}
+        colSpan={9}
       >
         <h3>
           View Details
@@ -379,7 +391,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </strong>
       </td>
       <td
-        colSpan={6}
+        colSpan={7}
       >
         ServiceNow ticket 
         <a
@@ -402,7 +414,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         </strong>
       </td>
       <td
-        colSpan={6}
+        colSpan={7}
       >
         Here's another note
       </td>
@@ -424,6 +436,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       </th>
       <th>
         Receipt Number
+      </th>
+      <th>
+        Application Reason
       </th>
       <th>
         Case Status
@@ -500,6 +515,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </svg>
       </td>
       <td>
+        Boredom
+      </td>
+      <td>
         Pending
       </td>
       <td>
@@ -558,6 +576,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         </a>
       </td>
       <td>
+        Enthusiasm
+      </td>
+      <td>
         Eschewing Obfuscation
       </td>
       <td>
@@ -595,6 +616,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       </th>
       <th>
         Receipt Number
+      </th>
+      <th>
+        Application Reason
       </th>
       <th>
         Platform
@@ -674,6 +698,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         </svg>
       </td>
       <td>
+        Boredom
+      </td>
+      <td>
         Legacy
       </td>
       <td>
@@ -731,6 +758,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           FKE8206743
         </a>
+      </td>
+      <td>
+        Enthusiasm
       </td>
       <td>
         SP
