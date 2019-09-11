@@ -103,6 +103,7 @@ const ActiveCaseList = props => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         ModalContent={SnoozeForm}
+        totalCases={summary.CASES_TO_WORK}
       />
     </React.Fragment>
   );

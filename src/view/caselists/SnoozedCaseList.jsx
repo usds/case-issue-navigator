@@ -12,7 +12,7 @@ const SnoozedCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setNotification } = props;
+  const { setNotification, summary } = props;
 
   useEffect(() => {
     setIsLoading(true);
@@ -75,7 +75,7 @@ const SnoozedCaseList = props => {
       if (
         snoozedCases[snoozedCases.length - 1].receiptNumber ===
           rowData.receiptNumber &&
-        snoozedCases.length < props.summary["SNOOZED_CASES"]
+        snoozedCases.length < summary["SNOOZED_CASES"]
       ) {
         snoozedCases.pop();
       }
@@ -151,6 +151,7 @@ const SnoozedCaseList = props => {
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       ModalContent={DeSnoozeForm}
+      totalCases={summary.SNOOZED_CASES}
     />
   );
 };

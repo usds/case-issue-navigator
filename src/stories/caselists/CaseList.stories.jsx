@@ -42,6 +42,98 @@ storiesOf("CaseList", module)
   .add("Case list with some data", () => {
     const cases = [
       {
+        receiptNumber: "fak1",
+        field1: "foobar",
+        field2: "hello world",
+        field3: "abc"
+      },
+      {
+        receiptNumber: "fak2",
+        field1: "foobar2",
+        field2: "hello world2",
+        field3: "abc2"
+      }
+    ];
+    const headers = [
+      {
+        header: "header 1",
+        field: "field1",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      },
+      {
+        header: "header 2",
+        field: "field2",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      },
+      {
+        header: "header 3",
+        field: "field3",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      }
+    ];
+
+    return (
+      <CaseList
+        loadCases={() => null}
+        showDialog={false}
+        callbacks={{ a: () => null, b: () => null }}
+        clickedRow={null}
+        cases={cases}
+        isLoading={false}
+        headers={headers}
+        ModalContent={SnoozeForm}
+      />
+    );
+  })
+  .add("Case list while loading data", () => {
+    const cases = [
+      {
+        receiptNumber: "fak1",
+        field1: "foobar",
+        field2: "hello world",
+        field3: "abc"
+      },
+      {
+        receiptNumber: "fak2",
+        field1: "foobar2",
+        field2: "hello world2",
+        field3: "abc2"
+      }
+    ];
+    const headers = [
+      {
+        header: "header 1",
+        field: "field1",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      },
+      {
+        header: "header 2",
+        field: "field2",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      },
+      {
+        header: "header 3",
+        field: "field3",
+        views: [VIEWS.CASES_TO_WORK.TITLE]
+      }
+    ];
+    return (
+      <CaseList
+        loadCases={() => null}
+        showDialog={false}
+        callbacks={{ a: () => null, b: () => null }}
+        clickedRow={null}
+        cases={cases}
+        isLoading={true}
+        headers={headers}
+        ModalContent={SnoozeForm}
+        totalCases={10}
+      />
+    );
+  })
+  .add("Caselist with more cases to load", () => {
+    const cases = [
+      {
         receiptNumber: "FAK1",
         field1: "foobar",
         field2: "Hello world",
@@ -82,38 +174,7 @@ storiesOf("CaseList", module)
         isLoading={false}
         headers={headers}
         ModalContent={SnoozeForm}
-      />
-    );
-  })
-  .add("Case list while loading data", () => {
-    const cases = [];
-    const headers = [
-      {
-        header: "header 1",
-        field: "field1",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 2",
-        field: "field2",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 3",
-        field: "field3",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      }
-    ];
-    return (
-      <CaseList
-        loadCases={() => null}
-        showDialog={false}
-        callbacks={{ a: () => null, b: () => null }}
-        clickedRow={null}
-        cases={cases}
-        isLoading={true}
-        headers={headers}
-        ModalContent={SnoozeForm}
+        totalCases={200}
       />
     );
   });
