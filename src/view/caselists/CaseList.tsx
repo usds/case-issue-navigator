@@ -15,6 +15,7 @@ interface CaseListProps {
     callback: Callbacks;
     rowData: Case | {};
   }>;
+  totalCases: number;
 }
 
 const CaseList: React.FunctionComponent<CaseListProps> = props => {
@@ -38,7 +39,13 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
     closeDialog: closeModal
   };
 
-  const { currentPage, ModalContent, setCurrentPage } = props;
+  const {
+    cases,
+    currentPage,
+    ModalContent,
+    setCurrentPage,
+    totalCases
+  } = props;
 
   return (
     <React.Fragment>
@@ -50,17 +57,24 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
         <ModalContent callback={callbacks} rowData={clickedRow} />
       </ActionModal>
       <ReceiptList
-        cases={props.cases}
+        cases={cases}
         callback={callbacks}
         isLoading={props.isLoading}
         headers={props.headers}
       />
-      <UsaButton
-        onClick={() => setCurrentPage(currentPage + 1)}
-        disabled={props.isLoading}
-      >
-        {props.isLoading ? "Loading..." : "Load More Cases"}
-      </UsaButton>
+      <div className="display-flex flex-column flex-align-center">
+        {totalCases > cases.length ? (
+          <UsaButton
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={props.isLoading}
+            buttonStyle="outline"
+          >
+            {props.isLoading ? "Loading..." : "Show More"}
+          </UsaButton>
+        ) : (
+          "There are no more cases on this list."
+        )}
+      </div>
     </React.Fragment>
   );
 };

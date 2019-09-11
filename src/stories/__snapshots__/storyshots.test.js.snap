@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots CaseList Case list while loading data 1`] = `
-<button
-  className="usa-button"
-  disabled={true}
-  onClick={[Function]}
-  type="button"
+<div
+  className="display-flex flex-column flex-align-center"
 >
-  Loading...
-</button>
+  There are no more cases on this list.
+</div>
 `;
 
 exports[`Storyshots CaseList Case list with some data 1`] = `
@@ -54,14 +51,11 @@ Array [
       </tr>
     </tbody>
   </table>,
-  <button
-    className="usa-button"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+  <div
+    className="display-flex flex-column flex-align-center"
   >
-    Load More Cases
-  </button>,
+    There are no more cases on this list.
+  </div>,
 ]
 `;
 
@@ -70,14 +64,11 @@ Array [
   <p>
     No cases found.
   </p>,
-  <button
-    className="usa-button"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+  <div
+    className="display-flex flex-column flex-align-center"
   >
-    Load More Cases
-  </button>,
+    There are no more cases on this list.
+  </div>,
 ]
 `;
 
