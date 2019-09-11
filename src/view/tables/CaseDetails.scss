@@ -1,0 +1,29 @@
+.row--detail-display td {
+  border: 1px solid #333;
+  border-top: 0px;
+}
+
+.row--detail-display td:first-child {
+  border-right: 1px solid transparent;
+}
+
+.grid-container {
+  margin-left: 0;
+  padding-left: 0;
+  margin-right: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+.case-detail-date {
+  min-width: 11em;
+  font-weight: bold;
+}
+
+.case-detail-list {
+  margin-bottom: 1em;
+
+  .grid-row {
+    margin: 0.5em 0;
+  }
+}

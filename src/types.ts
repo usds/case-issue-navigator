@@ -34,7 +34,7 @@ export type Header = {
   views: Array<ViewTitles>;
 };
 
-export type Case = {
+export interface Case {
   receiptNumber: string;
   caseCreation: string;
   extraData: {
@@ -47,13 +47,15 @@ export type Case = {
       applicationReason: string;
     };
   };
-  notes: Array<object>;
+  notes: Array<Note>;
   previouslySnoozed: boolean;
-  snoozeInformation?: {
-    snoozeEnd: string;
-    snoozeReason: string;
-    snoozeStart: string;
-  };
+  snoozeInformation?: SnoozeInformation;
+}
+
+export type SnoozeInformation = {
+  snoozeEnd: string;
+  snoozeReason: SnoozeReason;
+  snoozeStart: string;
 };
 
 export interface Note {
@@ -67,7 +69,7 @@ export interface DBNote extends Note {
   timestamp: string;
 }
 
-type SnoozeReason =
+export type SnoozeReason =
   | "assigned_case"
   | "test_data"
   | "in_proceedings"
@@ -81,3 +83,19 @@ export interface SnoozeOption {
   followUp?: string;
   caseIssueNotes?: string;
 }
+
+export type SnoozeEvent = {
+  date: Date;
+  startOrEnd: "start" | "end";
+  snoozeReason: SnoozeReason;
+};
+
+export type CaseDetail = {
+  date: Date;
+  noteOrSnooze: "note" | "snooze";
+  type: string | null;
+  subType?: string | null;
+  snoozeReason?: SnoozeReason;
+  href?: string | null;
+  content?: string;
+};

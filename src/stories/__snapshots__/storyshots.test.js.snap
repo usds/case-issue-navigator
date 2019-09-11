@@ -130,7 +130,8 @@ Array [
     #
     12345
   </a>,
-  " was associated with this case.",
+  " ",
+  "was associated with this case.",
 ]
 `;
 
@@ -198,17 +199,17 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -287,17 +288,17 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -351,8 +352,8 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-down fa-w-14 "
-            data-icon="chevron-down"
+            className="svg-inline--fa fa-minus fa-w-14 "
+            data-icon="minus"
             data-prefix="fas"
             focusable="false"
             role="img"
@@ -361,7 +362,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+              d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -413,54 +414,20 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
     </tr>
     <tr
-      className="row--show-details "
+      className="row--detail-display"
     >
       <td
-        className="bg-primary-light"
-        colSpan={9}
+        colSpan={1}
+      />
+      <td
+        colSpan={8}
       >
         <h3>
-          View Details
+          Case Details
         </h3>
-      </td>
-    </tr>
-    <tr
-      className="row--show-details"
-    >
-      <td
-        colSpan={2}
-      >
-        <strong>
-          7/11/2019
-        </strong>
-      </td>
-      <td
-        colSpan={7}
-      >
-        ServiceNow ticket 
-        <a
-          href="http://localhost:1111/12345"
-        >
-          #
-          12345
-        </a>
-         was associated with this case.
-      </td>
-    </tr>
-    <tr
-      className="row--show-details"
-    >
-      <td
-        colSpan={2}
-      >
-        <strong>
-          6/11/2019
-        </strong>
-      </td>
-      <td
-        colSpan={7}
-      >
-        Here's another note
+        <p>
+          No case details.
+        </p>
       </td>
     </tr>
   </tbody>
@@ -514,17 +481,17 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -602,17 +569,17 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -705,17 +672,17 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
@@ -794,17 +761,17 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-chevron-right fa-w-10 "
-            data-icon="chevron-right"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
             data-prefix="fas"
             focusable="false"
             role="img"
             style={Object {}}
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
               fill="currentColor"
               style={Object {}}
             />
