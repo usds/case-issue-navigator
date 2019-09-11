@@ -189,10 +189,12 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
          
         <svg
           aria-hidden="true"
-          aria-label="This case has been previously snoozed"
+          aria-label="Snooze expired - Please review case"
           className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
           data-icon="exclamation-triangle"
+          data-place="right"
           data-prefix="fas"
+          data-tip={true}
           focusable="false"
           role="img"
           style={Object {}}
@@ -205,6 +207,12 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
             style={Object {}}
           />
         </svg>
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+        >
+          Snooze expired - Please review case
+        </div>
       </td>
       <td>
         Boredom
@@ -497,10 +505,12 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
          
         <svg
           aria-hidden="true"
-          aria-label="This case has been previously snoozed"
+          aria-label="Snooze expired - Please review case"
           className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
           data-icon="exclamation-triangle"
+          data-place="right"
           data-prefix="fas"
+          data-tip={true}
           focusable="false"
           role="img"
           style={Object {}}
@@ -513,6 +523,12 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
             style={Object {}}
           />
         </svg>
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+        >
+          Snooze expired - Please review case
+        </div>
       </td>
       <td>
         Boredom
@@ -680,10 +696,12 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
          
         <svg
           aria-hidden="true"
-          aria-label="This case has been previously snoozed"
+          aria-label="Snooze expired - Please review case"
           className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
           data-icon="exclamation-triangle"
+          data-place="right"
           data-prefix="fas"
+          data-tip={true}
           focusable="false"
           role="img"
           style={Object {}}
@@ -696,6 +714,12 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
             style={Object {}}
           />
         </svg>
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+        >
+          Snooze expired - Please review case
+        </div>
       </td>
       <td>
         Boredom

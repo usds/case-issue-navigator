@@ -1,6 +1,7 @@
 import React from "react";
 import { ELIS_CASE_BASE_URL } from "../../controller/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactTooltip from "react-tooltip";
 
 export const cellDispatch = {
   LINK: (r, rowData) => {
@@ -19,8 +20,11 @@ export const cellDispatch = {
             <FontAwesomeIcon
               icon="exclamation-triangle"
               className="text-accent-warm"
-              aria-label="This case has been previously snoozed"
+              aria-label="Snooze expired - Please review case"
+              data-tip
+              data-place="right"
             />
+            <ReactTooltip>Snooze expired - Please review case</ReactTooltip>
           </React.Fragment>
         )}
       </>
