@@ -114,6 +114,12 @@ const I90_HEADERS = [
     header: "Case Creation",
     field: "caseCreation",
     content: "DATE",
+    views: [VIEWS.CASES_TO_WORK.TITLE]
+  },
+  {
+    header: "Application Reason",
+    field: "extraData",
+    content: field => field.applicationReason,
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
