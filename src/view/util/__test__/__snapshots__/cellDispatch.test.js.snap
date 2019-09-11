@@ -11,9 +11,11 @@ exports[`cellDispatch LINK should return a valid link with a desnoozed notificat
   <React.Fragment>
      
     <FontAwesomeIcon
-      aria-label="This case has been previously snoozed"
+      aria-label="Snooze expired - Please review case"
       border={false}
       className="text-accent-warm"
+      data-place="right"
+      data-tip={true}
       fixedWidth={false}
       flip={null}
       icon="exclamation-triangle"
@@ -29,6 +31,14 @@ exports[`cellDispatch LINK should return a valid link with a desnoozed notificat
       title=""
       transform={null}
     />
+    <ReactTooltip
+      clickable={false}
+      insecure={true}
+      resizeHide={true}
+      wrapper="div"
+    >
+      Snooze expired - Please review case
+    </ReactTooltip>
   </React.Fragment>
 </React.Fragment>
 `;
