@@ -13,7 +13,7 @@ import { AuthContainer } from "./view/auth/AuthContainer";
 library.add(fas);
 
 const App = () => (
-  <AuthContainer>
+  <AuthContainer defaultLoggedInState={true}>
     <Layout
       render={(updateSummaryData, setError, setNotification, summary) => (
         <React.Fragment>
