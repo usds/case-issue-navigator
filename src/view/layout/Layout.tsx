@@ -45,7 +45,11 @@ interface LayoutProps {
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = props => {
-  const [summary, setSummary] = useState<Summary>({} as Summary);
+  const [summary, setSummary] = useState<Summary>({
+    CASES_TO_WORK: 0,
+    SNOOZED_CASES: 0,
+    PREVIOUSLY_SNOOZED: 0
+  });
   const [error, setError] = useState<Error>(null);
   const [notification, setNotification] = useState<Notification>(null);
   const [updateSummary, setUpdateSummary] = useState<boolean>(false);
@@ -93,8 +97,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
         const errorJson = await response.responseError.getJson();
         setError(errorJson);
       } else {
-        // Workaround for lack of 401 response
-        setError({ status: 401 });
+        console.error(response);
       }
     };
     updateSummaryData();

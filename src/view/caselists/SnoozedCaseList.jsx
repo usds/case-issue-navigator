@@ -31,10 +31,9 @@ const SnoozedCaseList = props => {
 
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        setError(errorJson);
+        !cancelRequest && setError(errorJson);
       } else {
-        // Workaround for lack of 401 response
-        setError({ status: 401 });
+        console.error(response);
       }
     })(currentPage);
 
@@ -97,8 +96,7 @@ const SnoozedCaseList = props => {
       const errorJson = await response.responseError.getJson();
       setError(errorJson);
     } else {
-      // Workaround for lack of 401 response
-      setError({ status: 401 });
+      console.error(response);
     }
   };
 
@@ -124,8 +122,7 @@ const SnoozedCaseList = props => {
       const errorJson = await response.responseError.getJson();
       setError(errorJson);
     } else {
-      // Workaround for lack of 401 response
-      setError({ status: 401 });
+      console.error(response);
     }
   };
 
