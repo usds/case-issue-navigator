@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
-import { Notification, Error } from "./Layout";
 import { AuthContext } from "../auth/AuthContainer";
+import { Error, Notification } from "../../types";
 
 interface ErrorHandlerProps {
   setNotification: React.Dispatch<Notification>;

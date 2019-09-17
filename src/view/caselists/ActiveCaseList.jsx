@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
@@ -7,11 +7,8 @@ import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
-import { AuthContext } from "../auth/AuthContainer";
 
 const ActiveCaseList = props => {
-  const { setLoggedIn } = useContext(AuthContext);
-
   const [cases, setCases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -47,7 +44,7 @@ const ActiveCaseList = props => {
     return () => {
       cancelRequest = true;
     };
-  }, [currentPage, setIsLoading, setNotification, setLoggedIn, setError]);
+  }, [currentPage, setIsLoading, setNotification, setError]);
 
   const snooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);

@@ -4,36 +4,9 @@ import PrimaryNavMenu from "./PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
 import "react-toastify/dist/ReactToastify.css";
-import { Summary } from "../../types";
+import { Summary, Error, Notification, ToastOptions } from "../../types";
 import RestAPIClient from "../../model/RestAPIClient";
 import { ErrorHandler } from "./ErrorHandler";
-
-type NotificationType =
-  | "info"
-  | "success"
-  | "warning"
-  | "error"
-  | "default"
-  | undefined;
-
-export type Notification = {
-  message: string;
-  type: NotificationType;
-  id?: string;
-} | null;
-
-type ToastOptions = {
-  type: NotificationType;
-  toastId?: string;
-};
-
-export type Error = {
-  error?: string;
-  message?: string;
-  path?: string;
-  status?: number;
-  timestamp?: string;
-} | null;
 
 interface LayoutProps {
   render: (
