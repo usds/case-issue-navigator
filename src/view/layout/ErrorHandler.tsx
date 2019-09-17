@@ -12,7 +12,7 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
   const { setLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!error) {
+    if (!error.message) {
       return;
     }
     if (error.status === 401) {

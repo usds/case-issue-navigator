@@ -23,7 +23,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
   });
-  const [error, setError] = useState<Error>(null);
+  const [error, setError] = useState<Error>({} as Error);
   const [notification, setNotification] = useState<Notification>(null);
   const [updateSummary, setUpdateSummary] = useState<boolean>(false);
 
@@ -68,7 +68,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       }
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        setError(errorJson);
+        setError(errorJson as Error);
       } else {
         console.error(response);
       }

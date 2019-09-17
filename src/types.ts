@@ -120,9 +120,8 @@ export type ToastOptions = {
 };
 
 export type Error = {
-  error?: string;
-  message?: string;
-  path?: string;
-  status?: number;
-  timestamp?: string;
-} | null;
+  error: string;
+  message: string;
+  status: number;
+  timestamp: string;
+};
