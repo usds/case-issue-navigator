@@ -1,0 +1,15 @@
+.overlay {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: table;
+  text-align: center;
+}
+
+.overlay .item {
+  display: table-cell;
+  vertical-align: middle;
+}

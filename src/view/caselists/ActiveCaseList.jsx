@@ -6,7 +6,6 @@ import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
-import { UsaAlert } from "../util/UsaAlert";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 
 const ActiveCaseList = props => {
@@ -14,12 +13,18 @@ const ActiveCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setNotification, summary } = props;
+  const { setNotification, setError, summary } = props;
 
   useEffect(() => {
+    let cancelRequest = false;
+
     setIsLoading(true);
     (async page => {
       const response = await RestAPIClient.cases.getActive(page);
+      if (cancelRequest) {
+        return;
+      }
+
       setIsLoading(false);
       if (response.succeeded) {
         return setCases(previousCases => [
@@ -27,16 +32,19 @@ const ActiveCaseList = props => {
           ...response.payload
         ]);
       }
-      setNotification({
-        message: "There was an error loading cases.",
-        type: "error"
-      });
+
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        console.error(errorJson);
+        !cancelRequest && setError(errorJson);
+      } else {
+        console.error(response);
       }
     })(currentPage);
-  }, [currentPage, setIsLoading, setNotification]);
+
+    return () => {
+      cancelRequest = true;
+    };
+  }, [currentPage, setIsLoading, setNotification, setError]);
 
   const snooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -63,10 +71,11 @@ const ActiveCaseList = props => {
       );
     }
 
-    setNotification("There was an error updating the case.", "error");
     if (response.responseReceived) {
       const errorJson = await response.responseError.getJson();
-      console.error(errorJson);
+      setError(errorJson);
+    } else {
+      console.error(response);
     }
   };
 
@@ -112,7 +121,8 @@ const ActiveCaseList = props => {
 ActiveCaseList.propTypes = {
   updateSummaryData: PropTypes.func,
   setNotification: PropTypes.func,
-  summary: PropTypes.object.isRequired
+  summary: PropTypes.object.isRequired,
+  setError: PropTypes.func.isRequired
 };
 
 export { ActiveCaseList };

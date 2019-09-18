@@ -99,3 +99,29 @@ export type CaseDetail = {
   href?: string | null;
   content?: string;
 };
+
+export type NotificationType =
+  | "info"
+  | "success"
+  | "warning"
+  | "error"
+  | "default"
+  | undefined;
+
+export type Notification = {
+  message: string;
+  type: NotificationType;
+  id?: string;
+} | null;
+
+export type ToastOptions = {
+  type: NotificationType;
+  toastId?: string;
+};
+
+export type Error = {
+  error: string;
+  message: string;
+  status: number;
+  timestamp: string;
+};

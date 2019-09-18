@@ -12,26 +12,35 @@ const SnoozedCaseList = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setNotification, summary } = props;
+  const { setNotification, setError, summary } = props;
 
   useEffect(() => {
+    let cancelRequest = false;
+
     setIsLoading(true);
     (async page => {
       const response = await RestAPIClient.cases.getSnoozed(page);
+      if (cancelRequest) {
+        return;
+      }
+
       if (response.succeeded) {
         setCases(previousCases => [...previousCases, ...response.payload]);
         return setIsLoading(false);
       }
-      setNotification({
-        message: "There was an error loading cases.",
-        type: "error"
-      });
+
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        console.error(errorJson);
+        !cancelRequest && setError(errorJson);
+      } else {
+        console.error(response);
       }
     })(currentPage);
-  }, [setCases, currentPage, setNotification]);
+
+    return () => {
+      cancelRequest = true;
+    };
+  }, [setCases, currentPage, setNotification, setError]);
 
   const reSnooze = async (rowData, snoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -83,13 +92,11 @@ const SnoozedCaseList = props => {
       return setCases(snoozedCases);
     }
 
-    setNotification({
-      message: "There was an error saving the snooze.",
-      type: "error"
-    });
     if (response.responseReceived) {
       const errorJson = await response.responseError.getJson();
-      console.error(errorJson);
+      setError(errorJson);
+    } else {
+      console.error(response);
     }
   };
 
@@ -111,13 +118,11 @@ const SnoozedCaseList = props => {
       });
     }
 
-    setNotification({
-      message: "There was an error unsnoozing this case.",
-      type: "error"
-    });
     if (response.responseReceived) {
       const errorJson = await response.responseError.getJson();
-      console.error(errorJson);
+      setError(errorJson);
+    } else {
+      console.error(response);
     }
   };
 
@@ -159,7 +164,8 @@ const SnoozedCaseList = props => {
 SnoozedCaseList.propTypes = {
   setNotification: PropTypes.func.isRequired,
   summary: PropTypes.object.isRequired,
-  updateSummaryData: PropTypes.func.isRequired
+  updateSummaryData: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired
 };
 
 export { SnoozedCaseList };
