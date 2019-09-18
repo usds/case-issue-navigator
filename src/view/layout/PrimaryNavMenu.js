@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import close from "uswds/dist/img/close.svg";
 import "./PrimaryNavMenu.css";
+import { AuthContext } from "../auth/AuthContainer";
 
 export default function PrimaryNavMenu(props) {
+  const { name } = useContext(AuthContext);
+
   const navItems = Object.entries(props.views).map(([key, view]) => (
     <li key={view.ROUTE} className="usa-nav__primary-item">
       <NavLink
@@ -37,6 +40,13 @@ export default function PrimaryNavMenu(props) {
           <div className="usa-nav__inner">
             <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
           </div>
+          {name && (
+            <div className="usa-nav__secondary margin-bottom-105">
+              <ul className="usa-nav__secondary-links">
+                <li className="usa-nav__secondary-item">{name}</li>
+              </ul>
+            </div>
+          )}
         </nav>
       </header>
     </React.Fragment>
