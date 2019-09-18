@@ -14,7 +14,7 @@ const sampleCases = [
       caseState: "Happy",
       caseSubstatus: "Printing",
       channelType: "Pigeon",
-      streamlinedProcess: false,
+      i90SP: "false",
       applicationReason: "Boredom"
     },
     previouslySnoozed: true
@@ -27,7 +27,7 @@ const sampleCases = [
       caseState: "Happy",
       caseSubstatus: "Amazingly Successful",
       channelType: "Semaphore",
-      streamlinedProcess: true,
+      i90SP: "true",
       applicationReason: "Enthusiasm"
     }
   }
@@ -108,7 +108,7 @@ storiesOf("ReceiptList", module)
         caseState: "Happy",
         caseSubstatus: "Amazingly Successful",
         channelType: "Semaphore",
-        streamlinedProcess: true,
+        i90SP: "true",
         applicationReason: "Enthusiasm"
       }
     });
@@ -125,6 +125,27 @@ storiesOf("ReceiptList", module)
           details: action("details clicked!")
         }}
         headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
+        isLoading={false}
+      />
+    );
+  })
+  .add("Tabular Cases-to-Work List with some items; boolean SP", () => {
+    const modifiedSampleCases = sampleCases.map((sampleCase, i) => {
+      return {
+        ...sampleCase,
+        extraData: { ...sampleCases.extraData, i90SP: i % 2 === 1 }
+      };
+    });
+
+    return (
+      <ReceiptList
+        view={VIEWS.CASES_TO_WORK.TITLE}
+        cases={modifiedSampleCases}
+        callback={{
+          snoozeUpdate: action("show actions clicked!"),
+          details: action("details clicked!")
+        }}
+        headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
         isLoading={false}
       />
     );

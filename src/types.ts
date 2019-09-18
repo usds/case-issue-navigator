@@ -43,7 +43,7 @@ export interface Case {
       caseState: string;
       caseSubstatus: string;
       channelType: string;
-      streamlinedProcess: boolean;
+      i90SP: string | boolean;
       applicationReason: string;
     };
   };
