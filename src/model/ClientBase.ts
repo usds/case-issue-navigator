@@ -19,6 +19,25 @@ class ClientBase extends FetchClient {
   constructor() {
     super();
     this.credentials = "include";
+    this.setCsrf();
+  }
+
+  protected setCsrf() {
+    if (localStorage.csrf) {
+      const { headerName, token } = JSON.parse(localStorage.csrf);
+      this.defaultHeaders[headerName as keyof Headers] = token;
+    }
+  }
+
+  public async getCsrf() {
+    const response = await this.getAsJson(ClientBase.createApiUrl("/csrf"));
+    if (response.succeeded) {
+      const csrf = {
+        headerName: response.payload.headerName,
+        token: response.payload.token
+      };
+      localStorage.setItem("csrf", JSON.stringify(csrf));
+    }
   }
 }
 

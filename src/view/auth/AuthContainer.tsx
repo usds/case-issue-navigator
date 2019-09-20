@@ -24,6 +24,9 @@ const AuthContainer: React.FC<AuthContainerProps> = props => {
       return setName("");
     }
 
+    // Get csrf from server before it's needed
+    RestAPIClient.cases.getCsrf();
+
     const getUser = async () => {
       const response = await RestAPIClient.auth.getCurrentUser();
       if (response.succeeded) {
