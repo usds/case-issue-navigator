@@ -10,6 +10,7 @@ import { VIEWS } from "./controller/config";
 import { Layout } from "./view/layout/Layout";
 import { AuthContainer } from "./view/auth/AuthContainer";
 import { Helmet } from "react-helmet";
+import { trackPageView, setDocumentTitle } from "./matomo-setup";
 
 library.add(fas);
 
@@ -22,7 +23,12 @@ const App = () => {
 
   return (
     <AuthContainer defaultLoggedInState={true}>
-      <Helmet>
+      <Helmet
+        onChangeClientState={({ title }) => {
+          setDocumentTitle(title);
+          trackPageView();
+        }}
+      >
         <title>{title}</title>
       </Helmet>
       <Layout
