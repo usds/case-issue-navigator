@@ -25,9 +25,13 @@ const AuthContainer: React.FC<AuthContainerProps> = props => {
     }
 
     const getUser = async () => {
-      const response = await RestAPIClient.auth.getCurrentUser();
-      if (response.succeeded) {
-        setName(response.payload.principal.attributes.name);
+      try {
+        const response = await RestAPIClient.auth.getCurrentUser();
+        if (response.succeeded) {
+          setName(response.payload.name);
+        }
+      } catch (err) {
+        console.error(err);
       }
     };
     getUser();
