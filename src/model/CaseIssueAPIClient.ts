@@ -5,6 +5,7 @@ type SnoozeState = "active" | "snoozed";
 
 class CaseIssueAPIClient extends ClientBase {
   public async deleteActiveSnooze(receiptNumber: string) {
+    this.setCsrf();
     return await this.delete(
       CaseIssueAPIClient.createApiUrl(
         `/api/caseDetails/${this.caseManagementSystem}/${receiptNumber}/activeSnooze`
@@ -48,6 +49,7 @@ class CaseIssueAPIClient extends ClientBase {
     receiptNumber: string,
     snoozeInputs: SnoozeOption
   ) {
+    this.setCsrf();
     return await this.put(
       CaseIssueAPIClient.createApiUrl(
         `/api/caseDetails/${this.caseManagementSystem}/${receiptNumber}/activeSnooze`
