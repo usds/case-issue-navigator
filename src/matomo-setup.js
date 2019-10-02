@@ -1,11 +1,15 @@
-import ReactPiwik from "react-piwik";
+import Piwik from "react-piwik";
 import { IS_TEST_ENV } from "./controller/config";
 
-const matomo = new ReactPiwik({
-  url: process.env.REACT_APP_MATOMO_URL,
-  siteId: process.env.REACT_APP_MATOMO_SITE_ID,
-  trackErrors: true
-});
+const matomo =
+  !IS_TEST_ENV &&
+  new Piwik({
+    url: process.env.REACT_APP_MATOMO_URL,
+    siteId: process.env.REACT_APP_MATOMO_SITE_ID,
+    trackErrors: true
+  });
+
+const ReactPiwik = IS_TEST_ENV ? [] : Piwik;
 
 // Force Matomo to track a new visit on initial page view only
 //   "new_visit — If set to 1, will force a new visit to be created for this action"
