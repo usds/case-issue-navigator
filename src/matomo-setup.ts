@@ -25,7 +25,7 @@ ReactPiwik.push(["enableHeartBeatTimer"]);
 // Enable JS error tracking
 ReactPiwik.push(["enableJSErrorTracking"]);
 
-const trackEvent = (category, action, name, value) => {
+const trackEvent: MatomoTrackEvent = (category, action, name, value) => {
   // Don't track events during tests since Matomo isn't initialized
   if (!IS_TEST_ENV) {
     ReactPiwik.push(["trackEvent", category, action, name, value]);
@@ -36,7 +36,7 @@ const trackPageView = () => {
   ReactPiwik.push(["trackPageView"]);
 };
 
-const setDocumentTitle = title => {
+const setDocumentTitle = (title: string) => {
   ReactPiwik.push(["setDocumentTitle", title]);
 };
 
