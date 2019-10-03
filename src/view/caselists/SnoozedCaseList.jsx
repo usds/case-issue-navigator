@@ -114,6 +114,7 @@ const SnoozedCaseList = props => {
           snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
         )
       );
+      trackEvent("snooze", "deSnooze", "desnoozed");
       return setNotification({
         message: `${rowData.receiptNumber} has been Unsnoozed.`,
         type: "info"
