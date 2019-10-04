@@ -1,10 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import { AuthContext } from "../auth/AuthContainer";
-import { Error, Notification } from "../../types";
 
 interface ErrorHandlerProps {
-  setNotification: React.Dispatch<Notification>;
-  error: Error;
+  setNotification: React.Dispatch<AppNotification>;
+  error: APIError;
 }
 
 const ErrorHandler: React.FC<ErrorHandlerProps> = props => {

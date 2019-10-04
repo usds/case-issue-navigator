@@ -1,5 +1,4 @@
 import React from "react";
-import { CaseDetail } from "../../types";
 import { DetailNoteDisplay } from "./DetailNoteDisplay";
 import { DetailSnoozeDisplay } from "./DetailSnoozeDisplay";
 import "./CaseDetails.scss";

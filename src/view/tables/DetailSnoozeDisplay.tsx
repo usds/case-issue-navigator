@@ -1,5 +1,4 @@
 import React from "react";
-import { CaseDetail, SnoozeReason } from "../../types";
 import { SNOOZE_OPTIONS } from "../../controller/config";
 
 interface DetailSnoozeDisplayProps {
