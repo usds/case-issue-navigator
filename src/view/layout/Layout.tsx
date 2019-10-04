@@ -4,15 +4,14 @@ import PrimaryNavMenu from "./PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import FormattedDate from "../util/FormattedDate";
 import "react-toastify/dist/ReactToastify.css";
-import { Summary, Error, Notification, ToastOptions } from "../../types";
 import RestAPIClient from "../../model/RestAPIClient";
 import { ErrorHandler } from "./ErrorHandler";
 
 interface LayoutProps {
   render: (
     toggleUpdateSummary: () => void,
-    setError: React.Dispatch<Error>,
-    setNotification: React.Dispatch<React.SetStateAction<Notification>>,
+    setError: React.Dispatch<APIError>,
+    setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
     summary: Summary
   ) => React.Component;
 }
@@ -23,8 +22,8 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
   });
-  const [error, setError] = useState<Error>({} as Error);
-  const [notification, setNotification] = useState<Notification>(null);
+  const [error, setError] = useState<APIError>({} as APIError);
+  const [notification, setNotification] = useState<AppNotification>(null);
   const [updateSummary, setUpdateSummary] = useState<boolean>(false);
 
   const shouldUpdateSummary = () => {
@@ -68,7 +67,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
       }
       if (response.responseReceived) {
         const errorJson = await response.responseError.getJson();
-        setError(errorJson as Error);
+        setError(errorJson as APIError);
       } else {
         console.error(response);
       }

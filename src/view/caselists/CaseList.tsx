@@ -2,7 +2,6 @@ import React, { useState, SetStateAction, Dispatch } from "react";
 import { ActionModal } from "../util/ActionModal";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
-import { Callbacks, Header, Case } from "../../types";
 
 interface CaseListProps {
   isLoading: boolean;

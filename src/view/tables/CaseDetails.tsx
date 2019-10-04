@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { DBNote, SnoozeInformation, CaseDetail } from "../../types";
 import RestAPIClient from "../../model/RestAPIClient";
 import { CaseDetailList } from "./CaseDetailList";
 import "./CaseDetails.scss";

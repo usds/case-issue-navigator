@@ -1,5 +1,4 @@
 import ClientBase from "./ClientBase";
-import { SnoozeOption } from "../types";
 
 type SnoozeState = "active" | "snoozed";
 

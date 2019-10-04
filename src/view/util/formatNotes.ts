@@ -1,5 +1,4 @@
 import { SNOOZE_OPTIONS } from "../../controller/config";
-import { Note, SnoozeOption } from "../../types";
 
 const formatNotes = (snoozeOption: SnoozeOption): Array<Note> => {
   const notes: Array<Note> = [];

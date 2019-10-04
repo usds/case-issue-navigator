@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { CaseDetail } from "../../types";
 
 interface DetailNoteDisplayProps {
   caseDetail: CaseDetail;
