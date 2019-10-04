@@ -6,6 +6,7 @@ import { getHeaders } from "../util/getHeaders";
 import { CaseList } from "./CaseList";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
+import { trackEvent } from "../../matomo-setup";
 
 const SnoozedCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -62,6 +63,7 @@ const SnoozedCaseList = props => {
         }.`,
         type: "success"
       });
+      trackEvent("snooze", "reSnooze", snoozeOption.snoozeReason);
       const snoozedCases = cases
         .map(snoozedCase => {
           if (snoozedCase.receiptNumber === rowData.receiptNumber) {
@@ -112,6 +114,7 @@ const SnoozedCaseList = props => {
           snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
         )
       );
+      trackEvent("snooze", "deSnooze", "desnoozed");
       return setNotification({
         message: `${rowData.receiptNumber} has been Unsnoozed.`,
         type: "info"

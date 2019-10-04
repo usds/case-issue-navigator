@@ -7,6 +7,7 @@ import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../model/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
+import { trackEvent } from "../../matomo-setup";
 
 const ActiveCaseList = props => {
   const [cases, setCases] = useState([]);
@@ -66,6 +67,7 @@ const ActiveCaseList = props => {
         }.`,
         type: "success"
       });
+      trackEvent("snooze", "createSnooze", snoozeOption.snoozeReason);
       return setCases(
         cases.filter(c => c.receiptNumber !== rowData.receiptNumber)
       );
