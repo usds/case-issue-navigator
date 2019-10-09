@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RestAPIClient from "../../model/RestAPIClient";
+import RestAPIClient from "../../api/RestAPIClient";
 import { CaseDetailList } from "./CaseDetailList";
 import "./CaseDetails.scss";
 
@@ -16,7 +16,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
   useEffect(() => {
     setIsLoading(true);
     const getCaseDetails = async () => {
-      const response = await RestAPIClient.cases.getCaseDetails(receiptNumber);
+      const response = await RestAPIClient.caseDetails.getCaseDetails(receiptNumber);
       if (response.succeeded) {
         const caseEvents: Array<CaseDetail> = [];
         response.payload.notes.forEach((note: DBNote) => {

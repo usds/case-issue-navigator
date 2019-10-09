@@ -5,7 +5,7 @@ import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { getHeaders } from "../util/getHeaders";
 import { CaseList } from "./CaseList";
 import { formatNotes } from "../util/formatNotes";
-import RestAPIClient from "../../model/RestAPIClient";
+import RestAPIClient from "../../api/RestAPIClient";
 import { trackEvent } from "../../matomo-setup";
 
 const SnoozedCaseList = props => {
