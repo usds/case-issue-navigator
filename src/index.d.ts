@@ -12,6 +12,9 @@ type MatomoTrackEvent = (
   value?: MatomoEventValue
 ) => void;
 
+type CaseManagementSystem = "DEFAULT";
+type CaseType = "STANDARD";
+
 interface Views {
   CASES_TO_WORK: {
     title: "Cases to Work";
@@ -41,7 +44,7 @@ type Callbacks = {
 type Header = {
   header: string;
   field: string;
-  content?: Function | String;
+  content?: Function | string;
   views: Array<ViewTitles>;
 };
 
@@ -94,6 +97,7 @@ interface SnoozeOption {
   followUp?: string;
   caseIssueNotes?: string;
 }
+type SnoozeState = "active" | "snoozed";
 
 type SnoozeEvent = {
   date: Date;

@@ -5,7 +5,7 @@ import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
-import RestAPIClient from "../../model/RestAPIClient";
+import RestAPIClient from "../../api/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { trackEvent } from "../../matomo-setup";
 

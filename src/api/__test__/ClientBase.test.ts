@@ -1,10 +1,6 @@
 import ClientBase from "../ClientBase";
 import fetchMock from "fetch-mock";
-import { API_BASE_URL } from "../../controller/config";
-
-const createApiUrl = (endpoint: string) => {
-  return API_BASE_URL + endpoint;
-};
+import URLs from "../URLs";
 
 describe("ClientBase", () => {
   beforeEach(() => {
@@ -17,7 +13,7 @@ describe("ClientBase", () => {
   };
   it("should set a csrf token response to localStorage", () => {
     const clientBase = new ClientBase();
-    fetchMock.mock(createApiUrl("/csrf"), fakeCsrf);
+    fetchMock.mock(URLs.csrf().toString(), fakeCsrf);
     return clientBase
       .getCsrf()
       .then(() =>
@@ -28,7 +24,7 @@ describe("ClientBase", () => {
   });
   it("should not set a csrf token to localStorage if no csrf is returned from fetch", () => {
     const clientBase = new ClientBase();
-    fetchMock.mock(createApiUrl("/csrf"), {});
+    fetchMock.mock(URLs.csrf().toString(), {});
     return clientBase.getCsrf().then(() => {
       const csrf = JSON.parse(localStorage.getItem("csrf") as string);
       expect(csrf.headerName).toBe(undefined);

@@ -1,21 +1,8 @@
 import { FetchClient } from "tbest-fetch-client";
-import { API_BASE_URL } from "../controller/config";
+import URLs from "./URLs";
 
-type CaseManagementSystem = "DEFAULT";
-type CaseType = "STANDARD";
 
 class ClientBase extends FetchClient {
-  protected resultsPerPage: number = 20;
-  protected caseManagementSystem: CaseManagementSystem =
-    (process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM as CaseManagementSystem) ||
-    "DEFAULT";
-  protected caseType: CaseType =
-    (process.env.REACT_APP_CASE_TYPE as CaseType) || "STANDARD";
-
-  protected static createApiUrl(endpoint: string) {
-    return new URL(endpoint, API_BASE_URL);
-  }
-
   constructor() {
     super();
     this.credentials = "include";
@@ -30,7 +17,7 @@ class ClientBase extends FetchClient {
   }
 
   public async getCsrf() {
-    const response = await this.getAsJson(ClientBase.createApiUrl("/csrf"));
+    const response = await this.getAsJson(URLs.csrf());
     if (response.succeeded) {
       const csrf = {
         headerName: response.payload.headerName,

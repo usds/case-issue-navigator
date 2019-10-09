@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AuthForm } from "./AuthForm";
 import { API_BASE_URL } from "../../controller/config";
-import RestAPIClient from "../../model/RestAPIClient";
+import RestAPIClient from "../../api/RestAPIClient";
 
 type AuthContext = {
   loggedIn: boolean;
