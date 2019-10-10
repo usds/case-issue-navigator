@@ -22,6 +22,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
   });
+  const [lastUpdated, setLastUpdated] = useState<string | null>();
   const [error, setError] = useState<APIError>({} as APIError);
   const [notification, setNotification] = useState<AppNotification>(null);
   const [updateSummary, setUpdateSummary] = useState<boolean>(false);
@@ -63,6 +64,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
           SNOOZED_CASES: currentlySnoozed,
           PREVIOUSLY_SNOOZED: previouslySnoozed
         });
+        setLastUpdated(response.payload.lastUpdated)
         return setUpdateSummary(false);
       }
       if (response.responseReceived) {
@@ -89,7 +91,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
         summary={summary}
       />
       <main id="main-content">
-        <FormattedDate label="Last Refresh" date={new Date()} />
+        <FormattedDate label="Last Refresh" date={lastUpdated} />
         {props.render(shouldUpdateSummary, setError, setNotification, summary)}
       </main>
     </div>

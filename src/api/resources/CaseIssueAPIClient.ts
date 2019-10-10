@@ -6,7 +6,7 @@ interface SummarySuccess {
   CURRENTLY_SNOOZED: number;
   NEVER_SNOOZED: number;
   PREVIOUSLY_SNOOZED: number;
-  lastUpdated: string;
+  lastUpdated: string | null;
 }
 
 class CaseIssueAPIClient extends ClientBase {
