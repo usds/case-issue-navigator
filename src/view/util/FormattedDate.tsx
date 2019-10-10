@@ -10,14 +10,13 @@ const FormattedDate: React.FC<Props> = props => {
         return null;
     }
 
-    const date = new Date(props.date);
-
-    if (date.toString() === "Invalid Date") {
-        console.error(`Invalid date: {date}`);
+    if (Number.isNaN(Date.parse(props.date))) {
+        console.error(`Invalid date: ${props.date}`);
+        return null;
     }
 
     return (
-        <p>{props.label}: {date.toLocaleString()}</p>
+        <p>{props.label}: {new Date(props.date).toLocaleString()}</p>
     );
 };
 
