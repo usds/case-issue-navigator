@@ -2,7 +2,7 @@ import { FetchClient } from "tbest-fetch-client";
 import URLs from "./URLs";
 
 
-class ClientBase extends FetchClient {
+class ClientBase extends FetchClient.Client {
   constructor() {
     super();
     this.credentials = "include";

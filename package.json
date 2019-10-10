@@ -27,7 +27,7 @@
     "react-scripts": "3.0.1",
     "react-toastify": "^5.3.2",
     "react-tooltip": "^3.11.1",
-    "tbest-fetch-client": "^0.1.0",
+    "tbest-fetch-client": "^0.1.1",
     "typescript": "^3.5.3",
     "uswds": "^2.0.3"
   },
