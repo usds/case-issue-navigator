@@ -1,18 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const FormattedDate = props => {
+interface Props {
+    label: string;
+    date?: Date;
+}
+
+const FormattedDate: React.FC<Props> = props => {
+
     if (!props.date) {
         return null;
-    } 
+    }
     return (
         <p>{props.label}: {props.date.toLocaleString()}</p>
     );
-};
-
-FormattedDate.propTypes = {
-    label: PropTypes.string.isRequired,
-    date: PropTypes.object
 };
 
 export default FormattedDate;
