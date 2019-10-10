@@ -1,21 +1,26 @@
-## Setup
+# Setup
+
 - [Install Brew](https://brew.sh/#install)
 - [Install yarn](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
 - Install dependencies
+
    ```bash
-   $ yarn
+   yarn
    ```
 
 ## Demo and Sample Data
 
-This project is the front end for an API that does not yet exist. In order to generate
-appropriate stub data, you can run the following commands:
+1. `cp .env-example .env`
 
+2. When not running the [case-issue-api](https://github.com/usds/case-issue-api) you    need to generate appropriate stub data, you can run the following commands:
+
+    ```bash
     mkdir src/sample_data
     python jsonizer.py --fake -n 300 > src/sample_data/i90_old.json
+    ```
 
-Alternatively, if you have non-fake data in the CSV format that `jsonizer.py`
-expects, you can run a similar command to get more realistic-looking output.
+    Alternatively, if you have non-fake data in the CSV format that `jsonizer.py`
+    expects, you can run a similar command to get more realistic-looking output.
 
 ## Available Scripts
 
@@ -23,15 +28,18 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits.
+
 You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br>
+Launches the test runner in the interactive watch mode.
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn coverage`
@@ -40,7 +48,8 @@ Launches the test runner and collects code coverage. Outputs results to the `/co
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `build` folder.
+
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 #### BaseUrl Environment Variable
@@ -51,7 +60,8 @@ By default, the base URL is assumed to be the local Spring back-end url, `http:/
 REACT_APP_API_BASE_URL=https://truffles-api.app.cloud.gov yarn build
 ```
 
-The build is minified and the filenames include the hashes.<br>
+The build is minified and the filenames include the hashes.
+
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
