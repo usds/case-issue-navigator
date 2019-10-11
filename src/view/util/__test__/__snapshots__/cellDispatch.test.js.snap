@@ -3,7 +3,7 @@
 exports[`cellDispatch LINK should return a valid link with a desnoozed notification 1`] = `
 <React.Fragment>
   <a
-    href="FAK123"
+    href="https://example.com/FAK123"
     target="_elis_viewer"
   >
     FAK123
@@ -46,7 +46,7 @@ exports[`cellDispatch LINK should return a valid link with a desnoozed notificat
 exports[`cellDispatch LINK should return a valid link with no desnoozed notification 1`] = `
 <React.Fragment>
   <a
-    href="FAK123"
+    href="https://example.com/FAK123"
     target="_elis_viewer"
   >
     FAK123

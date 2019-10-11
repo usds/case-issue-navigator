@@ -356,7 +356,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="FKE5381523"
+          href="https://example.com/FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -445,7 +445,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="FKE8206743"
+          href="https://example.com/FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
@@ -509,7 +509,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       </td>
       <td>
         <a
-          href="FKE123123"
+          href="https://example.com/FKE123123"
           target="_elis_viewer"
         >
           FKE123123
@@ -638,7 +638,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       </td>
       <td>
         <a
-          href="FKE5381523"
+          href="https://example.com/FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -726,7 +726,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       </td>
       <td>
         <a
-          href="FKE8206743"
+          href="https://example.com/FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
@@ -826,7 +826,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items; bool
       </td>
       <td>
         <a
-          href="FKE5381523"
+          href="https://example.com/FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -908,7 +908,7 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items; bool
       </td>
       <td>
         <a
-          href="FKE8206743"
+          href="https://example.com/FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
@@ -1005,7 +1005,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       </td>
       <td>
         <a
-          href="FKE5381523"
+          href="https://example.com/FKE5381523"
           target="_elis_viewer"
         >
           FKE5381523
@@ -1094,7 +1094,7 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       </td>
       <td>
         <a
-          href="FKE8206743"
+          href="https://example.com/FKE8206743"
           target="_elis_viewer"
         >
           FKE8206743
