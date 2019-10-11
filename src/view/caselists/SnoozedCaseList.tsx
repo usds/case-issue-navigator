@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import DeSnoozeForm from "../../controller/DeSnoozeForm";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { getHeaders } from "../util/getHeaders";
@@ -8,10 +7,21 @@ import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../api/RestAPIClient";
 import { trackEvent } from "../../matomo-setup";
 
-const SnoozedCaseList = props => {
-  const [cases, setCases] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+interface Props {
+  updateSummaryData: () => void,
+  setError: React.Dispatch<APIError>,
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
+  summary: Summary
+}
+
+interface RowData {
+  receiptNumber: string;
+}
+
+const SnoozedCaseList = (props: Props) => {
+  const [cases, setCases] = useState<Case[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
   const { setNotification, setError, summary } = props;
 
@@ -43,9 +53,9 @@ const SnoozedCaseList = props => {
     };
   }, [setCases, currentPage, setNotification, setError]);
 
-  const reSnooze = async (rowData, snoozeOption) => {
+  const reSnooze = async (rowData: RowData, snoozeOption: SnoozeOption)=> {
     const notes = formatNotes(snoozeOption);
-    const response = await RestAPIClient.cases.updateActiveSnooze(
+    const response = await RestAPIClient.caseDetails.updateActiveSnooze(
       rowData.receiptNumber,
       {
         duration: snoozeOption.duration,
@@ -77,9 +87,9 @@ const SnoozedCaseList = props => {
         })
         .sort((a, b) => {
           return (
-            new Date(a.snoozeInformation.snoozeEnd) -
-            new Date() -
-            (new Date(b.snoozeInformation.snoozeEnd) - new Date())
+            new Date((a.snoozeInformation as SnoozeInformation).snoozeEnd).getTime() -
+            new Date().getTime() -
+            (new Date((b.snoozeInformation as SnoozeInformation).snoozeEnd).getTime() - new Date().getTime())
           );
         });
 
@@ -102,8 +112,8 @@ const SnoozedCaseList = props => {
     }
   };
 
-  const deSnooze = async rowData => {
-    const response = await RestAPIClient.cases.deleteActiveSnooze(
+  const deSnooze = async (rowData: RowData) => {
+    const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
       rowData.receiptNumber
     );
 
@@ -129,7 +139,7 @@ const SnoozedCaseList = props => {
     }
   };
 
-  const toggleDetails = receiptNumber => {
+  const toggleDetails = (receiptNumber: string) => {
     setCases(cases =>
       cases.map(caseInformation => {
         if (caseInformation.receiptNumber === receiptNumber) {
@@ -153,7 +163,6 @@ const SnoozedCaseList = props => {
     <CaseList
       cases={cases}
       callbacks={callbacks}
-      view={VIEWS.SNOOZED_CASES.TITLE}
       headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
       isLoading={isLoading}
       currentPage={currentPage}
@@ -162,13 +171,6 @@ const SnoozedCaseList = props => {
       totalCases={summary.SNOOZED_CASES}
     />
   );
-};
-
-SnoozedCaseList.propTypes = {
-  setNotification: PropTypes.func.isRequired,
-  summary: PropTypes.object.isRequired,
-  updateSummaryData: PropTypes.func.isRequired,
-  setError: PropTypes.func.isRequired
 };
 
 export { SnoozedCaseList };
