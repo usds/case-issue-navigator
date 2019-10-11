@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { CaseList } from "./CaseList";
 import { VIEWS, I90_HEADERS } from "../../controller/config";
 import { getHeaders } from "../util/getHeaders";
@@ -9,10 +8,22 @@ import RestAPIClient from "../../api/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { trackEvent } from "../../matomo-setup";
 
-const ActiveCaseList = props => {
-  const [cases, setCases] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+
+interface Props {
+  updateSummaryData: () => void,
+  setError: React.Dispatch<APIError>,
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
+  summary: Summary
+}
+
+interface RowData {
+  receiptNumber: string;
+}
+
+const ActiveCaseList = (props: Props) => {
+  const [cases, setCases] = useState<Case[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
   const { setNotification, setError, summary } = props;
 
@@ -47,9 +58,9 @@ const ActiveCaseList = props => {
     };
   }, [currentPage, setIsLoading, setNotification, setError]);
 
-  const snooze = async (rowData, snoozeOption) => {
+  const snooze = async (rowData: RowData, snoozeOption: SnoozeOption) => {
     const notes = formatNotes(snoozeOption);
-    const response = await RestAPIClient.cases.updateActiveSnooze(
+    const response = await RestAPIClient.caseDetails.updateActiveSnooze(
       rowData.receiptNumber,
       {
         duration: snoozeOption.duration,
@@ -81,7 +92,7 @@ const ActiveCaseList = props => {
     }
   };
 
-  const toggleDetails = receiptNumber => {
+  const toggleDetails = (receiptNumber: string) => {
     setCases(cases =>
       cases.map(caseInformation => {
         if (caseInformation.receiptNumber === receiptNumber) {
@@ -108,7 +119,6 @@ const ActiveCaseList = props => {
       <CaseList
         cases={cases}
         callbacks={callbacks}
-        view={VIEWS.CASES_TO_WORK.TITLE}
         headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
         isLoading={isLoading}
         currentPage={currentPage}
@@ -118,13 +128,6 @@ const ActiveCaseList = props => {
       />
     </React.Fragment>
   );
-};
-
-ActiveCaseList.propTypes = {
-  updateSummaryData: PropTypes.func,
-  setNotification: PropTypes.func,
-  summary: PropTypes.object.isRequired,
-  setError: PropTypes.func.isRequired
 };
 
 export { ActiveCaseList };
