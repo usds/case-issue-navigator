@@ -9,7 +9,7 @@ function expectURLEquals(url: URL, path: string) {
 
 describe("URLs", () => {
   it("should producte the correct csrf path", () => {
-    expectURLEquals(URLs.csrf(), "/api/csrf");
+    expectURLEquals(URLs.csrf(), "/csrf");
   });
 
   it("should producte the correct users path", () => {

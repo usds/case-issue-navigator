@@ -9,7 +9,11 @@ class URLs {
         private static resultsPerPage: number = 20;
 
     private static baseUrl(path?: string): URL {
-        return new URL(API_BASE_URL + "/api" + path);
+        return new URL(API_BASE_URL + path);
+    }
+
+    private static APIBaseUrl(path?: string): URL {
+        return URLs.baseUrl("/api" + path);
     }
 
     /* CSRF */
@@ -19,12 +23,12 @@ class URLs {
 
     /* Users */
     public static users(): URL {
-        return URLs.baseUrl("/users");
+        return URLs.APIBaseUrl("/users");
     }
 
     /* Cases */
     private static casesBase(): URL {
-        return URLs.baseUrl(`/cases/${this.caseManagementSystem}/${this.caseType}`);
+        return URLs.APIBaseUrl(`/cases/${this.caseManagementSystem}/${this.caseType}`);
     }
 
     public static casesSummary(): URL {
@@ -43,7 +47,7 @@ class URLs {
 
     /* Case Details */
     public static caseDetails(receiptNumber: string): URL {
-        return URLs.baseUrl(`/caseDetails/${this.caseManagementSystem}/${receiptNumber}`);
+        return URLs.APIBaseUrl(`/caseDetails/${this.caseManagementSystem}/${receiptNumber}`);
     }
 
     public static caseDetailsActiveSnooze(receiptNumber: string): URL {
