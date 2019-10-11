@@ -13,7 +13,7 @@ interface LayoutProps {
     setError: React.Dispatch<APIError>,
     setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
     summary: Summary
-  ) => React.Component;
+  ) => JSX.Element;
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = props => {
