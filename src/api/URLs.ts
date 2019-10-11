@@ -37,10 +37,12 @@ class URLs {
         return url;
     }
 
-    public static cases(snoozeState: SnoozeState, page: number): URL {
+    public static cases(snoozeState: SnoozeState, receiptNumber?: string): URL {
         const url = URLs.casesBase();
         url.pathname += "/" + snoozeState
-        url.searchParams.append("page", String(page));
+        if (receiptNumber) {
+            url.searchParams.append("receiptNumber", receiptNumber);
+        }
         url.searchParams.append("size", String(this.resultsPerPage));
         return url;
     }

@@ -21,37 +21,10 @@ interface RowData {
 const SnoozedCaseList = (props: Props) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(0);
 
   const { setNotification, setError, summary } = props;
 
-  useEffect(() => {
-    let cancelRequest = false;
-
-    setIsLoading(true);
-    (async page => {
-      const response = await RestAPIClient.cases.getSnoozed(page);
-      if (cancelRequest) {
-        return;
-      }
-
-      if (response.succeeded) {
-        setCases(previousCases => [...previousCases, ...response.payload]);
-        return setIsLoading(false);
-      }
-
-      if (response.responseReceived) {
-        const errorJson = await response.responseError.getJson();
-        !cancelRequest && setError(errorJson);
-      } else {
-        console.error(response);
-      }
-    })(currentPage);
-
-    return () => {
-      cancelRequest = true;
-    };
-  }, [setCases, currentPage, setNotification, setError]);
+  useEffect(() => {loadMoreCases()}, []);
 
   const reSnooze = async (rowData: RowData, snoozeOption: SnoozeOption)=> {
     const notes = formatNotes(snoozeOption);
@@ -153,6 +126,25 @@ const SnoozedCaseList = (props: Props) => {
     );
   };
 
+  const loadMoreCases = async () => {
+    setIsLoading(true);
+    const receiptNumber = cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
+    const response = await RestAPIClient.cases.getSnoozed(receiptNumber);
+    setIsLoading(false);
+
+    if (response.succeeded) {
+      setCases(previousCases => [...previousCases,...response.payload]);
+      return;
+    }
+
+    if (response.responseReceived) {
+      const errorJson = await response.responseError.getJson();
+      setError(errorJson);
+    } else {
+      console.error(response);
+    }
+  }
+
   const callbacks = {
     reSnooze,
     deSnooze,
@@ -165,8 +157,7 @@ const SnoozedCaseList = (props: Props) => {
       callbacks={callbacks}
       headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
       isLoading={isLoading}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
+      loadMoreCases={loadMoreCases}
       ModalContent={DeSnoozeForm}
       totalCases={summary.SNOOZED_CASES}
     />
