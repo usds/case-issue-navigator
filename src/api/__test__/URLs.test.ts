@@ -22,14 +22,14 @@ describe("URLs", () => {
 
   it("should producte the correct active cases path", () => {
     expectURLEquals(
-        URLs.cases("active", 1),
-        "/api/cases/DEFAULT/STANDARD/active?page=1&size=20");
+        URLs.cases("active", "ABC1234567890"),
+        "/api/cases/DEFAULT/STANDARD/active?receiptNumber=ABC1234567890&size=20");
   });
 
   it("should producte the correct snooze cases path", () => {
     expectURLEquals(
-        URLs.cases("snoozed", 1),
-        "/api/cases/DEFAULT/STANDARD/snoozed?page=1&size=20");
+        URLs.cases("snoozed", "ABC1234567890"),
+        "/api/cases/DEFAULT/STANDARD/snoozed?receiptNumber=ABC1234567890&size=20");
   });
 
   it("should producte the correct case details path", () => {

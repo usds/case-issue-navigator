@@ -88,7 +88,6 @@ Array [
     <button
       className="usa-button usa-button--outline"
       disabled={true}
-      onClick={[Function]}
       type="button"
     >
       Loading...
@@ -197,7 +196,6 @@ Array [
     <button
       className="usa-button usa-button--outline"
       disabled={false}
-      onClick={[Function]}
       type="button"
     >
       Show More

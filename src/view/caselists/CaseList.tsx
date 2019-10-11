@@ -8,8 +8,7 @@ interface CaseListProps {
   headers: Array<Header>;
   callbacks: Callbacks;
   cases: Array<Case>;
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  loadMoreCases: () => void;
   ModalContent: React.JSXElementConstructor<{
     callback: Callbacks;
     rowData: Case | {};
@@ -40,9 +39,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
 
   const {
     cases,
-    currentPage,
     ModalContent,
-    setCurrentPage,
     totalCases
   } = props;
 
@@ -64,7 +61,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
       <div className="display-flex flex-column flex-align-center">
         {totalCases > cases.length ? (
           <UsaButton
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={props.loadMoreCases}
             disabled={props.isLoading}
             buttonStyle="outline"
           >
