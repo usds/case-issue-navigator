@@ -64,6 +64,7 @@ interface Case {
   notes: Array<Note>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
+  showDetails: boolean;
 }
 
 type SnoozeInformation = {

@@ -10,12 +10,12 @@ interface SummarySuccess {
 }
 
 class CaseIssueAPIClient extends ClientBase {
-  public async getActive(page: number) {
-    return await this.getAsJson(URLs.cases("active", page));
+  public async getActive(page: number): Promise<c.ApiResponse<Case[], APIError>> {
+    return await this.getAsJson(URLs.cases("active", page)) as any;
   }
 
-  public async getSnoozed(page: number) {
-    return await this.getAsJson(URLs.cases("snoozed", page));
+  public async getSnoozed(page: number): Promise<c.ApiResponse<Case[], APIError>> {
+    return await this.getAsJson(URLs.cases("snoozed", page)) as any;
   }
 
   public async getCaseSummary(): Promise<c.ApiResponse<SummarySuccess, {}>> {

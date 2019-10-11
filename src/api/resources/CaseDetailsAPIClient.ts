@@ -1,5 +1,13 @@
+import { FetchClient as c } from "tbest-fetch-client";
 import ClientBase from "../ClientBase";
 import URLs from "../URLs";
+
+
+interface SnoozeInputs {
+  duration: number,
+  reason: SnoozeReason,
+  notes: Note[]
+}
 
 class CaseDetailsAPIClient extends ClientBase {
 
@@ -14,13 +22,13 @@ class CaseDetailsAPIClient extends ClientBase {
 
   public async updateActiveSnooze(
     receiptNumber: string,
-    snoozeInputs: SnoozeOption
-  ) {
+    snoozeInputs: SnoozeInputs
+  ): Promise<c.ApiResponse<SnoozeInformation, APIError>> {
     this.setCsrf();
     return await this.put(
       URLs.caseDetailsActiveSnooze(receiptNumber),
       snoozeInputs
-    );
+    )as any;
   }
 }
 
