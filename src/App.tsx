@@ -17,7 +17,7 @@ library.add(fas);
 const App = () => {
   const [title, setTitle] = useState("Case Issue Navigator");
 
-  const setPageTitle = pageTitle => {
+  const setPageTitle = (pageTitle: string) => {
     setTitle(`${pageTitle} | Case Issue Navigator`);
   };
 
