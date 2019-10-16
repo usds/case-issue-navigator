@@ -12,8 +12,8 @@ const formatNotes = (snoozeOption: SnoozeOption): Array<Note> => {
   }
 
   if (snoozeOption.followUp && snoozeOption.snoozeReason) {
-    const type = SNOOZE_OPTIONS[snoozeOption.snoozeReason].type || "COMMENT";
-    const subType = SNOOZE_OPTIONS[snoozeOption.snoozeReason].subType || null;
+    const type = SNOOZE_OPTIONS[snoozeOption.snoozeReason as SnoozeReason].type || "COMMENT";
+    const subType = SNOOZE_OPTIONS[snoozeOption.snoozeReason as SnoozeReason].subType || null;
 
     notes.push({
       type,

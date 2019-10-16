@@ -4,7 +4,7 @@ interface UsaTextAreaProps {
   id?: string;
   label: string;
   name: string;
-  defaultValue?: string;
+  value: string;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -23,7 +23,7 @@ const UsaTextArea: React.FunctionComponent<UsaTextAreaProps> = props => {
         className="usa-textarea"
         id={elementId}
         name={props.name}
-        defaultValue={props.defaultValue}
+        value={props.value}
       />
     </Fragment>
   );

@@ -11,7 +11,7 @@ interface CaseListProps {
   loadMoreCases: () => void;
   ModalContent: React.JSXElementConstructor<{
     callback: Callbacks;
-    rowData: Case | {};
+    rowData?: Case;
   }>;
   totalCases: number;
 }
@@ -22,7 +22,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
     title: ""
   });
 
-  const [clickedRow, setClickedRow] = useState({ receiptNumber: "" });
+  const [clickedRow, setClickedRow] = useState<Case>();
 
   const openModal = (rowData: Case) => {
     setClickedRow(rowData);

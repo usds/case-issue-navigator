@@ -1143,6 +1143,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     name="snoozeReason"
     onChange={[Function]}
     required={true}
+    value="test_data"
   >
     <option
       disabled={true}
@@ -1193,6 +1194,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     id="caseIssueNotes"
     name="caseIssueNotes"
     onChange={[Function]}
+    value=""
   />
   <button
     className="usa-button"
@@ -1313,11 +1315,11 @@ exports[`Storyshots UsaButton Secondary button 1`] = `
 exports[`Storyshots UsaSelect Select 1`] = `
 <select
   className="usa-select"
-  defaultValue="X"
   id="name"
   name="name"
   onChange={[Function]}
   required={true}
+  value="X"
 >
   <option
     disabled={true}
