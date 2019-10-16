@@ -1,11 +1,18 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 
-export default function UsaTextInput(props) {
+interface Props {
+  name: string;
+  id?: string;
+  defaultValue?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+}
+
+export default function UsaTextInput(props: Props) {
   const elementId = props.id || props.name;
-  const label = props.children && (
+  const label = props.label && (
     <label className="usa-label" htmlFor={elementId}>
-      {props.children}
+      {props.label}
     </label>
   );
   return (
@@ -22,10 +29,3 @@ export default function UsaTextInput(props) {
     </Fragment>
   );
 }
-
-UsaTextInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  defaultValue: PropTypes.string,
-  onChange: PropTypes.func
-};

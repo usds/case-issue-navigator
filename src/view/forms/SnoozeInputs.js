@@ -17,9 +17,8 @@ export default function SnoozeInputs(props) {
       onChange={props.changeHandlers.followUpChange}
       name="followUp"
       value={props.inputState.followUp}
-    >
-      {props.selectedOption.followUp}
-    </UsaTextInput>
+      label={props.selectedOption.followUp}
+    />
   ) : null;
 
   return (
