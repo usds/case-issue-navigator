@@ -8,7 +8,7 @@ interface Option {
 interface Props {
   name: string;
   id?: string;
-  selected: string;
+  selected?: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: Option[];
@@ -31,7 +31,7 @@ export default function UsaSelect(props: Props) {
     <Fragment>
       {label}
       <select
-        defaultValue={props.selected}
+        value={props.selected}
         onChange={props.onChange}
         required={true}
         className="usa-select"

@@ -5,7 +5,7 @@ import URLs from "../URLs";
 
 interface SnoozeInputs {
   duration: number,
-  reason: SnoozeReason,
+  reason: string, //SnoozeReason????
   notes: Note[]
 }
 

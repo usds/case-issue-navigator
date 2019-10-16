@@ -6,7 +6,7 @@ const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 const SNOOZE_OPTIONS: {[key in SnoozeReason]: SnoozeOption} = {
   test_data: {
-    snoozeReason: "Test Data - should be deleted",
+    snoozeReason: "Test Data - should be deleted", // Snooze Reason
     shortText: "Test Data",
     duration: 365,
     type: null,

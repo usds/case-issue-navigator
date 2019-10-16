@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 interface Props {
   name: string;
   id?: string;
-  defaultValue?: string;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
 }
@@ -24,7 +24,7 @@ export default function UsaTextInput(props: Props) {
         type="text"
         id={elementId}
         name={props.name}
-        defaultValue={props.defaultValue}
+        value={props.value}
       />
     </Fragment>
   );
