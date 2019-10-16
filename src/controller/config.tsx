@@ -4,7 +4,7 @@ import { ChevronToggle } from "../view/util/ChevronToggle";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
-const SNOOZE_OPTIONS = {
+const SNOOZE_OPTIONS: {[key in SnoozeReason]: SnoozeOption} = {
   test_data: {
     snoozeReason: "Test Data - should be deleted",
     shortText: "Test Data",
@@ -52,13 +52,14 @@ const SNOOZE_OPTIONS = {
     subType: null
   }
 };
+
 const SNOOZE_OPTIONS_SELECT = Object.entries(SNOOZE_OPTIONS).reduce(
-  (acc, [key, val]) => {
+  (acc: SnoozeOptionValue[], [key, val]) => {
     return [
       ...acc,
       {
         ...val,
-        value: key
+        value: key as SnoozeReason
       }
     ];
   },
@@ -88,7 +89,7 @@ const I90_HEADERS = [
   {
     header: "",
     field: "showDetails",
-    content: (showDetails, rowData, _, callback) => {
+    content: (showDetails: boolean, rowData: any, _: any,  callback: Callbacks) => {
       const toggle = () => callback.toggleDetails(rowData.receiptNumber);
       return <ChevronToggle toggle={toggle} open={showDetails} />;
     },
@@ -104,8 +105,8 @@ const I90_HEADERS = [
     header: "Case Age",
     field: "caseCreation",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE],
-    content: d => {
-      const days = Math.ceil((new Date() - new Date(d)) / 86400000);
+    content: (d: string) => {
+      const days = Math.ceil((new Date().valueOf() - new Date(d).valueOf()) / 86400000);
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     }
@@ -119,31 +120,31 @@ const I90_HEADERS = [
   {
     header: "Application Reason",
     field: "extraData",
-    content: field => field.applicationReason,
+    content: (field: CaseExtraData) => field.applicationReason,
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Case Status",
     field: "extraData",
-    content: field => field.caseStatus,
+    content: (field: CaseExtraData) => field.caseStatus,
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Case Substatus",
     field: "extraData",
-    content: field => field.caseSubstatus,
+    content: (field: CaseExtraData) => field.caseSubstatus,
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Platform",
     field: "extraData",
-    content: d => (String(d.i90SP) === "true" ? "SP" : "Legacy"),
+    content: (d: CaseExtraData) => (String(d.i90SP) === "true" ? "SP" : "Legacy"),
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
     header: "Problem",
     field: "snoozeInformation",
-    content: field =>
+    content: (field: SnoozeInformation) =>
       SNOOZE_OPTIONS[field.snoozeReason]
         ? SNOOZE_OPTIONS[field.snoozeReason].shortText
         : field.snoozeReason,
@@ -152,9 +153,9 @@ const I90_HEADERS = [
   {
     header: "Snoozed",
     field: "snoozeInformation",
-    content: field => {
+    content: (field: SnoozeInformation) => {
       const days = Math.ceil(
-        (new Date(field.snoozeEnd) - new Date()) / 86400000
+        (new Date(field.snoozeEnd).valueOf() - new Date().valueOf()) / 86400000
       );
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
@@ -164,14 +165,14 @@ const I90_HEADERS = [
   {
     header: "Assigned",
     field: "notes",
-    content: notes => {
+    content: (notes?: DBNote[]) => {
       if (!notes || !Array.isArray(notes)) {
         return null;
       }
       return notes
         .filter(note => note.subType === "assignee")
         .sort((a, b) => {
-          return new Date(b.timestamp) - new Date(a.timestamp);
+          return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
         })
         .map(assignee => assignee.content)
         .join(", ");
@@ -181,21 +182,21 @@ const I90_HEADERS = [
   {
     header: "SN Ticket #",
     field: "notes",
-    content: notes => {
+    content: (notes?: DBNote[]) => {
       if (!notes || !Array.isArray(notes)) {
         return null;
       }
       const tickets = notes
         .filter(note => note.subType === "troubleticket")
         .sort((a, b) => {
-          return new Date(b.timestamp) - new Date(a.timestamp);
+          return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
         });
       if (tickets.length === 0) {
         return null;
       }
       return tickets.map(ticket => (
         <React.Fragment key={ticket.content}>
-          <a href={ticket.href} target="_blank" rel="noopener noreferrer">
+          <a href={ticket.href ? ticket.href : undefined} target="_blank" rel="noopener noreferrer">
             {ticket.content}
           </a>
           <br />

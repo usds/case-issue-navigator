@@ -48,18 +48,20 @@ type Header = {
   views: Array<ViewTitles>;
 };
 
+interface CaseExtraData {
+  caseStatus: string;
+  caseState: string;
+  caseSubstatus: string;
+  channelType: string;
+  i90SP: string | boolean;
+  applicationReason: string;
+}
+
 interface Case {
   receiptNumber: string;
   caseCreation: string;
   extraData: {
-    extraData: {
-      caseStatus: string;
-      caseState: string;
-      caseSubstatus: string;
-      channelType: string;
-      i90SP: string | boolean;
-      applicationReason: string;
-    };
+    extraData: CaseExtraData;
   };
   notes: Array<Note>;
   previouslySnoozed: boolean;
@@ -93,11 +95,19 @@ type SnoozeReason =
   | "bcu";
 
 interface SnoozeOption {
-  snoozeReason: SnoozeReason;
+  snoozeReason: string;
   duration: number;
+  shortText: string;
+  type: string | null;
+  subType: string | null;
   followUp?: string;
   caseIssueNotes?: string;
 }
+
+interface SnoozeOptionValue extends SnoozeOption {
+  value: SnoozeReason;
+}
+
 type SnoozeState = "active" | "snoozed";
 
 type SnoozeEvent = {
