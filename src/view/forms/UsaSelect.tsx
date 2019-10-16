@@ -1,15 +1,29 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 
-export default function UsaSelect(props) {
+interface Option {
+  value: string;
+  text: string;
+}
+
+interface Props {
+  name: string;
+  id?: string;
+  selected: string;
+  placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: Option[];
+  label?: string;
+}
+
+export default function UsaSelect(props: Props) {
   const selectId = props.id || props.name;
-  const label = props.children && (
+  const label = props.label && (
     <label className="usa-label" htmlFor={selectId}>
-      {props.children}
+      {props.label}
     </label>
   );
   const placeholder = props.placeholder && (
-    <option value={false} disabled={true} hidden={true}>
+    <option value="" disabled={true} hidden={true}>
       {props.placeholder}
     </option>
   );
@@ -34,15 +48,3 @@ export default function UsaSelect(props) {
     </Fragment>
   );
 }
-
-UsaSelect.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  selected: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired // should be objectOf, but can't deal yet
-};
-
-UsaSelect.defaultProps = {
-  selected: ""
-};

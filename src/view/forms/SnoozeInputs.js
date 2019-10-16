@@ -33,9 +33,8 @@ export default function SnoozeInputs(props) {
         selected={props.selectedOption.value}
         onChange={props.changeHandlers.snoozeReasonChange}
         value={props.inputState.select}
-      >
-        Reason to snooze this case:
-      </UsaSelect>
+        label="Reason to snooze this case:"
+      />
       {followUpFragment}
       {props.selectedOption && (
         <UsaTextArea
