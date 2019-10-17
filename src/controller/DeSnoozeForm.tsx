@@ -19,8 +19,11 @@ class DeSnoozeForm extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    const snoozeReason = props.rowData && props.rowData.snoozeInformation ?
+                         props.rowData.snoozeInformation.snoozeReason :
+                         SNOOZE_OPTIONS_SELECT[0].value
     this.state = {
-      snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+      snoozeReason,
       followUp: "",
       caseIssueNotes: "",
     }
