@@ -53,7 +53,7 @@ const SnoozedCaseList = (props: Props) => {
             return {
               ...snoozedCase,
               snoozeInformation: response.payload,
-              notes: response.payload.notes
+              notes: snoozedCase.notes.concat(response.payload.notes)
             };
           }
           return snoozedCase;
