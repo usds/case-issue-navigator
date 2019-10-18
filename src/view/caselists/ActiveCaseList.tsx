@@ -78,7 +78,6 @@ const ActiveCaseList = (props: Props) => {
 
   const loadMoreCases = async () => {
     setIsLoading(true);
-    console.log(cases)
     const receiptNumber = cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
     const response = await RestAPIClient.cases.getActive(receiptNumber);
     setIsLoading(false);
