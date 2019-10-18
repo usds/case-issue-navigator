@@ -525,9 +525,7 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       <td>
         1 day
       </td>
-      <td>
-        
-      </td>
+      <td />
       <td>
         <a
           href="http://localhost:1111/12345"
