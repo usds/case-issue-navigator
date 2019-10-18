@@ -64,7 +64,7 @@ interface Case {
   extraData: {
     extraData: CaseExtraData;
   };
-  notes: Array<Note>;
+  notes: Array<DBNote>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
   showDetails: boolean;
