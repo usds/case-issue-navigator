@@ -24,11 +24,26 @@ class DeSnoozeForm extends React.Component<Props, State> {
                          SNOOZE_OPTIONS_SELECT[0].value
     this.state = {
       snoozeReason,
-      followUp: "",
+      followUp: DeSnoozeForm.getFollowUp(props.rowData),
       caseIssueNotes: "",
     }
   }
 
+  static getFollowUp(troubleCase?: Case): string {
+    if (!troubleCase) {
+      return "";
+    }
+    console.log(troubleCase)
+    const notes = troubleCase.notes.sort((a, b) => {
+      return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
+    });
+    for(const note of notes) {
+      if (note.subType && ["troubleticket", "assignee"].includes(note.subType)) {
+        return note.content;
+      }
+    }
+    return "";
+  }
   snoozeReasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
     this.setState({snoozeReason: e.target.value as SnoozeReason});
   };
