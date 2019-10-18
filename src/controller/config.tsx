@@ -86,7 +86,15 @@ const VIEWS = {
 const ELIS_CASE_BASE_URL =
   process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
-const I90_HEADERS = [
+
+interface I90_header {
+  header: string;
+  field: string;
+  content: Function | string;
+  views: string[];
+}
+
+const I90_HEADERS: I90_header[] = [
   {
     header: "",
     field: "showDetails",
