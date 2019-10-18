@@ -81,6 +81,7 @@ interface Note {
   type: string | null;
   subType: SubType | null;
   href?: string | null;
+  userId: string;
 }
 
 interface DBNote extends Note {
