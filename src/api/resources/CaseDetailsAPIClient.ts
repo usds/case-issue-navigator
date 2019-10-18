@@ -10,7 +10,7 @@ interface SnoozeInputs {
 }
 
 interface UpdateSnoozeSuccess extends SnoozeInformation {
-  notes: Note[];
+  notes: DBNote[];
 }
 
 class CaseDetailsAPIClient extends ClientBase {
