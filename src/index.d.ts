@@ -14,6 +14,7 @@ type MatomoTrackEvent = (
 
 type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
+type SubType = "troubleticket" | "assignee";
 
 interface Views {
   CASES_TO_WORK: {
@@ -78,7 +79,7 @@ type SnoozeInformation = {
 interface Note {
   content: string;
   type: string | null;
-  subType: string | null;
+  subType: SubType | null;
   href?: string | null;
 }
 
@@ -99,7 +100,7 @@ interface SnoozeOption {
   duration: number;
   shortText: string;
   type: string | null;
-  subType: string | null;
+  subType: SubType | null;
   followUp?: string;
   caseIssueNotes?: string;
 }
@@ -116,11 +117,12 @@ type SnoozeEvent = {
   snoozeReason: SnoozeReason;
 };
 
+
 type CaseDetail = {
   date: Date;
   noteOrSnooze: "note" | "snooze";
   type: string | null;
-  subType?: string | null;
+  subType?: SubType | null;
   snoozeReason?: SnoozeReason;
   href?: string | null;
   content?: string;
