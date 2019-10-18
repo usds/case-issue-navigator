@@ -1,6 +1,7 @@
 import React from "react";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
+import NoteUtils from "../utils/NoteUtils";
 
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
@@ -33,17 +34,10 @@ class DeSnoozeForm extends React.Component<Props, State> {
     if (!troubleCase) {
       return "";
     }
-    console.log(troubleCase)
-    const notes = troubleCase.notes.sort((a, b) => {
-      return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
-    });
-    for(const note of notes) {
-      if (note.subType && ["troubleticket", "assignee"].includes(note.subType)) {
-        return note.content;
-      }
-    }
-    return "";
+    const assignee = NoteUtils.getAssignee(troubleCase.notes);
+    return assignee ? assignee : "";
   }
+
   snoozeReasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
     this.setState({snoozeReason: e.target.value as SnoozeReason});
   };
