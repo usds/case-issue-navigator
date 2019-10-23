@@ -118,7 +118,6 @@ type SnoozeEvent = {
   snoozeReason: SnoozeReason;
 };
 
-
 type CaseDetail = {
   date: Date;
   noteOrSnooze: "note" | "snooze";

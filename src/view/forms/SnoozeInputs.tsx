@@ -4,15 +4,15 @@ import UsaTextInput from "./UsaTextInput";
 import UsaTextArea from "./UsaTextArea";
 
 interface Props {
-  followUp?: string,
-  options: SnoozeOptionValue[],
-  selectedOption: SnoozeOptionValue,
+  followUp?: string;
+  options: SnoozeOptionValue[];
+  selectedOption: SnoozeOptionValue;
   changeHandlers: {
     followUpChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     snoozeReasonChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     caseIssueNotesChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  },
-  inputState: {[key: string]: string}
+  };
+  inputState: { [key: string]: string };
 }
 
 SnoozeInputs.defaultProps = {
@@ -27,7 +27,7 @@ export default function SnoozeInputs(props: Props) {
   };
 
   const followUpFragment = () => {
-    if(!props.selectedOption.followUp) {
+    if (!props.selectedOption.followUp) {
       return null;
     }
     return (
@@ -37,7 +37,7 @@ export default function SnoozeInputs(props: Props) {
         value={props.inputState.followUp}
         label={props.selectedOption.followUp}
       />
-    )
+    );
   };
 
   return (
@@ -63,4 +63,3 @@ export default function SnoozeInputs(props: Props) {
     </React.Fragment>
   );
 }
-

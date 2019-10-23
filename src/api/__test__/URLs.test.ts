@@ -1,10 +1,10 @@
 import ClientBase from "../ClientBase";
 import URLs from "../URLs";
 
-const TEST_URL = "http://localhost:8080"
+const TEST_URL = "http://localhost:8080";
 
 function expectURLEquals(url: URL, path: string) {
-    expect(url.toString()).toMatch(TEST_URL + path);
+  expect(url.toString()).toMatch(TEST_URL + path);
 }
 
 describe("URLs", () => {
@@ -22,25 +22,26 @@ describe("URLs", () => {
 
   it("should producte the correct active cases path", () => {
     expectURLEquals(
-        URLs.cases("active", "ABC1234567890"),
-        "/api/cases/DEFAULT/STANDARD/active?receiptNumber=ABC1234567890&size=20");
+      URLs.cases("active", "ABC1234567890"),
+      "/api/cases/DEFAULT/STANDARD/active?receiptNumber=ABC1234567890&size=20"
+    );
   });
 
   it("should producte the correct snooze cases path", () => {
     expectURLEquals(
-        URLs.cases("snoozed", "ABC1234567890"),
-        "/api/cases/DEFAULT/STANDARD/snoozed?receiptNumber=ABC1234567890&size=20");
+      URLs.cases("snoozed", "ABC1234567890"),
+      "/api/cases/DEFAULT/STANDARD/snoozed?receiptNumber=ABC1234567890&size=20"
+    );
   });
 
   it("should producte the correct case details path", () => {
-    expectURLEquals(
-        URLs.caseDetails("123"),
-        "/api/caseDetails/DEFAULT/123");
+    expectURLEquals(URLs.caseDetails("123"), "/api/caseDetails/DEFAULT/123");
   });
 
   it("should producte the correct case details active snooze path", () => {
     expectURLEquals(
-        URLs.caseDetailsActiveSnooze("123"),
-        "/api/caseDetails/DEFAULT/123/activeSnooze");
+      URLs.caseDetailsActiveSnooze("123"),
+      "/api/caseDetails/DEFAULT/123/activeSnooze"
+    );
   });
 });

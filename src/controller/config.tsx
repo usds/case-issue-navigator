@@ -5,7 +5,7 @@ import NoteUtils from "../utils/NoteUtils";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
-const SNOOZE_OPTIONS: {[key in SnoozeReason]: SnoozeOption} = {
+const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
   test_data: {
     snoozeReason: "Test Data - should be deleted", // Snooze Reason
     shortText: "Test Data",
@@ -86,7 +86,6 @@ const VIEWS = {
 const ELIS_CASE_BASE_URL =
   process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
-
 interface I90_header {
   header: string;
   field: string;
@@ -98,7 +97,12 @@ const I90_HEADERS: I90_header[] = [
   {
     header: "",
     field: "showDetails",
-    content: (showDetails: boolean, rowData: any, _: any,  callback: Callbacks) => {
+    content: (
+      showDetails: boolean,
+      rowData: any,
+      _: any,
+      callback: Callbacks
+    ) => {
       const toggle = () => callback.toggleDetails(rowData.receiptNumber);
       return <ChevronToggle toggle={toggle} open={showDetails} />;
     },
@@ -115,7 +119,9 @@ const I90_HEADERS: I90_header[] = [
     field: "caseCreation",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE],
     content: (d: string) => {
-      const days = Math.ceil((new Date().valueOf() - new Date(d).valueOf()) / 86400000);
+      const days = Math.ceil(
+        (new Date().valueOf() - new Date(d).valueOf()) / 86400000
+      );
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     }
@@ -147,7 +153,8 @@ const I90_HEADERS: I90_header[] = [
   {
     header: "Platform",
     field: "extraData",
-    content: (d: CaseExtraData) => (String(d.i90SP) === "true" ? "SP" : "Legacy"),
+    content: (d: CaseExtraData) =>
+      String(d.i90SP) === "true" ? "SP" : "Legacy",
     views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
   },
   {
@@ -187,14 +194,20 @@ const I90_HEADERS: I90_header[] = [
       const tickets = notes
         .filter(note => note.subType === "troubleticket")
         .sort((a, b) => {
-          return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
+          return (
+            new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
+          );
         });
       if (tickets.length === 0) {
         return null;
       }
       return tickets.map(ticket => (
         <React.Fragment key={ticket.content}>
-          <a href={ticket.href ? ticket.href : undefined} target="_blank" rel="noopener noreferrer">
+          <a
+            href={ticket.href ? ticket.href : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {ticket.content}
           </a>
           <br />

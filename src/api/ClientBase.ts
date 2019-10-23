@@ -1,7 +1,6 @@
 import { FetchClient } from "tbest-fetch-client";
 import URLs from "./URLs";
 
-
 class ClientBase extends FetchClient.Client {
   constructor() {
     super();

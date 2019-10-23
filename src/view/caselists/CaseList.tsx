@@ -37,11 +37,7 @@ const CaseList: React.FunctionComponent<CaseListProps> = props => {
     closeDialog: closeModal
   };
 
-  const {
-    cases,
-    ModalContent,
-    totalCases
-  } = props;
+  const { cases, ModalContent, totalCases } = props;
 
   return (
     <React.Fragment>

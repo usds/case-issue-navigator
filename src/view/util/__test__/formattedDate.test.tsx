@@ -4,17 +4,19 @@ import FormattedDate from "../FormattedDate";
 
 describe("FormattedDate", () => {
   it("should return null when a date is missing", () => {
-    const wrapper = mount(<FormattedDate label="a"/>);
+    const wrapper = mount(<FormattedDate label="a" />);
     expect(wrapper.html()).toBe(null);
   });
 
   it("should return null when a date is invalid", () => {
-    const wrapper = mount(<FormattedDate label="a" date="Invalid date string"/>);
+    const wrapper = mount(
+      <FormattedDate label="a" date="Invalid date string" />
+    );
     expect(wrapper.html()).toBe(null);
   });
 
   it("should return a labeled date", () => {
-    const wrapper = mount(<FormattedDate label="a" date="October 10, 2019"/>);
+    const wrapper = mount(<FormattedDate label="a" date="October 10, 2019" />);
     expect(wrapper.html()).toBe("<p>a: 10/10/2019, 12:00:00 AM</p>");
   });
 });
