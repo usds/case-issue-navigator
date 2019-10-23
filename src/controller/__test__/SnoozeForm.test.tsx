@@ -4,7 +4,7 @@ import SnoozeForm from "../SnoozeForm";
 import { SNOOZE_OPTIONS_SELECT } from "../config";
 
 const rowData = {
-  receiptNumber: "FAK123",
+  receiptNumber: "FAK123"
 } as Case;
 
 describe("SnoozeForm", () => {
@@ -67,7 +67,9 @@ describe("SnoozeForm", () => {
     );
     wrapper.find("select").simulate("change", {
       target: {
-        value: (SNOOZE_OPTIONS_SELECT.find(option => option.followUp) as SnoozeOptionValue).value
+        value: (SNOOZE_OPTIONS_SELECT.find(
+          option => option.followUp
+        ) as SnoozeOptionValue).value
       }
     });
     wrapper.find("#followUp").simulate("change", {

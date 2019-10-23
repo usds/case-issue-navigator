@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const dismissAction = (dismissAlert) => {
-  if(!dismissAlert) {
+const dismissAction = dismissAlert => {
+  if (!dismissAlert) {
     return null;
   }
   return <button onClick={dismissAlert}>Dismiss</button>;
-}
+};
 
 const UsaAlert = props => (
   <div

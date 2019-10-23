@@ -8,10 +8,10 @@ import RestAPIClient from "../../api/RestAPIClient";
 import { trackEvent } from "../../matomo-setup";
 
 interface Props {
-  updateSummaryData: () => void,
-  setError: React.Dispatch<APIError>,
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
-  summary: Summary
+  updateSummaryData: () => void;
+  setError: React.Dispatch<APIError>;
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
+  summary: Summary;
 }
 
 interface RowData {
@@ -24,9 +24,11 @@ const SnoozedCaseList = (props: Props) => {
 
   const { setNotification, setError, summary } = props;
 
-  useEffect(() => {loadMoreCases()}, []);
+  useEffect(() => {
+    loadMoreCases();
+  }, []);
 
-  const reSnooze = async (rowData: RowData, snoozeOption: SnoozeOption)=> {
+  const reSnooze = async (rowData: RowData, snoozeOption: SnoozeOption) => {
     const notes = formatNotes(snoozeOption);
     const response = await RestAPIClient.caseDetails.updateActiveSnooze(
       rowData.receiptNumber,
@@ -60,9 +62,14 @@ const SnoozedCaseList = (props: Props) => {
         })
         .sort((a, b) => {
           return (
-            new Date((a.snoozeInformation as SnoozeInformation).snoozeEnd).getTime() -
+            new Date(
+              (a.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
             new Date().getTime() -
-            (new Date((b.snoozeInformation as SnoozeInformation).snoozeEnd).getTime() - new Date().getTime())
+            (new Date(
+              (b.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
+              new Date().getTime())
           );
         });
 
@@ -128,12 +135,13 @@ const SnoozedCaseList = (props: Props) => {
 
   const loadMoreCases = async () => {
     setIsLoading(true);
-    const receiptNumber = cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
+    const receiptNumber =
+      cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
     const response = await RestAPIClient.cases.getSnoozed(receiptNumber);
     setIsLoading(false);
 
     if (response.succeeded) {
-      setCases(previousCases => [...previousCases,...response.payload]);
+      setCases(previousCases => [...previousCases, ...response.payload]);
       return;
     }
 
@@ -143,7 +151,7 @@ const SnoozedCaseList = (props: Props) => {
     } else {
       console.error(response);
     }
-  }
+  };
 
   const callbacks = {
     reSnooze,

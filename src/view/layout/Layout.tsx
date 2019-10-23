@@ -64,7 +64,7 @@ const Layout: React.FunctionComponent<LayoutProps> = props => {
           SNOOZED_CASES: currentlySnoozed,
           PREVIOUSLY_SNOOZED: previouslySnoozed
         });
-        setLastUpdated(response.payload.lastUpdated)
+        setLastUpdated(response.payload.lastUpdated);
         return setUpdateSummary(false);
       }
       if (response.responseReceived) {

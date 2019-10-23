@@ -3,12 +3,12 @@ import { storiesOf } from "@storybook/react";
 import { UsaAlert } from "../view/util/UsaAlert";
 
 storiesOf("UsaAlert", module)
-  .add("Success", () => <UsaAlert alertType="success" content="Well done!"/>)
+  .add("Success", () => <UsaAlert alertType="success" content="Well done!" />)
   .add("info", () => (
-    <UsaAlert alertType="info" content="This is some information."/>
+    <UsaAlert alertType="info" content="This is some information." />
   ))
   .add("warning", () => (
-    <UsaAlert alertType="warning" content="Watch out for this!"/>
+    <UsaAlert alertType="warning" content="Watch out for this!" />
   ))
   .add("dismissible", () => {
     const initialAlerts = [
