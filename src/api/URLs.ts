@@ -8,11 +8,11 @@ class URLs {
         (process.env.REACT_APP_CASE_TYPE as CaseType) || "STANDARD";
         private static resultsPerPage: number = 20;
 
-    private static baseUrl(path?: string): URL {
+    private static baseUrl(path: string): URL {
         return new URL(API_BASE_URL + path);
     }
 
-    private static APIBaseUrl(path?: string): URL {
+    private static APIBaseUrl(path: string): URL {
         return URLs.baseUrl("/api" + path);
     }
 
