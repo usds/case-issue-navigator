@@ -8,12 +8,11 @@ import RestAPIClient from "../../api/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { trackEvent } from "../../matomo-setup";
 
-
 interface Props {
-  updateSummaryData: () => void,
-  setError: React.Dispatch<APIError>,
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>,
-  summary: Summary
+  updateSummaryData: () => void;
+  setError: React.Dispatch<APIError>;
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
+  summary: Summary;
 }
 
 interface RowData {
@@ -26,7 +25,9 @@ const ActiveCaseList = (props: Props) => {
 
   const { setNotification, setError, summary } = props;
 
-  useEffect(() => {loadMoreCases()}, []);
+  useEffect(() => {
+    loadMoreCases();
+  }, []);
 
   const snooze = async (rowData: RowData, snoozeOption: SnoozeOption) => {
     const notes = formatNotes(snoozeOption);
@@ -78,12 +79,13 @@ const ActiveCaseList = (props: Props) => {
 
   const loadMoreCases = async () => {
     setIsLoading(true);
-    const receiptNumber = cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
+    const receiptNumber =
+      cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
     const response = await RestAPIClient.cases.getActive(receiptNumber);
     setIsLoading(false);
 
     if (response.succeeded) {
-      setCases(previousCases => [...previousCases,...response.payload]);
+      setCases(previousCases => [...previousCases, ...response.payload]);
       return;
     }
 
@@ -93,7 +95,7 @@ const ActiveCaseList = (props: Props) => {
     } else {
       console.error(response);
     }
-  }
+  };
 
   const callbacks = {
     snooze,

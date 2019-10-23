@@ -20,20 +20,20 @@ class SnoozeForm extends Component<Props, State> {
     this.state = {
       snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
       followUp: "",
-      caseIssueNotes: "",
+      caseIssueNotes: ""
     };
   }
 
   snoozeReasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({snoozeReason: e.target.value as SnoozeReason});
-  };
+    this.setState({ snoozeReason: e.target.value as SnoozeReason });
+  }
 
   followUpChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({followUp: e.target.value});
-  };
+    this.setState({ followUp: e.target.value });
+  }
 
   caseIssueNotesChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({caseIssueNotes: e.target.value});
+    this.setState({ caseIssueNotes: e.target.value });
   }
 
   changeHandlers = {
@@ -56,7 +56,7 @@ class SnoozeForm extends Component<Props, State> {
     return {
       ...SNOOZE_OPTIONS[this.state.snoozeReason],
       value: this.state.snoozeReason
-    }
+    };
   }
 
   deSnoozeCheck() {

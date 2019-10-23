@@ -5,14 +5,19 @@ import UsaTextInput from "../UsaTextInput";
 describe("UsaTextInput", () => {
   it("should render an input without a label", () => {
     const wrapper = mount(
-      <UsaTextInput name="myInput" onChange={jest.fn()} value=""/>
+      <UsaTextInput name="myInput" onChange={jest.fn()} value="" />
     );
     expect(wrapper.exists("input")).toBe(true);
     expect(wrapper.exists("label")).toBe(false);
   });
   it("should render an input with a label", () => {
     const wrapper = mount(
-      <UsaTextInput name="myInput" label="Some label" onChange={jest.fn()} value=""/>
+      <UsaTextInput
+        name="myInput"
+        label="Some label"
+        onChange={jest.fn()}
+        value=""
+      />
     );
     expect(wrapper.exists("input")).toBe(true);
     expect(wrapper.exists("label")).toBe(true);

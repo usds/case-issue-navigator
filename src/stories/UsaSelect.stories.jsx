@@ -10,9 +10,9 @@ storiesOf("UsaSelect", module).add("Select", () => (
     selected="X"
     placeholder="placeholder"
     options={[
-        {value: "X", text:"x"},
-        {value: "Y", text:"y"},
-        {value: "Z", text:"z"},
+      { value: "X", text: "x" },
+      { value: "Y", text: "y" },
+      { value: "Z", text: "z" }
     ]}
   />
 ));

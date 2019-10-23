@@ -2,11 +2,10 @@ import { FetchClient as c } from "tbest-fetch-client";
 import ClientBase from "../ClientBase";
 import URLs from "../URLs";
 
-
 interface SnoozeInputs {
-  duration: number,
-  reason: string, //SnoozeReason????
-  notes: Note[]
+  duration: number;
+  reason: string; //SnoozeReason????
+  notes: Note[];
 }
 
 interface UpdateSnoozeSuccess extends SnoozeInformation {
@@ -14,12 +13,13 @@ interface UpdateSnoozeSuccess extends SnoozeInformation {
 }
 
 class CaseDetailsAPIClient extends ClientBase {
-
   public async deleteActiveSnooze(
     receiptNumber: string
   ): Promise<c.ApiResponse<{}, APIError>> {
     this.setCsrf();
-    return await this.delete(URLs.caseDetailsActiveSnooze(receiptNumber)) as any;
+    return (await this.delete(
+      URLs.caseDetailsActiveSnooze(receiptNumber)
+    )) as any;
   }
 
   public async getCaseDetails(receiptNumber: string) {
@@ -31,10 +31,10 @@ class CaseDetailsAPIClient extends ClientBase {
     snoozeInputs: SnoozeInputs
   ): Promise<c.ApiResponse<UpdateSnoozeSuccess, APIError>> {
     this.setCsrf();
-    return await this.put(
+    return (await this.put(
       URLs.caseDetailsActiveSnooze(receiptNumber),
       snoozeInputs
-    )as any;
+    )) as any;
   }
 }
 
