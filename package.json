@@ -39,7 +39,8 @@
     "test": "react-scripts test",
     "coverage": "TZ=America/New_York react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "prettier-all": "prettier --write '**/*.{js,jsx}'",
+    "prettier-all": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
+    "prettier-check": "prettier --check './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 3333"
   },
   "eslintConfig": {
