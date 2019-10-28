@@ -1,6 +1,6 @@
 export const getHeaders = (
-  allHeaders: I90Header[],
-  view: string
-): I90Header[] => {
+  allHeaders: Header[],
+  view: ViewTitles
+): Header[] => {
   return allHeaders.filter(header => header.views.includes(view));
 };

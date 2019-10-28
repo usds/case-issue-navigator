@@ -3,7 +3,7 @@ import ReceiptDisplayRow from "./ReceiptDisplayRow";
 import "./TableCell.scss";
 
 interface Props {
-  header_definitions: I90Header[];
+  header_definitions: Header[];
   cases: Case[];
   callback: any;
 }

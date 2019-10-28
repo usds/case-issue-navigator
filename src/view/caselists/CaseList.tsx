@@ -4,7 +4,7 @@ import ReceiptList from "../tables/ReceiptList";
 
 interface CaseListProps {
   isLoading: boolean;
-  headers: Array<I90Header>;
+  headers: Array<Header>;
   callbacks: Callbacks;
   cases: Array<Case>;
   loadMoreCases: () => void;
