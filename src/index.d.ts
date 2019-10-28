@@ -65,14 +65,14 @@ interface CaseExtraData {
   channelType: string;
   i90SP: string | boolean;
   applicationReason: string;
+  caseAge: string;
+  caseId: string;
 }
 
 interface Case {
   receiptNumber: string;
   caseCreation: string;
-  extraData: {
-    extraData: CaseExtraData;
-  };
+  extraData: CaseExtraData;
   notes: Array<DBNote>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;

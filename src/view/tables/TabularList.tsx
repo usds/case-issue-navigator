@@ -1,9 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReceiptDisplayRow from "./ReceiptDisplayRow";
 import "./TableCell.scss";
 
-const TabularList = props => {
+interface Props {
+  header_definitions: Header[];
+  cases: Case[];
+  callback: any;
+}
+
+const TabularList = (props: Props) => {
   return (
     <table className="usa-table usa-table--borderless width-full">
       <thead>
@@ -27,12 +32,6 @@ const TabularList = props => {
       </tbody>
     </table>
   );
-};
-
-TabularList.propTypes = {
-  header_definitions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  cases: PropTypes.arrayOf(PropTypes.object).isRequired,
-  callback: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 export { TabularList };
