@@ -1,15 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { cellDispatch } from "../util/cellDispatch";
 import "./TableCell.scss";
 
-const TableCell = props => {
-  let datum = props.rowData[props.header.field];
+interface Props {
+  rowData: Case;
+  header: Header;
+  callback: any;
+}
+
+const TableCell = (props: Props) => {
+  let datum: string = (props.rowData as any)[props.header.field];
   if (props.header.content !== undefined) {
     const processor =
       "function" === typeof props.header.content
         ? props.header.content
-        : cellDispatch[props.header.content];
+        : (cellDispatch as any)[props.header.content];
     datum = processor(datum, props.rowData, props.header, props.callback);
   }
   return (
@@ -20,12 +25,6 @@ const TableCell = props => {
       {datum}
     </td>
   );
-};
-
-TableCell.propTypes = {
-  rowData: PropTypes.object.isRequired,
-  header: PropTypes.object.isRequired,
-  callback: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 export { TableCell };
