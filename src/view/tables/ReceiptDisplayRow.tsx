@@ -4,7 +4,7 @@ import "./ReceiptDisplayRow.scss";
 import { CaseDetails } from "./CaseDetails";
 
 interface Props {
-  headers: Header[];
+  headers: I90Header[];
   data: Case;
   callback: any;
 }
