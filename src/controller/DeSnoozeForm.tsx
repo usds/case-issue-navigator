@@ -7,11 +7,9 @@ import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
 interface Props {
   rowData?: Case;
-  callback: {
-    deSnooze: (troubleCase: Case | undefined) => void;
-    reSnooze: (troubleCase: Case | undefined, state: CallbackState) => void;
-    closeDialog: () => void;
-  };
+  deSnooze: (receiptNumber: string) => void;
+  reSnooze: (receiptNumber: string, state: CallbackState) => void;
+  closeDialog: () => void;
 }
 
 interface State {
@@ -63,22 +61,26 @@ class DeSnoozeForm extends React.Component<Props, State> {
 
   desnooze(e: React.ChangeEvent<HTMLButtonElement>) {
     e.preventDefault();
-    this.props.callback.deSnooze(this.props.rowData);
-    this.props.callback.closeDialog();
+    if (!this.props.rowData) {
+      console.error("resnooze called with out a vaild snooze option selected");
+      return;
+    }
+    this.props.deSnooze(this.props.rowData.receiptNumber);
+    this.props.closeDialog();
   }
 
   reSnooze(e: React.ChangeEvent<HTMLButtonElement>) {
     e.preventDefault();
     const snoozeOption = this.getSelectedOption();
-    if (!snoozeOption) {
+    if (!snoozeOption || !this.props.rowData) {
       console.error("resnooze called with out a vaild snooze option selected");
       return;
     }
-    this.props.callback.reSnooze(this.props.rowData, {
+    this.props.reSnooze(this.props.rowData.receiptNumber, {
       ...this.state,
       duration: snoozeOption.duration
     });
-    this.props.callback.closeDialog();
+    this.props.closeDialog();
   }
 
   render() {

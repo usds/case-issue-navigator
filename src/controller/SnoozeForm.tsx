@@ -5,10 +5,8 @@ import UsaButton from "../view/util/UsaButton";
 
 interface Props {
   rowData?: Case;
-  callback: {
-    snooze: (troubleCase: Case | undefined, state: CallbackState) => void;
-    closeDialog: () => void;
-  };
+  snooze: (receiptNumber: string, state: CallbackState) => void;
+  closeDialog: () => void;
 }
 
 interface State {
@@ -47,12 +45,16 @@ class SnoozeForm extends Component<Props, State> {
 
   formSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    this.props.callback.snooze(this.props.rowData, {
+    if (!this.props.rowData) {
+      console.error("snooze form submited with out case data");
+      return;
+    }
+    this.props.snooze(this.props.rowData.receiptNumber, {
       ...this.state,
       duration: this.getSelectedOption().duration
     });
 
-    this.props.callback.closeDialog();
+    this.props.closeDialog();
   }
 
   getSelectedOption(): SnoozeOptionValue {

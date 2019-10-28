@@ -47,6 +47,10 @@ interface CallbackState {
 
 type Callbacks = any;
 
+interface RowData {
+  receiptNumber: string;
+}
+
 type Header = {
   header: string;
   field: string;
