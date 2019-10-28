@@ -86,17 +86,9 @@ const VIEWS = {
 const ELIS_CASE_BASE_URL =
   process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
-interface I90_header {
-  header: string;
-  field: string;
-  content: Function | string;
-  views: string[];
-}
-
-const I90_HEADERS: I90_header[] = [
+const I90_HEADERS: I90Header[] = [
   {
     header: "",
-    field: "showDetails",
     content: (
       showDetails: boolean,
       rowData: any,
@@ -218,13 +210,11 @@ const I90_HEADERS: I90_header[] = [
   },
   {
     header: "Actions",
-    field: "_",
     content: buttonizer("Snooze", "outline", "details"),
     views: [VIEWS.CASES_TO_WORK.TITLE]
   },
   {
     header: "Actions",
-    field: "snooze_option",
     content: buttonizer("Update", "outline", "details"),
     views: [VIEWS.SNOOZED_CASES.TITLE]
   }

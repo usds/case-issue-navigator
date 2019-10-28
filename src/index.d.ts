@@ -51,6 +51,13 @@ interface RowData {
   receiptNumber: string;
 }
 
+interface I90Header {
+  header: string;
+  field?: keyof Case;
+  content: Function | "LINK" | "DATE";
+  views: string[];
+}
+
 type Header = {
   header: string;
   field: string;
