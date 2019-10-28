@@ -128,7 +128,7 @@ const ActiveCaseList = (props: Props) => {
       <CaseList
         cases={cases}
         callbacks={callbacks}
-        headers={getHeaders(I90_HEADERS, VIEWS.CASES_TO_WORK.TITLE)}
+        headers={getHeaders(I90_HEADERS, "Cases to Work")}
         isLoading={isLoading}
         totalCases={summary.CASES_TO_WORK}
         loadMoreCases={loadMoreCases}

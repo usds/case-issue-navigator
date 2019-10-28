@@ -4,7 +4,7 @@ import "./TableCell.scss";
 
 interface Props {
   rowData: Case;
-  header: I90Header;
+  header: Header;
   callback: any;
 }
 

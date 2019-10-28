@@ -86,7 +86,7 @@ const VIEWS = {
 const ELIS_CASE_BASE_URL =
   process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
-const I90_HEADERS: I90Header[] = [
+const I90_HEADERS: Header[] = [
   {
     header: "",
     content: (
@@ -98,18 +98,18 @@ const I90_HEADERS: I90Header[] = [
       const toggle = () => callback.toggleDetails(rowData.receiptNumber);
       return <ChevronToggle toggle={toggle} open={showDetails} />;
     },
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Cases to Work", "Snoozed Cases"]
   },
   {
     header: "Receipt Number",
     field: "receiptNumber",
     content: "LINK",
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Cases to Work", "Snoozed Cases"]
   },
   {
     header: "Case Age",
     field: "caseCreation",
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE],
+    views: ["Cases to Work", "Snoozed Cases"],
     content: (d: string) => {
       const days = Math.ceil(
         (new Date().valueOf() - new Date(d).valueOf()) / 86400000
@@ -122,32 +122,32 @@ const I90_HEADERS: I90Header[] = [
     header: "Case Creation",
     field: "caseCreation",
     content: "DATE",
-    views: [VIEWS.CASES_TO_WORK.TITLE]
+    views: ["Cases to Work"]
   },
   {
     header: "Application Reason",
     field: "extraData",
     content: (field: CaseExtraData) => field.applicationReason,
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Cases to Work", "Snoozed Cases"]
   },
   {
     header: "Case Status",
     field: "extraData",
     content: (field: CaseExtraData) => field.caseStatus,
-    views: [VIEWS.CASES_TO_WORK.TITLE]
+    views: ["Cases to Work"]
   },
   {
     header: "Case Substatus",
     field: "extraData",
     content: (field: CaseExtraData) => field.caseSubstatus,
-    views: [VIEWS.CASES_TO_WORK.TITLE]
+    views: ["Cases to Work"]
   },
   {
     header: "Platform",
     field: "extraData",
     content: (d: CaseExtraData) =>
       String(d.i90SP) === "true" ? "SP" : "Legacy",
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Cases to Work", "Snoozed Cases"]
   },
   {
     header: "Problem",
@@ -156,7 +156,7 @@ const I90_HEADERS: I90Header[] = [
       SNOOZE_OPTIONS[field.snoozeReason]
         ? SNOOZE_OPTIONS[field.snoozeReason].shortText
         : field.snoozeReason,
-    views: [VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Snoozed Cases"]
   },
   {
     header: "Snoozed",
@@ -168,13 +168,13 @@ const I90_HEADERS: I90Header[] = [
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     },
-    views: [VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Snoozed Cases"]
   },
   {
     header: "Assigned",
     field: "notes",
     content: NoteUtils.getAssignee,
-    views: [VIEWS.CASES_TO_WORK.TITLE, VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Cases to Work", "Snoozed Cases"]
   },
   {
     header: "SN Ticket #",
@@ -206,17 +206,17 @@ const I90_HEADERS: I90Header[] = [
         </React.Fragment>
       ));
     },
-    views: [VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Snoozed Cases"]
   },
   {
     header: "Actions",
     content: buttonizer("Snooze", "outline", "details"),
-    views: [VIEWS.CASES_TO_WORK.TITLE]
+    views: ["Cases to Work"]
   },
   {
     header: "Actions",
     content: buttonizer("Update", "outline", "details"),
-    views: [VIEWS.SNOOZED_CASES.TITLE]
+    views: ["Snoozed Cases"]
   }
 ];
 

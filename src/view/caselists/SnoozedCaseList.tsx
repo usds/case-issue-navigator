@@ -185,7 +185,7 @@ const SnoozedCaseList = (props: Props) => {
       <CaseList
         cases={cases}
         callbacks={callbacks}
-        headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
+        headers={getHeaders(I90_HEADERS, "Snoozed Cases")}
         isLoading={isLoading}
         loadMoreCases={loadMoreCases}
         totalCases={summary.SNOOZED_CASES}
