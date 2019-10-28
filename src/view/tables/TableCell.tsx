@@ -9,20 +9,24 @@ interface Props {
 }
 
 const TableCell = (props: Props) => {
-  let datum: string = (props.rowData as any)[props.header.field];
-  if (props.header.content !== undefined) {
+  const getCellValue = () => {
+    let datum: string = (props.rowData as any)[props.header.field];
+    if (props.header.content === undefined) {
+      return datum;
+    }
     const processor =
       "function" === typeof props.header.content
         ? props.header.content
         : (cellDispatch as any)[props.header.content];
-    datum = processor(datum, props.rowData, props.header, props.callback);
-  }
+    return processor(datum, props.rowData, props.header, props.callback);
+  };
+
   return (
     <td
       className={props.header.header === "" ? "min" : undefined}
       key={props.header.header}
     >
-      {datum}
+      {getCellValue()}
     </td>
   );
 };
