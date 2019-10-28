@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CaseList } from "./CaseList";
-import { VIEWS, I90_HEADERS } from "../../controller/config";
-import { getHeaders } from "../util/getHeaders";
 import SnoozeForm from "../../controller/SnoozeForm";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../api/RestAPIClient";
@@ -104,11 +102,6 @@ const ActiveCaseList = (props: Props) => {
 
   const closeModal = () => setDialog({ show: false, title: "" });
 
-  const callbacks = {
-    snooze,
-    toggleDetails
-  };
-
   return (
     <React.Fragment>
       <DesnoozedWarning
@@ -127,13 +120,21 @@ const ActiveCaseList = (props: Props) => {
       </ActionModal>
       <CaseList
         cases={cases}
-        callbacks={callbacks}
-        headers={getHeaders(I90_HEADERS, "Cases to Work")}
+        headers={[
+          { key: "showDetails", props: { toggleDetails } },
+          { key: "receiptNumber" },
+          { key: "caseAge" },
+          { key: "caseCreation" },
+          { key: "applicationReason" },
+          { key: "caseStatus" },
+          { key: "caseSubstatus" },
+          { key: "platform" },
+          { key: "assigned" },
+          { key: "actions", props: { details: openModal } }
+        ]}
         isLoading={isLoading}
         totalCases={summary.CASES_TO_WORK}
         loadMoreCases={loadMoreCases}
-        openModal={openModal}
-        closeModal={closeModal}
       />
     </React.Fragment>
   );
