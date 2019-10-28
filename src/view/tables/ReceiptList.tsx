@@ -4,7 +4,7 @@ import { TabularList } from "./TabularList";
 interface Props {
   cases: Case[];
   callback: any;
-  headers: Header[];
+  headers: I90Header[];
   isLoading: boolean;
 }
 
