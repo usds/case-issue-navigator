@@ -7,7 +7,11 @@ import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
 interface Props {
   rowData?: Case;
-  callback: Callbacks;
+  callback: {
+    deSnooze: (troubleCase: Case | undefined) => void;
+    reSnooze: (troubleCase: Case | undefined, state: CallbackState) => void;
+    closeDialog: () => void;
+  };
 }
 
 interface State {

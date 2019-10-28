@@ -38,9 +38,14 @@ type ToastNotifier = (
   type: ToastOptions["type"]
 ) => void;
 
-type Callbacks = {
-  [key: string]: Function;
-};
+interface CallbackState {
+  snoozeReason: SnoozeReason;
+  followUp: string;
+  caseIssueNotes: string;
+  duration: number;
+}
+
+type Callbacks = any;
 
 type Header = {
   header: string;
