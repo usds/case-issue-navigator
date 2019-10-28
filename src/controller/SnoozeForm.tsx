@@ -5,7 +5,10 @@ import UsaButton from "../view/util/UsaButton";
 
 interface Props {
   rowData?: Case;
-  callback: Callbacks;
+  callback: {
+    snooze: (troubleCase: Case | undefined, state: CallbackState) => void;
+    closeDialog: () => void;
+  };
 }
 
 interface State {
