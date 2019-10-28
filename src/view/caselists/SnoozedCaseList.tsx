@@ -6,6 +6,7 @@ import { CaseList } from "./CaseList";
 import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../api/RestAPIClient";
 import { trackEvent } from "../../matomo-setup";
+import { ActionModal } from "../util/ActionModal";
 
 interface Props {
   updateSummaryData: () => void;
@@ -14,13 +15,14 @@ interface Props {
   summary: Summary;
 }
 
-interface RowData {
-  receiptNumber: string;
-}
-
 const SnoozedCaseList = (props: Props) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [dialog, setDialog] = useState({
+    show: false,
+    title: ""
+  });
+  const [clickedRow, setClickedRow] = useState<Case>();
 
   const { setNotification, setError, summary } = props;
 
@@ -28,10 +30,13 @@ const SnoozedCaseList = (props: Props) => {
     loadMoreCases();
   }, []);
 
-  const reSnooze = async (rowData: RowData, snoozeOption: SnoozeOption) => {
+  const reSnooze = async (
+    receiptNumber: string,
+    snoozeOption: CallbackState
+  ) => {
     const notes = formatNotes(snoozeOption);
     const response = await RestAPIClient.caseDetails.updateActiveSnooze(
-      rowData.receiptNumber,
+      receiptNumber,
       {
         duration: snoozeOption.duration,
         reason: snoozeOption.snoozeReason,
@@ -41,7 +46,7 @@ const SnoozedCaseList = (props: Props) => {
 
     if (response.succeeded) {
       setNotification({
-        message: `${rowData.receiptNumber} has been Snoozed for ${
+        message: `${receiptNumber} has been Snoozed for ${
           snoozeOption.duration
         } day${snoozeOption.duration !== 1 ? "s" : ""} due to ${
           snoozeOption.snoozeReason
@@ -51,7 +56,7 @@ const SnoozedCaseList = (props: Props) => {
       trackEvent("snooze", "reSnooze", snoozeOption.snoozeReason);
       const snoozedCases = cases
         .map(snoozedCase => {
-          if (snoozedCase.receiptNumber === rowData.receiptNumber) {
+          if (snoozedCase.receiptNumber === receiptNumber) {
             return {
               ...snoozedCase,
               snoozeInformation: response.payload,
@@ -74,8 +79,7 @@ const SnoozedCaseList = (props: Props) => {
         });
 
       if (
-        snoozedCases[snoozedCases.length - 1].receiptNumber ===
-          rowData.receiptNumber &&
+        snoozedCases[snoozedCases.length - 1].receiptNumber === receiptNumber &&
         snoozedCases.length < summary["SNOOZED_CASES"]
       ) {
         snoozedCases.pop();
@@ -92,21 +96,19 @@ const SnoozedCaseList = (props: Props) => {
     }
   };
 
-  const deSnooze = async (rowData: RowData) => {
+  const deSnooze = async (receiptNumber: string) => {
     const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
-      rowData.receiptNumber
+      receiptNumber
     );
 
     if (response.succeeded) {
       props.updateSummaryData();
       setCases(
-        cases.filter(
-          snoozedCase => snoozedCase.receiptNumber !== rowData.receiptNumber
-        )
+        cases.filter(snoozedCase => snoozedCase.receiptNumber !== receiptNumber)
       );
       trackEvent("snooze", "deSnooze", "desnoozed");
       return setNotification({
-        message: `${rowData.receiptNumber} has been Unsnoozed.`,
+        message: `${receiptNumber} has been Unsnoozed.`,
         type: "info"
       });
     }
@@ -153,6 +155,13 @@ const SnoozedCaseList = (props: Props) => {
     }
   };
 
+  const openModal = (rowData: Case) => {
+    setClickedRow(rowData);
+    setDialog({ show: true, title: rowData.receiptNumber });
+  };
+
+  const closeModal = () => setDialog({ show: false, title: "" });
+
   const callbacks = {
     reSnooze,
     deSnooze,
@@ -160,15 +169,30 @@ const SnoozedCaseList = (props: Props) => {
   };
 
   return (
-    <CaseList
-      cases={cases}
-      callbacks={callbacks}
-      headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
-      isLoading={isLoading}
-      loadMoreCases={loadMoreCases}
-      ModalContent={DeSnoozeForm}
-      totalCases={summary.SNOOZED_CASES}
-    />
+    <React.Fragment>
+      <ActionModal
+        isOpen={dialog.show}
+        title={dialog.title}
+        closeModal={closeModal}
+      >
+        <DeSnoozeForm
+          deSnooze={deSnooze}
+          reSnooze={reSnooze}
+          closeDialog={closeModal}
+          rowData={clickedRow}
+        />
+      </ActionModal>
+      <CaseList
+        cases={cases}
+        callbacks={callbacks}
+        headers={getHeaders(I90_HEADERS, VIEWS.SNOOZED_CASES.TITLE)}
+        isLoading={isLoading}
+        loadMoreCases={loadMoreCases}
+        totalCases={summary.SNOOZED_CASES}
+        openModal={openModal}
+        closeModal={closeModal}
+      />
+    </React.Fragment>
   );
 };
 

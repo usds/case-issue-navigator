@@ -1,5 +1,4 @@
 import React, { useState, SetStateAction, Dispatch } from "react";
-import { ActionModal } from "../util/ActionModal";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
 
@@ -9,45 +8,22 @@ interface CaseListProps {
   callbacks: Callbacks;
   cases: Array<Case>;
   loadMoreCases: () => void;
-  ModalContent: React.JSXElementConstructor<{
-    callback: Callbacks;
-    rowData?: Case;
-  }>;
+  openModal: (rowData: Case, receiptNumber: string) => void;
+  closeModal: () => void;
   totalCases: number;
 }
 
 const CaseList: React.FunctionComponent<CaseListProps> = props => {
-  const [dialog, setDialog] = useState({
-    show: false,
-    title: ""
-  });
-
-  const [clickedRow, setClickedRow] = useState<Case>();
-
-  const openModal = (rowData: Case) => {
-    setClickedRow(rowData);
-    setDialog({ show: true, title: rowData.receiptNumber });
-  };
-
-  const closeModal = () => setDialog({ show: false, title: "" });
-
   const callbacks = {
     ...props.callbacks,
-    details: openModal,
-    closeDialog: closeModal
+    details: props.openModal,
+    closeDialog: props.closeModal
   };
 
-  const { cases, ModalContent, totalCases } = props;
+  const { cases, totalCases } = props;
 
   return (
     <React.Fragment>
-      <ActionModal
-        isOpen={dialog.show}
-        title={dialog.title}
-        closeModal={closeModal}
-      >
-        <ModalContent callback={callbacks} rowData={clickedRow} />
-      </ActionModal>
       <ReceiptList
         cases={cases}
         callback={callbacks}
