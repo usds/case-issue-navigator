@@ -4,13 +4,12 @@ import "./ReceiptDisplayRow.scss";
 import { CaseDetails } from "./CaseDetails";
 
 interface Props {
-  headers: Header[];
+  headers: I90Header[];
   data: Case;
-  callback: any;
 }
 
 const ReceiptDisplayRow = (props: Props) => {
-  const { data, callback, headers } = props;
+  const { data, headers } = props;
   const numberOfColumns = headers.length;
   return (
     <React.Fragment>
@@ -21,7 +20,6 @@ const ReceiptDisplayRow = (props: Props) => {
               key={`${data.extraData.caseId}-${i}`}
               rowData={data}
               header={header}
-              callback={callback}
             />
           );
         })}

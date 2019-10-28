@@ -3,8 +3,7 @@ import { TabularList } from "./TabularList";
 
 interface Props {
   cases: Case[];
-  callback: any;
-  headers: Header[];
+  headers: I90Header[];
   isLoading: boolean;
 }
 
@@ -17,11 +16,5 @@ export default function ReceiptList(props: Props) {
     return <p>No cases found.</p>;
   }
 
-  return (
-    <TabularList
-      cases={props.cases}
-      callback={props.callback}
-      header_definitions={props.headers}
-    />
-  );
+  return <TabularList cases={props.cases} headers={props.headers} />;
 }

@@ -1,29 +1,17 @@
 import React from "react";
-import { cellDispatch } from "../util/cellDispatch";
 import "./TableCell.scss";
+import { I90_HEADERS } from "../../controller/config";
 
 interface Props {
   rowData: Case;
-  header: Header;
-  callback: any;
+  header: I90Header;
 }
 
 const TableCell = (props: Props) => {
-  const getCellValue = () => {
-    const datum = props.header.field ? props.rowData[props.header.field] : "";
-    const processor =
-      "function" === typeof props.header.content
-        ? props.header.content
-        : cellDispatch[props.header.content];
-    return processor(datum, props.rowData, props.header, props.callback);
-  };
-
+  const h = I90_HEADERS[props.header.key];
   return (
-    <td
-      className={props.header.header === "" ? "min" : undefined}
-      key={props.header.header}
-    >
-      {getCellValue()}
+    <td className={h.header === "" ? "min" : undefined} key={h.header}>
+      {h.render(props.rowData, props.header.props as any)}
     </td>
   );
 };
