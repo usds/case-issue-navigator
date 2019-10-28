@@ -51,6 +51,97 @@ interface RowData {
   receiptNumber: string;
 }
 
+interface ShowDetails {
+  key: "showDetails";
+  props: {
+    toggleDetails: (receiptNumber: string) => void;
+  };
+}
+
+interface ReceiptNumber {
+  key: "receiptNumber";
+  props?;
+}
+
+interface CaseAge {
+  key: "caseAge";
+  props?;
+}
+
+interface CaseCreation {
+  key: "caseCreation";
+  props?;
+}
+
+interface ApplicationReason {
+  key: "applicationReason";
+  props?;
+}
+
+interface CaseStatus {
+  key: "caseStatus";
+  props?;
+}
+
+interface CaseSubstatus {
+  key: "caseSubstatus";
+  props?;
+}
+
+interface Platform {
+  key: "platform";
+  props?;
+}
+
+interface Problem {
+  key: "problem";
+  props?;
+}
+
+interface Snoozed {
+  key: "snoozed";
+  props?;
+}
+
+interface Assigned {
+  key: "assigned";
+  props?;
+}
+interface SNTicket {
+  key: "SNTicket";
+  props?;
+}
+
+interface Actions {
+  key: "actions";
+  props: {
+    details: (rowData: Case) => void;
+  };
+}
+
+interface SnoozeActions {
+  key: "snoozeActions";
+  props: {
+    details: (rowData: Case) => void;
+  };
+}
+
+type I90Header =
+  | ShowDetails
+  | ReceiptNumber
+  | CaseAge
+  | CaseCreation
+  | ApplicationReason
+  | CaseStatus
+  | CaseSubstatus
+  | Platform
+  | Problem
+  | Snoozed
+  | Assigned
+  | SNTicket
+  | Actions
+  | SnoozeActions;
+
 interface Header {
   header: string;
   field?: keyof Case;
@@ -73,7 +164,7 @@ interface Case {
   receiptNumber: string;
   caseCreation: string;
   extraData: CaseExtraData;
-  notes: Array<DBNote>;
+  notes?: Array<DBNote>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
   showDetails: boolean;

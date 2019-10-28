@@ -2,6 +2,9 @@ import React from "react";
 import { buttonizer } from "../view/util/buttonizer";
 import { ChevronToggle } from "../view/util/ChevronToggle";
 import NoteUtils from "../utils/NoteUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactTooltip from "react-tooltip";
+import UsaButton from "../view/util/UsaButton";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -86,31 +89,46 @@ const VIEWS = {
 const ELIS_CASE_BASE_URL =
   process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM_BASE_URL || "";
 
-const I90_HEADERS: Header[] = [
-  {
+const I90_HEADERS = {
+  showDetails: {
     header: "",
-    content: (
-      showDetails: boolean,
-      rowData: any,
-      _: any,
-      callback: Callbacks
-    ) => {
-      const toggle = () => callback.toggleDetails(rowData.receiptNumber);
-      return <ChevronToggle toggle={toggle} open={showDetails} />;
-    },
-    views: ["Cases to Work", "Snoozed Cases"]
+    render: (rowData: Case, props: ShowDetails["props"]) => (
+      <ChevronToggle
+        toggle={() => props.toggleDetails(rowData.receiptNumber)}
+        open={rowData.showDetails}
+      />
+    )
   },
-  {
+  receiptNumber: {
     header: "Receipt Number",
-    field: "receiptNumber",
-    content: "LINK",
-    views: ["Cases to Work", "Snoozed Cases"]
+    render: (rowData: Case) => {
+      const receiptNumber = rowData.receiptNumber;
+      return (
+        <>
+          <a href={ELIS_CASE_BASE_URL + receiptNumber} target="_elis_viewer">
+            {receiptNumber}
+          </a>
+          {rowData && rowData.previouslySnoozed && (
+            <React.Fragment>
+              &nbsp;
+              <FontAwesomeIcon
+                icon="exclamation-triangle"
+                className="text-accent-warm"
+                aria-label="Snooze expired - Please review case"
+                data-tip
+                data-place="right"
+              />
+              <ReactTooltip>Snooze expired - Please review case</ReactTooltip>
+            </React.Fragment>
+          )}
+        </>
+      );
+    }
   },
-  {
+  caseAge: {
     header: "Case Age",
-    field: "caseCreation",
-    views: ["Cases to Work", "Snoozed Cases"],
-    content: (d: string) => {
+    render: (rowData: Case) => {
+      const d = rowData.caseCreation;
       const days = Math.ceil(
         (new Date().valueOf() - new Date(d).valueOf()) / 86400000
       );
@@ -118,72 +136,85 @@ const I90_HEADERS: Header[] = [
       return `${days} day${plural}`;
     }
   },
-  {
+  caseCreation: {
     header: "Case Creation",
-    field: "caseCreation",
-    content: "DATE",
-    views: ["Cases to Work"]
+    render: (rowData: Case) => {
+      const d = rowData.caseCreation;
+      const datum = new Date(d);
+
+      if (d && !isNaN(datum as any)) {
+        return (
+          datum.getMonth() +
+          1 +
+          "/" +
+          datum.getDate() +
+          "/" +
+          datum.getFullYear()
+        );
+      }
+
+      return "Invalid date";
+    }
   },
-  {
+  applicationReason: {
     header: "Application Reason",
-    field: "extraData",
-    content: (field: CaseExtraData) => field.applicationReason,
-    views: ["Cases to Work", "Snoozed Cases"]
+    render: (rowData: Case) => rowData.extraData.applicationReason
   },
-  {
+  caseStatus: {
     header: "Case Status",
-    field: "extraData",
-    content: (field: CaseExtraData) => field.caseStatus,
-    views: ["Cases to Work"]
+    render: (rowData: Case) => rowData.extraData.caseStatus
   },
-  {
+  caseSubstatus: {
     header: "Case Substatus",
-    field: "extraData",
-    content: (field: CaseExtraData) => field.caseSubstatus,
-    views: ["Cases to Work"]
+    render: (rowData: Case) => rowData.extraData.caseSubstatus
   },
-  {
+  platform: {
     header: "Platform",
-    field: "extraData",
-    content: (d: CaseExtraData) =>
-      String(d.i90SP) === "true" ? "SP" : "Legacy",
-    views: ["Cases to Work", "Snoozed Cases"]
+    render: (rowData: Case) =>
+      String(rowData.extraData.i90SP) === "true" ? "SP" : "Legacy"
+    //views: ["Cases to Work", "Snoozed Cases"]
   },
-  {
+  problem: {
     header: "Problem",
-    field: "snoozeInformation",
-    content: (field: SnoozeInformation) =>
-      SNOOZE_OPTIONS[field.snoozeReason]
-        ? SNOOZE_OPTIONS[field.snoozeReason].shortText
-        : field.snoozeReason,
-    views: ["Snoozed Cases"]
+    render: (rowData: Case) => {
+      const reason = rowData.snoozeInformation
+        ? rowData.snoozeInformation.snoozeReason
+        : undefined;
+      if (!reason) {
+        console.error("Snooze information not found");
+        return;
+      }
+      return SNOOZE_OPTIONS[reason] ? SNOOZE_OPTIONS[reason].shortText : reason;
+    }
   },
-  {
+  snoozed: {
     header: "Snoozed",
-    field: "snoozeInformation",
-    content: (field: SnoozeInformation) => {
+    render: (rowData: Case) => {
+      const snoozeEnd = rowData.snoozeInformation
+        ? rowData.snoozeInformation.snoozeEnd
+        : undefined;
+      if (!snoozeEnd) {
+        console.error("Snooze information not found");
+        return;
+      }
       const days = Math.ceil(
-        (new Date(field.snoozeEnd).valueOf() - new Date().valueOf()) / 86400000
+        (new Date(snoozeEnd).valueOf() - new Date().valueOf()) / 86400000
       );
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
-    },
-    views: ["Snoozed Cases"]
+    }
   },
-  {
+  assigned: {
     header: "Assigned",
-    field: "notes",
-    content: NoteUtils.getAssignee,
-    views: ["Cases to Work", "Snoozed Cases"]
+    render: (rowData: Case) => NoteUtils.getAssignee(rowData.notes)
   },
-  {
+  SNTicket: {
     header: "SN Ticket #",
-    field: "notes",
-    content: (notes?: DBNote[]) => {
-      if (!notes || !Array.isArray(notes)) {
+    render: (rowData: Case) => {
+      if (!rowData.notes) {
         return null;
       }
-      const tickets = notes
+      const tickets = rowData.notes
         .filter(note => note.subType === "troubleticket")
         .sort((a, b) => {
           return (
@@ -205,20 +236,25 @@ const I90_HEADERS: Header[] = [
           <br />
         </React.Fragment>
       ));
-    },
-    views: ["Snoozed Cases"]
+    }
   },
-  {
+  actions: {
     header: "Actions",
-    content: buttonizer("Snooze", "outline", "details"),
-    views: ["Cases to Work"]
+    render: (rowData: Case, props: Actions["props"]) => (
+      <UsaButton onClick={() => props.details(rowData)} buttonStyle="outline">
+        Snooze
+      </UsaButton>
+    )
   },
-  {
-    header: "Actions",
-    content: buttonizer("Update", "outline", "details"),
-    views: ["Snoozed Cases"]
+  snoozeActions: {
+    header: "SnoozeActions",
+    render: (rowData: Case, props: SnoozeActions["props"]) => (
+      <UsaButton onClick={() => props.details(rowData)} buttonStyle="outline">
+        Update
+      </UsaButton>
+    )
   }
-];
+};
 
 export {
   API_BASE_URL,

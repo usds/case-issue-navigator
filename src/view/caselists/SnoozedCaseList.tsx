@@ -57,10 +57,13 @@ const SnoozedCaseList = (props: Props) => {
       const snoozedCases = cases
         .map(snoozedCase => {
           if (snoozedCase.receiptNumber === receiptNumber) {
+            const notes = snoozedCase.notes
+              ? snoozedCase.notes.concat(response.payload.notes)
+              : response.payload.notes;
             return {
               ...snoozedCase,
               snoozeInformation: response.payload,
-              notes: snoozedCase.notes.concat(response.payload.notes)
+              notes
             };
           }
           return snoozedCase;
@@ -162,12 +165,6 @@ const SnoozedCaseList = (props: Props) => {
 
   const closeModal = () => setDialog({ show: false, title: "" });
 
-  const callbacks = {
-    reSnooze,
-    deSnooze,
-    toggleDetails
-  };
-
   return (
     <React.Fragment>
       <ActionModal
@@ -184,13 +181,21 @@ const SnoozedCaseList = (props: Props) => {
       </ActionModal>
       <CaseList
         cases={cases}
-        callbacks={callbacks}
-        headers={getHeaders(I90_HEADERS, "Snoozed Cases")}
+        headers={[
+          { key: "showDetails", props: { toggleDetails } },
+          { key: "receiptNumber" },
+          { key: "caseAge" },
+          { key: "applicationReason" },
+          { key: "platform" },
+          { key: "problem" },
+          { key: "snoozed" },
+          { key: "assigned" },
+          { key: "SNTicket" },
+          { key: "snoozeActions", props: { details: openModal } }
+        ]}
         isLoading={isLoading}
-        loadMoreCases={loadMoreCases}
         totalCases={summary.SNOOZED_CASES}
-        openModal={openModal}
-        closeModal={closeModal}
+        loadMoreCases={loadMoreCases}
       />
     </React.Fragment>
   );
