@@ -9,47 +9,45 @@ const rowData = {
 
 describe("SnoozeForm", () => {
   it("should render a snooze form with required snooze option select values", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={jest.fn()}
+      />
     );
     SNOOZE_OPTIONS_SELECT.forEach(option => {
       expect(wrapper.find(`option[value="${option.value}"]`).length).toBe(1);
     });
   });
   it("should call the snooze callback on submit", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
+    const snooze = jest.fn();
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm rowData={rowData} snooze={snooze} closeDialog={jest.fn()} />
     );
     wrapper.find(".usa-button").simulate("click");
-    expect(callbacks.snooze).toBeCalledTimes(1);
+    expect(snooze).toBeCalledTimes(1);
   });
   it("should call the closeDialog callback on submit", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
+    const closeDialog = jest.fn();
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={closeDialog}
+      />
     );
     wrapper.find(".usa-button").simulate("click");
-    expect(callbacks.closeDialog).toBeCalledTimes(1);
+    expect(closeDialog).toBeCalledTimes(1);
   });
   it("should handle snooze reason dropdown changes", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
     const spy = jest.spyOn(SnoozeForm.prototype, "snoozeReasonChange");
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={jest.fn()}
+      />
     );
     wrapper.find("select").simulate("change", {
       target: { value: SNOOZE_OPTIONS_SELECT[1].value }
@@ -57,13 +55,13 @@ describe("SnoozeForm", () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
   it("should handle follow-up reason changes", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
     const spy = jest.spyOn(SnoozeForm.prototype, "followUpChange");
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={jest.fn()}
+      />
     );
     wrapper.find("select").simulate("change", {
       target: {
@@ -80,13 +78,13 @@ describe("SnoozeForm", () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
   it("should handle case issue notes changes", () => {
-    const callbacks = {
-      closeDialog: jest.fn(),
-      snooze: jest.fn()
-    };
     const spy = jest.spyOn(SnoozeForm.prototype, "caseIssueNotesChange");
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} callback={callbacks} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={jest.fn()}
+      />
     );
     wrapper.find("select").simulate("change", {
       target: {
