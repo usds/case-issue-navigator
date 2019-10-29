@@ -1,4 +1,4 @@
-import ClientBase from "../ClientBase";
+import RestAPIClient from "../RestAPIClient";
 import fetchMock from "fetch-mock";
 import URLs from "../URLs";
 
@@ -12,9 +12,8 @@ describe("ClientBase", () => {
     token: "abcd"
   };
   it("should set a csrf token response to localStorage", () => {
-    const clientBase = new ClientBase();
     fetchMock.mock(URLs.csrf().toString(), fakeCsrf);
-    return clientBase
+    return RestAPIClient.cases
       .getCsrf()
       .then(() =>
         expect(
@@ -23,9 +22,8 @@ describe("ClientBase", () => {
       );
   });
   it("should not set a csrf token to localStorage if no csrf is returned from fetch", () => {
-    const clientBase = new ClientBase();
     fetchMock.mock(URLs.csrf().toString(), {});
-    return clientBase.getCsrf().then(() => {
+    return RestAPIClient.cases.getCsrf().then(() => {
       const csrf = JSON.parse(localStorage.getItem("csrf") as string);
       expect(csrf.headerName).toBe(undefined);
       expect(csrf.token).toBe(undefined);
