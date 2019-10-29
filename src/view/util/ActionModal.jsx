@@ -2,7 +2,8 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import close from "uswds/dist/img/close.svg";
-import { IS_TEST_ENV } from "../../controller/config";
+
+const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 if (!IS_TEST_ENV) {
   Modal.setAppElement("#root");

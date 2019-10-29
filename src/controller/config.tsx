@@ -1,10 +1,11 @@
 import React from "react";
-import { buttonizer } from "../view/util/buttonizer";
 import { ChevronToggle } from "../view/util/ChevronToggle";
 import NoteUtils from "../utils/NoteUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import UsaButton from "../view/util/UsaButton";
+import { SnoozeFormWrapper } from "./SnoozeFormWrapper";
+import { DeSnoozeFormWrapper } from "./DeSnoozeFormWrapper";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -241,17 +242,13 @@ const I90_HEADERS = {
   actions: {
     header: "Actions",
     render: (rowData: Case, props: Actions["props"]) => (
-      <UsaButton onClick={() => props.details(rowData)} buttonStyle="outline">
-        Snooze
-      </UsaButton>
+      <SnoozeFormWrapper rowData={rowData} {...props} />
     )
   },
   snoozeActions: {
     header: "SnoozeActions",
     render: (rowData: Case, props: SnoozeActions["props"]) => (
-      <UsaButton onClick={() => props.details(rowData)} buttonStyle="outline">
-        Update
-      </UsaButton>
+      <DeSnoozeFormWrapper rowData={rowData} {...props} />
     )
   }
 };

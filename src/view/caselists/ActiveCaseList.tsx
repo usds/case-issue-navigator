@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CaseList } from "./CaseList";
-import SnoozeForm from "../../controller/SnoozeForm";
-import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../api/RestAPIClient";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
-import { trackEvent } from "../../matomo-setup";
-import { ActionModal } from "../util/ActionModal";
 
 interface Props {
   updateSummaryData: () => void;
@@ -17,11 +13,6 @@ interface Props {
 const ActiveCaseList = (props: Props) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dialog, setDialog] = useState({
-    show: false,
-    title: ""
-  });
-  const [clickedRow, setClickedRow] = useState<Case>();
 
   const { setNotification, setError, summary } = props;
 
@@ -29,36 +20,8 @@ const ActiveCaseList = (props: Props) => {
     loadMoreCases();
   }, []);
 
-  const snooze = async (receiptNumber: string, snoozeOption: CallbackState) => {
-    const notes = formatNotes(snoozeOption);
-    const response = await RestAPIClient.caseDetails.updateActiveSnooze(
-      receiptNumber,
-      {
-        duration: snoozeOption.duration,
-        reason: snoozeOption.snoozeReason,
-        notes
-      }
-    );
-    if (response.succeeded) {
-      props.updateSummaryData();
-      setNotification({
-        message: `${receiptNumber} has been Snoozed for ${
-          snoozeOption.duration
-        } day${snoozeOption.duration !== 1 ? "s" : ""} due to ${
-          snoozeOption.snoozeReason
-        }.`,
-        type: "success"
-      });
-      trackEvent("snooze", "createSnooze", snoozeOption.snoozeReason);
-      return setCases(cases.filter(c => c.receiptNumber !== receiptNumber));
-    }
-
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
+  const removeCase = (receiptNumber: string) => {
+    setCases(cases.filter(c => c.receiptNumber !== receiptNumber));
   };
 
   const toggleDetails = (receiptNumber: string) => {
@@ -95,29 +58,11 @@ const ActiveCaseList = (props: Props) => {
     }
   };
 
-  const openModal = (rowData: Case) => {
-    setClickedRow(rowData);
-    setDialog({ show: true, title: rowData.receiptNumber });
-  };
-
-  const closeModal = () => setDialog({ show: false, title: "" });
-
   return (
     <React.Fragment>
       <DesnoozedWarning
         previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
       />
-      <ActionModal
-        isOpen={dialog.show}
-        title={dialog.title}
-        closeModal={closeModal}
-      >
-        <SnoozeForm
-          snooze={snooze}
-          closeDialog={closeModal}
-          rowData={clickedRow}
-        />
-      </ActionModal>
       <CaseList
         cases={cases}
         headers={[
@@ -130,7 +75,15 @@ const ActiveCaseList = (props: Props) => {
           { key: "caseSubstatus" },
           { key: "platform" },
           { key: "assigned" },
-          { key: "actions", props: { details: openModal } }
+          {
+            key: "actions",
+            props: {
+              updateSummaryData: props.updateSummaryData,
+              setError: setError,
+              setNotification: setNotification,
+              removeCase: removeCase
+            }
+          }
         ]}
         isLoading={isLoading}
         totalCases={summary.CASES_TO_WORK}

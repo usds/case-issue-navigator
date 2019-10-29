@@ -112,18 +112,33 @@ interface SNTicket {
   props?;
 }
 
+interface ActionsProps {
+  updateSummaryData: () => void;
+  setError: React.Dispatch<APIError>;
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
+  removeCase: (receiptNumber: string) => void;
+}
+
 interface Actions {
   key: "actions";
-  props: {
-    details: (rowData: Case) => void;
-  };
+  props: ActionsProps;
+}
+
+interface SnoozeActionsProps {
+  updateSummaryData: () => void;
+  setError: React.Dispatch<APIError>;
+  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
+  onSnoozeUpdate: (
+    receiptNumber: string,
+    notes: DBNote[],
+    snoozeInformation: SnoozeInformation
+  ) => void;
+  removeCase: (receiptNumber: string) => void;
 }
 
 interface SnoozeActions {
   key: "snoozeActions";
-  props: {
-    details: (rowData: Case) => void;
-  };
+  props: SnoozeActionsProps;
 }
 
 type I90Header =
