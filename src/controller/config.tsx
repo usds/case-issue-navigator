@@ -3,9 +3,8 @@ import { ChevronToggle } from "../view/util/ChevronToggle";
 import NoteUtils from "../utils/NoteUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
-import UsaButton from "../view/util/UsaButton";
 import { SnoozeFormWrapper } from "./SnoozeFormWrapper";
-import { DeSnoozeFormWrapper } from "./DeSnoozeFormWrapper";
+import { UpdateSnoozeFormWrapper } from "./UpdateSnoozeFormWrapper";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -246,9 +245,9 @@ const I90_HEADERS = {
     )
   },
   snoozeActions: {
-    header: "SnoozeActions",
+    header: "Actions",
     render: (rowData: Case, props: SnoozeActions["props"]) => (
-      <DeSnoozeFormWrapper rowData={rowData} {...props} />
+      <UpdateSnoozeFormWrapper rowData={rowData} {...props} />
     )
   }
 };

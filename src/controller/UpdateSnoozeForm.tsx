@@ -7,7 +7,6 @@ import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
 interface Props {
   rowData?: Case;
-  deSnooze: (receiptNumber: string) => void;
   reSnooze: (receiptNumber: string, state: CallbackState) => void;
   closeDialog: () => void;
 }
@@ -18,7 +17,7 @@ interface State {
   caseIssueNotes: string;
 }
 
-class DeSnoozeForm extends React.Component<Props, State> {
+class UpdateSnoozeForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const snoozeReason =
@@ -27,7 +26,7 @@ class DeSnoozeForm extends React.Component<Props, State> {
         : SNOOZE_OPTIONS_SELECT[0].value;
     this.state = {
       snoozeReason,
-      followUp: DeSnoozeForm.getFollowUp(props.rowData),
+      followUp: UpdateSnoozeForm.getFollowUp(props.rowData),
       caseIssueNotes: ""
     };
   }
@@ -59,16 +58,6 @@ class DeSnoozeForm extends React.Component<Props, State> {
     };
   }
 
-  desnooze(e: React.ChangeEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (!this.props.rowData) {
-      console.error("resnooze called with out a vaild snooze option selected");
-      return;
-    }
-    this.props.deSnooze(this.props.rowData.receiptNumber);
-    this.props.closeDialog();
-  }
-
   reSnooze(e: React.ChangeEvent<HTMLButtonElement>) {
     e.preventDefault();
     const snoozeOption = this.getSelectedOption();
@@ -98,17 +87,11 @@ class DeSnoozeForm extends React.Component<Props, State> {
             }}
             inputState={this.state}
           />
-          <UsaButton onClick={this.reSnooze.bind(this)} buttonStyle="outline">
-            Save Snooze
-          </UsaButton>
-          <hr />
+          <UsaButton onClick={this.reSnooze.bind(this)}>Save Snooze</UsaButton>
         </div>
-        <UsaButton onClick={this.desnooze.bind(this)} buttonStyle="secondary">
-          End Current Snooze
-        </UsaButton>
       </form>
     );
   }
 }
 
-export default DeSnoozeForm;
+export default UpdateSnoozeForm;

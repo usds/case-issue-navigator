@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import DeSnoozeForm from "./DeSnoozeForm";
+import UpdateSnoozeForm from "./UpdateSnoozeForm";
 import { formatNotes } from "../view/util/formatNotes";
 import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
+import { EndSnoozeForm } from "./EndSnoozeForm";
 
 interface Props extends SnoozeActionsProps {
   rowData: Case;
 }
 
-const DeSnoozeFormWrapper = (props: Props) => {
+const UpdateSnoozeFormWrapper = (props: Props) => {
   const [showDialog, setDialog] = useState(false);
 
   const { setNotification, setError } = props;
@@ -89,8 +90,7 @@ const DeSnoozeFormWrapper = (props: Props) => {
         title={props.rowData.receiptNumber}
         closeModal={closeModal}
       >
-        <DeSnoozeForm
-          deSnooze={deSnooze}
+        <UpdateSnoozeForm
           reSnooze={reSnooze}
           closeDialog={closeModal}
           rowData={props.rowData}
@@ -99,8 +99,9 @@ const DeSnoozeFormWrapper = (props: Props) => {
       <UsaButton onClick={openModal} buttonStyle="outline">
         Update
       </UsaButton>
+      <EndSnoozeForm rowData={props.rowData} deSnooze={deSnooze} />
     </React.Fragment>
   );
 };
 
-export { DeSnoozeFormWrapper };
+export { UpdateSnoozeFormWrapper };
