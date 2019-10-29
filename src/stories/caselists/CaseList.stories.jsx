@@ -1,8 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { CaseList } from "../../view/caselists/CaseList";
-import { IS_TEST_ENV, VIEWS } from "../../controller/config";
-import SnoozeForm from "../../controller/SnoozeForm";
+import { IS_TEST_ENV } from "../../controller/config";
 
 // Known workaround to mock createPortal for jest testing
 if (IS_TEST_ENV) {
@@ -11,77 +10,47 @@ if (IS_TEST_ENV) {
   }));
 }
 
+const headers = [
+  { key: "receiptNumber" },
+  { key: "applicationReason" },
+  { key: "caseStatus" }
+];
+
 storiesOf("CaseList", module)
   .add("Empty case list", () => (
     <CaseList
       isLoading={false}
-      headers={[
-        {
-          header: "header 1",
-          field: "field1",
-          views: [VIEWS.CASES_TO_WORK.TITLE]
-        },
-        {
-          header: "header 2",
-          field: "field1",
-          views: [VIEWS.CASES_TO_WORK.TITLE]
-        },
-        {
-          header: "header 3",
-          field: "field1",
-          views: [VIEWS.CASES_TO_WORK.TITLE]
-        }
-      ]}
-      callbacks={{ a: () => null, b: () => null }}
+      headers={headers}
       cases={[]}
-      currentPage={0}
-      setCurrentPage={() => null}
-      ModalContent={SnoozeForm}
+      loadMoreCases={() => undefined}
+      totalCases={0}
     />
   ))
   .add("Case list with some data", () => {
     const cases = [
       {
         receiptNumber: "fak1",
-        field1: "foobar",
-        field2: "hello world",
-        field3: "abc"
+        extraData: {
+          applicationReason: "hello world",
+          caseStatus: "abc"
+        }
       },
       {
         receiptNumber: "fak2",
-        field1: "foobar2",
-        field2: "hello world2",
-        field3: "abc2"
-      }
-    ];
-    const headers = [
-      {
-        header: "header 1",
-        field: "field1",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 2",
-        field: "field2",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 3",
-        field: "field3",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
+        extraData: {
+          applicationReason: "hello world2",
+          caseStatus: "abc2"
+        }
       }
     ];
 
     return (
       <CaseList
-        loadCases={() => null}
-        showDialog={false}
-        callbacks={{ a: () => null, b: () => null }}
-        clickedRow={null}
+        loadMoreCases={() => null}
         cases={cases}
         isLoading={false}
         headers={headers}
-        ModalContent={SnoozeForm}
+        totalCases={2}
       />
     );
   })
@@ -89,44 +58,25 @@ storiesOf("CaseList", module)
     const cases = [
       {
         receiptNumber: "fak1",
-        field1: "foobar",
-        field2: "hello world",
-        field3: "abc"
+        extraData: {
+          applicationReason: "hello world",
+          caseStatus: "abc"
+        }
       },
       {
         receiptNumber: "fak2",
-        field1: "foobar2",
-        field2: "hello world2",
-        field3: "abc2"
-      }
-    ];
-    const headers = [
-      {
-        header: "header 1",
-        field: "field1",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 2",
-        field: "field2",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 3",
-        field: "field3",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
+        extraData: {
+          applicationReason: "hello world2",
+          caseStatus: "abc2"
+        }
       }
     ];
     return (
       <CaseList
-        loadCases={() => null}
-        showDialog={false}
-        callbacks={{ a: () => null, b: () => null }}
-        clickedRow={null}
+        loadMoreCases={() => null}
         cases={cases}
         isLoading={true}
         headers={headers}
-        ModalContent={SnoozeForm}
         totalCases={10}
       />
     );
@@ -135,45 +85,26 @@ storiesOf("CaseList", module)
     const cases = [
       {
         receiptNumber: "FAK1",
-        field1: "foobar",
-        field2: "Hello world",
-        field3: "ABC"
+        extraData: {
+          applicationReason: "Hello world",
+          caseStatus: "ABC"
+        }
       },
       {
         receiptNumber: "FAK2",
-        field1: "foobar2",
-        field2: "Hello world2",
-        field3: "ABC2"
-      }
-    ];
-    const headers = [
-      {
-        header: "header 1",
-        field: "field1",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 2",
-        field: "field2",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
-      },
-      {
-        header: "header 3",
-        field: "field3",
-        views: [VIEWS.CASES_TO_WORK.TITLE]
+        extraData: {
+          applicationReason: "Hello world2",
+          caseStatus: "ABC2"
+        }
       }
     ];
 
     return (
       <CaseList
-        loadCases={() => null}
-        showDialog={false}
-        callbacks={{ a: () => null, b: () => null }}
-        clickedRow={null}
+        loadMoreCases={() => null}
         cases={cases}
         isLoading={false}
         headers={headers}
-        ModalContent={SnoozeForm}
         totalCases={200}
       />
     );

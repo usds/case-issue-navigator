@@ -47,20 +47,25 @@ Array [
     <thead>
       <tr>
         <th>
-          header 1
+          Receipt Number
         </th>
         <th>
-          header 2
+          Application Reason
         </th>
         <th>
-          header 3
+          Case Status
         </th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          foobar
+          <a
+            href="https://example.com/fak1"
+            target="_elis_viewer"
+          >
+            fak1
+          </a>
         </td>
         <td>
           hello world
@@ -71,7 +76,12 @@ Array [
       </tr>
       <tr>
         <td>
-          foobar2
+          <a
+            href="https://example.com/fak2"
+            target="_elis_viewer"
+          >
+            fak2
+          </a>
         </td>
         <td>
           hello world2
@@ -88,6 +98,7 @@ Array [
     <button
       className="usa-button usa-button--outline"
       disabled={true}
+      onClick={[Function]}
       type="button"
     >
       Loading...
@@ -104,20 +115,25 @@ Array [
     <thead>
       <tr>
         <th>
-          header 1
+          Receipt Number
         </th>
         <th>
-          header 2
+          Application Reason
         </th>
         <th>
-          header 3
+          Case Status
         </th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          foobar
+          <a
+            href="https://example.com/fak1"
+            target="_elis_viewer"
+          >
+            fak1
+          </a>
         </td>
         <td>
           hello world
@@ -128,7 +144,12 @@ Array [
       </tr>
       <tr>
         <td>
-          foobar2
+          <a
+            href="https://example.com/fak2"
+            target="_elis_viewer"
+          >
+            fak2
+          </a>
         </td>
         <td>
           hello world2
@@ -155,20 +176,25 @@ Array [
     <thead>
       <tr>
         <th>
-          header 1
+          Receipt Number
         </th>
         <th>
-          header 2
+          Application Reason
         </th>
         <th>
-          header 3
+          Case Status
         </th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          foobar
+          <a
+            href="https://example.com/FAK1"
+            target="_elis_viewer"
+          >
+            FAK1
+          </a>
         </td>
         <td>
           Hello world
@@ -179,7 +205,12 @@ Array [
       </tr>
       <tr>
         <td>
-          foobar2
+          <a
+            href="https://example.com/FAK2"
+            target="_elis_viewer"
+          >
+            FAK2
+          </a>
         </td>
         <td>
           Hello world2
@@ -196,6 +227,7 @@ Array [
     <button
       className="usa-button usa-button--outline"
       disabled={false}
+      onClick={[Function]}
       type="button"
     >
       Show More
@@ -410,6 +442,14 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         >
           Update
         </button>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          End
+        </button>
       </td>
     </tr>
     <tr>
@@ -471,6 +511,14 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
           type="button"
         >
           Update
+        </button>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          End
         </button>
       </td>
     </tr>
@@ -544,6 +592,14 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
           type="button"
         >
           Update
+        </button>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          End
         </button>
       </td>
     </tr>
@@ -1057,6 +1113,14 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
         >
           Update
         </button>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          End
+        </button>
       </td>
     </tr>
     <tr>
@@ -1118,6 +1182,14 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
           type="button"
         >
           Update
+        </button>
+        <button
+          className="usa-button usa-button--secondary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          End
         </button>
       </td>
     </tr>

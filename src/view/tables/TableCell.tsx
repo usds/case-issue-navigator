@@ -11,7 +11,7 @@ const TableCell = (props: Props) => {
   const h = I90_HEADERS[props.header.key];
   return (
     <td className={h.header === "" ? "min" : undefined} key={h.header}>
-      {h.render(props.rowData, props.header.props as any)}
+      {h.render(props.rowData, props.header.props)}
     </td>
   );
 };

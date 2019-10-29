@@ -15,13 +15,7 @@ const ReceiptDisplayRow = (props: Props) => {
     <React.Fragment>
       <tr className={data.showDetails ? "row--show-details" : undefined}>
         {headers.map((header, i) => {
-          return (
-            <TableCell
-              key={`${data.extraData.caseId}-${i}`}
-              rowData={data}
-              header={header}
-            />
-          );
+          return <TableCell key={i} rowData={data} header={header} />;
         })}
       </tr>
       {data.showDetails && (

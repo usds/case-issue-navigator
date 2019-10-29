@@ -1,9 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { VIEWS, I90_HEADERS } from "../controller/config";
 import ReceiptList from "../view/tables/ReceiptList";
-import { getHeaders } from "../view/util/getHeaders";
 
 const sampleCases = [
   {
@@ -42,46 +40,60 @@ const snoozeInformation = {
   snoozeStart: "2019-08-05T18:33:08.063408-04:00"
 };
 
-const modifiedHeaders = I90_HEADERS.filter(
-  header => header.field !== "caseCreation"
-);
+const headers = [
+  { key: "showDetails", props: { toggleDetails: action("details clicked!") } },
+  { key: "receiptNumber" },
+  { key: "applicationReason" },
+  { key: "caseStatus" },
+  { key: "caseSubstatus" },
+  { key: "platform" },
+  { key: "assigned" },
+  {
+    key: "actions",
+    props: {
+      updateSummaryData: () => undefined,
+      setError: () => undefined,
+      setNotification: () => undefined,
+      removeCase: action("show actions clicked!")
+    }
+  }
+];
+
+const snoozedHeaders = [
+  { key: "showDetails", props: { toggleDetails: action("details clicked!") } },
+  { key: "receiptNumber" },
+  { key: "applicationReason" },
+  { key: "platform" },
+  { key: "problem" },
+  { key: "snoozed" },
+  { key: "assigned" },
+  { key: "SNTicket" },
+  {
+    key: "snoozeActions",
+    props: {
+      updateSummaryData: () => undefined,
+      setError: () => undefined,
+      setNotification: () => undefined,
+      onSnoozeUpdate: () => undefined,
+      removeCase: () => undefined
+    }
+  }
+];
 
 storiesOf("ReceiptList", module)
   .add("Empty Receipt List", () => (
-    <ReceiptList
-      cases={[]}
-      headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
-      callback={{
-        snoozeUpdate: action("show actions clicked!"),
-        details: action("details clicked!")
-      }}
-      isLoading={false}
-    />
+    <ReceiptList cases={[]} headers={headers} isLoading={false} />
   ))
   .add("Tabular Cases-to-Work List with some items", () => (
-    <ReceiptList
-      view={VIEWS.CASES_TO_WORK.TITLE}
-      cases={sampleCases}
-      callback={{
-        snoozeUpdate: action("show actions clicked!"),
-        details: action("details clicked!")
-      }}
-      headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
-      isLoading={false}
-    />
+    <ReceiptList cases={sampleCases} headers={headers} isLoading={false} />
   ))
   .add("Tabular Snoozed Case List with some items", () => (
     <ReceiptList
-      view={VIEWS.SNOOZED_CASES.TITLE}
       cases={sampleCases.map(sample => ({
         ...sample,
         snoozeInformation
       }))}
-      callback={{
-        snoozeUpdate: action("show actions clicked!"),
-        details: action("details clicked!")
-      }}
-      headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
+      headers={snoozedHeaders}
       isLoading={false}
     />
   ))
@@ -115,16 +127,11 @@ storiesOf("ReceiptList", module)
 
     return (
       <ReceiptList
-        view={VIEWS.SNOOZED_CASES.TITLE}
         cases={modifiedSampleCases.map(sample => ({
           ...sample,
           snoozeInformation
         }))}
-        callback={{
-          snoozeUpdate: action("show actions clicked!"),
-          details: action("details clicked!")
-        }}
-        headers={getHeaders(modifiedHeaders, VIEWS.SNOOZED_CASES.TITLE)}
+        headers={snoozedHeaders}
         isLoading={false}
       />
     );
@@ -139,13 +146,8 @@ storiesOf("ReceiptList", module)
 
     return (
       <ReceiptList
-        view={VIEWS.CASES_TO_WORK.TITLE}
         cases={modifiedSampleCases}
-        callback={{
-          snoozeUpdate: action("show actions clicked!"),
-          details: action("details clicked!")
-        }}
-        headers={getHeaders(modifiedHeaders, VIEWS.CASES_TO_WORK.TITLE)}
+        headers={headers}
         isLoading={false}
       />
     );
