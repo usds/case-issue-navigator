@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DeSnoozeForm from "../../controller/DeSnoozeForm";
-import { VIEWS, I90_HEADERS } from "../../controller/config";
-import { getHeaders } from "../util/getHeaders";
 import { CaseList } from "./CaseList";
-import { formatNotes } from "../util/formatNotes";
 import RestAPIClient from "../../api/RestAPIClient";
-import { trackEvent } from "../../matomo-setup";
-import { ActionModal } from "../util/ActionModal";
 
 interface Props {
   updateSummaryData: () => void;
@@ -18,11 +12,6 @@ interface Props {
 const SnoozedCaseList = (props: Props) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dialog, setDialog] = useState({
-    show: false,
-    title: ""
-  });
-  const [clickedRow, setClickedRow] = useState<Case>();
 
   const { setNotification, setError, summary } = props;
 
@@ -30,98 +19,52 @@ const SnoozedCaseList = (props: Props) => {
     loadMoreCases();
   }, []);
 
-  const reSnooze = async (
+  const onSnoozeUpdate = (
     receiptNumber: string,
-    snoozeOption: CallbackState
+    newNotes: DBNote[],
+    snoozeInformation: SnoozeInformation
   ) => {
-    const notes = formatNotes(snoozeOption);
-    const response = await RestAPIClient.caseDetails.updateActiveSnooze(
-      receiptNumber,
-      {
-        duration: snoozeOption.duration,
-        reason: snoozeOption.snoozeReason,
-        notes
-      }
-    );
-
-    if (response.succeeded) {
-      setNotification({
-        message: `${receiptNumber} has been Snoozed for ${
-          snoozeOption.duration
-        } day${snoozeOption.duration !== 1 ? "s" : ""} due to ${
-          snoozeOption.snoozeReason
-        }.`,
-        type: "success"
+    const snoozedCases = cases
+      .map(snoozedCase => {
+        if (snoozedCase.receiptNumber === receiptNumber) {
+          const notes = snoozedCase.notes
+            ? snoozedCase.notes.concat(newNotes)
+            : newNotes;
+          return {
+            ...snoozedCase,
+            snoozeInformation: snoozeInformation,
+            notes
+          };
+        }
+        return snoozedCase;
+      })
+      .sort((a, b) => {
+        return (
+          new Date(
+            (a.snoozeInformation as SnoozeInformation).snoozeEnd
+          ).getTime() -
+          new Date().getTime() -
+          (new Date(
+            (b.snoozeInformation as SnoozeInformation).snoozeEnd
+          ).getTime() -
+            new Date().getTime())
+        );
       });
-      trackEvent("snooze", "reSnooze", snoozeOption.snoozeReason);
-      const snoozedCases = cases
-        .map(snoozedCase => {
-          if (snoozedCase.receiptNumber === receiptNumber) {
-            const notes = snoozedCase.notes
-              ? snoozedCase.notes.concat(response.payload.notes)
-              : response.payload.notes;
-            return {
-              ...snoozedCase,
-              snoozeInformation: response.payload,
-              notes
-            };
-          }
-          return snoozedCase;
-        })
-        .sort((a, b) => {
-          return (
-            new Date(
-              (a.snoozeInformation as SnoozeInformation).snoozeEnd
-            ).getTime() -
-            new Date().getTime() -
-            (new Date(
-              (b.snoozeInformation as SnoozeInformation).snoozeEnd
-            ).getTime() -
-              new Date().getTime())
-          );
-        });
 
-      if (
-        snoozedCases[snoozedCases.length - 1].receiptNumber === receiptNumber &&
-        snoozedCases.length < summary["SNOOZED_CASES"]
-      ) {
-        snoozedCases.pop();
-      }
-
-      return setCases(snoozedCases);
+    if (
+      snoozedCases[snoozedCases.length - 1].receiptNumber === receiptNumber &&
+      snoozedCases.length < summary["SNOOZED_CASES"]
+    ) {
+      snoozedCases.pop();
     }
 
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
+    setCases(snoozedCases);
   };
 
-  const deSnooze = async (receiptNumber: string) => {
-    const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
-      receiptNumber
+  const removeCase = (receiptNumber: string) => {
+    setCases(
+      cases.filter(snoozedCase => snoozedCase.receiptNumber !== receiptNumber)
     );
-
-    if (response.succeeded) {
-      props.updateSummaryData();
-      setCases(
-        cases.filter(snoozedCase => snoozedCase.receiptNumber !== receiptNumber)
-      );
-      trackEvent("snooze", "deSnooze", "desnoozed");
-      return setNotification({
-        message: `${receiptNumber} has been Unsnoozed.`,
-        type: "info"
-      });
-    }
-
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
   };
 
   const toggleDetails = (receiptNumber: string) => {
@@ -158,27 +101,8 @@ const SnoozedCaseList = (props: Props) => {
     }
   };
 
-  const openModal = (rowData: Case) => {
-    setClickedRow(rowData);
-    setDialog({ show: true, title: rowData.receiptNumber });
-  };
-
-  const closeModal = () => setDialog({ show: false, title: "" });
-
   return (
     <React.Fragment>
-      <ActionModal
-        isOpen={dialog.show}
-        title={dialog.title}
-        closeModal={closeModal}
-      >
-        <DeSnoozeForm
-          deSnooze={deSnooze}
-          reSnooze={reSnooze}
-          closeDialog={closeModal}
-          rowData={clickedRow}
-        />
-      </ActionModal>
       <CaseList
         cases={cases}
         headers={[
@@ -191,7 +115,16 @@ const SnoozedCaseList = (props: Props) => {
           { key: "snoozed" },
           { key: "assigned" },
           { key: "SNTicket" },
-          { key: "snoozeActions", props: { details: openModal } }
+          {
+            key: "snoozeActions",
+            props: {
+              updateSummaryData: props.updateSummaryData,
+              setError,
+              setNotification,
+              onSnoozeUpdate,
+              removeCase
+            }
+          }
         ]}
         isLoading={isLoading}
         totalCases={summary.SNOOZED_CASES}
