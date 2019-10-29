@@ -1,5 +1,6 @@
 import Piwik from "react-piwik";
-import { IS_TEST_ENV } from "./controller/config";
+
+const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 const matomo =
   !IS_TEST_ENV &&
