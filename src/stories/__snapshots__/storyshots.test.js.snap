@@ -291,15 +291,15 @@ exports[`Storyshots DetailNoteDisplay General comment 1`] = `"This is a general 
 
 exports[`Storyshots DetailNoteDisplay Trouble ticket 1`] = `
 Array [
-  "ServiceNow ticket ",
+  "ServiceNow ticket",
+  " ",
   <a
     href="http://localhost:1111/12345"
   >
     #
     12345
   </a>,
-  " ",
-  "was associated with this case.",
+  " was associated with this case.",
 ]
 `;
 
@@ -431,7 +431,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td />
       <td>
         <button
@@ -501,7 +503,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td />
       <td>
         <button
@@ -573,7 +577,9 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td>
         <a
           href="http://localhost:1111/12345"
@@ -615,6 +621,14 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
         <h3>
           Case Details
         </h3>
+        <button
+          className="usa-button usa-button--outline"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Add Note
+        </button>
         <p>
           No case details.
         </p>
@@ -735,7 +749,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         Legacy
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -796,7 +812,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items 1`] =
       <td>
         SP
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -917,7 +935,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items; bool
       <td>
         Legacy
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -972,7 +992,9 @@ exports[`Storyshots ReceiptList Tabular Cases-to-Work List with some items; bool
       <td>
         SP
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -1102,7 +1124,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td />
       <td>
         <button
@@ -1172,7 +1196,9 @@ exports[`Storyshots ReceiptList Tabular Snoozed Case List with some items 1`] = 
       <td>
         1 day
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td />
       <td>
         <button
@@ -1252,6 +1278,11 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     >
       Referral to BCU or CFDO
     </option>
+    <option
+      value="record_analysis"
+    >
+      Needs record analysis to review
+    </option>
   </select>
   <label
     className="usa-label"
@@ -1269,22 +1300,21 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     type="number"
     value={365}
   />
-  <label
-    className="usa-label"
-    htmlFor="caseIssueNotes"
-  >
-    Case Issue Notes
-  </label>
-  <textarea
-    className="usa-textarea"
-    id="caseIssueNotes"
-    name="caseIssueNotes"
-    onChange={[Function]}
-    value=""
-  />
+  <div>
+    <button
+      className="usa-button usa-button--outline"
+      disabled={false}
+      id="showNoteField"
+      onClick={[Function]}
+      type="button"
+    >
+      Add a note
+    </button>
+  </div>
   <button
     className="usa-button"
     disabled={false}
+    id="SnoozeSumbit"
     onClick={[Function]}
     type="button"
   >

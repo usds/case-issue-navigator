@@ -25,7 +25,7 @@ describe("SnoozeForm", () => {
     const wrapper = mount(
       <SnoozeForm rowData={rowData} snooze={snooze} closeDialog={jest.fn()} />
     );
-    wrapper.find(".usa-button").simulate("click");
+    wrapper.find("#SnoozeSumbit").simulate("click");
     expect(snooze).toBeCalledTimes(1);
   });
   it("should call the closeDialog callback on submit", () => {
@@ -37,7 +37,7 @@ describe("SnoozeForm", () => {
         closeDialog={closeDialog}
       />
     );
-    wrapper.find(".usa-button").simulate("click");
+    wrapper.find("#SnoozeSumbit").simulate("click");
     expect(closeDialog).toBeCalledTimes(1);
   });
   it("should handle snooze reason dropdown changes", () => {
@@ -91,6 +91,7 @@ describe("SnoozeForm", () => {
         value: SNOOZE_OPTIONS_SELECT[1].value
       }
     });
+    wrapper.find("#showNoteField").simulate("click");
     wrapper.find("#caseIssueNotes").simulate("change", {
       target: {
         value: "Some entry"

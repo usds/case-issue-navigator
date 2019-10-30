@@ -3,7 +3,7 @@ import NoteUtils from "../NoteUtils";
 
 describe("NoteUtils", () => {
   it("no notes returns null", () => {
-    expect(NoteUtils.getAssignee([])).toBeNull();
+    expect(NoteUtils.getFollowUp([], "assignee")).toBeNull();
   });
 
   it("no assignee note returns null", () => {
@@ -15,7 +15,7 @@ describe("NoteUtils", () => {
       type: "LINK",
       userId: "42b78e9e-408c-4e32-8fbc-dc4b70ae3718"
     };
-    expect(NoteUtils.getAssignee([])).toBeNull();
+    expect(NoteUtils.getFollowUp([assignee], "assignee")).toBeNull();
   });
 
   it("finds an assignee", () => {
@@ -27,7 +27,9 @@ describe("NoteUtils", () => {
       type: "TAG",
       userId: "28f247e4-a022-454e-acc5-b287aa679b59"
     };
-    expect(NoteUtils.getAssignee([assignee])).toBe("Emma");
+    expect((NoteUtils.getFollowUp([assignee], "assignee") as any).content).toBe(
+      "Emma"
+    );
   });
 
   it("finds the correct assignee", () => {
@@ -47,6 +49,9 @@ describe("NoteUtils", () => {
       type: "TAG",
       userId: "28f247e4-a022-454e-acc5-b287aa679b59"
     };
-    expect(NoteUtils.getAssignee([UpdatedAssignee, assignee])).toBe("Eric");
+    expect(
+      (NoteUtils.getFollowUp([assignee, UpdatedAssignee], "assignee") as any)
+        .content
+    ).toBe("Eric");
   });
 });

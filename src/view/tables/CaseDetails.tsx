@@ -56,7 +56,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
   useEffect(() => {
     setIsLoading(true);
     getCaseDetails();
-  }, [receiptNumber]);
+  }, [props.rowData]);
 
   const detailsSection = () => {
     if (isLoading) {

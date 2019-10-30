@@ -23,7 +23,11 @@ export default function AddNoteInput(props: Props) {
   }
   return (
     <div>
-      <UsaButton onClick={setShowNotes} buttonStyle="outline">
+      <UsaButton
+        buttonId="showNoteField"
+        onClick={setShowNotes}
+        buttonStyle="outline"
+      >
         Add a note
       </UsaButton>
     </div>

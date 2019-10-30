@@ -13,6 +13,8 @@ export default class NoteUtils {
           new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
         );
       });
-    return notesOfSubtype[0];
+
+    const followUp = notesOfSubtype[0];
+    return followUp ? followUp : null;
   }
 }
