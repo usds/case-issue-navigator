@@ -1255,6 +1255,22 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
   </select>
   <label
     className="usa-label"
+    htmlFor="duration"
+  >
+    Snooze Duration (in days)
+  </label>
+  <input
+    className="usa-input"
+    id="duration"
+    max={365}
+    min={1}
+    name="duration"
+    onChange={[Function]}
+    type="number"
+    value={365}
+  />
+  <label
+    className="usa-label"
     htmlFor="caseIssueNotes"
   >
     Case Issue Notes
@@ -1272,7 +1288,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     onClick={[Function]}
     type="button"
   >
-    Snooze for 365 days
+    Snooze
   </button>
 </form>
 `;

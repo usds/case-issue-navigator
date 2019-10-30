@@ -13,35 +13,51 @@ interface State {
   snoozeReason: SnoozeReason;
   followUp: string;
   caseIssueNotes: string;
+  duration: number | undefined;
+  fieldErrors: { [key: string]: string };
 }
 
 class SnoozeForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const selectedOption = SNOOZE_OPTIONS_SELECT[0];
     this.state = {
-      snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+      snoozeReason: selectedOption.value,
       followUp: "",
-      caseIssueNotes: ""
+      caseIssueNotes: "",
+      duration: selectedOption.duration,
+      fieldErrors: {}
     };
   }
 
-  snoozeReasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({ snoozeReason: e.target.value as SnoozeReason });
+  snoozeReasonChange(snoozeReason: SnoozeReason) {
+    const duration = SNOOZE_OPTIONS[snoozeReason].duration;
+    this.setState({ snoozeReason, duration });
   }
 
-  followUpChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ followUp: e.target.value });
+  followUpChange(followUp: string) {
+    this.setState({ followUp });
   }
 
-  caseIssueNotesChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({ caseIssueNotes: e.target.value });
+  caseIssueNotesChange(caseIssueNotes: string) {
+    this.setState({ caseIssueNotes });
   }
 
-  changeHandlers = {
-    snoozeReasonChange: this.snoozeReasonChange.bind(this),
-    followUpChange: this.followUpChange.bind(this),
-    caseIssueNotesChange: this.caseIssueNotesChange.bind(this)
-  };
+  durationChange(duration?: number) {
+    this.setState({ duration });
+  }
+
+  setFieldError(key: string, value: string) {
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+    fieldErrors[key] = value;
+    this.setState({ fieldErrors });
+  }
+
+  deleteFieldError(key: string) {
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+    delete fieldErrors[key];
+    this.setState({ fieldErrors });
+  }
 
   formSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -49,9 +65,19 @@ class SnoozeForm extends Component<Props, State> {
       console.error("snooze form submited with out case data");
       return;
     }
+    const duration = this.state.duration;
+    if (duration === undefined) {
+      return;
+    }
+    const fieldErrors = Object.values(this.state.fieldErrors);
+    if (fieldErrors.length > 0) {
+      return;
+    }
     this.props.snooze(this.props.rowData.receiptNumber, {
-      ...this.state,
-      duration: this.getSelectedOption().duration
+      duration,
+      snoozeReason: this.state.snoozeReason,
+      followUp: this.state.followUp,
+      caseIssueNotes: this.state.caseIssueNotes
     });
 
     this.props.closeDialog();
@@ -95,20 +121,21 @@ class SnoozeForm extends Component<Props, State> {
   }
 
   render() {
-    const selectedOption = this.getSelectedOption();
-    const duration = selectedOption.duration;
-    const buttonText =
-      "Snooze for " + duration + " day" + (duration === 1 ? "" : "s");
     return (
       <form className="usa-form">
         {this.deSnoozeCheck()}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
-          changeHandlers={this.changeHandlers}
-          inputState={this.state}
+          snoozeReasonChange={this.snoozeReasonChange.bind(this)}
+          followUpChange={this.followUpChange.bind(this)}
+          caseIssueNotesChange={this.caseIssueNotesChange.bind(this)}
+          durationChange={this.durationChange.bind(this)}
+          setError={this.setFieldError.bind(this)}
+          deleteError={this.deleteFieldError.bind(this)}
+          {...this.state}
         />
-        <UsaButton onClick={this.formSubmit.bind(this)}>{buttonText}</UsaButton>
+        <UsaButton onClick={this.formSubmit.bind(this)}>Snooze</UsaButton>
       </form>
     );
   }

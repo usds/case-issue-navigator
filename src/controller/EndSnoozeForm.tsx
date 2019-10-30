@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import SnoozeForm from "./SnoozeForm";
-import { formatNotes } from "../view/util/formatNotes";
-import RestAPIClient from "../api/RestAPIClient";
-import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 
