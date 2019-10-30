@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronToggle } from "../view/util/ChevronToggle";
 import NoteUtils from "../utils/NoteUtils";
+import DateUtils from "../utils/DateUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTooltip from "react-tooltip";
 import { SnoozeFormWrapper } from "./SnoozeFormWrapper";
@@ -128,10 +129,7 @@ const I90_HEADERS = {
   caseAge: {
     header: "Case Age",
     render: (rowData: Case) => {
-      const d = rowData.caseCreation;
-      const days = Math.ceil(
-        (new Date().valueOf() - new Date(d).valueOf()) / 86400000
-      );
+      const days = DateUtils.numberOfDaysSince(rowData.caseCreation);
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     }
@@ -172,7 +170,6 @@ const I90_HEADERS = {
     header: "Platform",
     render: (rowData: Case) =>
       String(rowData.extraData.i90SP) === "true" ? "SP" : "Legacy"
-    //views: ["Cases to Work", "Snoozed Cases"]
   },
   problem: {
     header: "Problem",
@@ -197,9 +194,7 @@ const I90_HEADERS = {
         console.error("Snooze information not found");
         return;
       }
-      const days = Math.ceil(
-        (new Date(snoozeEnd).valueOf() - new Date().valueOf()) / 86400000
-      );
+      const days = DateUtils.numberOfDaysUntil(snoozeEnd);
       const plural = days === 1 ? "" : "s";
       return `${days} day${plural}`;
     }
