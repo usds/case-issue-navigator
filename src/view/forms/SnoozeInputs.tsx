@@ -2,7 +2,7 @@ import React from "react";
 import UsaSelect from "./UsaSelect";
 import UsaTextInput from "./UsaTextInput";
 import UsaNumberInput from "./UsaNumberInput";
-import UsaTextArea from "./UsaTextArea";
+import AddNoteInput from "./AddNoteInput";
 
 interface Props {
   options: SnoozeOptionValue[];
@@ -17,10 +17,6 @@ interface Props {
   caseIssueNotes: string;
   duration: number | undefined;
 }
-
-SnoozeInputs.defaultProps = {
-  prefix: "snooze"
-};
 
 export default function SnoozeInputs(props: Props) {
   const followUpFragment = () => {
@@ -62,9 +58,7 @@ export default function SnoozeInputs(props: Props) {
         deleteError={props.deleteError}
         requiredText="Enter a number of days to snooze"
       />
-      <UsaTextArea
-        label="Case Issue Notes"
-        name="caseIssueNotes"
+      <AddNoteInput
         onChange={props.caseIssueNotesChange}
         value={props.caseIssueNotes}
       />
