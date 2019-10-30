@@ -55,6 +55,13 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     duration: 30,
     type: "TAG",
     subType: "referral"
+  },
+  record_analysis: {
+    snoozeReason: "Needs record analysis to review",
+    shortText: "Record Analysis",
+    duration: 7,
+    type: null,
+    subType: null
   }
 };
 
