@@ -2,6 +2,7 @@ import React from "react";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
+import SnoozeUtils from "../utils/DateUtils";
 
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
@@ -15,40 +16,71 @@ interface State {
   snoozeReason: SnoozeReason;
   followUp: string;
   caseIssueNotes: string;
+  duration: number | undefined;
+  fieldErrors: { [key: string]: string };
 }
 
 class UpdateSnoozeForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const snoozeReason =
-      props.rowData && props.rowData.snoozeInformation
-        ? props.rowData.snoozeInformation.snoozeReason
-        : SNOOZE_OPTIONS_SELECT[0].value;
     this.state = {
-      snoozeReason,
       followUp: UpdateSnoozeForm.getFollowUp(props.rowData),
-      caseIssueNotes: ""
+      caseIssueNotes: "",
+      ...UpdateSnoozeForm.snoozeInformation(props.rowData),
+      fieldErrors: {}
     };
   }
 
-  static getFollowUp(troubleCase?: Case): string {
-    if (!troubleCase) {
+  static snoozeInformation(rowData?: Case) {
+    if (rowData && rowData.snoozeInformation) {
+      return {
+        snoozeReason: rowData.snoozeInformation.snoozeReason,
+        duration: SnoozeUtils.numberOfDaysUntil(
+          rowData.snoozeInformation.snoozeEnd
+        )
+      };
+    }
+    return {
+      snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+      duration: SNOOZE_OPTIONS_SELECT[0].duration
+    };
+  }
+
+  static getFollowUp(rowData?: Case): string {
+    if (!rowData) {
       return "";
     }
-    const assignee = NoteUtils.getAssignee(troubleCase.notes);
+    const assignee = NoteUtils.getAssignee(rowData.notes);
     return assignee ? assignee : "";
   }
 
-  snoozeReasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({ snoozeReason: e.target.value as SnoozeReason });
+  snoozeReasonChange(snoozeReason: SnoozeReason) {
+    const duration = SNOOZE_OPTIONS[snoozeReason].duration;
+    this.setState({ snoozeReason, duration });
   }
 
-  followUpChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ followUp: e.target.value });
+  followUpChange(followUp: string) {
+    this.setState({ followUp });
   }
 
-  caseIssueNotesChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({ caseIssueNotes: e.target.value });
+  caseIssueNotesChange(caseIssueNotes: string) {
+    this.setState({ caseIssueNotes });
+  }
+
+  durationChange(duration?: number) {
+    this.setState({ duration });
+  }
+
+  setFieldError(key: string, value: string) {
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+    fieldErrors[key] = value;
+    this.setState({ fieldErrors });
+  }
+
+  deleteFieldError(key: string) {
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+    delete fieldErrors[key];
+    this.setState({ fieldErrors });
   }
 
   getSelectedOption(): SnoozeOptionValue {
@@ -65,9 +97,17 @@ class UpdateSnoozeForm extends React.Component<Props, State> {
       console.error("resnooze called with out a vaild snooze option selected");
       return;
     }
+    const duration = this.state.duration;
+    if (duration === undefined) {
+      return;
+    }
+    const fieldErrors = Object.values(this.state.fieldErrors);
+    if (fieldErrors.length > 0) {
+      return;
+    }
     this.props.reSnooze(this.props.rowData.receiptNumber, {
       ...this.state,
-      duration: snoozeOption.duration
+      duration: duration
     });
     this.props.closeDialog();
   }
@@ -80,12 +120,13 @@ class UpdateSnoozeForm extends React.Component<Props, State> {
           <SnoozeInputs
             options={SNOOZE_OPTIONS_SELECT}
             selectedOption={this.getSelectedOption()}
-            changeHandlers={{
-              snoozeReasonChange: this.snoozeReasonChange.bind(this),
-              followUpChange: this.followUpChange.bind(this),
-              caseIssueNotesChange: this.caseIssueNotesChange.bind(this)
-            }}
-            inputState={this.state}
+            snoozeReasonChange={this.snoozeReasonChange.bind(this)}
+            followUpChange={this.followUpChange.bind(this)}
+            caseIssueNotesChange={this.caseIssueNotesChange.bind(this)}
+            durationChange={this.durationChange.bind(this)}
+            setError={this.setFieldError.bind(this)}
+            deleteError={this.deleteFieldError.bind(this)}
+            {...this.state}
           />
           <UsaButton onClick={this.reSnooze.bind(this)}>Save Snooze</UsaButton>
         </div>

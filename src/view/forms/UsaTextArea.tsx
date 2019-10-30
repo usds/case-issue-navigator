@@ -5,7 +5,7 @@ interface UsaTextAreaProps {
   label: string;
   name: string;
   value: string;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (value: string) => void;
 }
 
 const UsaTextArea: React.FunctionComponent<UsaTextAreaProps> = props => {
@@ -15,11 +15,16 @@ const UsaTextArea: React.FunctionComponent<UsaTextAreaProps> = props => {
       {props.label}
     </label>
   );
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    props.onChange(e.target.value);
+  };
+
   return (
     <Fragment>
       {label}
       <textarea
-        onChange={props.onChange}
+        onChange={onChange}
         className="usa-textarea"
         id={elementId}
         name={props.name}

@@ -4,7 +4,7 @@ interface Props {
   name: string;
   id?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   label?: string;
 }
 
@@ -15,11 +15,16 @@ export default function UsaTextInput(props: Props) {
       {props.label}
     </label>
   );
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.onChange(e.target.value);
+  };
+
   return (
     <Fragment>
       {label}
       <input
-        onChange={props.onChange}
+        onChange={onChange}
         className="usa-input"
         type="text"
         id={elementId}

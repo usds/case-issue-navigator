@@ -1,18 +1,21 @@
 import React from "react";
 import UsaSelect from "./UsaSelect";
 import UsaTextInput from "./UsaTextInput";
+import UsaNumberInput from "./UsaNumberInput";
 import UsaTextArea from "./UsaTextArea";
 
 interface Props {
-  followUp?: string;
   options: SnoozeOptionValue[];
   selectedOption: SnoozeOptionValue;
-  changeHandlers: {
-    followUpChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    snoozeReasonChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    caseIssueNotesChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  };
-  inputState: { [key: string]: string };
+  followUpChange: (value: string) => void;
+  snoozeReasonChange: (value: SnoozeReason) => void;
+  caseIssueNotesChange: (value: string) => void;
+  durationChange: (value?: number) => void;
+  setError: (key: string, value: string) => void;
+  deleteError: (key: string) => void;
+  followUp: string;
+  caseIssueNotes: string;
+  duration: number | undefined;
 }
 
 SnoozeInputs.defaultProps = {
@@ -20,21 +23,15 @@ SnoozeInputs.defaultProps = {
 };
 
 export default function SnoozeInputs(props: Props) {
-  const inputNames = {
-    select: "snoozeReason",
-    followUp: "snoozeFollowUp",
-    caseIssueNotes: "caseIssueNotes"
-  };
-
   const followUpFragment = () => {
     if (!props.selectedOption.followUp) {
       return null;
     }
     return (
       <UsaTextInput
-        onChange={props.changeHandlers.followUpChange}
+        onChange={props.followUpChange}
         name="followUp"
-        value={props.inputState.followUp}
+        value={props.followUp}
         label={props.selectedOption.followUp}
       />
     );
@@ -48,17 +45,28 @@ export default function SnoozeInputs(props: Props) {
           text: opt.snoozeReason
         }))}
         placeholder="- Select Reason -"
-        name={inputNames.select}
+        name="snoozeReason"
         selected={props.selectedOption.value}
-        onChange={props.changeHandlers.snoozeReasonChange}
+        onChange={props.snoozeReasonChange}
         label="Reason to snooze this case:"
       />
       {followUpFragment()}
+      <UsaNumberInput
+        onChange={props.durationChange}
+        name="duration"
+        value={props.duration}
+        label="Snooze Duration (in days)"
+        min={1}
+        max={365}
+        setError={props.setError}
+        deleteError={props.deleteError}
+        requiredText="Enter a number of days to snooze"
+      />
       <UsaTextArea
         label="Case Issue Notes"
-        name={inputNames.caseIssueNotes}
-        onChange={props.changeHandlers.caseIssueNotesChange}
-        value={props.inputState.caseIssueNotes}
+        name="caseIssueNotes"
+        onChange={props.caseIssueNotesChange}
+        value={props.caseIssueNotes}
       />
     </React.Fragment>
   );
