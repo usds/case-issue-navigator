@@ -135,7 +135,9 @@ class SnoozeForm extends Component<Props, State> {
           deleteError={this.deleteFieldError.bind(this)}
           {...this.state}
         />
-        <UsaButton onClick={this.formSubmit.bind(this)}>Snooze</UsaButton>
+        <UsaButton buttonId="SnoozeSumbit" onClick={this.formSubmit.bind(this)}>
+          Snooze
+        </UsaButton>
       </form>
     );
   }

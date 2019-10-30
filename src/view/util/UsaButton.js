@@ -23,6 +23,7 @@ export default function UsaButton(props) {
       onClick={props.onClick}
       disabled={props.disabled}
       type={props.type}
+      id={props.buttonId}
     >
       {props.children}
     </button>
@@ -34,7 +35,8 @@ UsaButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
-  children: PropTypes.any
+  children: PropTypes.any,
+  buttonId: PropTypes.string
 };
 
 UsaButton.defaultProps = {

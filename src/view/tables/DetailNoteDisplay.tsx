@@ -26,18 +26,20 @@ const DetailNoteDisplay: React.FunctionComponent<
     case "assignee":
       return (
         <React.Fragment>
-          {caseDetail.content} was assigned to follow-up on this case.
+          {`${caseDetail.content} was assigned to follow-up on this case.`}
         </React.Fragment>
       );
     case "fieldoffice":
       return (
         <React.Fragment>
-          Stuck at Field Office: {caseDetail.content}
+          {`Stuck at Field Office: ${caseDetail.content}`}
         </React.Fragment>
       );
     case "referral":
       return (
-        <React.Fragment>Referred beacause: {caseDetail.content}</React.Fragment>
+        <React.Fragment>
+          {`Referred beacause: ${caseDetail.content}`}
+        </React.Fragment>
       );
   }
   return (
