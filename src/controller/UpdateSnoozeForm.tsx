@@ -46,12 +46,32 @@ class UpdateSnoozeForm extends React.Component<Props, State> {
     };
   }
 
+  static getSubtype(snoozeReason: SnoozeReason): SubType | null {
+    switch (snoozeReason) {
+      case "assigned_case":
+        return "assignee";
+      case "technical_issue":
+        return "troubleticket";
+      case "fo_referral":
+        return "fieldoffice";
+      case "bcu":
+        return "referral";
+    }
+    return null;
+  }
+
   static getFollowUp(rowData?: Case): string {
-    if (!rowData) {
+    if (!rowData || !rowData.snoozeInformation) {
       return "";
     }
-    const assignee = NoteUtils.getAssignee(rowData.notes);
-    return assignee ? assignee : "";
+    const subtype = UpdateSnoozeForm.getSubtype(
+      rowData.snoozeInformation.snoozeReason
+    );
+    if (subtype === null) {
+      return "";
+    }
+    const followUp = NoteUtils.getFollowUp(rowData.notes, subtype);
+    return followUp ? followUp.content : "";
   }
 
   snoozeReasonChange(snoozeReason: SnoozeReason) {
