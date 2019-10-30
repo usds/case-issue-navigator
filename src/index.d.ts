@@ -14,7 +14,7 @@ type MatomoTrackEvent = (
 
 type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
-type SubType = "troubleticket" | "assignee";
+type SubType = "troubleticket" | "assignee" | "fieldoffice" | "referral";
 
 interface Views {
   CASES_TO_WORK: {

@@ -10,9 +10,9 @@ interface CaseDetailListProps {
 const CaseDetailList: React.FC<CaseDetailListProps> = props => {
   return (
     <div className="grid-container case-detail-list">
-      {props.caseDetails.map(caseDetail => {
+      {props.caseDetails.map((caseDetail, index) => {
         return (
-          <div className="grid-row">
+          <div className="grid-row" key={index}>
             <div className="grid-col-auto case-detail-date">
               {caseDetail.date.toLocaleString("en-US", {
                 month: "numeric",

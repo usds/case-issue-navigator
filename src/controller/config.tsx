@@ -37,8 +37,8 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     shortText: "Stuck at Field Office",
     followUp: "Enter Field Office location code:",
     duration: 5,
-    type: "COMMENT",
-    subType: null
+    type: "TAG",
+    subType: "fieldoffice"
   },
   technical_issue: {
     snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
@@ -53,8 +53,8 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     shortText: "Referral",
     followUp: "Reason for referral",
     duration: 30,
-    type: "COMMENT",
-    subType: null
+    type: "TAG",
+    subType: "referral"
   }
 };
 
@@ -201,25 +201,19 @@ const I90_HEADERS = {
   },
   assigned: {
     header: "Assigned",
-    render: (rowData: Case) => NoteUtils.getAssignee(rowData.notes)
+    render: (rowData: Case) => {
+      const assignee = NoteUtils.getFollowUp(rowData.notes, "assignee");
+      return assignee ? assignee.content : "";
+    }
   },
   SNTicket: {
     header: "SN Ticket #",
     render: (rowData: Case) => {
-      if (!rowData.notes) {
+      const ticket = NoteUtils.getFollowUp(rowData.notes, "troubleticket");
+      if (ticket == null) {
         return null;
       }
-      const tickets = rowData.notes
-        .filter(note => note.subType === "troubleticket")
-        .sort((a, b) => {
-          return (
-            new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
-          );
-        });
-      if (tickets.length === 0) {
-        return null;
-      }
-      return tickets.map(ticket => (
+      return (
         <React.Fragment key={ticket.content}>
           <a
             href={ticket.href ? ticket.href : undefined}
@@ -230,7 +224,7 @@ const I90_HEADERS = {
           </a>
           <br />
         </React.Fragment>
-      ));
+      );
     }
   },
   actions: {
