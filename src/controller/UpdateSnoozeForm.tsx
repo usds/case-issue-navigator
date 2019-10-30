@@ -2,7 +2,7 @@ import React from "react";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
-import SnoozeUtils from "../utils/DateUtils";
+import DateUtils from "../utils/DateUtils";
 
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 
@@ -35,7 +35,7 @@ class UpdateSnoozeForm extends React.Component<Props, State> {
     if (rowData && rowData.snoozeInformation) {
       return {
         snoozeReason: rowData.snoozeInformation.snoozeReason,
-        duration: SnoozeUtils.numberOfDaysUntil(
+        duration: DateUtils.numberOfDaysUntil(
           rowData.snoozeInformation.snoozeEnd
         )
       };

@@ -19,10 +19,7 @@ const ReceiptDisplayRow = (props: Props) => {
         })}
       </tr>
       {data.showDetails && (
-        <CaseDetails
-          numberOfColumns={numberOfColumns}
-          receiptNumber={data.receiptNumber}
-        />
+        <CaseDetails numberOfColumns={numberOfColumns} rowData={data} />
       )}
     </React.Fragment>
   );
