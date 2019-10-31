@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import appStatusReducer, { AppStatusAction } from "./modules/appStatus";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   appStatus: appStatusReducer
 });
 

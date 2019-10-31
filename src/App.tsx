@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import "uswds";
 import "./App.css";
@@ -33,7 +33,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
 type AppProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const App: React.FC<AppProps> = ({ setPageTitle, pageTitle }) => {
+export const UnconnectedApp: React.FC<AppProps> = ({
+  setPageTitle,
+  pageTitle
+}) => {
   const setSubtitle = (subtitle: string) => {
     const newPageTitle = `${subtitle} | Case Issue Navigator`;
     if (newPageTitle !== pageTitle) {
@@ -93,4 +96,4 @@ const App: React.FC<AppProps> = ({ setPageTitle, pageTitle }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(UnconnectedApp);
