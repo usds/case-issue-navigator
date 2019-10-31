@@ -3,9 +3,9 @@ import { RootAction } from "../create";
 
 // Actions
 enum AppStatusActionType {
-  SET_PAGE_TITLE = "case-issue-navigator/app-status/SET_PAGE_TITLE",
-  SET_DATA_IS_LOADING = "case-issue-navigator/app-status/SET_DATA_IS_LOADING",
-  SET_DATA_LOAD_ERROR = "case-issue-navigator/app-status/SET_DATA_LOAD_ERROR"
+  SET_PAGE_TITLE = "app-status/SET_PAGE_TITLE",
+  SET_DATA_IS_LOADING = "app-status/SET_DATA_IS_LOADING",
+  SET_DATA_LOAD_ERROR = "app-status/SET_DATA_LOAD_ERROR"
 }
 
 export const appStatusActionCreators = {
