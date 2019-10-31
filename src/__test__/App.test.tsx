@@ -1,9 +1,12 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import { UnconnectedApp } from "../App";
+import App, { UnconnectedApp } from "../App";
 import { MemoryRouter } from "react-router";
 import { Helmet } from "react-helmet";
 import { VIEWS } from "../controller/config";
+import { createStore } from "redux";
+import { rootReducer } from "../redux/create";
+import { Provider } from "react-redux";
 
 describe("App", () => {
   it("should initially render with the correct title", () => {
@@ -38,6 +41,20 @@ describe("App", () => {
       </MemoryRouter>
     );
     expect(setPageTitle).toHaveBeenCalledWith(
+      `${VIEWS.SNOOZED_CASES.TITLE} | Case Issue Navigator`
+    );
+  });
+  it("should connect to the store", () => {
+    const store = createStore(rootReducer);
+    mount(
+      <MemoryRouter initialEntries={["/snoozed-cases"]}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </MemoryRouter>
+    );
+    const helmet = Helmet.peek();
+    expect(helmet.title).toEqual(
       `${VIEWS.SNOOZED_CASES.TITLE} | Case Issue Navigator`
     );
   });
