@@ -4,7 +4,7 @@ import "uswds";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
+import ActiveCaseList from "./view/caselists/ActiveCaseList";
 import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
 import { VIEWS } from "./controller/config";
 import { Layout } from "./view/layout/Layout";
