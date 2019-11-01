@@ -1271,7 +1271,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     <option
       value="technical_issue"
     >
-      Technical Issue - awaiting resolution through ServiceNow
+      Technical Issue
     </option>
     <option
       value="bcu"

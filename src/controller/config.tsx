@@ -41,7 +41,7 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     subType: "fieldoffice"
   },
   technical_issue: {
-    snoozeReason: "Technical Issue - awaiting resolution through ServiceNow",
+    snoozeReason: "Technical Issue",
     shortText: "Technical Issue",
     followUp: "ServiceNow ticket ID:",
     duration: 14,
