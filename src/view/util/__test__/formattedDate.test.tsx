@@ -3,6 +3,12 @@ import { mount } from "enzyme";
 import FormattedDate from "../FormattedDate";
 
 describe("FormattedDate", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => null);
+  });
+  afterEach(() => {
+    (console.error as jest.Mock).mockRestore();
+  });
   it("should return null when a date is missing", () => {
     const wrapper = mount(<FormattedDate label="a" />);
     expect(wrapper.html()).toBe(null);
