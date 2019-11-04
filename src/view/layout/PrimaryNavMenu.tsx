@@ -1,14 +1,26 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import close from "uswds/dist/img/close.svg";
 import "./PrimaryNavMenu.css";
-import { AuthContext } from "../auth/AuthContainer";
+import { RootState } from "../../redux/create";
+import { connect } from "react-redux";
+import { VIEWS } from "../../controller/config";
 
-export default function PrimaryNavMenu(props) {
-  const { name } = useContext(AuthContext);
+const mapStateToProps = (state: RootState) => ({
+  user: state.appStatus.user,
+  summary: state.cases.summary
+});
 
-  const navItems = Object.entries(props.views).map(([key, view]) => (
+type PrimaryNavMenuProps = {
+  views: typeof VIEWS;
+} & ReturnType<typeof mapStateToProps>;
+
+const UnconnectedPrimaryNavMenu: React.FC<PrimaryNavMenuProps> = ({
+  user,
+  views,
+  summary
+}) => {
+  const navItems = Object.entries(views).map(([key, view]) => (
     <li key={view.ROUTE} className="usa-nav__primary-item">
       <NavLink
         to={"/" + view.ROUTE}
@@ -16,7 +28,7 @@ export default function PrimaryNavMenu(props) {
         className={"usa-nav__link"}
         exact={true}
       >
-        {view.TITLE} {props.summary && `(${props.summary[key]})`}
+        {view.TITLE} {summary && `(${summary[key as keyof Summary]})`}
       </NavLink>
     </li>
   ));
@@ -29,7 +41,7 @@ export default function PrimaryNavMenu(props) {
       >
         <div className="usa-navbar">
           <div className="usa-logo" id="extended-logo">
-            <em className="usa-logo__text">{props.title}</em>
+            <em className="usa-logo__text">Case Issue Navigator</em>
           </div>
           <button className="usa-menu-btn">Menu</button>
         </div>
@@ -40,10 +52,10 @@ export default function PrimaryNavMenu(props) {
           <div className="usa-nav__inner">
             <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
           </div>
-          {name && (
+          {user && (
             <div className="usa-nav__secondary margin-bottom-105">
               <ul className="usa-nav__secondary-links">
-                <li className="usa-nav__secondary-item">{name}</li>
+                <li className="usa-nav__secondary-item">{user}</li>
               </ul>
             </div>
           )}
@@ -51,10 +63,6 @@ export default function PrimaryNavMenu(props) {
       </header>
     </React.Fragment>
   );
-}
-
-PrimaryNavMenu.propTypes = {
-  views: PropTypes.objectOf(PropTypes.object).isRequired,
-  summary: PropTypes.objectOf(PropTypes.number),
-  title: PropTypes.string.isRequired
 };
+
+export default connect(mapStateToProps)(UnconnectedPrimaryNavMenu);

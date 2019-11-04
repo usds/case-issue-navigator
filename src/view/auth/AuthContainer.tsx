@@ -1,27 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { AuthForm } from "./AuthForm";
 import { API_BASE_URL } from "../../controller/config";
 import RestAPIClient from "../../api/RestAPIClient";
+import { RootState } from "../../redux/create";
+import { Dispatch, AnyAction, bindActionCreators } from "redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
+import { connect } from "react-redux";
 
-type AuthContext = {
-  loggedIn: boolean;
-  setLoggedIn: React.Dispatch<boolean>;
-  name: string;
-};
+const mapStateToProps = (state: RootState) => ({
+  user: state.appStatus.user
+});
 
-interface AuthContainerProps {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      setUser: appStatusActionCreators.setUser
+    },
+    dispatch
+  );
+
+interface AuthContainerProps extends React.Props<any> {
   defaultLoggedInState: boolean;
 }
 
-export const AuthContext = React.createContext({} as AuthContext);
-
-const AuthContainer: React.FC<AuthContainerProps> = props => {
-  const [loggedIn, setLoggedIn] = useState<boolean>(props.defaultLoggedInState);
-  const [name, setName] = useState<string>("");
-
+const UnconnectedAuthContainer: React.FC<
+  AuthContainerProps &
+    ReturnType<typeof mapStateToProps> &
+    ReturnType<typeof mapDispatchToProps>
+> = ({ children, user, setUser }) => {
   useEffect(() => {
-    if (!loggedIn) {
-      return setName("");
+    if (user) {
+      return;
     }
 
     // Get csrf from server before it's needed
@@ -31,26 +40,25 @@ const AuthContainer: React.FC<AuthContainerProps> = props => {
       try {
         const response = await RestAPIClient.auth.getCurrentUser();
         if (response.succeeded) {
-          setName(response.payload.name);
+          setUser(response.payload.name);
         }
       } catch (err) {
         console.error(err);
       }
     };
     getUser();
-  }, [loggedIn]);
+  }, [user, setUser]);
 
-  return (
-    <AuthContext.Provider value={{ loggedIn, setLoggedIn, name }}>
-      {loggedIn ? (
-        props.children
-      ) : (
-        <AuthForm
-          loginUrl={`${API_BASE_URL}/clientLogin/?redirect=${window.location}`}
-        />
-      )}
-    </AuthContext.Provider>
+  return user ? (
+    <React.Fragment>{children}</React.Fragment>
+  ) : (
+    <AuthForm
+      loginUrl={`${API_BASE_URL}/clientLogin/?redirect=${window.location}`}
+    />
   );
 };
 
-export { AuthContainer };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedAuthContainer);

@@ -14,15 +14,20 @@ export const casesActionCreators = {
     action("cases/TOGGLE_DETAILS", receiptNumber),
   setCaseType: (type: SnoozeState) => action("cases/SET_CASE_TYPE", type),
   setIsLoading: (isLoading: boolean) =>
-    action("cases/SET_IS_LOADING", isLoading)
+    action("cases/SET_IS_LOADING", isLoading),
+  setCaseSummary: (summary: Summary) =>
+    action("cases/SET_CASE_SUMMARY", summary),
+  setLastUpdated: (lastUpdated: string) =>
+    action("cases/SET_LAST_UPDATED", lastUpdated)
 };
 
 export const loadCases = (
   type: SnoozeState,
   lastReceiptNumber?: string
-) => async (dispatch: Dispatch<AnyAction>) => {
+) => async (dispatch: Dispatch<any>) => {
   const { setIsLoading, addCases } = casesActionCreators;
   dispatch(setIsLoading(true));
+  dispatch(getCaseSummary());
   const response =
     type === "active"
       ? await RestAPIClient.cases.getActive(lastReceiptNumber)
@@ -42,6 +47,33 @@ export const loadCases = (
   }
 };
 
+export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {
+  const response = await RestAPIClient.cases.getCaseSummary();
+  const { setCaseSummary, setLastUpdated } = casesActionCreators;
+
+  if (response.succeeded) {
+    const currentlySnoozed = response.payload.CURRENTLY_SNOOZED || 0;
+    const neverSnoozed = response.payload.NEVER_SNOOZED || 0;
+    const previouslySnoozed = response.payload.PREVIOUSLY_SNOOZED || 0;
+    if (response.payload.lastUpdated) {
+      dispatch(setLastUpdated(response.payload.lastUpdated));
+    }
+    return dispatch(
+      setCaseSummary({
+        CASES_TO_WORK: neverSnoozed + previouslySnoozed,
+        SNOOZED_CASES: currentlySnoozed,
+        PREVIOUSLY_SNOOZED: previouslySnoozed
+      })
+    );
+  }
+  if (response.responseReceived) {
+    const errorJson = await response.responseError.getJson();
+    console.error(errorJson);
+  } else {
+    console.error(response);
+  }
+};
+
 type ActionCreator = typeof casesActionCreators;
 
 export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
@@ -51,12 +83,19 @@ export type CasesState = {
   caselist: Case[];
   type: SnoozeState;
   isLoading: boolean;
+  summary: Summary;
+  lastUpdated?: string;
 };
 
 export const initialState: CasesState = {
   caselist: [],
   type: "active",
-  isLoading: false
+  isLoading: false,
+  summary: {
+    CASES_TO_WORK: 0,
+    SNOOZED_CASES: 0,
+    PREVIOUSLY_SNOOZED: 0
+  }
 };
 
 // Reducer
@@ -108,6 +147,10 @@ export default function reducer(
         ...state,
         isLoading: action.payload
       };
+    case "cases/SET_CASE_SUMMARY":
+      return { ...state, summary: action.payload };
+    case "cases/SET_LAST_UPDATED":
+      return { ...state, lastUpdated: action.payload };
     default:
       return state;
   }

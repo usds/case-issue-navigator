@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 import { rootReducer, Store, store } from "../../create";
-import { casesActionCreators, loadCases } from "../cases";
+import { casesActionCreators, loadCases, getCaseSummary } from "../cases";
 
 const initialCases: Case[] = [
   {
@@ -48,7 +48,9 @@ describe("redux - cases", () => {
     clearCases,
     setCaseType,
     toggleDetails,
-    setIsLoading
+    setIsLoading,
+    setCaseSummary,
+    setLastUpdated
   } = casesActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer);
@@ -123,5 +125,44 @@ describe("redux - cases", () => {
     const { dispatch } = testAsyncStore;
     await loadCases("active")(dispatch);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
+  });
+  it("sets the case summary", () => {
+    const { dispatch } = testStore;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    expect(testStore.getState().cases.summary).toBe(summary);
+  });
+  it("sets last updated", () => {
+    const { dispatch } = testStore;
+    dispatch(setLastUpdated("January 20, 2019"));
+    expect(testStore.getState().cases.lastUpdated).toBe("January 20, 2019");
+  });
+  it("asynchronously loads case summary", async () => {
+    const testAsyncStore = store;
+    const expected: Summary = {
+      CASES_TO_WORK: 7,
+      SNOOZED_CASES: 15,
+      PREVIOUSLY_SNOOZED: 5
+    };
+    const response = {
+      CURRENTLY_SNOOZED: 15,
+      NEVER_SNOOZED: 2,
+      PREVIOUSLY_SNOOZED: 5
+    };
+
+    jest.spyOn(testAsyncStore, "dispatch");
+    jest.spyOn(global as any, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => response
+      })
+    );
+    const { dispatch } = testAsyncStore;
+    await getCaseSummary()(dispatch);
+    expect(dispatch).toHaveBeenCalledWith(setCaseSummary(expected));
   });
 });

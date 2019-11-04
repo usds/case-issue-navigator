@@ -7,7 +7,10 @@ describe("redux - appStatus", () => {
   const {
     setPageTitle,
     setDataIsLoading,
-    setDataLoadError
+    setDataLoadError,
+    setNotification,
+    setUser,
+    clearUser
   } = appStatusActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer);
@@ -31,5 +34,27 @@ describe("redux - appStatus", () => {
     expect(testStore.getState().appStatus.dataFetching.error).toBe(error);
     dispatch(setDataLoadError(null));
     expect(testStore.getState().appStatus.dataFetching.error).toBe(null);
+  });
+  it("sets a notification", () => {
+    const { dispatch } = testStore;
+    const notification: AppNotification = {
+      type: "info",
+      message: "this is a message"
+    };
+    dispatch(setNotification(notification));
+    expect(testStore.getState().appStatus.notification).toBe(notification);
+  });
+  it("sets a user", () => {
+    const { dispatch } = testStore;
+    const user = "John Doe";
+    dispatch(setUser(user));
+    expect(testStore.getState().appStatus.user).toBe(user);
+  });
+  it("clears a user", () => {
+    const { dispatch } = testStore;
+    const user = "John Doe";
+    dispatch(setUser(user));
+    dispatch(clearUser());
+    expect(testStore.getState().appStatus.user).toBe(undefined);
   });
 });

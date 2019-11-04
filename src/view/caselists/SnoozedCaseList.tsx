@@ -3,11 +3,17 @@ import { CaseList } from "./CaseList";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
-import { casesActionCreators, loadCases } from "../../redux/modules/cases";
+import {
+  casesActionCreators,
+  loadCases,
+  getCaseSummary
+} from "../../redux/modules/cases";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
-  isLoading: state.cases.isLoading
+  isLoading: state.cases.isLoading,
+  summary: state.cases.summary
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -17,17 +23,15 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       toggleDetails: casesActionCreators.toggleDetails,
       loadCases: loadCases,
       setCases: casesActionCreators.setCases,
-      setCaseType: casesActionCreators.setCaseType
+      setCaseType: casesActionCreators.setCaseType,
+      setNotification: appStatusActionCreators.setNotification,
+      setError: appStatusActionCreators.setDataLoadError,
+      getSummary: getCaseSummary
     },
     dispatch
   );
 
-type Props = {
-  updateSummaryData: () => void;
-  setError: React.Dispatch<APIError>;
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
-  summary: Summary;
-} & ReturnType<typeof mapStateToProps> &
+type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const UnconnectedSnoozedCaseList = (props: Props) => {
@@ -41,7 +45,8 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     removeCase,
     toggleDetails,
     setCases,
-    setCaseType
+    setCaseType,
+    getSummary
   } = props;
 
   useEffect(() => {
@@ -116,7 +121,7 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
           {
             key: "snoozeActions",
             props: {
-              updateSummaryData: props.updateSummaryData,
+              updateSummaryData: getSummary,
               setError,
               setNotification,
               onSnoozeUpdate,

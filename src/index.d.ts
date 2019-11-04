@@ -113,10 +113,10 @@ interface SNTicket {
 }
 
 interface ActionsProps {
-  updateSummaryData: () => void;
-  setError: React.Dispatch<APIError>;
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
-  removeCase: (receiptNumber: string) => void;
+  updateSummaryData: () => Dispatch<AnyAction>;
+  setError: Dispatch<APIError>;
+  setNotification: Dispatch<AnyAction>;
+  removeCase: (receiptNumber: string) => Dispatch<AnyAction>;
 }
 
 interface Actions {
@@ -126,8 +126,8 @@ interface Actions {
 
 interface SnoozeActionsProps {
   updateSummaryData: () => void;
-  setError: React.Dispatch<APIError>;
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
+  setError: Dispatch<APIError>;
+  setNotification: Dispatch<React.SetStateAction<AppNotification>>;
   onSnoozeUpdate: (
     receiptNumber: string,
     notes: DBNote[],

@@ -1,21 +1,41 @@
-import React, { useEffect, useContext } from "react";
-import { AuthContext } from "../auth/AuthContainer";
+import React, { useEffect } from "react";
+import { RootState } from "../../redux/create";
+import { Dispatch, AnyAction, bindActionCreators } from "redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
+import { connect } from "react-redux";
 
-interface ErrorHandlerProps {
-  setNotification: React.Dispatch<AppNotification>;
-  error: APIError;
-}
+const mapStateToProps = (state: RootState) => ({
+  user: state.appStatus.user,
+  error: state.appStatus.dataFetching.error
+});
 
-const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
-  const { error, setNotification } = props;
-  const { setLoggedIn } = useContext(AuthContext);
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      clearUser: appStatusActionCreators.clearUser,
+      setNotification: appStatusActionCreators.setNotification
+    },
+    dispatch
+  );
 
+type ErrorHandlerProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const UnconnectedErrorHandler: React.FC<ErrorHandlerProps> = ({
+  setNotification,
+  error,
+  clearUser
+}) => {
   useEffect(() => {
+    if (!error) {
+      return;
+    }
+
     if (error.status === undefined) {
       return;
     }
     if (error.status === 401) {
-      setLoggedIn(false);
+      clearUser();
     } else if (error.status === 403) {
       setNotification({
         message: "You do not have access to this system.",
@@ -24,9 +44,12 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
     } else {
       console.error(error);
     }
-  }, [error, setNotification, setLoggedIn]);
+  }, [error, setNotification, clearUser]);
 
   return <React.Fragment />;
 };
 
-export { ErrorHandler };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedErrorHandler);

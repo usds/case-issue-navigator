@@ -3,12 +3,18 @@ import { CaseList } from "./CaseList";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
-import { casesActionCreators, loadCases } from "../../redux/modules/cases";
+import {
+  casesActionCreators,
+  loadCases,
+  getCaseSummary
+} from "../../redux/modules/cases";
 import { connect } from "react-redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
-  isLoading: state.cases.isLoading
+  isLoading: state.cases.isLoading,
+  summary: state.cases.summary
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -17,17 +23,15 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       removeCase: casesActionCreators.removeCase,
       toggleDetails: casesActionCreators.toggleDetails,
       setCaseType: casesActionCreators.setCaseType,
-      loadCases: loadCases
+      loadCases: loadCases,
+      setNotification: appStatusActionCreators.setNotification,
+      setError: appStatusActionCreators.setDataLoadError,
+      getSummary: getCaseSummary
     },
     dispatch
   );
 
-type Props = {
-  updateSummaryData: () => void;
-  setError: React.Dispatch<APIError>;
-  setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
-  summary: Summary;
-} & ReturnType<typeof mapStateToProps> &
+type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const UnconnectedActiveCaseList = (props: Props) => {
@@ -40,7 +44,8 @@ const UnconnectedActiveCaseList = (props: Props) => {
     toggleDetails,
     setCaseType,
     isLoading,
-    loadCases
+    loadCases,
+    getSummary
   } = props;
 
   useEffect(() => {
@@ -56,6 +61,27 @@ const UnconnectedActiveCaseList = (props: Props) => {
     loadCases("active", receiptNumber);
   };
 
+  const i90headers: I90Header[] = [
+    { key: "showDetails", props: { toggleDetails } },
+    { key: "receiptNumber" },
+    { key: "caseAge" },
+    { key: "caseCreation" },
+    { key: "applicationReason" },
+    { key: "caseStatus" },
+    { key: "caseSubstatus" },
+    { key: "platform" },
+    { key: "assigned" },
+    {
+      key: "actions",
+      props: {
+        updateSummaryData: getSummary,
+        setError: setError,
+        setNotification: setNotification,
+        removeCase: removeCase
+      }
+    }
+  ];
+
   return (
     <React.Fragment>
       <DesnoozedWarning
@@ -63,26 +89,7 @@ const UnconnectedActiveCaseList = (props: Props) => {
       />
       <CaseList
         cases={caselist}
-        headers={[
-          { key: "showDetails", props: { toggleDetails } },
-          { key: "receiptNumber" },
-          { key: "caseAge" },
-          { key: "caseCreation" },
-          { key: "applicationReason" },
-          { key: "caseStatus" },
-          { key: "caseSubstatus" },
-          { key: "platform" },
-          { key: "assigned" },
-          {
-            key: "actions",
-            props: {
-              updateSummaryData: props.updateSummaryData,
-              setError: setError,
-              setNotification: setNotification,
-              removeCase: removeCase
-            }
-          }
-        ]}
+        headers={i90headers}
         isLoading={isLoading}
         totalCases={summary.CASES_TO_WORK}
         loadMoreCases={loadMoreCases}

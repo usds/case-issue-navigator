@@ -1,6 +1,9 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import PrimaryNavMenu from "../PrimaryNavMenu";
+import { store } from "../../../redux/create";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router";
 
 const VIEWS = {
   CASES_TO_WORK: {
@@ -17,13 +20,14 @@ const VIEWS = {
   }
 };
 const views = VIEWS;
-const summary = {
-  CASES_TO_WORK: 30,
-  SNOOZED_CASES: 10,
-  SOMETHING_ELSE: 1
-};
-const title = "Nav test";
-const wrapper = shallow(<PrimaryNavMenu {...{ views, summary, title }} />);
+
+const wrapper = mount(
+  <Provider store={store}>
+    <MemoryRouter>
+      <PrimaryNavMenu views={views} />
+    </MemoryRouter>
+  </Provider>
+);
 
 describe("PrimaryNavMenu", () => {
   it("should render the correct number of links", () => {
