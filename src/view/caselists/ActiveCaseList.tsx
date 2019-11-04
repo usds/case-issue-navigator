@@ -14,13 +14,10 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      addCases: casesActionCreators.addCases,
-      setCases: casesActionCreators.setCases,
       removeCase: casesActionCreators.removeCase,
       clearCases: casesActionCreators.clearCases,
       toggleDetails: casesActionCreators.toggleDetails,
       setCaseType: casesActionCreators.setCaseType,
-      setIsLoading: casesActionCreators.setIsLoading,
       loadCases: loadCases
     },
     dispatch
