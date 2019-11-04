@@ -15,6 +15,7 @@ describe("App", () => {
           <UnconnectedApp
             pageTitle="Cases to Work | Case Issue Navigator"
             setPageTitle={jest.fn()}
+            clearCases={jest.fn()}
           />
         </Provider>
       </MemoryRouter>
@@ -30,6 +31,7 @@ describe("App", () => {
           <UnconnectedApp
             pageTitle="Case Issue Navigator"
             setPageTitle={setPageTitle}
+            clearCases={jest.fn()}
           />
         </Provider>
       </MemoryRouter>

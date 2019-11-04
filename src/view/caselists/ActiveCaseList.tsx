@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
       removeCase: casesActionCreators.removeCase,
-      clearCases: casesActionCreators.clearCases,
       toggleDetails: casesActionCreators.toggleDetails,
       setCaseType: casesActionCreators.setCaseType,
       loadCases: loadCases
@@ -38,7 +37,6 @@ const UnconnectedActiveCaseList = (props: Props) => {
     summary,
     removeCase,
     caselist,
-    clearCases,
     toggleDetails,
     setCaseType,
     isLoading,
@@ -46,17 +44,16 @@ const UnconnectedActiveCaseList = (props: Props) => {
   } = props;
 
   useEffect(() => {
-    clearCases();
     setCaseType("active");
-    loadCases();
-  }, []);
+    loadCases("active");
+  }, [setCaseType, loadCases]);
 
   const loadMoreCases = () => {
     const receiptNumber =
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
-    loadCases(receiptNumber);
+    loadCases("active", receiptNumber);
   };
 
   return (

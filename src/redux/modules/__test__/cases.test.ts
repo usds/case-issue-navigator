@@ -121,7 +121,7 @@ describe("redux - cases", () => {
       })
     );
     const { dispatch } = testAsyncStore;
-    await loadCases()(dispatch);
+    await loadCases("active")(dispatch);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
 });

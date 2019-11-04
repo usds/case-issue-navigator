@@ -17,12 +17,16 @@ export const casesActionCreators = {
     action("cases/SET_IS_LOADING", isLoading)
 };
 
-export const loadCases = (lastReceiptNumber?: string) => async (
-  dispatch: Dispatch<AnyAction>
-) => {
+export const loadCases = (
+  type: SnoozeState,
+  lastReceiptNumber?: string
+) => async (dispatch: Dispatch<AnyAction>) => {
   const { setIsLoading, addCases } = casesActionCreators;
   dispatch(setIsLoading(true));
-  const response = await RestAPIClient.cases.getActive(lastReceiptNumber);
+  const response =
+    type === "active"
+      ? await RestAPIClient.cases.getActive(lastReceiptNumber)
+      : await RestAPIClient.cases.getSnoozed(lastReceiptNumber);
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
