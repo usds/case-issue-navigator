@@ -11,6 +11,12 @@ const CaseDetailList: React.FC<CaseDetailListProps> = props => {
   return (
     <div className="grid-container case-detail-list">
       {props.caseDetails.map((caseDetail, index) => {
+        if (
+          caseDetail.noteOrSnooze === "note" &&
+          caseDetail.type === "CORRELATION_ID"
+        ) {
+          return null;
+        }
         return (
           <div className="grid-row" key={index}>
             <div className="grid-col-auto case-detail-date">
