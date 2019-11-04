@@ -9,38 +9,61 @@ const DetailNoteDisplay: React.FunctionComponent<
 > = props => {
   const { caseDetail } = props;
 
-  switch (caseDetail.subType) {
-    case "troubleticket":
-      if (caseDetail.href) {
-        return (
-          <React.Fragment>
-            ServiceNow ticket{" "}
-            <a href={caseDetail.href}>#{caseDetail.content}</a> was associated
-            with this case.
-          </React.Fragment>
-        );
-      } else {
-        console.error("Attemptrouble case without href");
+  switch (caseDetail.type) {
+    case "COMMENT":
+      break;
+    case "LINK":
+      if (!caseDetail.href) {
+        console.error("LINK without href");
         break;
       }
-    case "assignee":
-      return (
-        <React.Fragment>
-          {`${caseDetail.content} was assigned to follow-up on this case.`}
-        </React.Fragment>
-      );
-    case "fieldoffice":
-      return (
-        <React.Fragment>
-          {`Stuck at Field Office: ${caseDetail.content}`}
-        </React.Fragment>
-      );
-    case "referral":
-      return (
-        <React.Fragment>
-          {`Referred beacause: ${caseDetail.content}`}
-        </React.Fragment>
-      );
+      switch (caseDetail.subType) {
+        case "troubleticket":
+          return (
+            <React.Fragment>
+              ServiceNow ticket{" "}
+              <a href={caseDetail.href}>{caseDetail.content}</a> was associated
+              with this case.
+            </React.Fragment>
+          );
+        default:
+          return (
+            <React.Fragment>
+              Link <a href={caseDetail.href}>{caseDetail.content}</a> was
+              associated with this case.
+            </React.Fragment>
+          );
+      }
+    case "TAG":
+      switch (caseDetail.subType) {
+        case "assignee":
+          return (
+            <React.Fragment>
+              {`${caseDetail.content} was assigned to follow-up on this case.`}
+            </React.Fragment>
+          );
+        case "fieldoffice":
+          return (
+            <React.Fragment>
+              {`Stuck at Field Office: ${caseDetail.content}`}
+            </React.Fragment>
+          );
+        case "referral":
+          return (
+            <React.Fragment>
+              {`Referred beacause: ${caseDetail.content}`}
+            </React.Fragment>
+          );
+        default:
+          return (
+            <React.Fragment>
+              {`Tagged as: ${caseDetail.content}`}
+            </React.Fragment>
+          );
+      }
+    case "CORRELATION_ID":
+      // this should never be reached: the parent component should intercept it
+      return null;
   }
   return (
     <React.Fragment>
