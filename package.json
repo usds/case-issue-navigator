@@ -42,6 +42,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "ci-checks": "yarn run prettier-check && CI=true yarn run test",
     "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
