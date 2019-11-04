@@ -62,7 +62,10 @@ const DetailNoteDisplay: React.FunctionComponent<
           );
       }
     case "CORRELATION_ID":
-      // this should never be reached: the parent component should intercept it
+      // this should never be reached: the parent component should intercept it and avoid calling this component
+      console.error(
+        "Reached display branch for CORRELATION_ID attachment, which should never happen!"
+      );
       return null;
   }
   return (
