@@ -2,19 +2,12 @@ import { action } from "typesafe-actions";
 import { RootAction } from "../create";
 
 // Actions
-enum AppStatusActionType {
-  SET_PAGE_TITLE = "app-status/SET_PAGE_TITLE",
-  SET_DATA_IS_LOADING = "app-status/SET_DATA_IS_LOADING",
-  SET_DATA_LOAD_ERROR = "app-status/SET_DATA_LOAD_ERROR"
-}
-
 export const appStatusActionCreators = {
-  setPageTitle: (title: string) =>
-    action(AppStatusActionType.SET_PAGE_TITLE, title),
+  setPageTitle: (title: string) => action("app-status/SET_PAGE_TITLE", title),
   setDataIsLoading: (isLoading: boolean) =>
-    action(AppStatusActionType.SET_DATA_IS_LOADING, isLoading),
+    action("app-status/SET_DATA_IS_LOADING", isLoading),
   setDataLoadError: (error: Error | null) =>
-    action(AppStatusActionType.SET_DATA_LOAD_ERROR, error)
+    action("app-status/SET_DATA_LOAD_ERROR", error)
 };
 
 type ActionCreator = typeof appStatusActionCreators;
@@ -44,12 +37,12 @@ export default function reducer(
   action: RootAction
 ): AppStatusState {
   switch (action.type) {
-    case AppStatusActionType.SET_PAGE_TITLE:
+    case "app-status/SET_PAGE_TITLE":
       return {
         ...state,
         pageTitle: action.payload
       };
-    case AppStatusActionType.SET_DATA_IS_LOADING:
+    case "app-status/SET_DATA_IS_LOADING":
       return {
         ...state,
         dataFetching: {
@@ -57,7 +50,7 @@ export default function reducer(
           isLoading: action.payload
         }
       };
-    case AppStatusActionType.SET_DATA_LOAD_ERROR:
+    case "app-status/SET_DATA_LOAD_ERROR":
       return {
         ...state,
         dataFetching: {

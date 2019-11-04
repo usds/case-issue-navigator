@@ -269,3 +269,7 @@ type APIError = {
   status: number;
   timestamp: string;
 };
+
+interface Window {
+  __REDUX_DEVTOOLS_EXTENSION__?: () => Function;
+}
