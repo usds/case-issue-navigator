@@ -1,6 +1,6 @@
 import { action } from "typesafe-actions";
 import { RootAction } from "../create";
-import { Dispatch } from "redux";
+import { Dispatch, AnyAction } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
 
 // Actions
@@ -18,7 +18,7 @@ export const casesActionCreators = {
 };
 
 export const loadCases = (lastReceiptNumber?: string) => async (
-  dispatch: Dispatch<RootAction>
+  dispatch: Dispatch<AnyAction>
 ) => {
   const { setIsLoading, addCases } = casesActionCreators;
   dispatch(setIsLoading(true));
