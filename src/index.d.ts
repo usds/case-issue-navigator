@@ -191,6 +191,11 @@ type SnoozeInformation = {
   snoozeStart: string;
 };
 
+interface DBSnoozeInformation extends SnoozeInformation {
+  userId: string;
+  userName: string;
+}
+
 interface Note {
   content: string;
   type: string | null;
@@ -243,8 +248,7 @@ type CaseDetail = {
   snoozeReason?: SnoozeReason;
   href?: string | null;
   content?: string;
-  // TODO: make creator required?
-  creator?: string;
+  creator: string;
 };
 
 type NotificationType =
