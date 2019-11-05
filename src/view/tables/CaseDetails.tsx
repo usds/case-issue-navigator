@@ -31,19 +31,21 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
           creator: note.userName
         });
       });
-      response.payload.snoozes.forEach((snooze: SnoozeInformation) => {
+      response.payload.snoozes.forEach((snooze: DBSnoozeInformation) => {
         caseEvents.push({
           noteOrSnooze: "snooze",
           date: new Date(snooze.snoozeStart),
           type: "snoozeStart",
-          snoozeReason: snooze.snoozeReason
+          snoozeReason: snooze.snoozeReason,
+          creator: snooze.userName
         });
         if (new Date(snooze.snoozeEnd) < new Date()) {
           caseEvents.push({
             noteOrSnooze: "snooze",
             date: new Date(snooze.snoozeEnd),
             type: "snoozeEnd",
-            snoozeReason: snooze.snoozeReason
+            snoozeReason: snooze.snoozeReason,
+            creator: snooze.userName
           });
         }
       });
