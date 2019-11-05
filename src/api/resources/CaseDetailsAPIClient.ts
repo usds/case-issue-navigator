@@ -14,7 +14,7 @@ interface UpdateSnoozeSuccess extends SnoozeInformation {
 
 interface CaseDetails {
   notes: DBNote[];
-  snoozes: SnoozeInformation[];
+  snoozes: DBSnoozeInformation[];
 }
 
 class CaseDetailsAPIClient extends ClientBase {
