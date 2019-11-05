@@ -621,12 +621,12 @@ exports[`Storyshots ReceiptList Snoozed Case List with an open details accordion
           Case Details
         </h3>
         <button
-          className="usa-button usa-button--outline"
+          className="usa-button usa-button--unstyled"
           disabled={false}
           onClick={[Function]}
           type="button"
         >
-          Add Note
+          Add A Note
         </button>
         <p>
           No case details.

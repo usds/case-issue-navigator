@@ -69,11 +69,11 @@ const AddNoteForm = (props: Props) => {
         </form>
       </ActionModal>
       {rowData.snoozeInformation ? (
-        <UsaButton onClick={openModal} buttonStyle="outline">
-          Add Note
+        <UsaButton onClick={openModal} buttonStyle="unstyled">
+          Add A Note
         </UsaButton>
       ) : null}
-      {/*todo remove ternary statement*/}
+      {/*TODO remove ternary statement*/}
     </React.Fragment>
   );
 };
