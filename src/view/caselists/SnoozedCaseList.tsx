@@ -13,7 +13,8 @@ import { appStatusActionCreators } from "../../redux/modules/appStatus";
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
-  summary: state.cases.summary
+  summary: state.cases.summary,
+  caseType: state.cases.type
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -48,7 +49,8 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     setCases,
     setCaseType,
     getSummary,
-    clearCases
+    clearCases,
+    caseType
   } = props;
 
   useEffect(() => {
@@ -107,7 +109,7 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     setCases(snoozedCases);
   };
 
-  return (
+  return caseType === "snoozed" ? (
     <React.Fragment>
       <CaseList
         cases={caselist}
@@ -137,6 +139,8 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
         loadMoreCases={loadMoreCases}
       />
     </React.Fragment>
+  ) : (
+    <p>Loading</p>
   );
 };
 
