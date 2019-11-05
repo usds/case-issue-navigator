@@ -6,15 +6,18 @@ import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { appStatusActionCreators } from "../../redux/modules/appStatus";
 import { connect } from "react-redux";
+import { LoadingPage } from "../layout/Loading";
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.appStatus.user
+  user: state.appStatus.user,
+  isInitializing: state.appStatus.isInitializing
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      setUser: appStatusActionCreators.setUser
+      setUser: appStatusActionCreators.setUser,
+      setIsInitializing: appStatusActionCreators.setIsInitializing
     },
     dispatch
   );
@@ -27,7 +30,7 @@ const UnconnectedAuthContainer: React.FC<
   AuthContainerProps &
     ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>
-> = ({ children, user, setUser }) => {
+> = ({ children, user, setUser, isInitializing, setIsInitializing }) => {
   useEffect(() => {
     if (user) {
       return;
@@ -42,12 +45,17 @@ const UnconnectedAuthContainer: React.FC<
         if (response.succeeded) {
           setUser(response.payload.name);
         }
+        setIsInitializing(false);
       } catch (err) {
         console.error(err);
       }
     };
     getUser();
   }, [user, setUser]);
+
+  if (isInitializing) {
+    return <LoadingPage />;
+  }
 
   return user ? (
     <React.Fragment>{children}</React.Fragment>

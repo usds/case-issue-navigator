@@ -14,6 +14,7 @@ describe("App", () => {
   beforeEach(() => {
     (store.dispatch as jest.Mock).mockClear();
     store.dispatch(appStatusActionCreators.clearUser());
+    store.dispatch(appStatusActionCreators.setIsInitializing(false));
   });
   it("should show the correct title for Cases to Work", () => {
     store.dispatch(appStatusActionCreators.setUser("Fred"));

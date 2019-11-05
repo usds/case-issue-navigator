@@ -10,7 +10,8 @@ describe("redux - appStatus", () => {
     setDataLoadError,
     setNotification,
     setUser,
-    clearUser
+    clearUser,
+    setIsInitializing
   } = appStatusActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer);
@@ -29,7 +30,12 @@ describe("redux - appStatus", () => {
   });
   it("sets data fetch error", () => {
     const { dispatch } = testStore;
-    const error = new Error("Oh no!");
+    const error: APIError = {
+      error: "",
+      message: "",
+      status: 500,
+      timestamp: ""
+    };
     dispatch(setDataLoadError(error));
     expect(testStore.getState().appStatus.dataFetching.error).toBe(error);
     dispatch(setDataLoadError(null));
@@ -56,5 +62,12 @@ describe("redux - appStatus", () => {
     dispatch(setUser(user));
     dispatch(clearUser());
     expect(testStore.getState().appStatus.user).toBe(undefined);
+  });
+  it("sets initialization status", () => {
+    const { dispatch } = testStore;
+    dispatch(setIsInitializing(false));
+    expect(testStore.getState().appStatus.isInitializing).toBe(false);
+    dispatch(setIsInitializing(true));
+    expect(testStore.getState().appStatus.isInitializing).toBe(true);
   });
 });

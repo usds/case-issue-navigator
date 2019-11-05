@@ -11,7 +11,9 @@ export const appStatusActionCreators = {
   setNotification: (notification: AppNotification) =>
     action("app-status/SET_NOTIFICATION", notification),
   setUser: (user: string) => action("app-status/SET_USER", user),
-  clearUser: () => action("app-status/CLEAR_USER")
+  clearUser: () => action("app-status/CLEAR_USER"),
+  setIsInitializing: (isInitializing: boolean) =>
+    action("app-status/SET_IS_INITIALIZING", isInitializing)
 };
 
 type ActionCreator = typeof appStatusActionCreators;
@@ -27,6 +29,7 @@ export type AppStatusState = {
   };
   notification?: AppNotification;
   user?: string;
+  isInitializing: boolean;
 };
 
 export const initialState: AppStatusState = {
@@ -34,7 +37,8 @@ export const initialState: AppStatusState = {
   dataFetching: {
     isLoading: false,
     error: null
-  }
+  },
+  isInitializing: true
 };
 
 // Reducer
@@ -76,6 +80,8 @@ export default function reducer(
       };
     case "app-status/CLEAR_USER":
       return { ...state, user: undefined };
+    case "app-status/SET_IS_INITIALIZING":
+      return { ...state, isInitializing: action.payload };
     default:
       return state;
   }
