@@ -196,6 +196,7 @@ interface Note {
 
 interface DBNote extends Note {
   userId: string;
+  userName: string;
   timestamp: string;
 }
 
@@ -237,6 +238,8 @@ type CaseDetail = {
   snoozeReason?: SnoozeReason;
   href?: string | null;
   content?: string;
+  // TODO: make creator required?
+  creator?: string;
 };
 
 type NotificationType =

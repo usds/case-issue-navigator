@@ -7,23 +7,18 @@
   border-right: 1px solid transparent;
 }
 
-.grid-container {
-  margin-left: 0;
-  padding-left: 0;
-  margin-right: 0;
-  padding-right: 0;
-  max-width: 100%;
-}
-
-.case-detail-date {
-  min-width: 11em;
-  font-weight: bold;
-}
-
 .case-detail-list {
   margin-bottom: 1em;
+  display: grid;
+  grid-template-columns: max-content max-content auto;
+  column-gap: 15px;
 
-  .grid-row {
-    margin: 0.5em 0;
+  .case-detail-creator {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .case-detail-date {
+    font-weight: 300;
   }
 }
