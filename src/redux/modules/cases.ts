@@ -68,7 +68,7 @@ export default function reducer(
     case "cases/ADD_CASES":
       return {
         ...state,
-        caselist: [...state.caselist].concat(action.payload)
+        caselist: state.caselist.concat(action.payload)
       };
     case "cases/SET_CASES":
       return {
