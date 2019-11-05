@@ -12,6 +12,11 @@ interface UpdateSnoozeSuccess extends SnoozeInformation {
   notes: DBNote[];
 }
 
+interface CaseDetails {
+  notes: DBNote[];
+  snoozes: SnoozeInformation[];
+}
+
 class CaseDetailsAPIClient extends ClientBase {
   public async deleteActiveSnooze(
     receiptNumber: string
@@ -22,8 +27,10 @@ class CaseDetailsAPIClient extends ClientBase {
     )) as any;
   }
 
-  public async getCaseDetails(receiptNumber: string) {
-    return await this.getAsJson(URLs.caseDetails(receiptNumber));
+  public async getCaseDetails(
+    receiptNumber: string
+  ): Promise<c.ApiResponse<CaseDetails, APIError>> {
+    return (await this.getAsJson(URLs.caseDetails(receiptNumber))) as any;
   }
 
   public async updateActiveSnooze(
