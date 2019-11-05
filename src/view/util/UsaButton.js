@@ -9,7 +9,8 @@ const BUTTON_TYPES = [
   "outline",
   "inverse",
   "big",
-  "none"
+  "none",
+  "unstyled"
 ];
 
 export default function UsaButton(props) {
