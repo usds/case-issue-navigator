@@ -9,7 +9,7 @@ interface CaseDetailListProps {
 
 const CaseDetailList: React.FC<CaseDetailListProps> = props => {
   return (
-    <div className="grid-container case-detail-list">
+    <div className="case-detail-list">
       {props.caseDetails.map((caseDetail, index) => {
         if (
           caseDetail.noteOrSnooze === "note" &&
@@ -18,8 +18,8 @@ const CaseDetailList: React.FC<CaseDetailListProps> = props => {
           return null;
         }
         return (
-          <div className="grid-row" key={index}>
-            <div className="grid-col-auto case-detail-date">
+          <React.Fragment key={index}>
+            <div className="case-detail-date">
               {caseDetail.date.toLocaleString("en-US", {
                 month: "numeric",
                 day: "numeric",
@@ -28,14 +28,15 @@ const CaseDetailList: React.FC<CaseDetailListProps> = props => {
                 minute: "2-digit"
               })}
             </div>
-            <div className="grid-col">
+            <div className="case-detail-creator">{caseDetail.creator} </div>
+            <div className="case-detail-content">
               {caseDetail.noteOrSnooze === "note" ? (
                 <DetailNoteDisplay caseDetail={caseDetail} />
               ) : (
                 <DetailSnoozeDisplay caseDetail={caseDetail} />
               )}
             </div>
-          </div>
+          </React.Fragment>
         );
       })}
     </div>

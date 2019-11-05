@@ -27,7 +27,8 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
           type: note.type,
           subType: note.subType,
           href: note.href,
-          content: note.content
+          content: note.content,
+          creator: note.userName
         });
       });
       response.payload.snoozes.forEach((snooze: SnoozeInformation) => {
