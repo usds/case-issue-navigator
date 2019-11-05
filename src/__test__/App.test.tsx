@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import App, { UnconnectedApp } from "../App";
+import App from "../App";
 import { MemoryRouter } from "react-router";
 import { Helmet } from "react-helmet";
 import { VIEWS } from "../controller/config";
@@ -9,49 +9,39 @@ import { Provider } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 
 describe("App", () => {
+  const { setPageTitle } = appStatusActionCreators;
+  jest.spyOn(store, "dispatch");
   beforeEach(() => {
+    (store.dispatch as jest.Mock).mockClear();
     store.dispatch(appStatusActionCreators.clearUser());
   });
   it("should show the correct title for Cases to Work", () => {
-    const setPageTitle = jest.fn();
     store.dispatch(appStatusActionCreators.setUser("Fred"));
     mount(
       <MemoryRouter initialEntries={["/"]}>
         <Provider store={store}>
-          <UnconnectedApp
-            pageTitle="Case Issue Navigator"
-            setPageTitle={setPageTitle}
-            clearCases={jest.fn()}
-            lastUpdated="July 15, 2019"
-          />
+          <App />
         </Provider>
       </MemoryRouter>
     );
-
-    expect(setPageTitle).toHaveBeenCalledWith(
-      `${VIEWS.CASES_TO_WORK.TITLE} | Case Issue Navigator`
+    expect(store.dispatch).toHaveBeenCalledWith(
+      setPageTitle(`${VIEWS.CASES_TO_WORK.TITLE} | Case Issue Navigator`)
     );
   });
   it("should show the correct title for Snoozed Cases", () => {
-    const setPageTitle = jest.fn();
     store.dispatch(appStatusActionCreators.setUser("Fred"));
     mount(
       <MemoryRouter initialEntries={["/snoozed-cases"]}>
         <Provider store={store}>
-          <UnconnectedApp
-            pageTitle="Case Issue Navigator"
-            setPageTitle={setPageTitle}
-            clearCases={jest.fn()}
-            lastUpdated="July 15, 2019"
-          />
+          <App />
         </Provider>
       </MemoryRouter>
     );
-    expect(setPageTitle).toHaveBeenCalledWith(
-      `${VIEWS.SNOOZED_CASES.TITLE} | Case Issue Navigator`
+    expect(store.dispatch).toHaveBeenCalledWith(
+      setPageTitle(`${VIEWS.SNOOZED_CASES.TITLE} | Case Issue Navigator`)
     );
   });
-  it("should connect to the store", () => {
+  it("Helmet title should match route title", () => {
     store.dispatch(appStatusActionCreators.setUser("Fred"));
     mount(
       <MemoryRouter initialEntries={["/snoozed-cases"]}>

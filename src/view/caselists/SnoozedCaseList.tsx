@@ -26,7 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setCaseType: casesActionCreators.setCaseType,
       setNotification: appStatusActionCreators.setNotification,
       setError: appStatusActionCreators.setDataLoadError,
-      getSummary: getCaseSummary
+      getSummary: getCaseSummary,
+      clearCases: casesActionCreators.clearCases
     },
     dispatch
   );
@@ -46,13 +47,15 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     toggleDetails,
     setCases,
     setCaseType,
-    getSummary
+    getSummary,
+    clearCases
   } = props;
 
   useEffect(() => {
+    clearCases();
     setCaseType("snoozed");
     loadCases("snoozed");
-  }, [setCaseType, loadCases]);
+  }, [setCaseType, loadCases, clearCases]);
 
   const loadMoreCases = () => {
     const receiptNumber =

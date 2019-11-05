@@ -6,15 +6,46 @@ import "react-toastify/dist/ReactToastify.css";
 import ErrorHandler from "./ErrorHandler";
 import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import { trackPageView, setDocumentTitle } from "../../matomo-setup";
+import { AnyAction, bindActionCreators, Dispatch } from "redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
+import FormattedDate from "../util/FormattedDate";
 
 const mapStateToProps = (state: RootState) => ({
-  notification: state.appStatus.notification
+  notification: state.appStatus.notification,
+  caseType: state.cases.type,
+  pageTitle: state.appStatus.pageTitle,
+  lastUpdated: state.cases.lastUpdated
 });
 
-type LayoutProps = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      setPageTitle: appStatusActionCreators.setPageTitle
+    },
+    dispatch
+  );
+
+type LayoutProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 const UnconnnectedLayout: React.FunctionComponent<LayoutProps> = props => {
-  const { notification } = props;
+  const {
+    notification,
+    caseType,
+    setPageTitle,
+    pageTitle,
+    lastUpdated
+  } = props;
+
+  useEffect(() => {
+    const subtitle =
+      caseType === "active"
+        ? VIEWS.CASES_TO_WORK.TITLE
+        : VIEWS.SNOOZED_CASES.TITLE;
+    setPageTitle(`${subtitle} | Case Issue Navigator`);
+  }, [caseType, setPageTitle]);
 
   useEffect(() => {
     if (!notification) {
@@ -29,11 +60,23 @@ const UnconnnectedLayout: React.FunctionComponent<LayoutProps> = props => {
 
   return (
     <React.Fragment>
+      <Helmet
+        onChangeClientState={({ title }) => {
+          setDocumentTitle(title);
+          trackPageView();
+        }}
+      >
+        <title>{pageTitle}</title>
+      </Helmet>
       <ToastContainer />
       <ErrorHandler />
       <PrimaryNavMenu views={VIEWS} />
+      <FormattedDate label="Last Refresh" date={lastUpdated} />
     </React.Fragment>
   );
 };
 
-export default connect(mapStateToProps)(UnconnnectedLayout);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnnectedLayout);

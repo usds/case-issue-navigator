@@ -26,7 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       loadCases: loadCases,
       setNotification: appStatusActionCreators.setNotification,
       setError: appStatusActionCreators.setDataLoadError,
-      getSummary: getCaseSummary
+      getSummary: getCaseSummary,
+      clearCases: casesActionCreators.clearCases
     },
     dispatch
   );
@@ -45,13 +46,15 @@ const UnconnectedActiveCaseList = (props: Props) => {
     setCaseType,
     isLoading,
     loadCases,
-    getSummary
+    getSummary,
+    clearCases
   } = props;
 
   useEffect(() => {
+    clearCases();
     setCaseType("active");
     loadCases("active");
-  }, [setCaseType, loadCases]);
+  }, [setCaseType, loadCases, clearCases]);
 
   const loadMoreCases = () => {
     const receiptNumber =
