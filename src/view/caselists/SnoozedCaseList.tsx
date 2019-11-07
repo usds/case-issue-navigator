@@ -1,30 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { CaseList } from "./CaseList";
-import RestAPIClient from "../../api/RestAPIClient";
+import { connect } from "react-redux";
+import { RootState } from "../../redux/create";
+import { Dispatch, AnyAction, bindActionCreators } from "redux";
+import { casesActionCreators, loadCases } from "../../redux/modules/cases";
 
-interface Props {
+const mapStateToProps = (state: RootState) => ({
+  caselist: state.cases.caselist,
+  isLoading: state.cases.isLoading
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      removeCase: casesActionCreators.removeCase,
+      toggleDetails: casesActionCreators.toggleDetails,
+      loadCases: loadCases,
+      setCases: casesActionCreators.setCases,
+      setCaseType: casesActionCreators.setCaseType
+    },
+    dispatch
+  );
+
+type Props = {
   updateSummaryData: () => void;
   setError: React.Dispatch<APIError>;
   setNotification: React.Dispatch<React.SetStateAction<AppNotification>>;
   summary: Summary;
-}
+} & ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-const SnoozedCaseList = (props: Props) => {
-  const [cases, setCases] = useState<Case[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const { setNotification, setError, summary } = props;
+const UnconnectedSnoozedCaseList = (props: Props) => {
+  const {
+    setNotification,
+    setError,
+    summary,
+    caselist,
+    loadCases,
+    isLoading,
+    removeCase,
+    toggleDetails,
+    setCases,
+    setCaseType
+  } = props;
 
   useEffect(() => {
-    loadMoreCases();
-  }, []);
+    setCaseType("snoozed");
+    loadCases("snoozed");
+  }, [setCaseType, loadCases]);
+
+  const loadMoreCases = () => {
+    const receiptNumber =
+      caselist.length > 0
+        ? caselist[caselist.length - 1].receiptNumber
+        : undefined;
+    loadCases("snoozed", receiptNumber);
+  };
 
   const onSnoozeUpdate = (
     receiptNumber: string,
     newNotes: DBNote[],
     snoozeInformation: SnoozeInformation
   ) => {
-    const snoozedCases = cases
+    const snoozedCases = caselist
       .map(snoozedCase => {
         if (snoozedCase.receiptNumber === receiptNumber) {
           const notes = snoozedCase.notes
@@ -61,50 +99,10 @@ const SnoozedCaseList = (props: Props) => {
     setCases(snoozedCases);
   };
 
-  const removeCase = (receiptNumber: string) => {
-    setCases(
-      cases.filter(snoozedCase => snoozedCase.receiptNumber !== receiptNumber)
-    );
-  };
-
-  const toggleDetails = (receiptNumber: string) => {
-    setCases(cases =>
-      cases.map(caseInformation => {
-        if (caseInformation.receiptNumber === receiptNumber) {
-          return {
-            ...caseInformation,
-            showDetails: !caseInformation.showDetails
-          };
-        }
-        return caseInformation;
-      })
-    );
-  };
-
-  const loadMoreCases = async () => {
-    setIsLoading(true);
-    const receiptNumber =
-      cases.length > 0 ? cases[cases.length - 1].receiptNumber : undefined;
-    const response = await RestAPIClient.cases.getSnoozed(receiptNumber);
-    setIsLoading(false);
-
-    if (response.succeeded) {
-      setCases(previousCases => [...previousCases, ...response.payload]);
-      return;
-    }
-
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
-  };
-
   return (
     <React.Fragment>
       <CaseList
-        cases={cases}
+        cases={caselist}
         headers={[
           { key: "showDetails", props: { toggleDetails } },
           { key: "receiptNumber" },
@@ -134,4 +132,7 @@ const SnoozedCaseList = (props: Props) => {
   );
 };
 
-export { SnoozedCaseList };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedSnoozedCaseList);

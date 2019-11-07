@@ -1,9 +1,11 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import appStatusReducer, { AppStatusAction } from "./modules/appStatus";
+import casesReducer, { CasesAction } from "./modules/cases";
 
 export const rootReducer = combineReducers({
-  appStatus: appStatusReducer
+  appStatus: appStatusReducer,
+  cases: casesReducer
 });
 
 export const store = createStore(
@@ -16,6 +18,6 @@ export const store = createStore(
   )
 );
 
-export type RootAction = AppStatusAction;
+export type RootAction = AppStatusAction | CasesAction;
 export type Store = typeof store;
 export type RootState = ReturnType<typeof rootReducer>;

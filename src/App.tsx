@@ -4,8 +4,8 @@ import "uswds";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { ActiveCaseList } from "./view/caselists/ActiveCaseList";
-import { SnoozedCaseList } from "./view/caselists/SnoozedCaseList";
+import ActiveCaseList from "./view/caselists/ActiveCaseList";
+import SnoozedCaseList from "./view/caselists/SnoozedCaseList";
 import { VIEWS } from "./controller/config";
 import { Layout } from "./view/layout/Layout";
 import { AuthContainer } from "./view/auth/AuthContainer";
@@ -15,6 +15,7 @@ import { RootState } from "./redux/create";
 import { Dispatch, bindActionCreators, AnyAction } from "redux";
 import { appStatusActionCreators } from "./redux/modules/appStatus";
 import { connect } from "react-redux";
+import { casesActionCreators } from "./redux/modules/cases";
 
 library.add(fas);
 
@@ -25,7 +26,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      setPageTitle: appStatusActionCreators.setPageTitle
+      setPageTitle: appStatusActionCreators.setPageTitle,
+      clearCases: casesActionCreators.clearCases
     },
     dispatch
   );
@@ -35,12 +37,14 @@ type AppProps = ReturnType<typeof mapStateToProps> &
 
 export const UnconnectedApp: React.FC<AppProps> = ({
   setPageTitle,
-  pageTitle
+  pageTitle,
+  clearCases
 }) => {
-  const setSubtitle = (subtitle: string) => {
+  const setSubtitleAndClearCases = (subtitle: string) => {
     const newPageTitle = `${subtitle} | Case Issue Navigator`;
     if (newPageTitle !== pageTitle) {
       setPageTitle(newPageTitle);
+      clearCases();
     }
   };
 
@@ -61,7 +65,7 @@ export const UnconnectedApp: React.FC<AppProps> = ({
               path="/"
               exact={true}
               render={() => {
-                setSubtitle(VIEWS.CASES_TO_WORK.TITLE);
+                setSubtitleAndClearCases(VIEWS.CASES_TO_WORK.TITLE);
                 return (
                   <ActiveCaseList
                     updateSummaryData={updateSummaryData}
@@ -75,7 +79,7 @@ export const UnconnectedApp: React.FC<AppProps> = ({
             <Route
               path={`/${VIEWS.SNOOZED_CASES.ROUTE}`}
               render={() => {
-                setSubtitle(VIEWS.SNOOZED_CASES.TITLE);
+                setSubtitleAndClearCases(VIEWS.SNOOZED_CASES.TITLE);
                 return (
                   <SnoozedCaseList
                     updateSummaryData={updateSummaryData}
