@@ -7,7 +7,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import ActiveCaseList from "./view/caselists/ActiveCaseList";
 import SnoozedCaseList from "./view/caselists/SnoozedCaseList";
 import { VIEWS } from "./controller/config";
-import Layout from "./view/layout/Layout";
+import Header from "./view/layout/Header";
 import AuthContainer from "./view/auth/AuthContainer";
 
 library.add(fas);
@@ -17,7 +17,7 @@ const App: React.FC = () => {
   return (
     <div className="case-issue-navigator">
       <AuthContainer>
-        <Layout />
+        <Header />
         <main id="main-content">
           <Route path="/" exact={true} component={ActiveCaseList} />
           <Route path={snoozePath} component={SnoozedCaseList} />

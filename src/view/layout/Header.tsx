@@ -27,10 +27,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     dispatch
   );
 
-type LayoutProps = ReturnType<typeof mapStateToProps> &
+type HeaderProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const UnconnnectedLayout: React.FunctionComponent<LayoutProps> = props => {
+const UnconnnectedHeader: React.FunctionComponent<HeaderProps> = props => {
   const {
     notification,
     caseType,
@@ -79,4 +79,4 @@ const UnconnnectedLayout: React.FunctionComponent<LayoutProps> = props => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UnconnnectedLayout);
+)(UnconnnectedHeader);
