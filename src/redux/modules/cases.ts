@@ -1,7 +1,8 @@
 import { action } from "typesafe-actions";
-import { RootAction } from "../create";
+import { RootAction, RootState } from "../create";
 import { Dispatch, AnyAction } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
+import { ThunkDispatch } from "redux-thunk";
 
 // Actions
 export const casesActionCreators = {
@@ -24,7 +25,7 @@ export const casesActionCreators = {
 export const loadCases = (
   type: SnoozeState,
   lastReceiptNumber?: string
-) => async (dispatch: Dispatch<any>) => {
+) => async (dispatch: ThunkDispatch<RootState, {}, AnyAction>) => {
   const { setIsLoading, addCases } = casesActionCreators;
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
