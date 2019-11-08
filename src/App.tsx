@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const snoozePath = `/${VIEWS.SNOOZED_CASES.ROUTE}`;
   return (
     <div className="case-issue-navigator">
-      <AuthContainer defaultLoggedInState={true}>
+      <AuthContainer>
         <Layout />
         <main id="main-content">
           <Route path="/" exact={true} component={ActiveCaseList} />

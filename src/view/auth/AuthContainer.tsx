@@ -22,15 +22,16 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     dispatch
   );
 
-interface AuthContainerProps extends React.Props<any> {
-  defaultLoggedInState: boolean;
-}
+type AuthContainerProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-const UnconnectedAuthContainer: React.FC<
-  AuthContainerProps &
-    ReturnType<typeof mapStateToProps> &
-    ReturnType<typeof mapDispatchToProps>
-> = ({ children, user, setUser, isInitializing, setIsInitializing }) => {
+const UnconnectedAuthContainer: React.FC<AuthContainerProps> = ({
+  children,
+  user,
+  setUser,
+  isInitializing,
+  setIsInitializing
+}) => {
   useEffect(() => {
     if (user) {
       return;

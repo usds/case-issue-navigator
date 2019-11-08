@@ -19,7 +19,7 @@ describe("AuthContainer", () => {
     store.dispatch(appStatusActionCreators.setUser("Bob"));
     const wrapper = mount(
       <Provider store={store}>
-        <AuthContainer defaultLoggedInState={true}>
+        <AuthContainer>
           <TestComponent />
         </AuthContainer>
       </Provider>
@@ -31,7 +31,7 @@ describe("AuthContainer", () => {
     store.dispatch(appStatusActionCreators.setIsInitializing(false));
     const wrapper = mount(
       <Provider store={store}>
-        <AuthContainer defaultLoggedInState={true}>
+        <AuthContainer>
           <TestComponent />
         </AuthContainer>
       </Provider>
@@ -42,7 +42,7 @@ describe("AuthContainer", () => {
   it("should show the loading page when initializing", () => {
     const wrapper = mount(
       <Provider store={store}>
-        <AuthContainer defaultLoggedInState={true}>
+        <AuthContainer>
           <TestComponent />
         </AuthContainer>
       </Provider>
