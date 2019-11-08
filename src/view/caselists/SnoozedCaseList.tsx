@@ -13,8 +13,7 @@ import { appStatusActionCreators } from "../../redux/modules/appStatus";
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
-  summary: state.cases.summary,
-  caseType: state.cases.type
+  summary: state.cases.summary
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -49,8 +48,7 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     setCases,
     setCaseType,
     getSummary,
-    clearCases,
-    caseType
+    clearCases
   } = props;
 
   useEffect(() => {
@@ -109,38 +107,34 @@ const UnconnectedSnoozedCaseList = (props: Props) => {
     setCases(snoozedCases);
   };
 
-  return caseType === "snoozed" ? (
-    <React.Fragment>
-      <CaseList
-        cases={caselist}
-        headers={[
-          { key: "showDetails", props: { toggleDetails } },
-          { key: "receiptNumber" },
-          { key: "caseAge" },
-          { key: "applicationReason" },
-          { key: "platform" },
-          { key: "problem" },
-          { key: "snoozed" },
-          { key: "assigned" },
-          { key: "SNTicket" },
-          {
-            key: "snoozeActions",
-            props: {
-              updateSummaryData: getSummary,
-              setError,
-              setNotification,
-              onSnoozeUpdate,
-              removeCase
-            }
+  return (
+    <CaseList
+      cases={caselist}
+      headers={[
+        { key: "showDetails", props: { toggleDetails } },
+        { key: "receiptNumber" },
+        { key: "caseAge" },
+        { key: "applicationReason" },
+        { key: "platform" },
+        { key: "problem" },
+        { key: "snoozed" },
+        { key: "assigned" },
+        { key: "SNTicket" },
+        {
+          key: "snoozeActions",
+          props: {
+            updateSummaryData: getSummary,
+            setError,
+            setNotification,
+            onSnoozeUpdate,
+            removeCase
           }
-        ]}
-        isLoading={isLoading}
-        totalCases={summary.SNOOZED_CASES}
-        loadMoreCases={loadMoreCases}
-      />
-    </React.Fragment>
-  ) : (
-    <p>Loading</p>
+        }
+      ]}
+      isLoading={isLoading}
+      totalCases={summary.SNOOZED_CASES}
+      loadMoreCases={loadMoreCases}
+    />
   );
 };
 
