@@ -52,7 +52,7 @@ const UnconnectedAuthContainer: React.FC<AuthContainerProps> = ({
       }
     };
     getUser();
-  }, [user, setUser]);
+  }, [user, setUser, setIsInitializing]);
 
   if (isInitializing) {
     return <LoadingPage />;
