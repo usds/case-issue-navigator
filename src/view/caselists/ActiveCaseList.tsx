@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CaseList } from "./CaseList";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
@@ -35,71 +35,87 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const UnconnectedActiveCaseList = (props: Props) => {
-  const {
-    setNotification,
-    setError,
-    summary,
-    removeCase,
-    caselist,
-    toggleDetails,
-    setCaseType,
-    isLoading,
-    loadCases,
-    getSummary,
-    clearCases
-  } = props;
+interface State {
+  loading: boolean;
+}
 
-  useEffect(() => {
-    clearCases();
-    setCaseType("active");
-    loadCases("active");
-  }, [setCaseType, loadCases, clearCases]);
+class UnconnectedActiveCaseList extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.props.clearCases();
+    this.props.setCaseType("active");
+    this.props.loadCases("active");
+    this.state = {
+      loading: true
+    };
+  }
 
-  const loadMoreCases = () => {
+  componentDidUpdate() {
+    if (this.props.isLoading !== this.state.loading) {
+      this.setState({ loading: this.props.isLoading });
+    }
+  }
+
+  loadMoreCases() {
+    const caselist = this.props.caselist;
     const receiptNumber =
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
     loadCases("active", receiptNumber);
-  };
+  }
 
-  const i90headers: I90Header[] = [
-    { key: "showDetails", props: { toggleDetails } },
-    { key: "receiptNumber" },
-    { key: "caseAge" },
-    { key: "caseCreation" },
-    { key: "applicationReason" },
-    { key: "caseStatus" },
-    { key: "caseSubstatus" },
-    { key: "platform" },
-    { key: "assigned" },
-    {
-      key: "actions",
-      props: {
-        updateSummaryData: getSummary,
-        setError: setError,
-        setNotification: setNotification,
-        removeCase: removeCase
-      }
+  render() {
+    if (this.state.loading) {
+      return <p>Loading...</p>;
     }
-  ];
+    const {
+      setNotification,
+      setError,
+      summary,
+      removeCase,
+      caselist,
+      toggleDetails,
+      isLoading,
+      getSummary
+    } = this.props;
+    const i90headers: I90Header[] = [
+      { key: "showDetails", props: { toggleDetails } },
+      { key: "receiptNumber" },
+      { key: "caseAge" },
+      { key: "caseCreation" },
+      { key: "applicationReason" },
+      { key: "caseStatus" },
+      { key: "caseSubstatus" },
+      { key: "platform" },
+      { key: "assigned" },
+      {
+        key: "actions",
+        props: {
+          updateSummaryData: getSummary,
+          setError: setError,
+          setNotification: setNotification,
+          removeCase: removeCase
+        }
+      }
+    ];
 
-  return (
-    <React.Fragment>
-      <DesnoozedWarning
-        previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
-      />
-      <CaseList
-        cases={caselist}
-        headers={i90headers}
-        isLoading={isLoading}
-        totalCases={summary.CASES_TO_WORK}
-        loadMoreCases={loadMoreCases}
-      />
-    </React.Fragment>
-  );
-};
+    return (
+      <React.Fragment>
+        <DesnoozedWarning
+          previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
+        />
+        <CaseList
+          cases={caselist}
+          headers={i90headers}
+          isLoading={isLoading}
+          totalCases={summary.CASES_TO_WORK}
+          loadMoreCases={this.loadMoreCases.bind(this)}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 export default connect(
   mapStateToProps,
