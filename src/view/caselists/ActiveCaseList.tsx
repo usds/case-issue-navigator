@@ -35,25 +35,13 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-interface State {
-  loading: boolean;
-}
-
-class UnconnectedActiveCaseList extends React.Component<Props, State> {
+class UnconnectedActiveCaseList extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
     this.props.clearCases();
     this.props.setCaseType("active");
     this.props.loadCases("active");
-    this.state = {
-      loading: true
-    };
-  }
 
-  componentDidUpdate() {
-    if (this.props.isLoading !== this.state.loading) {
-      this.setState({ loading: this.props.isLoading });
-    }
   }
 
   loadMoreCases() {
@@ -66,9 +54,6 @@ class UnconnectedActiveCaseList extends React.Component<Props, State> {
   }
 
   render() {
-    if (this.state.loading) {
-      return <p>Loading...</p>;
-    }
     const {
       setNotification,
       setError,
