@@ -18,7 +18,6 @@ const headers = [
   { key: "caseStatus" }
 ];
 
-
 // TODO: rewrite with container component due to loading state
 
 storiesOf("CaseList", module)

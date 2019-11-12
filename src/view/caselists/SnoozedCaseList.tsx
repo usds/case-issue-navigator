@@ -76,6 +76,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
           }
         ]}
         totalCases={summary.SNOOZED_CASES}
+        snoozeState={"snoozed"}
       />
     );
   }

@@ -124,6 +124,52 @@ exports[`Storyshots FormattedDate Last Refresh 1`] = `
 </p>
 `;
 
+exports[`Storyshots LoadMore more cases 1`] = `
+<div
+  className="display-flex flex-column flex-align-center"
+>
+  <button
+    className="usa-button usa-button--outline"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Show More
+  </button>
+</div>
+`;
+
+exports[`Storyshots LoadMore more cases loading 1`] = `
+<div
+  className="display-flex flex-column flex-align-center"
+>
+  <button
+    className="usa-button usa-button--outline"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    Loading...
+  </button>
+</div>
+`;
+
+exports[`Storyshots LoadMore no cases 1`] = `
+<div
+  className="display-flex flex-column flex-align-center"
+>
+  There are no more cases on this list.
+</div>
+`;
+
+exports[`Storyshots LoadMore no more cases 1`] = `
+<div
+  className="display-flex flex-column flex-align-center"
+>
+  There are no more cases on this list.
+</div>
+`;
+
 exports[`Storyshots ReceiptList Empty Receipt List 1`] = `
 <p>
   No cases found.

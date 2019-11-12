@@ -77,7 +77,11 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
         <DesnoozedWarning
           previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
         />
-        <CaseList headers={i90headers} totalCases={summary.CASES_TO_WORK} />
+        <CaseList
+          headers={i90headers}
+          totalCases={summary.CASES_TO_WORK}
+          snoozeState={"active"}
+        />
       </React.Fragment>
     );
   }

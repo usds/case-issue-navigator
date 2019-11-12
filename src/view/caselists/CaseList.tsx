@@ -1,5 +1,4 @@
 import React from "react";
-import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
 // import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
@@ -11,6 +10,7 @@ import {
 } from "../../redux/modules/cases";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../../redux/modules/appStatus";
+import LoadMore from "../layout/LoadMore";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -37,6 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
 interface PassedProps {
   headers: I90Header[];
   totalCases: number;
+  snoozeState: SnoozeState;
 }
 
 type Props = PassedProps &
@@ -62,42 +63,29 @@ class CaseList extends React.Component<Props, State> {
   }
 
   loadMoreCases() {
-    const caselist = this.props.caselist;
+    const { caselist, snoozeState } = this.props;
     const receiptNumber =
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
-    this.props.loadCases("snoozed", receiptNumber);
-  }
-
-  renderLoadMoreAction() {
-    const { caselist, totalCases, isLoading } = this.props;
-    if (totalCases > caselist.length) {
-      return (
-        <UsaButton
-          onClick={this.loadMoreCases.bind(this)}
-          disabled={isLoading}
-          buttonStyle="outline"
-        >
-          {isLoading ? "Loading..." : "Show More"}
-        </UsaButton>
-      );
-    }
-    return "There are no more cases on this list.";
+    loadCases(snoozeState, receiptNumber);
   }
 
   render() {
     if (this.state.loading) {
       return <p>Loading...</p>;
     }
-    const { caselist, totalCases, isLoading, headers } = this.props;
+    const { caselist, isLoading, headers } = this.props;
 
     return (
       <React.Fragment>
         <ReceiptList cases={caselist} isLoading={isLoading} headers={headers} />
-        <div className="display-flex flex-column flex-align-center">
-          {this.renderLoadMoreAction()}
-        </div>
+        <LoadMore
+          totalCases={this.props.totalCases}
+          loadedCases={this.props.caselist.length}
+          isLoading={this.props.isLoading}
+          onClick={this.loadMoreCases}
+        />
       </React.Fragment>
     );
   }
