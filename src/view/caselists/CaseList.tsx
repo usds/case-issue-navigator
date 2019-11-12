@@ -35,7 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   );
 
 interface PassedProps {
-  headers: I90Header[];
   totalCases: number;
   snoozeState: SnoozeState;
 }
@@ -74,8 +73,62 @@ class CaseList extends React.Component<Props, State> {
     loadCases(snoozeState, receiptNumber);
   }
 
+  getI90Headers(): I90Header[] {
+    const {
+      setNotification,
+      setError,
+      removeCase,
+      toggleDetails,
+      getSummary,
+      snoozeState
+    } = this.props;
+    if (snoozeState === "active") {
+      return [
+        { key: "showDetails", props: { toggleDetails } },
+        { key: "receiptNumber" },
+        { key: "caseAge" },
+        { key: "caseCreation" },
+        { key: "applicationReason" },
+        { key: "caseStatus" },
+        { key: "caseSubstatus" },
+        { key: "platform" },
+        { key: "assigned" },
+        {
+          key: "actions",
+          props: {
+            updateSummaryData: getSummary,
+            setError: setError,
+            setNotification: setNotification,
+            removeCase: removeCase
+          }
+        }
+      ];
+    }
+    return [
+      { key: "showDetails", props: { toggleDetails } },
+      { key: "receiptNumber" },
+      { key: "caseAge" },
+      { key: "applicationReason" },
+      { key: "platform" },
+      { key: "problem" },
+      { key: "snoozed" },
+      { key: "assigned" },
+      { key: "SNTicket" },
+      {
+        key: "snoozeActions",
+        props: {
+          updateSummaryData: getSummary,
+          onSnoozeUpdate: this.props.updateSnooze,
+          setError,
+          setNotification,
+          removeCase
+        }
+      }
+    ];
+  }
+
   renderDeSnoozeWarning() {
-    const {summary, snoozeState} = this.props;
+    const { summary, snoozeState } = this.props;
     if (snoozeState !== "active") {
       return null;
     }
@@ -90,12 +143,12 @@ class CaseList extends React.Component<Props, State> {
     if (this.state.loading) {
       return <p>Loading...</p>;
     }
-    const { caselist, isLoading, headers } = this.props;
+    const { caselist, isLoading } = this.props;
 
     return (
       <React.Fragment>
         {this.renderDeSnoozeWarning()}
-        <ReceiptList cases={caselist} isLoading={isLoading} headers={headers} />
+        <ReceiptList cases={caselist} isLoading={isLoading} headers={this.getI90Headers()} />
         <LoadMore
           totalCases={this.props.totalCases}
           loadedCases={this.props.caselist.length}

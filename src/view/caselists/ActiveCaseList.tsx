@@ -41,37 +41,11 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
 
   render() {
     const {
-      setNotification,
-      setError,
       summary,
-      removeCase,
-      toggleDetails,
-      getSummary
     } = this.props;
-    const i90headers: I90Header[] = [
-      { key: "showDetails", props: { toggleDetails } },
-      { key: "receiptNumber" },
-      { key: "caseAge" },
-      { key: "caseCreation" },
-      { key: "applicationReason" },
-      { key: "caseStatus" },
-      { key: "caseSubstatus" },
-      { key: "platform" },
-      { key: "assigned" },
-      {
-        key: "actions",
-        props: {
-          updateSummaryData: getSummary,
-          setError: setError,
-          setNotification: setNotification,
-          removeCase: removeCase
-        }
-      }
-    ];
     return (
       <React.Fragment>
         <CaseList
-          headers={i90headers}
           totalCases={summary.CASES_TO_WORK}
           snoozeState={"active"}
         />

@@ -42,36 +42,10 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
 
   render() {
     const {
-      toggleDetails,
-      getSummary,
-      setError,
-      setNotification,
-      removeCase,
       summary
     } = this.props;
     return (
       <CaseList
-        headers={[
-          { key: "showDetails", props: { toggleDetails } },
-          { key: "receiptNumber" },
-          { key: "caseAge" },
-          { key: "applicationReason" },
-          { key: "platform" },
-          { key: "problem" },
-          { key: "snoozed" },
-          { key: "assigned" },
-          { key: "SNTicket" },
-          {
-            key: "snoozeActions",
-            props: {
-              updateSummaryData: getSummary,
-              onSnoozeUpdate: this.props.updateSnooze,
-              setError,
-              setNotification,
-              removeCase
-            }
-          }
-        ]}
         totalCases={summary.SNOOZED_CASES}
         snoozeState={"snoozed"}
       />
