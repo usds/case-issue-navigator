@@ -40,213 +40,27 @@ exports[`Storyshots AuthForm AuthForm view 1`] = `
 `;
 
 exports[`Storyshots CaseList Case list while loading data 1`] = `
-Array [
-  <table
-    className="usa-table usa-table--borderless width-full"
-  >
-    <thead>
-      <tr>
-        <th>
-          Receipt Number
-        </th>
-        <th>
-          Application Reason
-        </th>
-        <th>
-          Case Status
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/fak1"
-            target="_elis_viewer"
-          >
-            fak1
-          </a>
-        </td>
-        <td>
-          hello world
-        </td>
-        <td>
-          abc
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/fak2"
-            target="_elis_viewer"
-          >
-            fak2
-          </a>
-        </td>
-        <td>
-          hello world2
-        </td>
-        <td>
-          abc2
-        </td>
-      </tr>
-    </tbody>
-  </table>,
-  <div
-    className="display-flex flex-column flex-align-center"
-  >
-    <button
-      className="usa-button usa-button--outline"
-      disabled={true}
-      onClick={[Function]}
-      type="button"
-    >
-      Loading...
-    </button>
-  </div>,
-]
+<p>
+  Loading...
+</p>
 `;
 
 exports[`Storyshots CaseList Case list with some data 1`] = `
-Array [
-  <table
-    className="usa-table usa-table--borderless width-full"
-  >
-    <thead>
-      <tr>
-        <th>
-          Receipt Number
-        </th>
-        <th>
-          Application Reason
-        </th>
-        <th>
-          Case Status
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/fak1"
-            target="_elis_viewer"
-          >
-            fak1
-          </a>
-        </td>
-        <td>
-          hello world
-        </td>
-        <td>
-          abc
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/fak2"
-            target="_elis_viewer"
-          >
-            fak2
-          </a>
-        </td>
-        <td>
-          hello world2
-        </td>
-        <td>
-          abc2
-        </td>
-      </tr>
-    </tbody>
-  </table>,
-  <div
-    className="display-flex flex-column flex-align-center"
-  >
-    There are no more cases on this list.
-  </div>,
-]
+<p>
+  Loading...
+</p>
 `;
 
 exports[`Storyshots CaseList Caselist with more cases to load 1`] = `
-Array [
-  <table
-    className="usa-table usa-table--borderless width-full"
-  >
-    <thead>
-      <tr>
-        <th>
-          Receipt Number
-        </th>
-        <th>
-          Application Reason
-        </th>
-        <th>
-          Case Status
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/FAK1"
-            target="_elis_viewer"
-          >
-            FAK1
-          </a>
-        </td>
-        <td>
-          Hello world
-        </td>
-        <td>
-          ABC
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a
-            href="https://example.com/FAK2"
-            target="_elis_viewer"
-          >
-            FAK2
-          </a>
-        </td>
-        <td>
-          Hello world2
-        </td>
-        <td>
-          ABC2
-        </td>
-      </tr>
-    </tbody>
-  </table>,
-  <div
-    className="display-flex flex-column flex-align-center"
-  >
-    <button
-      className="usa-button usa-button--outline"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Show More
-    </button>
-  </div>,
-]
+<p>
+  Loading...
+</p>
 `;
 
 exports[`Storyshots CaseList Empty case list 1`] = `
-Array [
-  <p>
-    No cases found.
-  </p>,
-  <div
-    className="display-flex flex-column flex-align-center"
-  >
-    There are no more cases on this list.
-  </div>,
-]
+<p>
+  Loading...
+</p>
 `;
 
 exports[`Storyshots DesnoozedWarning Multiple desnoozed cases 1`] = `
