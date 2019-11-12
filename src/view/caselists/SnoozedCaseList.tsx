@@ -106,7 +106,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
     } = this.props;
     return (
       <CaseList
-        cases={this.props.caselist}
+        caselist={this.props.caselist}
         headers={[
           { key: "showDetails", props: { toggleDetails } },
           { key: "receiptNumber" },
@@ -130,7 +130,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
         ]}
         isLoading={isLoading}
         totalCases={summary.SNOOZED_CASES}
-        loadMoreCases={this.loadMoreCases.bind(this)}
+        loadCases={this.props.loadCases}
       />
     );
   }

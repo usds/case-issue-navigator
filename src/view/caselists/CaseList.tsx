@@ -5,8 +5,11 @@ import ReceiptList from "../tables/ReceiptList";
 interface Props {
   isLoading: boolean;
   headers: I90Header[];
-  cases: Case[];
-  loadMoreCases: () => void;
+  caselist: Case[];
+  loadCases: (
+    type: SnoozeState,
+    lastReceiptNumber?: string | undefined
+  ) => (args: any) => Promise<void>;
   totalCases: number;
 }
 
@@ -28,19 +31,28 @@ class CaseList extends React.Component<Props, State> {
     }
   }
 
+  loadMoreCases() {
+    const caselist = this.props.caselist;
+    const receiptNumber =
+      caselist.length > 0
+        ? caselist[caselist.length - 1].receiptNumber
+        : undefined;
+    this.props.loadCases("snoozed", receiptNumber);
+  }
+
   render() {
     if (this.state.loading) {
       return <p>Loading...</p>;
     }
-    const { cases, totalCases, isLoading, headers, loadMoreCases } = this.props;
+    const { caselist, totalCases, isLoading, headers } = this.props;
 
     return (
       <React.Fragment>
-        <ReceiptList cases={cases} isLoading={isLoading} headers={headers} />
+        <ReceiptList cases={caselist} isLoading={isLoading} headers={headers} />
         <div className="display-flex flex-column flex-align-center">
-          {totalCases > cases.length ? (
+          {totalCases > caselist.length ? (
             <UsaButton
-              onClick={loadMoreCases}
+              onClick={this.loadMoreCases.bind(this)}
               disabled={isLoading}
               buttonStyle="outline"
             >

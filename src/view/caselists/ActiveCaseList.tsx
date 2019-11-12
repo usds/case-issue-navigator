@@ -41,16 +41,6 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
     this.props.clearCases();
     this.props.setCaseType("active");
     this.props.loadCases("active");
-
-  }
-
-  loadMoreCases() {
-    const caselist = this.props.caselist;
-    const receiptNumber =
-      caselist.length > 0
-        ? caselist[caselist.length - 1].receiptNumber
-        : undefined;
-    this.props.loadCases("active", receiptNumber);
   }
 
   render() {
@@ -84,18 +74,17 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
         }
       }
     ];
-
     return (
       <React.Fragment>
         <DesnoozedWarning
           previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
         />
         <CaseList
-          cases={caselist}
+          caselist={caselist}
           headers={i90headers}
           isLoading={isLoading}
           totalCases={summary.CASES_TO_WORK}
-          loadMoreCases={this.loadMoreCases.bind(this)}
+          loadCases={this.props.loadCases}
         />
       </React.Fragment>
     );
