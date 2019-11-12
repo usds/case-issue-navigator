@@ -70,6 +70,22 @@ class CaseList extends React.Component<Props, State> {
     this.props.loadCases("snoozed", receiptNumber);
   }
 
+  renderLoadMoreAction() {
+    const { caselist, totalCases, isLoading } = this.props;
+    if (totalCases > caselist.length) {
+      return (
+        <UsaButton
+          onClick={this.loadMoreCases.bind(this)}
+          disabled={isLoading}
+          buttonStyle="outline"
+        >
+          {isLoading ? "Loading..." : "Show More"}
+        </UsaButton>
+      );
+    }
+    return "There are no more cases on this list.";
+  }
+
   render() {
     if (this.state.loading) {
       return <p>Loading...</p>;
@@ -80,17 +96,7 @@ class CaseList extends React.Component<Props, State> {
       <React.Fragment>
         <ReceiptList cases={caselist} isLoading={isLoading} headers={headers} />
         <div className="display-flex flex-column flex-align-center">
-          {totalCases > caselist.length ? (
-            <UsaButton
-              onClick={this.loadMoreCases.bind(this)}
-              disabled={isLoading}
-              buttonStyle="outline"
-            >
-              {isLoading ? "Loading..." : "Show More"}
-            </UsaButton>
-          ) : (
-            "There are no more cases on this list."
-          )}
+          {this.renderLoadMoreAction()}
         </div>
       </React.Fragment>
     );
