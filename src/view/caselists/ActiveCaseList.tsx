@@ -50,7 +50,7 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
-    loadCases("active", receiptNumber);
+    this.props.loadCases("active", receiptNumber);
   }
 
   render() {

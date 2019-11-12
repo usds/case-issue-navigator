@@ -49,7 +49,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
-    loadCases("snoozed", receiptNumber);
+    this.props.loadCases("snoozed", receiptNumber);
   }
 
   onSnoozeUpdate(
