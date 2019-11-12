@@ -69,7 +69,7 @@ class CaseList extends React.Component<Props, State> {
       caselist.length > 0
         ? caselist[caselist.length - 1].receiptNumber
         : undefined;
-    loadCases(snoozeState, receiptNumber);
+    this.props.loadCases(snoozeState, receiptNumber);
   }
 
   getI90Headers(): I90Header[] {
@@ -164,7 +164,7 @@ class CaseList extends React.Component<Props, State> {
           totalCases={this.getTotalCases()}
           loadedCases={this.props.caselist.length}
           isLoading={this.props.isLoading}
-          onClick={this.loadMoreCases}
+          onClick={this.loadMoreCases.bind(this)}
         />
       </React.Fragment>
     );
