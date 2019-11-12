@@ -19,10 +19,10 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
+      updateSnooze: casesActionCreators.updateSnooze,
       removeCase: casesActionCreators.removeCase,
       toggleDetails: casesActionCreators.toggleDetails,
       loadCases: loadCases,
-      setCases: casesActionCreators.setCases,
       setCaseType: casesActionCreators.setCaseType,
       setNotification: appStatusActionCreators.setNotification,
       setError: appStatusActionCreators.setDataLoadError,
@@ -41,57 +41,6 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
     this.props.clearCases();
     this.props.setCaseType("snoozed");
     this.props.loadCases("snoozed");
-  }
-
-  loadMoreCases() {
-    const caselist = this.props.caselist;
-    const receiptNumber =
-      caselist.length > 0
-        ? caselist[caselist.length - 1].receiptNumber
-        : undefined;
-    this.props.loadCases("snoozed", receiptNumber);
-  }
-
-  onSnoozeUpdate(
-    receiptNumber: string,
-    newNotes: DBNote[],
-    snoozeInformation: SnoozeInformation
-  ) {
-    const snoozedCases = this.props.caselist
-      .map(snoozedCase => {
-        if (snoozedCase.receiptNumber === receiptNumber) {
-          const notes = snoozedCase.notes
-            ? snoozedCase.notes.concat(newNotes)
-            : newNotes;
-          return {
-            ...snoozedCase,
-            snoozeInformation: snoozeInformation,
-            notes
-          };
-        }
-        return snoozedCase;
-      })
-      .sort((a, b) => {
-        return (
-          new Date(
-            (a.snoozeInformation as SnoozeInformation).snoozeEnd
-          ).getTime() -
-          new Date().getTime() -
-          (new Date(
-            (b.snoozeInformation as SnoozeInformation).snoozeEnd
-          ).getTime() -
-            new Date().getTime())
-        );
-      });
-
-    if (
-      snoozedCases[snoozedCases.length - 1].receiptNumber === receiptNumber &&
-      snoozedCases.length < this.props.summary["SNOOZED_CASES"]
-    ) {
-      snoozedCases.pop();
-    }
-
-    this.props.setCases(snoozedCases);
   }
 
   render() {
@@ -121,7 +70,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
             key: "snoozeActions",
             props: {
               updateSummaryData: getSummary,
-              onSnoozeUpdate: this.onSnoozeUpdate.bind(this),
+              onSnoozeUpdate: this.props.updateSnooze,
               setError,
               setNotification,
               removeCase

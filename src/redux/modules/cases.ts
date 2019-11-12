@@ -10,6 +10,16 @@ export const casesActionCreators = {
   setCases: (cases: Case[]) => action("cases/SET_CASES", cases),
   removeCase: (receiptNumber: string) =>
     action("cases/REMOVE_CASE", receiptNumber),
+  updateSnooze: (
+    receiptNumber: string,
+    newNotes: DBNote[],
+    snoozeInformation: SnoozeInformation
+  ) =>
+    action("cases/UPDATE_SNOOZED_CASE", {
+      receiptNumber,
+      newNotes,
+      snoozeInformation
+    }),
   clearCases: () => action("cases/CLEAR_CASES"),
   toggleDetails: (receiptNumber: string) =>
     action("cases/TOGGLE_DETAILS", receiptNumber),
@@ -120,6 +130,41 @@ export default function reducer(
         ...state,
         caselist: state.caselist.filter(c => c.receiptNumber !== action.payload)
       };
+    case "cases/UPDATE_SNOOZED_CASE":
+      const { receiptNumber, newNotes, snoozeInformation } = action.payload;
+      const caselist = state.caselist
+        .map(snoozedCase => {
+          if (snoozedCase.receiptNumber === receiptNumber) {
+            const notes = snoozedCase.notes
+              ? snoozedCase.notes.concat(newNotes)
+              : newNotes;
+            return {
+              ...snoozedCase,
+              snoozeInformation: snoozeInformation,
+              notes
+            };
+          }
+          return snoozedCase;
+        })
+        .sort((a, b) => {
+          return (
+            new Date(
+              (a.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
+            new Date().getTime() -
+            (new Date(
+              (b.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
+              new Date().getTime())
+          );
+        });
+      if (
+        caselist[caselist.length - 1].receiptNumber === receiptNumber &&
+        caselist.length < state.summary["SNOOZED_CASES"]
+      ) {
+        caselist.pop();
+      }
+      return { ...state, caselist };
     case "cases/CLEAR_CASES":
       return {
         ...state,
