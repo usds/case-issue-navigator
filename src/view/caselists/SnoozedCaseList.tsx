@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseList } from "./CaseList";
+import CaseList from "./CaseList";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
@@ -50,12 +50,10 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
       setError,
       setNotification,
       removeCase,
-      isLoading,
       summary
     } = this.props;
     return (
       <CaseList
-        caselist={this.props.caselist}
         headers={[
           { key: "showDetails", props: { toggleDetails } },
           { key: "receiptNumber" },
@@ -77,9 +75,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
             }
           }
         ]}
-        isLoading={isLoading}
         totalCases={summary.SNOOZED_CASES}
-        loadCases={this.props.loadCases}
       />
     );
   }

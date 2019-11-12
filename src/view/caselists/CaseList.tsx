@@ -1,17 +1,47 @@
 import React from "react";
 import UsaButton from "../util/UsaButton";
 import ReceiptList from "../tables/ReceiptList";
+// import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
+import { RootState } from "../../redux/create";
+import { Dispatch, AnyAction, bindActionCreators } from "redux";
+import {
+  casesActionCreators,
+  loadCases,
+  getCaseSummary
+} from "../../redux/modules/cases";
+import { connect } from "react-redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
 
-interface Props {
-  isLoading: boolean;
+const mapStateToProps = (state: RootState) => ({
+  caselist: state.cases.caselist,
+  isLoading: state.cases.isLoading,
+  summary: state.cases.summary
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      updateSnooze: casesActionCreators.updateSnooze,
+      removeCase: casesActionCreators.removeCase,
+      toggleDetails: casesActionCreators.toggleDetails,
+      setCaseType: casesActionCreators.setCaseType,
+      loadCases: loadCases,
+      setNotification: appStatusActionCreators.setNotification,
+      setError: appStatusActionCreators.setDataLoadError,
+      getSummary: getCaseSummary,
+      clearCases: casesActionCreators.clearCases
+    },
+    dispatch
+  );
+
+interface PassedProps {
   headers: I90Header[];
-  caselist: Case[];
-  loadCases: (
-    type: SnoozeState,
-    lastReceiptNumber?: string | undefined
-  ) => (args: any) => Promise<void>;
   totalCases: number;
 }
+
+type Props = PassedProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 interface State {
   loading: boolean;
@@ -67,4 +97,7 @@ class CaseList extends React.Component<Props, State> {
   }
 }
 
-export { CaseList };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CaseList);

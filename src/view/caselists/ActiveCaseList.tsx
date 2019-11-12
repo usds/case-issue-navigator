@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseList } from "./CaseList";
+import CaseList from "./CaseList";
 import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
@@ -49,9 +49,7 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
       setError,
       summary,
       removeCase,
-      caselist,
       toggleDetails,
-      isLoading,
       getSummary
     } = this.props;
     const i90headers: I90Header[] = [
@@ -79,13 +77,7 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
         <DesnoozedWarning
           previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
         />
-        <CaseList
-          caselist={caselist}
-          headers={i90headers}
-          isLoading={isLoading}
-          totalCases={summary.CASES_TO_WORK}
-          loadCases={this.props.loadCases}
-        />
+        <CaseList headers={i90headers} totalCases={summary.CASES_TO_WORK} />
       </React.Fragment>
     );
   }
