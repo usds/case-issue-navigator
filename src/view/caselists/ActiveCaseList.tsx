@@ -40,17 +40,7 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
   }
 
   render() {
-    const {
-      summary,
-    } = this.props;
-    return (
-      <React.Fragment>
-        <CaseList
-          totalCases={summary.CASES_TO_WORK}
-          snoozeState={"active"}
-        />
-      </React.Fragment>
-    );
+    return <CaseList snoozeState={"active"} />;
   }
 }
 

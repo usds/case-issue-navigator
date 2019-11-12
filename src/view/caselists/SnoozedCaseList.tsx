@@ -41,15 +41,7 @@ class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
   }
 
   render() {
-    const {
-      summary
-    } = this.props;
-    return (
-      <CaseList
-        totalCases={summary.SNOOZED_CASES}
-        snoozeState={"snoozed"}
-      />
-    );
+    return <CaseList snoozeState={"snoozed"} />;
   }
 }
 

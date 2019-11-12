@@ -35,7 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   );
 
 interface PassedProps {
-  totalCases: number;
   snoozeState: SnoozeState;
 }
 
@@ -127,6 +126,14 @@ class CaseList extends React.Component<Props, State> {
     ];
   }
 
+  getTotalCases() {
+    const { summary, snoozeState } = this.props;
+    if (snoozeState === "active") {
+      return summary.CASES_TO_WORK;
+    }
+    return summary.SNOOZED_CASES;
+  }
+
   renderDeSnoozeWarning() {
     const { summary, snoozeState } = this.props;
     if (snoozeState !== "active") {
@@ -148,9 +155,13 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         {this.renderDeSnoozeWarning()}
-        <ReceiptList cases={caselist} isLoading={isLoading} headers={this.getI90Headers()} />
+        <ReceiptList
+          cases={caselist}
+          isLoading={isLoading}
+          headers={this.getI90Headers()}
+        />
         <LoadMore
-          totalCases={this.props.totalCases}
+          totalCases={this.getTotalCases()}
           loadedCases={this.props.caselist.length}
           isLoading={this.props.isLoading}
           onClick={this.loadMoreCases}
