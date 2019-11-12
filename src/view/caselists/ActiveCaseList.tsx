@@ -38,9 +38,6 @@ type Props = ReturnType<typeof mapStateToProps> &
 class UnconnectedActiveCaseList extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.props.clearCases();
-    this.props.setCaseType("active");
-    this.props.loadCases("active");
   }
 
   render() {

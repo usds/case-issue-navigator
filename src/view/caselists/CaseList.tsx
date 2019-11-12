@@ -51,6 +51,9 @@ interface State {
 class CaseList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.props.clearCases();
+    this.props.setCaseType(props.snoozeState);
+    this.props.loadCases(props.snoozeState);
     this.state = {
       loading: true
     };

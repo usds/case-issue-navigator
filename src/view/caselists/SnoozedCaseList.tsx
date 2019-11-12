@@ -38,9 +38,6 @@ type Props = ReturnType<typeof mapStateToProps> &
 class UnconnectedSnoozedCaseList extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.props.clearCases();
-    this.props.setCaseType("snoozed");
-    this.props.loadCases("snoozed");
   }
 
   render() {
