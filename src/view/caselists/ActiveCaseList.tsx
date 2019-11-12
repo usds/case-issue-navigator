@@ -1,6 +1,5 @@
 import React from "react";
 import CaseList from "./CaseList";
-import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import {
@@ -71,9 +70,6 @@ class UnconnectedActiveCaseList extends React.Component<Props, {}> {
     ];
     return (
       <React.Fragment>
-        <DesnoozedWarning
-          previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
-        />
         <CaseList
           headers={i90headers}
           totalCases={summary.CASES_TO_WORK}

@@ -1,6 +1,6 @@
 import React from "react";
 import ReceiptList from "../tables/ReceiptList";
-// import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
+import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import {
@@ -74,6 +74,18 @@ class CaseList extends React.Component<Props, State> {
     loadCases(snoozeState, receiptNumber);
   }
 
+  renderDeSnoozeWarning() {
+    const {summary, snoozeState} = this.props;
+    if (snoozeState !== "active") {
+      return null;
+    }
+    return (
+      <DesnoozedWarning
+        previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
+      />
+    );
+  }
+
   render() {
     if (this.state.loading) {
       return <p>Loading...</p>;
@@ -82,6 +94,7 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
+        {this.renderDeSnoozeWarning()}
         <ReceiptList cases={caselist} isLoading={isLoading} headers={headers} />
         <LoadMore
           totalCases={this.props.totalCases}
