@@ -1,10 +1,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import CaseList from "../../view/caselists/CaseList";
-import { IS_TEST_ENV } from "../../controller/config";
-import { store } from "../../redux/create";
+import CaseList from "../view/CaseList";
+import { IS_TEST_ENV } from "../controller/config";
+import { store } from "../redux/create";
 import { Provider } from "react-redux";
-import { casesActionCreators } from "../../redux/modules/cases";
+import { casesActionCreators } from "../redux/modules/cases";
 // Known workaround to mock createPortal for jest testing
 if (IS_TEST_ENV) {
   jest.mock("react-dom", () => ({

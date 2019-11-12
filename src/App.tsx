@@ -4,13 +4,17 @@ import "uswds";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import ActiveCaseList from "./view/caselists/ActiveCaseList";
-import SnoozedCaseList from "./view/caselists/SnoozedCaseList";
+import CaseList from "./view/CaseList";
 import { VIEWS } from "./controller/config";
 import Header from "./view/layout/Header";
 import AuthContainer from "./view/auth/AuthContainer";
 
 library.add(fas);
+
+const ActiveCaseList: React.FC<{}> = () => <CaseList snoozeState={"active"} />;
+const SnoozedCaseList: React.FC<{}> = () => (
+  <CaseList snoozeState={"snoozed"} />
+);
 
 const App: React.FC = () => {
   const snoozePath = `/${VIEWS.SNOOZED_CASES.ROUTE}`;

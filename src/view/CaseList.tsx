@@ -1,16 +1,16 @@
 import React from "react";
-import ReceiptList from "../tables/ReceiptList";
-import { DesnoozedWarning } from "../notifications/DesnoozedWarning";
-import { RootState } from "../../redux/create";
+import ReceiptList from "./tables/ReceiptList";
+import { DesnoozedWarning } from "./notifications/DesnoozedWarning";
+import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import {
   casesActionCreators,
   loadCases,
   getCaseSummary
-} from "../../redux/modules/cases";
+} from "../redux/modules/cases";
 import { connect } from "react-redux";
-import { appStatusActionCreators } from "../../redux/modules/appStatus";
-import LoadMore from "../layout/LoadMore";
+import { appStatusActionCreators } from "../redux/modules/appStatus";
+import LoadMore from "./layout/LoadMore";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
