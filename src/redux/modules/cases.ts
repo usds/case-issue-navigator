@@ -9,7 +9,7 @@ export const casesActionCreators = {
     action("cases/REMOVE_CASE", receiptNumber),
   updateSnooze: (
     receiptNumber: string,
-    newNotes: DBNote[],
+    newNotes: Note[],
     snoozeInformation: SnoozeInformation
   ) =>
     action("cases/UPDATE_SNOOZED_CASE", {

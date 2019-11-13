@@ -188,8 +188,8 @@ describe("redux - cases", () => {
     const testCase = updatedCases.find(
       (c: Case) => c.receiptNumber === "FKE9703329"
     ) as Case;
-    expect((testCase.notes as DBNote[]).length).toBe(1);
-    expect(testCase.notes as DBNote[]).toEqual([
+    expect((testCase.notes as Note[]).length).toBe(1);
+    expect(testCase.notes as Note[]).toEqual([
       {
         content: "hi",
         type: "COMMENT",

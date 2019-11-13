@@ -7,7 +7,7 @@ describe("NoteUtils", () => {
   });
 
   it("no assignee note returns null", () => {
-    const assignee: DBNote = {
+    const assignee: Note = {
       content: "123",
       href: "http://tickets.example.com/ticket/123/details",
       subType: "troubleticket",
@@ -19,7 +19,7 @@ describe("NoteUtils", () => {
   });
 
   it("finds an assignee", () => {
-    const assignee: DBNote = {
+    const assignee: Note = {
       content: "Emma",
       href: null,
       subType: "assignee",
@@ -33,7 +33,7 @@ describe("NoteUtils", () => {
   });
 
   it("finds the correct assignee", () => {
-    const assignee: DBNote = {
+    const assignee: Note = {
       content: "Emma",
       href: null,
       subType: "assignee",
@@ -41,7 +41,7 @@ describe("NoteUtils", () => {
       type: "TAG",
       userId: "28f247e4-a022-454e-acc5-b287aa679b59"
     };
-    const UpdatedAssignee: DBNote = {
+    const UpdatedAssignee: Note = {
       content: "Eric",
       href: null,
       subType: "assignee",

@@ -20,7 +20,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
     );
     if (response.succeeded) {
       const caseEvents: Array<CaseDetail> = [];
-      response.payload.notes.forEach((note: DBNote) => {
+      response.payload.notes.forEach((note: Note) => {
         caseEvents.push({
           date: new Date(note.timestamp),
           noteOrSnooze: "note",

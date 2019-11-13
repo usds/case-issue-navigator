@@ -175,7 +175,7 @@ interface Case {
   receiptNumber: string;
   caseCreation: string;
   extraData: CaseExtraData;
-  notes?: Array<DBNote>;
+  notes?: Array<Note>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
   showDetails: boolean;
@@ -193,14 +193,17 @@ type SnoozeInformation = {
   user: UserInformation;
 };
 
-interface Note {
+type AttachmentType = "CORRELATION_ID" | "LINK" | "COMMENT" | "TAG";
+
+interface PartialNote {
   content: string;
-  type: string | null;
+  type: AttachmentType | null;
   subType: SubType | null;
   href?: string | null;
 }
 
-interface DBNote extends Note {
+interface Note extends PartialNote {
+  href: string | null;
   user: UserInformation;
   timestamp: string;
 }
@@ -217,7 +220,7 @@ interface SnoozeOption {
   snoozeReason: string;
   duration: number;
   shortText: string;
-  type: string | null;
+  type: AttachmentType | null;
   subType: SubType | null;
   followUp?: string;
   caseIssueNotes?: string;

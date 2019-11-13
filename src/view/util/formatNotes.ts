@@ -1,7 +1,7 @@
 import { SNOOZE_OPTIONS } from "../../controller/config";
 
-const formatNotes = (snoozeOption: CallbackState): Array<Note> => {
-  const notes: Array<Note> = [];
+const formatNotes = (snoozeOption: CallbackState): Array<PartialNote> => {
+  const notes: Array<PartialNote> = [];
 
   if (snoozeOption.caseIssueNotes) {
     notes.push({
