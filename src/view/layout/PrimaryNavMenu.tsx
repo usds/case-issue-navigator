@@ -55,7 +55,7 @@ const UnconnectedPrimaryNavMenu: React.FC<PrimaryNavMenuProps> = ({
           {user && (
             <div className="usa-nav__secondary margin-bottom-105">
               <ul className="usa-nav__secondary-links">
-                <li className="usa-nav__secondary-item">{user}</li>
+                <li className="usa-nav__secondary-item">{user.name}</li>
               </ul>
             </div>
           )}

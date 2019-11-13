@@ -52,13 +52,19 @@ describe("redux - appStatus", () => {
   });
   it("sets a user", () => {
     const { dispatch } = testStore;
-    const user = "John Doe";
+    const user = {
+      name: "John Doe",
+      id: "f4c31959-acaa-41f0-a61c-7a146c0157a9"
+    };
     dispatch(setUser(user));
     expect(testStore.getState().appStatus.user).toBe(user);
   });
   it("clears a user", () => {
     const { dispatch } = testStore;
-    const user = "John Doe";
+    const user = {
+      name: "John Doe",
+      id: "f4c31959-acaa-41f0-a61c-7a146c0157a9"
+    };
     dispatch(setUser(user));
     dispatch(clearUser());
     expect(testStore.getState().appStatus.user).toBe(undefined);

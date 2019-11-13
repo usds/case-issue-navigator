@@ -44,7 +44,7 @@ const UnconnectedAuthContainer: React.FC<AuthContainerProps> = ({
       try {
         const response = await RestAPIClient.auth.getCurrentUser();
         if (response.succeeded) {
-          setUser(response.payload.name);
+          setUser(response.payload);
         }
         setIsInitializing(false);
       } catch (err) {

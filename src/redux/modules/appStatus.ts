@@ -10,7 +10,7 @@ export const appStatusActionCreators = {
     action("app-status/SET_DATA_LOAD_ERROR", error),
   setNotification: (notification: AppNotification) =>
     action("app-status/SET_NOTIFICATION", notification),
-  setUser: (user: string) => action("app-status/SET_USER", user),
+  setUser: (user: UserInformation) => action("app-status/SET_USER", user),
   clearUser: () => action("app-status/CLEAR_USER"),
   setIsInitializing: (isInitializing: boolean) =>
     action("app-status/SET_IS_INITIALIZING", isInitializing)
@@ -28,7 +28,7 @@ export type AppStatusState = {
     error: APIError | null;
   };
   notification?: AppNotification;
-  user?: string;
+  user?: UserInformation;
   isInitializing: boolean;
 };
 

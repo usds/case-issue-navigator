@@ -16,7 +16,12 @@ describe("AuthContainer", () => {
   });
   it("should render children if logged in", () => {
     store.dispatch(appStatusActionCreators.setIsInitializing(false));
-    store.dispatch(appStatusActionCreators.setUser("Bob"));
+    store.dispatch(
+      appStatusActionCreators.setUser({
+        name: "Bob",
+        id: "02010593-232d-443c-ba62-ee7a67302398"
+      })
+    );
     const wrapper = mount(
       <Provider store={store}>
         <AuthContainer>
