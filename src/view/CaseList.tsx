@@ -43,7 +43,7 @@ type Props = PassedProps &
   ReturnType<typeof mapDispatchToProps>;
 
 interface State {
-  loading: boolean;
+  initializing: boolean;
 }
 
 class CaseList extends React.Component<Props, State> {
@@ -53,13 +53,16 @@ class CaseList extends React.Component<Props, State> {
     this.props.setCaseType(props.snoozeState);
     this.props.loadCases(props.snoozeState);
     this.state = {
-      loading: true
+      initializing: true
     };
   }
 
   componentDidUpdate() {
-    if (this.props.isLoading !== this.state.loading) {
-      this.setState({ loading: this.props.isLoading });
+    if (
+      this.state.initializing &&
+      this.props.isLoading !== this.state.initializing
+    ) {
+      this.setState({ initializing: this.props.isLoading });
     }
   }
 
@@ -147,7 +150,7 @@ class CaseList extends React.Component<Props, State> {
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.initializing) {
       return <p>Loading...</p>;
     }
     const { caselist, isLoading } = this.props;
