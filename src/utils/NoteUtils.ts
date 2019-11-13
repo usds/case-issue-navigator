@@ -1,8 +1,5 @@
 export default class NoteUtils {
-  static getFollowUp(
-    notes: DBNote[] | undefined,
-    subtype: SubType
-  ): DBNote | null {
+  static getFollowUp(notes: Note[] | undefined, subtype: SubType): Note | null {
     if (!notes) {
       return null;
     }

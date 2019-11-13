@@ -5,18 +5,18 @@ import URLs from "../URLs";
 export interface SnoozeInputs {
   duration: number;
   reason: string; //SnoozeReason????
-  notes: Note[];
+  notes: PartialNote[];
 }
 
 interface UpdateSnoozeSuccess {
-  notes: DBNote[];
+  notes: Note[];
   snoozeEnd: string;
   snoozeReason: SnoozeReason;
   snoozeStart: string;
 }
 
 interface CaseDetails {
-  notes: DBNote[];
+  notes: Note[];
   snoozes: SnoozeInformation[];
 }
 
