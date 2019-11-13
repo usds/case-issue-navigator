@@ -8,13 +8,16 @@ export interface SnoozeInputs {
   notes: Note[];
 }
 
-interface UpdateSnoozeSuccess extends SnoozeInformation {
+interface UpdateSnoozeSuccess {
   notes: DBNote[];
+  snoozeEnd: string;
+  snoozeReason: SnoozeReason;
+  snoozeStart: string;
 }
 
 interface CaseDetails {
   notes: DBNote[];
-  snoozes: DBSnoozeInformation[];
+  snoozes: SnoozeInformation[];
 }
 
 class CaseDetailsAPIClient extends ClientBase {
