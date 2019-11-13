@@ -31,7 +31,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
           creator: note.user.name
         });
       });
-      response.payload.snoozes.forEach((snooze: DBSnoozeInformation) => {
+      response.payload.snoozes.forEach((snooze: SnoozeInformation) => {
         caseEvents.push({
           noteOrSnooze: "snooze",
           date: new Date(snooze.snoozeStart),

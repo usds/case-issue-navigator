@@ -6,20 +6,38 @@ import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 import { EndSnoozeForm } from "./EndSnoozeForm";
+import { RootState } from "../redux/create";
+import { connect } from "react-redux";
 
-interface Props extends SnoozeActionsProps {
+const mapStateToProps = (state: RootState) => ({
+  currentUser: state.appStatus.user
+});
+
+interface PassedProps extends SnoozeActionsProps {
   rowData: Case;
 }
 
-const UpdateSnoozeFormWrapper = (props: Props) => {
-  const [showDialog, setDialog] = useState(false);
+type Props = ReturnType<typeof mapStateToProps> & PassedProps;
 
-  const { setNotification, setError } = props;
+const UpdateSnoozeFormWrapper: React.FC<Props> = ({
+  setNotification,
+  setError,
+  currentUser,
+  onSnoozeUpdate,
+  updateSummaryData,
+  removeCase,
+  rowData
+}) => {
+  const [showDialog, setDialog] = useState(false);
 
   const reSnooze = async (
     receiptNumber: string,
     snoozeOption: CallbackState
   ) => {
+    if (!currentUser) {
+      console.error("Attemped resnooze with out a current user");
+      return;
+    }
     const notes = formatNotes(snoozeOption);
     const response = await RestAPIClient.caseDetails.updateActiveSnooze(
       receiptNumber,
@@ -40,10 +58,14 @@ const UpdateSnoozeFormWrapper = (props: Props) => {
         type: "success"
       });
       trackEvent("snooze", "reSnooze", snoozeOption.snoozeReason);
-      props.onSnoozeUpdate(receiptNumber, response.payload.notes, {
+      onSnoozeUpdate(receiptNumber, response.payload.notes, {
         snoozeEnd: response.payload.snoozeEnd,
         snoozeReason: response.payload.snoozeReason,
-        snoozeStart: response.payload.snoozeStart
+        snoozeStart: response.payload.snoozeStart,
+        user: {
+          name: currentUser.name,
+          id: currentUser.id
+        }
       });
       return;
     }
@@ -62,8 +84,8 @@ const UpdateSnoozeFormWrapper = (props: Props) => {
     );
 
     if (response.succeeded) {
-      props.updateSummaryData();
-      props.removeCase(receiptNumber);
+      updateSummaryData();
+      removeCase(receiptNumber);
       trackEvent("snooze", "deSnooze", "desnoozed");
       setNotification({
         message: `${receiptNumber} has been Unsnoozed.`,
@@ -87,21 +109,21 @@ const UpdateSnoozeFormWrapper = (props: Props) => {
     <React.Fragment>
       <ActionModal
         isOpen={showDialog}
-        title={props.rowData.receiptNumber}
+        title={rowData.receiptNumber}
         closeModal={closeModal}
       >
         <UpdateSnoozeForm
           reSnooze={reSnooze}
           closeDialog={closeModal}
-          rowData={props.rowData}
+          rowData={rowData}
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">
         Update
       </UsaButton>
-      <EndSnoozeForm rowData={props.rowData} deSnooze={deSnooze} />
+      <EndSnoozeForm rowData={rowData} deSnooze={deSnooze} />
     </React.Fragment>
   );
 };
 
-export { UpdateSnoozeFormWrapper };
+export default connect(mapStateToProps)(UpdateSnoozeFormWrapper);

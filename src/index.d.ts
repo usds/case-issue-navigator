@@ -190,11 +190,8 @@ type SnoozeInformation = {
   snoozeEnd: string;
   snoozeReason: SnoozeReason;
   snoozeStart: string;
-};
-
-interface DBSnoozeInformation extends SnoozeInformation {
   user: UserInformation;
-}
+};
 
 interface Note {
   content: string;
