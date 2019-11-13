@@ -17,7 +17,12 @@ describe("App", () => {
     store.dispatch(appStatusActionCreators.setIsInitializing(false));
   });
   it("should show the correct title for Cases to Work", () => {
-    store.dispatch(appStatusActionCreators.setUser("Fred"));
+    store.dispatch(
+      appStatusActionCreators.setUser({
+        name: "Fred",
+        id: "8f04f25d-8778-4d9b-aa1b-6aa781e1c9f0"
+      })
+    );
     mount(
       <MemoryRouter initialEntries={["/"]}>
         <Provider store={store}>
@@ -30,7 +35,12 @@ describe("App", () => {
     );
   });
   it("should show the correct title for Snoozed Cases", () => {
-    store.dispatch(appStatusActionCreators.setUser("Fred"));
+    store.dispatch(
+      appStatusActionCreators.setUser({
+        name: "Fred",
+        id: "8f04f25d-8778-4d9b-aa1b-6aa781e1c9f0"
+      })
+    );
     mount(
       <MemoryRouter initialEntries={["/snoozed-cases"]}>
         <Provider store={store}>
@@ -43,7 +53,12 @@ describe("App", () => {
     );
   });
   it("Helmet title should match route title", () => {
-    store.dispatch(appStatusActionCreators.setUser("Fred"));
+    store.dispatch(
+      appStatusActionCreators.setUser({
+        name: "Fred",
+        id: "8f04f25d-8778-4d9b-aa1b-6aa781e1c9f0"
+      })
+    );
     mount(
       <MemoryRouter initialEntries={["/snoozed-cases"]}>
         <Provider store={store}>
