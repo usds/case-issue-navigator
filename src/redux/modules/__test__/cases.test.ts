@@ -1,6 +1,12 @@
 import { createStore } from "redux";
 import { rootReducer, Store, store } from "../../create";
-import { casesActionCreators, loadCases, getCaseSummary } from "../cases";
+import {
+  casesActionCreators,
+  loadCases,
+  getCaseSummary,
+  initialState
+} from "../cases";
+import RestAPIClient from "../../../api/RestAPIClient";
 
 const initialCases: Case[] = [
   {
@@ -131,7 +137,7 @@ describe("redux - cases", () => {
     setLastUpdated
   } = casesActionCreators;
   beforeEach(() => {
-    testStore = createStore(rootReducer);
+    testStore = createStore(rootReducer, { cases: initialState });
   });
   it("adds a case to an empty case list", () => {
     const { dispatch } = testStore;
@@ -306,9 +312,41 @@ describe("redux - cases", () => {
         json: () => initialCases
       })
     );
-    const { dispatch } = testAsyncStore;
-    await loadCases("active")(dispatch);
+    const { dispatch, getState } = testAsyncStore;
+    dispatch(setCaseType("active"));
+    await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
+  });
+  it("calls getActive without a recipetnumber when there are no cases", async () => {
+    jest.spyOn(RestAPIClient.cases, "getActive");
+    const { dispatch, getState } = store;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(clearCases());
+    dispatch(setCaseType("active"));
+    await loadCases()(dispatch, getState);
+    expect(RestAPIClient.cases.getActive).toHaveBeenCalledWith(undefined);
+  });
+  it("calls getActive with a recipetnumber when there is a case", async () => {
+    jest.spyOn(RestAPIClient.cases, "getActive");
+    const { dispatch, getState } = store;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
+    dispatch(setCaseType("active"));
+    await loadCases()(dispatch, getState);
+    expect(RestAPIClient.cases.getActive).toHaveBeenCalledWith(
+      initialCases[initialCases.length - 1].receiptNumber
+    );
   });
   it("sets the case summary", () => {
     const { dispatch } = testStore;

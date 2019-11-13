@@ -51,7 +51,7 @@ class CaseList extends React.Component<Props, State> {
     super(props);
     this.props.clearCases();
     this.props.setCaseType(props.snoozeState);
-    this.props.loadCases(props.snoozeState);
+    this.props.loadCases();
     this.state = {
       initializing: true
     };
@@ -64,15 +64,6 @@ class CaseList extends React.Component<Props, State> {
     ) {
       this.setState({ initializing: this.props.isLoading });
     }
-  }
-
-  loadMoreCases() {
-    const { caselist, snoozeState } = this.props;
-    const receiptNumber =
-      caselist.length > 0
-        ? caselist[caselist.length - 1].receiptNumber
-        : undefined;
-    this.props.loadCases(snoozeState, receiptNumber);
   }
 
   getI90Headers(): I90Header[] {
@@ -167,7 +158,7 @@ class CaseList extends React.Component<Props, State> {
           totalCases={this.getTotalCases()}
           loadedCases={this.props.caselist.length}
           isLoading={this.props.isLoading}
-          onClick={this.loadMoreCases.bind(this)}
+          onClick={this.props.loadCases}
         />
       </React.Fragment>
     );

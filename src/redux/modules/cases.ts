@@ -32,11 +32,19 @@ export const casesActionCreators = {
     action("cases/SET_LAST_UPDATED", lastUpdated)
 };
 
-export const loadCases = (
-  type: SnoozeState,
-  lastReceiptNumber?: string
-) => async (dispatch: ThunkDispatch<RootState, {}, AnyAction>) => {
+export const loadCases = () => async (
+  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
+  getState: () => RootState
+) => {
   const { setIsLoading, addCases } = casesActionCreators;
+  const { cases } = getState();
+  const { caselist, type } = cases;
+
+  const lastReceiptNumber =
+    caselist.length > 0
+      ? caselist[caselist.length - 1].receiptNumber
+      : undefined;
+
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
   const response =
