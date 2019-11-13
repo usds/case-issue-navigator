@@ -181,6 +181,11 @@ interface Case {
   showDetails: boolean;
 }
 
+interface UserInformation {
+  id: string;
+  name: string;
+}
+
 type SnoozeInformation = {
   snoozeEnd: string;
   snoozeReason: SnoozeReason;
@@ -188,8 +193,7 @@ type SnoozeInformation = {
 };
 
 interface DBSnoozeInformation extends SnoozeInformation {
-  userId: string;
-  userName: string;
+  user: UserInformation;
 }
 
 interface Note {
@@ -200,8 +204,7 @@ interface Note {
 }
 
 interface DBNote extends Note {
-  userId: string;
-  userName: string;
+  user: UserInformation;
   timestamp: string;
 }
 

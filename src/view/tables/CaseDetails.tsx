@@ -28,7 +28,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
           subType: note.subType,
           href: note.href,
           content: note.content,
-          creator: note.userName
+          creator: note.user.name
         });
       });
       response.payload.snoozes.forEach((snooze: DBSnoozeInformation) => {
@@ -37,7 +37,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
           date: new Date(snooze.snoozeStart),
           type: "snoozeStart",
           snoozeReason: snooze.snoozeReason,
-          creator: snooze.userName
+          creator: snooze.user.name
         });
         if (new Date(snooze.snoozeEnd) < new Date()) {
           caseEvents.push({
@@ -45,7 +45,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
             date: new Date(snooze.snoozeEnd),
             type: "snoozeEnd",
             snoozeReason: snooze.snoozeReason,
-            creator: snooze.userName
+            creator: snooze.user.name
           });
         }
       });
