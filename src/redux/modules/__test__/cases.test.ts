@@ -38,6 +38,83 @@ const newCases: Case[] = [
     showDetails: false
   }
 ];
+const snoozedCases: Case[] = [
+  {
+    notes: [
+      {
+        content: "aaaa",
+        type: "COMMENT",
+        subType: null,
+        href: null,
+        userId: "admin",
+        timestamp: "2019-11-13T15:15:26.726+0000"
+      }
+    ],
+    caseCreation: "2014-08-02T00:00:00-04:00",
+    receiptNumber: "FKE5369954",
+    extraData: {
+      caseStatus: "Processing",
+      caseState: "Happy",
+      caseId: "41464",
+      caseSubstatus: "Printing",
+      channelType: "Semaphore",
+      caseAge: "1843",
+      applicationReason: "Boredom",
+      i90SP: "true"
+    },
+    previouslySnoozed: false,
+    snoozeInformation: {
+      snoozeReason: "test_data",
+      snoozeEnd: "2018-11-12T03:00:00-05:00",
+      snoozeStart: "2017-11-13T10:15:26.70979-05:00"
+    },
+    showDetails: false
+  },
+  {
+    notes: [],
+    caseCreation: "2014-08-05T00:00:00-04:00",
+    receiptNumber: "FKE9703329",
+    extraData: {
+      caseStatus: "Ask a Silly Question get a Silly Answer",
+      caseState: "Happy",
+      caseId: "89172",
+      caseSubstatus: "Unfortunately Unclear",
+      channelType: "Pigeon",
+      caseAge: "1840",
+      applicationReason: "Enthusiasm",
+      i90SP: "false"
+    },
+    previouslySnoozed: false,
+    snoozeInformation: {
+      snoozeReason: "test_data",
+      snoozeEnd: "2019-11-12T03:00:00-05:00",
+      snoozeStart: "2017-11-13T10:27:57.319233-05:00"
+    },
+    showDetails: false
+  },
+  {
+    notes: [],
+    caseCreation: "2014-08-06T00:00:00-04:00",
+    receiptNumber: "FKE2278368",
+    extraData: {
+      caseStatus: "Processing",
+      caseState: "Happy",
+      caseId: "61834",
+      caseSubstatus: "Amazingly Successful",
+      channelType: "Semaphore",
+      caseAge: "1839",
+      applicationReason: "Boredom",
+      i90SP: "false"
+    },
+    previouslySnoozed: false,
+    snoozeInformation: {
+      snoozeReason: "test_data",
+      snoozeEnd: "2020-11-12T03:00:00-05:00",
+      snoozeStart: "2019-11-13T10:27:59.495681-05:00"
+    },
+    showDetails: false
+  }
+];
 
 describe("redux - cases", () => {
   let testStore: Store;
@@ -45,6 +122,7 @@ describe("redux - cases", () => {
     addCases,
     setCases,
     removeCase,
+    updateSnooze,
     clearCases,
     setCaseType,
     toggleDetails,
@@ -80,6 +158,112 @@ describe("redux - cases", () => {
     dispatch(setCases(initialCases));
     dispatch(removeCase("ABC123"));
     expect(testStore.getState().cases.caselist).toEqual([]);
+  });
+  it("adds a note and snooze information to a snoozed case", () => {
+    const { dispatch } = testStore;
+    dispatch(setCases(snoozedCases));
+    dispatch(
+      updateSnooze(
+        "FKE9703329",
+        [
+          {
+            content: "hi",
+            type: "COMMENT",
+            subType: null,
+            href: null,
+            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            timestamp: "2019-11-13T15:15:26.726+0000"
+          }
+        ],
+        {
+          snoozeReason: "test_data",
+          snoozeEnd: "2020-11-12T03:00:00-05:00",
+          snoozeStart: "2019-11-13T10:15:26.70979-05:00"
+        }
+      )
+    );
+    const updatedCases = testStore.getState().cases.caselist;
+    const testCase = updatedCases.find(
+      (c: Case) => c.receiptNumber === "FKE9703329"
+    ) as Case;
+    expect((testCase.notes as DBNote[]).length).toBe(1);
+    expect(testCase.notes as DBNote[]).toEqual([
+      {
+        content: "hi",
+        type: "COMMENT",
+        subType: null,
+        href: null,
+        userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+        timestamp: "2019-11-13T15:15:26.726+0000"
+      }
+    ]);
+    expect(testCase.snoozeInformation as SnoozeInformation).toEqual({
+      snoozeReason: "test_data",
+      snoozeEnd: "2020-11-12T03:00:00-05:00",
+      snoozeStart: "2019-11-13T10:15:26.70979-05:00"
+    });
+  });
+  it("sorts cases by snooze end asc", () => {
+    const { dispatch } = testStore;
+    dispatch(setCases(snoozedCases));
+    dispatch(
+      updateSnooze(
+        "FKE5369954",
+        [
+          {
+            content: "snooze for a very long time",
+            type: "COMMENT",
+            subType: null,
+            href: null,
+            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            timestamp: "2019-13-13T15:15:26.726+0000"
+          }
+        ],
+        {
+          snoozeReason: "test_data",
+          snoozeEnd: "2030-01-12T03:00:00-05:00",
+          snoozeStart: "2019-12-13T10:15:26.70979-05:00"
+        }
+      )
+    );
+    const updatedCases = testStore.getState().cases.caselist;
+    expect(updatedCases[0].receiptNumber).toEqual("FKE9703329");
+    expect(updatedCases[1].receiptNumber).toEqual("FKE2278368");
+    expect(updatedCases[2].receiptNumber).toEqual("FKE5369954");
+  });
+  it("removes the updated case if its order is unknown", () => {
+    const { dispatch } = testStore;
+    const summary: Summary = {
+      CASES_TO_WORK: 0,
+      SNOOZED_CASES: 500,
+      PREVIOUSLY_SNOOZED: 0
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(setCases(snoozedCases));
+    dispatch(
+      updateSnooze(
+        "FKE5369954",
+        [
+          {
+            content: "snooze for a very long time",
+            type: "COMMENT",
+            subType: null,
+            href: null,
+            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            timestamp: "2019-13-13T15:15:26.726+0000"
+          }
+        ],
+        {
+          snoozeReason: "test_data",
+          snoozeEnd: "2030-01-12T03:00:00-05:00",
+          snoozeStart: "2019-12-13T10:15:26.70979-05:00"
+        }
+      )
+    );
+    const updatedCases = testStore.getState().cases.caselist;
+    expect(updatedCases.length).toBe(2);
+    expect(updatedCases[0].receiptNumber).toBe("FKE9703329");
+    expect(updatedCases[1].receiptNumber).toBe("FKE2278368");
   });
   it("clears all cases", () => {
     const { dispatch } = testStore;
