@@ -1,27 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { AuthForm } from "./AuthForm";
 import { API_BASE_URL } from "../../controller/config";
 import RestAPIClient from "../../api/RestAPIClient";
+import { RootState } from "../../redux/create";
+import { Dispatch, AnyAction, bindActionCreators } from "redux";
+import { appStatusActionCreators } from "../../redux/modules/appStatus";
+import { connect } from "react-redux";
+import { LoadingPage } from "../layout/Loading";
 
-type AuthContext = {
-  loggedIn: boolean;
-  setLoggedIn: React.Dispatch<boolean>;
-  name: string;
-};
+const mapStateToProps = (state: RootState) => ({
+  user: state.appStatus.user,
+  isInitializing: state.appStatus.isInitializing
+});
 
-interface AuthContainerProps {
-  defaultLoggedInState: boolean;
-}
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      setUser: appStatusActionCreators.setUser,
+      setIsInitializing: appStatusActionCreators.setIsInitializing
+    },
+    dispatch
+  );
 
-export const AuthContext = React.createContext({} as AuthContext);
+type AuthContainerProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-const AuthContainer: React.FC<AuthContainerProps> = props => {
-  const [loggedIn, setLoggedIn] = useState<boolean>(props.defaultLoggedInState);
-  const [name, setName] = useState<string>("");
-
+const UnconnectedAuthContainer: React.FC<AuthContainerProps> = ({
+  children,
+  user,
+  setUser,
+  isInitializing,
+  setIsInitializing
+}) => {
   useEffect(() => {
-    if (!loggedIn) {
-      return setName("");
+    if (user) {
+      return;
     }
 
     // Get csrf from server before it's needed
@@ -31,26 +44,30 @@ const AuthContainer: React.FC<AuthContainerProps> = props => {
       try {
         const response = await RestAPIClient.auth.getCurrentUser();
         if (response.succeeded) {
-          setName(response.payload.name);
+          setUser(response.payload.name);
         }
+        setIsInitializing(false);
       } catch (err) {
         console.error(err);
       }
     };
     getUser();
-  }, [loggedIn]);
+  }, [user, setUser, setIsInitializing]);
 
-  return (
-    <AuthContext.Provider value={{ loggedIn, setLoggedIn, name }}>
-      {loggedIn ? (
-        props.children
-      ) : (
-        <AuthForm
-          loginUrl={`${API_BASE_URL}/clientLogin/?redirect=${window.location}`}
-        />
-      )}
-    </AuthContext.Provider>
+  if (isInitializing) {
+    return <LoadingPage />;
+  }
+
+  return user ? (
+    <React.Fragment>{children}</React.Fragment>
+  ) : (
+    <AuthForm
+      loginUrl={`${API_BASE_URL}/clientLogin/?redirect=${window.location}`}
+    />
   );
 };
 
-export { AuthContainer };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedAuthContainer);

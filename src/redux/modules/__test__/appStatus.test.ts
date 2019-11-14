@@ -7,7 +7,11 @@ describe("redux - appStatus", () => {
   const {
     setPageTitle,
     setDataIsLoading,
-    setDataLoadError
+    setDataLoadError,
+    setNotification,
+    setUser,
+    clearUser,
+    setIsInitializing
   } = appStatusActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer);
@@ -26,10 +30,44 @@ describe("redux - appStatus", () => {
   });
   it("sets data fetch error", () => {
     const { dispatch } = testStore;
-    const error = new Error("Oh no!");
+    const error: APIError = {
+      error: "",
+      message: "",
+      status: 500,
+      timestamp: ""
+    };
     dispatch(setDataLoadError(error));
     expect(testStore.getState().appStatus.dataFetching.error).toBe(error);
     dispatch(setDataLoadError(null));
     expect(testStore.getState().appStatus.dataFetching.error).toBe(null);
+  });
+  it("sets a notification", () => {
+    const { dispatch } = testStore;
+    const notification: AppNotification = {
+      type: "info",
+      message: "this is a message"
+    };
+    dispatch(setNotification(notification));
+    expect(testStore.getState().appStatus.notification).toBe(notification);
+  });
+  it("sets a user", () => {
+    const { dispatch } = testStore;
+    const user = "John Doe";
+    dispatch(setUser(user));
+    expect(testStore.getState().appStatus.user).toBe(user);
+  });
+  it("clears a user", () => {
+    const { dispatch } = testStore;
+    const user = "John Doe";
+    dispatch(setUser(user));
+    dispatch(clearUser());
+    expect(testStore.getState().appStatus.user).toBe(undefined);
+  });
+  it("sets initialization status", () => {
+    const { dispatch } = testStore;
+    dispatch(setIsInitializing(false));
+    expect(testStore.getState().appStatus.isInitializing).toBe(false);
+    dispatch(setIsInitializing(true));
+    expect(testStore.getState().appStatus.isInitializing).toBe(true);
   });
 });

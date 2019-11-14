@@ -1,7 +1,8 @@
 import { action } from "typesafe-actions";
-import { RootAction } from "../create";
+import { RootAction, RootState } from "../create";
 import { Dispatch, AnyAction } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
+import { ThunkDispatch } from "redux-thunk";
 
 // Actions
 export const casesActionCreators = {
@@ -9,20 +10,43 @@ export const casesActionCreators = {
   setCases: (cases: Case[]) => action("cases/SET_CASES", cases),
   removeCase: (receiptNumber: string) =>
     action("cases/REMOVE_CASE", receiptNumber),
+  updateSnooze: (
+    receiptNumber: string,
+    newNotes: DBNote[],
+    snoozeInformation: SnoozeInformation
+  ) =>
+    action("cases/UPDATE_SNOOZED_CASE", {
+      receiptNumber,
+      newNotes,
+      snoozeInformation
+    }),
   clearCases: () => action("cases/CLEAR_CASES"),
   toggleDetails: (receiptNumber: string) =>
     action("cases/TOGGLE_DETAILS", receiptNumber),
   setCaseType: (type: SnoozeState) => action("cases/SET_CASE_TYPE", type),
   setIsLoading: (isLoading: boolean) =>
-    action("cases/SET_IS_LOADING", isLoading)
+    action("cases/SET_IS_LOADING", isLoading),
+  setCaseSummary: (summary: Summary) =>
+    action("cases/SET_CASE_SUMMARY", summary),
+  setLastUpdated: (lastUpdated: string) =>
+    action("cases/SET_LAST_UPDATED", lastUpdated)
 };
 
-export const loadCases = (
-  type: SnoozeState,
-  lastReceiptNumber?: string
-) => async (dispatch: Dispatch<AnyAction>) => {
+export const loadCases = () => async (
+  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
+  getState: () => RootState
+) => {
   const { setIsLoading, addCases } = casesActionCreators;
+  const { cases } = getState();
+  const { caselist, type } = cases;
+
+  const lastReceiptNumber =
+    caselist.length > 0
+      ? caselist[caselist.length - 1].receiptNumber
+      : undefined;
+
   dispatch(setIsLoading(true));
+  dispatch(getCaseSummary());
   const response =
     type === "active"
       ? await RestAPIClient.cases.getActive(lastReceiptNumber)
@@ -42,6 +66,33 @@ export const loadCases = (
   }
 };
 
+export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {
+  const response = await RestAPIClient.cases.getCaseSummary();
+  const { setCaseSummary, setLastUpdated } = casesActionCreators;
+
+  if (response.succeeded) {
+    const currentlySnoozed = response.payload.CURRENTLY_SNOOZED || 0;
+    const neverSnoozed = response.payload.NEVER_SNOOZED || 0;
+    const previouslySnoozed = response.payload.PREVIOUSLY_SNOOZED || 0;
+    if (response.payload.lastUpdated) {
+      dispatch(setLastUpdated(response.payload.lastUpdated));
+    }
+    return dispatch(
+      setCaseSummary({
+        CASES_TO_WORK: neverSnoozed + previouslySnoozed,
+        SNOOZED_CASES: currentlySnoozed,
+        PREVIOUSLY_SNOOZED: previouslySnoozed
+      })
+    );
+  }
+  if (response.responseReceived) {
+    const errorJson = await response.responseError.getJson();
+    console.error(errorJson);
+  } else {
+    console.error(response);
+  }
+};
+
 type ActionCreator = typeof casesActionCreators;
 
 export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
@@ -51,12 +102,19 @@ export type CasesState = {
   caselist: Case[];
   type: SnoozeState;
   isLoading: boolean;
+  summary: Summary;
+  lastUpdated?: string;
 };
 
 export const initialState: CasesState = {
   caselist: [],
   type: "active",
-  isLoading: false
+  isLoading: false,
+  summary: {
+    CASES_TO_WORK: 0,
+    SNOOZED_CASES: 0,
+    PREVIOUSLY_SNOOZED: 0
+  }
 };
 
 // Reducer
@@ -80,6 +138,41 @@ export default function reducer(
         ...state,
         caselist: state.caselist.filter(c => c.receiptNumber !== action.payload)
       };
+    case "cases/UPDATE_SNOOZED_CASE":
+      const { receiptNumber, newNotes, snoozeInformation } = action.payload;
+      const caselist = state.caselist
+        .map(snoozedCase => {
+          if (snoozedCase.receiptNumber === receiptNumber) {
+            const notes = snoozedCase.notes
+              ? snoozedCase.notes.concat(newNotes)
+              : newNotes;
+            return {
+              ...snoozedCase,
+              snoozeInformation: snoozeInformation,
+              notes
+            };
+          }
+          return snoozedCase;
+        })
+        .sort((a, b) => {
+          return (
+            new Date(
+              (a.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
+            new Date().getTime() -
+            (new Date(
+              (b.snoozeInformation as SnoozeInformation).snoozeEnd
+            ).getTime() -
+              new Date().getTime())
+          );
+        });
+      if (
+        caselist[caselist.length - 1].receiptNumber === receiptNumber &&
+        caselist.length < state.summary["SNOOZED_CASES"]
+      ) {
+        caselist.pop();
+      }
+      return { ...state, caselist };
     case "cases/CLEAR_CASES":
       return {
         ...state,
@@ -108,6 +201,10 @@ export default function reducer(
         ...state,
         isLoading: action.payload
       };
+    case "cases/SET_CASE_SUMMARY":
+      return { ...state, summary: action.payload };
+    case "cases/SET_LAST_UPDATED":
+      return { ...state, lastUpdated: action.payload };
     default:
       return state;
   }
