@@ -1,16 +1,12 @@
 import React from "react";
-import ReceiptList from "./tables/ReceiptList";
 import { DesnoozedWarning } from "./notifications/DesnoozedWarning";
 import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
-import {
-  casesActionCreators,
-  loadCases,
-  getCaseSummary
-} from "../redux/modules/cases";
+import { casesActionCreators, loadCases } from "../redux/modules/cases";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
+import I90Table from "./tables/I90Table";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -21,14 +17,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      updateSnooze: casesActionCreators.updateSnooze,
-      removeCase: casesActionCreators.removeCase,
-      toggleDetails: casesActionCreators.toggleDetails,
       setCaseType: casesActionCreators.setCaseType,
       loadCases: loadCases,
-      setNotification: appStatusActionCreators.setNotification,
       setError: appStatusActionCreators.setDataLoadError,
-      getSummary: getCaseSummary,
       clearCases: casesActionCreators.clearCases
     },
     dispatch
@@ -66,60 +57,6 @@ class CaseList extends React.Component<Props, State> {
     }
   }
 
-  getI90Headers(): I90Header[] {
-    const {
-      setNotification,
-      setError,
-      removeCase,
-      toggleDetails,
-      getSummary,
-      snoozeState
-    } = this.props;
-    if (snoozeState === "active") {
-      return [
-        { key: "showDetails", props: { toggleDetails } },
-        { key: "receiptNumber" },
-        { key: "caseAge" },
-        { key: "caseCreation" },
-        { key: "applicationReason" },
-        { key: "caseStatus" },
-        { key: "caseSubstatus" },
-        { key: "platform" },
-        { key: "assigned" },
-        {
-          key: "actions",
-          props: {
-            updateSummaryData: getSummary,
-            setError: setError,
-            setNotification: setNotification,
-            removeCase: removeCase
-          }
-        }
-      ];
-    }
-    return [
-      { key: "showDetails", props: { toggleDetails } },
-      { key: "receiptNumber" },
-      { key: "caseAge" },
-      { key: "applicationReason" },
-      { key: "platform" },
-      { key: "problem" },
-      { key: "snoozed" },
-      { key: "assigned" },
-      { key: "SNTicket" },
-      {
-        key: "snoozeActions",
-        props: {
-          updateSummaryData: getSummary,
-          onSnoozeUpdate: this.props.updateSnooze,
-          setError,
-          setNotification,
-          removeCase
-        }
-      }
-    ];
-  }
-
   getTotalCases() {
     const { summary, snoozeState } = this.props;
     if (snoozeState === "active") {
@@ -144,16 +81,11 @@ class CaseList extends React.Component<Props, State> {
     if (this.state.initializing) {
       return <p>Loading...</p>;
     }
-    const { caselist, isLoading } = this.props;
 
     return (
       <React.Fragment>
         {this.renderDeSnoozeWarning()}
-        <ReceiptList
-          cases={caselist}
-          isLoading={isLoading}
-          headers={this.getI90Headers()}
-        />
+        <I90Table />
         <LoadMore
           totalCases={this.getTotalCases()}
           loadedCases={this.props.caselist.length}
