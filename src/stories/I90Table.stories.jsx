@@ -4,11 +4,12 @@ import I90Table from "../view/tables/I90Table";
 import { store } from "../redux/create";
 import { casesActionCreators } from "../redux/modules/cases";
 import { Provider } from "react-redux";
+import DateUtils, { ONE_DAY_IN_MS } from "../utils/DateUtils";
 
 const sampleCases = [
   {
     receiptNumber: "FKE5381523",
-    caseCreation: new Date().setDate(new Date().getDate() - 100),
+    caseCreation: new Date("August 6, 2019"),
     extraData: {
       caseStatus: "Pending",
       caseState: "Happy",
@@ -22,7 +23,7 @@ const sampleCases = [
   },
   {
     receiptNumber: "FKE8206743",
-    caseCreation: new Date().setDate(new Date().getDate() - 150),
+    caseCreation: new Date("June 17, 2019"),
     extraData: {
       caseStatus: "Eschewing Obfuscation",
       caseState: "Happy",
@@ -45,6 +46,20 @@ const sampleCases = [
     ]
   }
 ];
+
+jest.spyOn(DateUtils, "numberOfDaysUntil").mockImplementation(date => {
+  return Math.ceil(
+    (new Date(date).valueOf() - new Date("November 14, 2019").valueOf()) /
+      ONE_DAY_IN_MS
+  );
+});
+
+jest.spyOn(DateUtils, "numberOfDaysSince").mockImplementation(date => {
+  return Math.ceil(
+    (new Date("November 14, 2019").valueOf() - new Date(date).valueOf()) /
+      ONE_DAY_IN_MS
+  );
+});
 
 storiesOf("I90Table", module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
