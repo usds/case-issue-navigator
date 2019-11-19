@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import I90Table from "../view/tables/I90Table";
+import I90Table from "../view/tables/i90-table/I90Table";
 import { store } from "../redux/create";
 import { casesActionCreators } from "../redux/modules/cases";
 import { Provider } from "react-redux";

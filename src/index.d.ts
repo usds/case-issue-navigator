@@ -116,7 +116,7 @@ interface ActionsProps {
   updateSummaryData: () => Dispatch<AnyAction>;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<AnyAction>;
-  removeCase: (receiptNumber: string) => Dispatch<AnyAction>;
+  removeCase: Dispatch<ReturnType<typeof casesActionCreators.removeCase>>;
 }
 
 interface Actions {
@@ -128,12 +128,8 @@ interface SnoozeActionsProps {
   updateSummaryData: () => void;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<React.SetStateAction<AppNotification>>;
-  onSnoozeUpdate: (
-    receiptNumber: string,
-    notes: DBNote[],
-    snoozeInformation: SnoozeInformation
-  ) => void;
-  removeCase: (receiptNumber: string) => void;
+  onSnoozeUpdate: ReturnType<typeof casesActionCreators.updateSnooze>;
+  removeCase: Dispatch<ReturnType<typeof casesActionCreators.removeCase>>;
 }
 
 interface SnoozeActions {
