@@ -132,7 +132,9 @@ exports[`Storyshots I90Table Active case view 1`] = `
     <tr>
       <td
         className="min"
-      />
+      >
+        
+      </td>
       <td>
         Receipt Number
       </td>
@@ -344,7 +346,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
     <tr>
       <td
         className="min"
-      />
+      >
+        
+      </td>
       <td>
         Receipt Number
       </td>
@@ -448,7 +452,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         Legacy
       </td>
-      <td />
+      <td>
+        
+      </td>
       <td />
       <td>
         Phil

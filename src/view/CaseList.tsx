@@ -6,7 +6,7 @@ import { casesActionCreators, loadCases } from "../redux/modules/cases";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
-import I90Table from "./tables/I90Table";
+import I90Table from "./tables/i90-table/I90Table";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
