@@ -2110,9 +2110,9 @@
     "@types/jest-diff" "*"
 
 "@types/node@*":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
-  integrity sha512-Jrb/x3HT4PTJp6a4avhmJCDEVrPdqLfl3e8GGMbpkGGdwAV5UGlIs4vVEfsHHfylZVOKZWpOqmqFH8CbfOZ6kg==
+  version "12.12.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.9.tgz#0b5ae05516b757cbff2e82c04500190aef986c7b"
+  integrity sha512-kV3w4KeLsRBW+O2rKhktBwENNJuqAUQHS3kf4ia2wIaF/MN6U7ANgTsx7tGremcA0Pk3Yh0Hl0iKiLPuBdIgmw==
 
 "@types/node@^12.7.2":
   version "12.7.2"
@@ -10691,9 +10691,9 @@ query-string@^4.1.0:
     strict-uri-encode "^1.0.0"
 
 query-string@^6.8.2:
-  version "6.8.3"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.8.3.tgz#fd9fb7ffb068b79062b43383685611ee47777d4b"
-  integrity sha512-llcxWccnyaWlODe7A9hRjkvdCKamEKTh+wH8ITdTc3OhchaqUZteiSCX/2ablWHVrkVIe04dntnaZJ7BdyW0lQ==
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.9.0.tgz#1c3b727c370cf00f177c99f328fda2108f8fa3dd"
+  integrity sha512-KG4bhCFYapExLsUHrFt+kQVEegF2agm4cpF/VNc6pZVthIfCc/GK8t8VyNIE3nyXG9DK3Tf2EGkxjR6/uRdYsA==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
@@ -11733,9 +11733,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     inherits "^2.0.1"
 
 rollup@^1.20.3:
-  version "1.23.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.23.1.tgz#0315a0f5d0dfb056e6363e1dff05b89ac2da6b8e"
-  integrity sha512-95C1GZQpr/NIA0kMUQmSjuMDQ45oZfPgDBcN0yZwBG7Kee//m7H68vgIyg+SPuyrTZ5PrXfyLK80OzXeKG5dAA==
+  version "1.27.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.2.tgz#caf54a93df228bf7864f13dddcdb363d3e958509"
+  integrity sha512-sD3iyd0zlvgK1S3MmICi6F/Y+R/QWY5XxzsTGN4pAd+nCasDUizmAhgq2hdh1t2eLux974NHU2TW41fhuGPv+Q==
   dependencies:
     "@types/estree" "*"
     "@types/node" "*"
@@ -12747,10 +12747,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-tbest-fetch-client@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/tbest-fetch-client/-/tbest-fetch-client-0.1.1.tgz#d48eab462357d083136220dc6fe07b25aba60bb1"
-  integrity sha512-hZTEDpx35cDzp/HV/C4W0V0t+3uB2thrgxNMTYfDnQDolniPJ0+o3b1L71gB3B3sCWZQLdU6R8u1cdU78GGFZw==
+tbest-fetch-client@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tbest-fetch-client/-/tbest-fetch-client-0.1.2.tgz#566e17e3829fa0c564d51c3ec640351fc50c042f"
+  integrity sha512-VT6BIGxbu10EKbIp4qHMxm2S5SiZKjjwpMTTa3Dh62cDr/R06+KC1lxiQfyHPkYvtEFy4xj+cTMYHjUISCo6rA==
   dependencies:
     es6-error "^4.1.1"
     global "^4.4.0"

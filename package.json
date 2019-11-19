@@ -34,7 +34,7 @@
     "react-tooltip": "^3.11.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "tbest-fetch-client": "^0.1.1",
+    "tbest-fetch-client": "^0.1.2",
     "typesafe-actions": "^5.1.0-1",
     "typescript": "^3.5.3",
     "uswds": "^2.0.3"
