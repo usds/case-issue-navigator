@@ -54,8 +54,6 @@ class UpdateSnoozeForm extends React.Component<Props, State> {
         return "troubleticket";
       case "fo_referral":
         return "fieldoffice";
-      case "bcu":
-        return "referral";
     }
     return null;
   }

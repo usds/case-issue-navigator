@@ -1133,11 +1133,6 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       Technical Issue
     </option>
     <option
-      value="bcu"
-    >
-      Referral to BCU or CFDO
-    </option>
-    <option
       value="record_analysis"
     >
       Needs record analysis to review

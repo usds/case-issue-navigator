@@ -209,7 +209,6 @@ type SnoozeReason =
   | "in_proceedings"
   | "fo_referral"
   | "technical_issue"
-  | "bcu"
   | "record_analysis";
 
 interface SnoozeOption {

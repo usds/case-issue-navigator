@@ -48,14 +48,6 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     type: "LINK",
     subType: "troubleticket"
   },
-  bcu: {
-    snoozeReason: "Referral to BCU or CFDO",
-    shortText: "Referral",
-    followUp: "Reason for referral",
-    duration: 30,
-    type: "TAG",
-    subType: "referral"
-  },
   record_analysis: {
     snoozeReason: "Needs record analysis to review",
     shortText: "Record Analysis",
