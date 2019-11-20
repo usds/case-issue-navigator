@@ -1,4 +1,5 @@
 import { FetchClient } from "tbest-fetch-client";
+import { APIResponseError } from "./APIResponseError";
 import URLs from "./URLs";
 
 class ClientBase extends FetchClient.Client {
@@ -6,6 +7,10 @@ class ClientBase extends FetchClient.Client {
     super();
     this.credentials = "include";
     this.setCsrf();
+  }
+
+  protected getResponseError(response: Response): APIResponseError<Response> {
+    return new APIResponseError(response);
   }
 
   protected setCsrf() {

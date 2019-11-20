@@ -3,7 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import PrimaryNavMenu from "./PrimaryNavMenu";
 import { VIEWS } from "../../controller/config";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorHandler from "./ErrorHandler";
 import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
@@ -69,7 +68,6 @@ const UnconnnectedHeader: React.FunctionComponent<HeaderProps> = props => {
         <title>{pageTitle}</title>
       </Helmet>
       <ToastContainer />
-      <ErrorHandler />
       <PrimaryNavMenu views={VIEWS} />
       <FormattedDate label="Last Refresh" date={lastUpdated} />
     </React.Fragment>
