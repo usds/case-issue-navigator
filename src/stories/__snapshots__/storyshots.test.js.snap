@@ -116,6 +116,44 @@ Array [
 ]
 `;
 
+exports[`Storyshots FilterForm Basic form 1`] = `
+<div
+  className="usa-search usa-search--small"
+>
+  <label
+    className="usa-label margin-bottom-1"
+    htmlFor="search-field-small"
+  >
+    Search receipt numbers
+  </label>
+  <div
+    role="search"
+  >
+    <input
+      className="usa-input"
+      id="search-field-small"
+      name="search"
+      style={
+        Object {
+          "width": "auto",
+        }
+      }
+      type="search"
+    />
+    <button
+      className="usa-button"
+      type="submit"
+    >
+      <span
+        className="usa-sr-only"
+      >
+        Search
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Storyshots FormattedDate Last Refresh 1`] = `
 <p>
   Last Refresh
