@@ -1140,6 +1140,20 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
   </select>
   <label
     className="usa-label"
+    htmlFor="followUp"
+  >
+    ServiceNow ticket ID:
+  </label>
+  <input
+    className="usa-input"
+    id="followUp"
+    name="followUp"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <label
+    className="usa-label"
     htmlFor="duration"
   >
     Snooze Duration (in days)
