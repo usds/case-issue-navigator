@@ -5,8 +5,9 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     snoozeReason: "Test Data - should be deleted", // Snooze Reason
     shortText: "Test Data",
     duration: 365,
-    type: null,
-    subType: null
+    followUp: "ServiceNow ticket ID:",
+    type: "LINK",
+    subType: "troubleticket"
   },
   assigned_case: {
     snoozeReason: "Case has been assigned - remind me later",
