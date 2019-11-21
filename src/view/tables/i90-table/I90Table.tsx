@@ -80,7 +80,8 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Receipt Number",
-      Cell: ({ caseData }) => <ReceiptNumberLink caseData={caseData} />
+      Cell: ({ caseData }) => <ReceiptNumberLink caseData={caseData} />,
+      className: "nowrap"
     },
     {
       header: "Case Age",

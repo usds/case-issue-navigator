@@ -135,7 +135,9 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         Receipt Number
       </td>
       <td>
@@ -194,7 +196,9 @@ exports[`Storyshots I90Table Active case view 1`] = `
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         <a
           href="https://example.com/FKE5381523"
           target="_elis_viewer"
@@ -290,7 +294,9 @@ exports[`Storyshots I90Table Active case view 1`] = `
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         <a
           href="https://example.com/FKE8206743"
           target="_elis_viewer"
@@ -349,7 +355,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       >
         
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         Receipt Number
       </td>
       <td>
@@ -408,7 +416,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         <a
           href="https://example.com/FKE5381523"
           target="_elis_viewer"
@@ -508,7 +518,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           </svg>
         </button>
       </td>
-      <td>
+      <td
+        className="nowrap"
+      >
         <a
           href="https://example.com/FKE8206743"
           target="_elis_viewer"
