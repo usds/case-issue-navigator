@@ -80,53 +80,53 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Receipt Number",
-      Cell: ({ caseData }) => <ReceiptNumberLink caseData={caseData} />,
+      Cell: ReceiptNumberLink,
       className: "nowrap"
     },
     {
       header: "Case Age",
-      Cell: ({ caseData }) => <CaseAge caseData={caseData} />
+      Cell: CaseAge
     },
     {
       header: "Case Creation",
-      Cell: ({ caseData }) => <CaseCreation caseData={caseData} />,
+      Cell: CaseCreation,
       displayIf: caseType === "active"
     },
     {
       header: "Application Reason",
-      Cell: ({ caseData }) => <ApplicationReason caseData={caseData} />
+      Cell: ApplicationReason
     },
     {
       header: "Case Status",
-      Cell: ({ caseData }) => <CaseStatus caseData={caseData} />,
+      Cell: CaseStatus,
       displayIf: caseType === "active"
     },
     {
       header: "Case Substatus",
-      Cell: ({ caseData }) => <CaseSubstatus caseData={caseData} />,
+      Cell: CaseSubstatus,
       displayIf: caseType === "active"
     },
     {
       header: "Platform",
-      Cell: ({ caseData }) => <Platform caseData={caseData} />
+      Cell: Platform
     },
     {
       header: "Problem",
-      Cell: ({ caseData }) => <Problem caseData={caseData} />,
+      Cell: Problem,
       displayIf: caseType === "snoozed"
     },
     {
       header: "Snoozed",
-      Cell: ({ caseData }) => <SnoozeDaysLeft caseData={caseData} />,
+      Cell: SnoozeDaysLeft,
       displayIf: caseType === "snoozed"
     },
     {
       header: "Assigned",
-      Cell: ({ caseData }) => <Assigned caseData={caseData} />
+      Cell: Assigned
     },
     {
       header: "SN Ticket #",
-      Cell: ({ caseData }) => <ServiceNowTicket caseData={caseData} />,
+      Cell: ServiceNowTicket,
       displayIf: caseType === "snoozed"
     },
     {
