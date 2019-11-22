@@ -3,8 +3,10 @@ import { combineReducers, AnyAction } from "redux";
 import appStatusReducer, { AppStatusState } from "./appStatus";
 import casesReducer, { CasesState } from "./cases";
 
+const userLogout = "root/USER_LOGOUT";
+
 export const rootActionCreators = {
-  userLogout: () => action("root/USER_LOGOUT")
+  userLogout: () => action(userLogout)
 };
 
 interface AppState {
@@ -13,7 +15,7 @@ interface AppState {
 }
 
 export const rootReducer = (state: AppState | undefined, action: AnyAction) => {
-  if (action.type === "USER_LOGOUT") {
+  if (action.type === userLogout) {
     state = undefined;
   }
   return appReducer(state, action);
