@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import "./UsaButton.scss";
 
 const BUTTON_TYPES = [
@@ -9,7 +10,8 @@ const BUTTON_TYPES = [
   "outline",
   "inverse",
   "big",
-  "none"
+  "none",
+  "unstyled"
 ];
 
 export default function UsaButton(props) {
@@ -19,7 +21,7 @@ export default function UsaButton(props) {
   }
   return (
     <button
-      className={buttonClass}
+      className={classnames(buttonClass, props.className)}
       onClick={props.onClick}
       disabled={props.disabled}
       type={props.type}
@@ -36,7 +38,8 @@ UsaButton.propTypes = {
   onClick: PropTypes.func,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   children: PropTypes.any,
-  buttonId: PropTypes.string
+  buttonId: PropTypes.string,
+  className: PropTypes.string
 };
 
 UsaButton.defaultProps = {

@@ -1,11 +1,17 @@
 import React, { Fragment } from "react";
+import classnames from "classnames";
 
 interface Props {
   name: string;
   id?: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onClick?: () => void;
   label?: string;
+  className?: string;
+  readOnly?: boolean;
 }
 
 export default function UsaTextInput(props: Props) {
@@ -17,19 +23,25 @@ export default function UsaTextInput(props: Props) {
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChange(e.target.value);
+    props.onChange && props.onChange(e.target.value);
   };
+
+  const classNames = classnames("usa-input", props.className);
 
   return (
     <Fragment>
       {label}
       <input
         onChange={onChange}
-        className="usa-input"
+        className={classNames}
         type="text"
         id={elementId}
         name={props.name}
         value={props.value}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+        onClick={props.onClick}
+        readOnly={props.readOnly}
       />
     </Fragment>
   );

@@ -116,7 +116,7 @@ Array [
 ]
 `;
 
-exports[`Storyshots FilterForm Basic form 1`] = `
+exports[`Storyshots FilterForm/Full form Basic form 1`] = `
 <div
   className="usa-search usa-search--small"
 >
@@ -152,6 +152,49 @@ exports[`Storyshots FilterForm Basic form 1`] = `
     </button>
   </div>
 </div>
+`;
+
+exports[`Storyshots FilterForm/RangePicker Basic 1`] = `
+Array [
+  <label
+    className="usa-label"
+    htmlFor="range-picker"
+  >
+    Case Creation Date
+  </label>,
+  <div
+    className="position-relative"
+  >
+    <div>
+      <button
+        className="usa-button usa-button--unstyled margin-top-1 margin-bottom-1"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-calendar fa-w-14 "
+          data-icon="calendar"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 448 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm436-44v-36c0-26.5-21.5-48-48-48h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v36c0 6.6 5.4 12 12 12h424c6.6 0 12-5.4 12-12z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+         
+        No dates selected
+      </button>
+    </div>
+  </div>,
+]
 `;
 
 exports[`Storyshots FormattedDate Last Refresh 1`] = `
