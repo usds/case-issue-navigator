@@ -1,11 +1,7 @@
 import { createStore } from "redux";
 import { rootReducer, Store, store } from "../../create";
-import {
-  casesActionCreators,
-  loadCases,
-  getCaseSummary,
-  initialState
-} from "../cases";
+import { casesActionCreators, initialState } from "../cases";
+import { loadCases, getCaseSummary } from "../casesAsync";
 import RestAPIClient from "../../../api/RestAPIClient";
 
 const initialCases: Case[] = [

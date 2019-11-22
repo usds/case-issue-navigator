@@ -2,10 +2,8 @@ import React from "react";
 import { CaseDetails } from "../CaseDetails";
 import { connect } from "react-redux";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
-import {
-  casesActionCreators,
-  getCaseSummary
-} from "../../../redux/modules/cases";
+import { casesActionCreators } from "../../../redux/modules/cases";
+import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 import { DetailToggle } from "./DetailToggle";
