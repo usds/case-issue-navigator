@@ -1,6 +1,6 @@
 import React from "react";
 import { SnoozeFormWrapper } from "../../../controller/SnoozeFormWrapper";
-import { UpdateSnoozeFormWrapper } from "../../../controller/UpdateSnoozeFormWrapper";
+import UpdateSnoozeFormWrapper from "../../../controller/UpdateSnoozeFormWrapper";
 import { casesActionCreators } from "../../../redux/modules/cases";
 import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
