@@ -1,0 +1,10 @@
+version: "3"
+services:
+  navigator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "navigator"
+    ports:
+      # This is externalPort:internalPort, for the record
+      - "3000:3000"
