@@ -26,7 +26,11 @@ export const casesActionCreators = {
   setCaseSummary: (summary: Summary) =>
     action("cases/SET_CASE_SUMMARY", summary),
   setLastUpdated: (lastUpdated: string) =>
-    action("cases/SET_LAST_UPDATED", lastUpdated)
+    action("cases/SET_LAST_UPDATED", lastUpdated),
+  setCaseCreationStart: (caseCreationStart: Date) =>
+    action("cases/SET_CASE_CREATION_START", caseCreationStart),
+  setCaseCreationEnd: (caseCreationEnd: Date) =>
+    action("cases/SET_CASE_CREATION_END", caseCreationEnd)
 };
 
 type ActionCreator = typeof casesActionCreators;
@@ -40,6 +44,8 @@ export type CasesState = {
   isLoading: boolean;
   summary: Summary;
   lastUpdated?: string;
+  caseCreationStart: Date;
+  caseCreationEnd: Date;
 };
 
 export const initialState: CasesState = {
@@ -50,7 +56,9 @@ export const initialState: CasesState = {
     CASES_TO_WORK: 0,
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
-  }
+  },
+  caseCreationStart: new Date(),
+  caseCreationEnd: new Date()
 };
 
 // Reducer
@@ -141,6 +149,10 @@ export default function reducer(
       return { ...state, summary: action.payload };
     case "cases/SET_LAST_UPDATED":
       return { ...state, lastUpdated: action.payload };
+    case "cases/SET_CASE_CREATION_START":
+      return { ...state, caseCreationStart: action.payload };
+    case "cases/SET_CASE_CREATION_END":
+      return { ...state, caseCreationEnd: action.payload };
     default:
       return state;
   }

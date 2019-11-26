@@ -8,11 +8,14 @@ import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
 import I90Table from "./tables/i90-table/I90Table";
+import { DateRangePicker } from "./util/DateRangePicker";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
-  summary: state.cases.summary
+  summary: state.cases.summary,
+  start: state.cases.caseCreationStart,
+  end: state.cases.caseCreationEnd
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -21,7 +24,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setCaseType: casesActionCreators.setCaseType,
       loadCases: loadCases,
       setError: appStatusActionCreators.setDataLoadError,
-      clearCases: casesActionCreators.clearCases
+      clearCases: casesActionCreators.clearCases,
+      setStart: casesActionCreators.setCaseCreationStart,
+      setEnd: casesActionCreators.setCaseCreationEnd,
     },
     dispatch
   );
@@ -85,6 +90,13 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
+        <DateRangePicker
+          start={this.props.start}
+          end={this.props.end}
+          onStartChange={this.props.setStart}
+          onEndChange={this.props.setEnd}
+          onSubmit={() => console.error("`/api/cases` should be called here")}
+        />
         {this.renderDeSnoozeWarning()}
         <I90Table />
         <LoadMore
