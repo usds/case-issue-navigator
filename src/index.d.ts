@@ -16,6 +16,8 @@ type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
 type SubType = "troubleticket" | "assignee" | "fieldoffice" | "referral";
 
+type CaseSnoozeFilter = "ACTIVE" | "SNOOZED" | "ALARMED";
+
 interface Views {
   CASES_TO_WORK: {
     title: "Cases to Work";

@@ -21,8 +21,8 @@ export const loadCases = () => async (
   dispatch(getCaseSummary());
   const response =
     type === "active"
-      ? await RestAPIClient.cases.getActive(lastReceiptNumber)
-      : await RestAPIClient.cases.getSnoozed(lastReceiptNumber);
+      ? await RestAPIClient.cases.getCases("ACTIVE", lastReceiptNumber)
+      : await RestAPIClient.cases.getCases("SNOOZED", lastReceiptNumber);
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
