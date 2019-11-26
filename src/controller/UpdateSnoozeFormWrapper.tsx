@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import UpdateSnoozeForm from "./UpdateSnoozeForm";
 import { formatNotes } from "../view/util/formatNotes";
 import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
@@ -8,6 +7,7 @@ import UsaButton from "../view/util/UsaButton";
 import { EndSnoozeForm } from "./EndSnoozeForm";
 import { RootState } from "../redux/create";
 import { connect } from "react-redux";
+import SnoozeForm from "./SnoozeForm";
 
 const mapStateToProps = (state: RootState) => ({
   currentUser: state.appStatus.user
@@ -112,10 +112,11 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
         title={rowData.receiptNumber}
         closeModal={closeModal}
       >
-        <UpdateSnoozeForm
-          reSnooze={reSnooze}
+        <SnoozeForm
+          snooze={reSnooze}
           closeDialog={closeModal}
           rowData={rowData}
+          caseType="snoozed"
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">

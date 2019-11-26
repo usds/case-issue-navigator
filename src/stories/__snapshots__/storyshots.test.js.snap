@@ -625,6 +625,118 @@ exports[`Storyshots LoadMore no more cases 1`] = `
 </div>
 `;
 
+exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
+<form
+  className="usa-form"
+>
+  <h4>
+    Re-snooze or update the snooze information for this case:
+  </h4>
+  <label
+    className="usa-label"
+    htmlFor="snoozeReason"
+  >
+    Reason to snooze this case:
+  </label>
+  <select
+    className="usa-select"
+    id="snoozeReason"
+    name="snoozeReason"
+    onChange={[Function]}
+    required={true}
+    value="assigned_case"
+  >
+    <option
+      disabled={true}
+      hidden={true}
+      value=""
+    >
+      - Select Reason -
+    </option>
+    <option
+      value="test_data"
+    >
+      Test Data - should be deleted
+    </option>
+    <option
+      value="assigned_case"
+    >
+      Case has been assigned - remind me later
+    </option>
+    <option
+      value="in_proceedings"
+    >
+      Case is pending removal proceedings - check back later
+    </option>
+    <option
+      value="fo_referral"
+    >
+      Stuck at field office - awaiting response
+    </option>
+    <option
+      value="technical_issue"
+    >
+      Technical Issue
+    </option>
+    <option
+      value="record_analysis"
+    >
+      Needs record analysis to review
+    </option>
+  </select>
+  <label
+    className="usa-label"
+    htmlFor="followUp"
+  >
+    Who is the case being assigned to?
+  </label>
+  <input
+    className="usa-input"
+    id="followUp"
+    name="followUp"
+    onChange={[Function]}
+    type="text"
+    value="Fran"
+  />
+  <label
+    className="usa-label"
+    htmlFor="duration"
+  >
+    Snooze Duration (in days)
+  </label>
+  <input
+    className="usa-input"
+    id="duration"
+    max={365}
+    min={1}
+    name="duration"
+    onChange={[Function]}
+    type="number"
+    value={313}
+  />
+  <div>
+    <button
+      className="usa-button usa-button--outline"
+      disabled={false}
+      id="showNoteField"
+      onClick={[Function]}
+      type="button"
+    >
+      Add a note
+    </button>
+  </div>
+  <button
+    className="usa-button"
+    disabled={false}
+    id="SnoozeSumbit"
+    onClick={[Function]}
+    type="button"
+  >
+    Snooze
+  </button>
+</form>
+`;
+
 exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
 <form
   className="usa-form"
