@@ -1,4 +1,3 @@
-import ClientBase from "../ClientBase";
 import URLs from "../URLs";
 
 const TEST_URL = "http://localhost:8080";
