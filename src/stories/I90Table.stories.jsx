@@ -5,6 +5,7 @@ import { store } from "../redux/create";
 import { casesActionCreators } from "../redux/modules/cases";
 import { Provider } from "react-redux";
 import DateUtils, { ONE_DAY_IN_MS } from "../utils/DateUtils";
+import { IS_TEST_ENV } from "../controller/config";
 
 const sampleCases = [
   {
@@ -47,19 +48,21 @@ const sampleCases = [
   }
 ];
 
-jest.spyOn(DateUtils, "numberOfDaysUntil").mockImplementation(date => {
-  return Math.ceil(
-    (new Date(date).valueOf() - new Date("November 14, 2019").valueOf()) /
-      ONE_DAY_IN_MS
-  );
-});
+if (IS_TEST_ENV) {
+  jest.spyOn(DateUtils, "numberOfDaysUntil").mockImplementation(date => {
+    return Math.ceil(
+      (new Date(date).valueOf() - new Date("November 14, 2019").valueOf()) /
+        ONE_DAY_IN_MS
+    );
+  });
 
-jest.spyOn(DateUtils, "numberOfDaysSince").mockImplementation(date => {
-  return Math.ceil(
-    (new Date("November 14, 2019").valueOf() - new Date(date).valueOf()) /
-      ONE_DAY_IN_MS
-  );
-});
+  jest.spyOn(DateUtils, "numberOfDaysSince").mockImplementation(date => {
+    return Math.ceil(
+      (new Date("November 14, 2019").valueOf() - new Date(date).valueOf()) /
+        ONE_DAY_IN_MS
+    );
+  });
+}
 
 storiesOf("I90Table", module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)

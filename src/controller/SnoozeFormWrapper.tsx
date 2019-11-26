@@ -68,6 +68,7 @@ const SnoozeFormWrapper = (props: Props) => {
           snooze={snooze}
           closeDialog={closeModal}
           rowData={props.rowData}
+          caseType="active"
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">
