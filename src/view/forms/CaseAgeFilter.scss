@@ -1,0 +1,14 @@
+.caseCreationForm {
+  text-align: center;
+  padding: 10px;
+
+  .usa-button {
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 0px;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+}

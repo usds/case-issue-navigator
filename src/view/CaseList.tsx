@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
 import I90Table from "./tables/i90-table/I90Table";
-import { DateRangePicker } from "./util/DateRangePicker";
+import { CaseAgeFilter } from "./forms/CaseAgeFilter";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -119,7 +119,7 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <DateRangePicker
+        <CaseAgeFilter
           start={this.getCaseCreationStart()}
           end={this.getCaseCreationEnd()}
           lastUpdated={this.props.lastUpdated}
