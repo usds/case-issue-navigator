@@ -1,10 +1,25 @@
+.caseCreationForm {
+  text-align: center;
+  padding: 10px;
+
+  .usa-button {
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 0px;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+}
+
 .popper {
+  margin-top: 20px;
   position: absolute;
   background: #fff;
   color: black;
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0,0,0,0.5);
-  padding: 10px;
   z-index: 1000;
 }
 
@@ -20,6 +35,11 @@
   transform-origin: 0 0;
   transform: rotate(-45deg);
   box-shadow: 1px -1px 0px rgba(0,0,0,0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .popper[data-placement="bottom"] {

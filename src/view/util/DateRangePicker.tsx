@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Manager, Reference, Popper } from "react-popper";
-import UsaTextInput from "../forms/UsaTextInput";
+import React, { useEffect, useRef, useState } from "react";
+import TooltipTrigger from "react-popper-tooltip";
 import UsaButton from "./UsaButton";
 import "./DateRangePicker.scss";
 
@@ -18,96 +17,98 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
   const togglePopper = () => setShow(!show);
   const hidePopper = () => setShow(false);
 
-  const onSubmit = () => {
-    hidePopper();
-    props.onSubmit();
+  /**
+   * Hook that alerts clicks outside of the passed ref
+   */
+  const useOutsideAlerter = (extrenalTriggerRef: React.MutableRefObject<any>, extrenalPopperRef: React.MutableRefObject<any>) => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    const handleClickOutside = (event: any) => {
+      if (extrenalTriggerRef.current && extrenalPopperRef.current) {
+        if (!extrenalTriggerRef.current.contains(event.target) && !extrenalPopperRef.current.contains(event.target)) {
+          hidePopper();
+        }
+      }
+    }
+
+    useEffect(() => {
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    });
   }
+  const extrenalTriggerRef = useRef(null);
+  const extrenalPopperRef = useRef(null);
+  useOutsideAlerter(extrenalTriggerRef, extrenalPopperRef);
 
   const lastMonth = () => {
     const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth()-1);
+    const start = new Date(today.getFullYear(), today.getMonth() - 1);
     const end = new Date(today.getFullYear(), today.getMonth());
-    end.setDate(end.getDate() -1);
+    end.setDate(end.getDate() - 1);
     props.onStartChange(start);
     props.onEndChange(end);
-  }
+    hidePopper();
+  };
 
   const thisMonth = () => {
     const today = new Date();
     const start = new Date(today.getFullYear(), today.getMonth());
-    const end = new Date(today.getFullYear(), today.getMonth() +1);
-    end.setDate(end.getDate() -1);
+    const end = new Date(today.getFullYear(), today.getMonth() + 1);
+    end.setDate(end.getDate() - 1);
     props.onStartChange(start);
     props.onEndChange(end);
-  }
+    hidePopper();
+  };
+
+  const Tooltip = ({ tooltipRef, getTooltipProps }: any) => (
+    <div
+      {...getTooltipProps({
+        ref: tooltipRef,
+        className: "popper"
+      })}
+    >
+      <div ref={extrenalPopperRef}>
+        <div className="caseCreationForm">
+          <UsaButton buttonStyle="outline" onClick={lastMonth}>
+            Last Month
+          </UsaButton>
+          <br />
+          <UsaButton buttonStyle="outline" onClick={thisMonth}>
+            This Month
+          </UsaButton>
+          <br />
+          <UsaButton buttonStyle="outline" onClick={thisMonth}>
+            All Cases
+          </UsaButton>
+        </div>
+      </div>
+    </div>
+  );
+
+  const Trigger = ({ getTriggerProps, triggerRef }: any) => (
+    <span {...getTriggerProps({ ref: triggerRef })}>
+      <span ref={extrenalTriggerRef}>
+        <UsaButton onClick={togglePopper}>
+          {props.start.toLocaleDateString()} - {props.end.toLocaleDateString()}
+        </UsaButton>
+      </span>
+    </span>
+  );
 
   return (
-    <Manager>
-      <Reference>
-        {({ ref }) => (
-          <div ref={ref}>
-            Case Creation Range:
-            <UsaButton ref={ref} onClick={togglePopper}>
-              {props.start.toLocaleDateString()} - {props.end.toLocaleDateString()}
-            </UsaButton>
-          </div>
-
-        )}
-      </Reference>
-      <Popper placement="bottom">
-        {({ ref, style, placement }) => {
-          const popperStyle = { ...style };
-          popperStyle.display = show ? "inherit" : "none";
-          return (
-            <div
-              ref={ref}
-              style={popperStyle}
-              data-placement={placement}
-              className="popper"
-            >
-              <form className="usa-form">
-                <div style={{textAlign: "center"}}>
-                  <UsaButton buttonStyle="outline" onClick={lastMonth}>
-                    Last Month
-                  </UsaButton>
-                  <br/>
-                  <UsaButton buttonStyle="outline" onClick={thisMonth}>
-                    This Month
-                  </UsaButton>
-                </div>
-                <div style={{ display: "flex" }}>
-                  <div style={{ paddingRight: "5px"}}>
-                    <UsaTextInput
-                      label="Start"
-                      name="start"
-                      value={props.start.toLocaleDateString()}
-                      onChange={() => undefined}
-                    />
-                  </div>
-                  <div style={{ paddingLeft: "5px"}}>
-                    <UsaTextInput
-                      label="End"
-                      name="end"
-                      value={props.end.toLocaleDateString()}
-                      onChange={() => undefined}
-                    />
-                  </div>
-                </div>
-              <div style={{textAlign: "right", marginRight: "-8px"}}>
-                <UsaButton buttonStyle="outline" ref={ref} onClick={hidePopper}>
-                  Reset
-                </UsaButton>
-                <UsaButton ref={ref} onClick={onSubmit}>
-                  Apply
-                </UsaButton>
-              </div>
-
-              </form>
-            </div>
-          );
-        }}
-      </Popper>
-    </Manager>
+    <TooltipTrigger
+      placement="bottom"
+      trigger="click"
+      tooltip={Tooltip}
+      tooltipShown={show}
+    >
+      {Trigger}
+    </TooltipTrigger>
   );
 };
 

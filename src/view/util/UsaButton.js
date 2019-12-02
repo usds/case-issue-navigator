@@ -25,7 +25,6 @@ export default function UsaButton(props) {
       disabled={props.disabled}
       type={props.type}
       id={props.buttonId}
-      ref={props.ref}
     >
       {props.children}
     </button>
@@ -39,7 +38,6 @@ UsaButton.propTypes = {
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   children: PropTypes.any,
   buttonId: PropTypes.string,
-  ref: PropTypes.object
 };
 
 UsaButton.defaultProps = {
