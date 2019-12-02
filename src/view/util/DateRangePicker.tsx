@@ -127,6 +127,10 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
     </span>
   );
 
+  if (props.caselist.length <= 0) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <span>Case Creation Range: </span>
