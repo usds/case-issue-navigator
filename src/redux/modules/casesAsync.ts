@@ -3,30 +3,46 @@ import { Dispatch, AnyAction } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
 import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
+import { async } from "q";
 
-export const loadCases = () => async (
+const getCases = async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
-  getState: () => RootState
+  getState: () => RootState,
+  setList: "concat" | "replace"
 ) => {
-  const { setIsLoading, addCases } = casesActionCreators;
+  const { setIsLoading, addCases, setCases } = casesActionCreators;
   const { cases } = getState();
-  const { caselist, type } = cases;
+  const { caselist, type, caseCreationEnd, caseCreationStart } = cases;
 
-  const lastReceiptNumber =
-    caselist.length > 0
-      ? caselist[caselist.length - 1].receiptNumber
-      : undefined;
+  let lastReceiptNumber = undefined
+  if (caselist.length > 0 && setList === "concat") {
+    lastReceiptNumber = caselist[caselist.length - 1].receiptNumber;
+  }
 
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
   const response =
     type === "active"
-      ? await RestAPIClient.cases.getCases("ACTIVE", lastReceiptNumber)
-      : await RestAPIClient.cases.getCases("SNOOZED", lastReceiptNumber);
+      ? await RestAPIClient.cases.getCases(
+          "ACTIVE",
+          lastReceiptNumber,
+          caseCreationStart,
+          caseCreationEnd
+        )
+      : await RestAPIClient.cases.getCases(
+          "SNOOZED",
+          lastReceiptNumber,
+          caseCreationStart,
+          caseCreationEnd
+        );
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
-    dispatch(addCases(response.payload));
+    if (setList === "concat") {
+      dispatch(addCases(response.payload));
+    } else {
+      dispatch(setCases(response.payload));
+    }
     return;
   }
 
@@ -36,6 +52,20 @@ export const loadCases = () => async (
   } else {
     console.error(response);
   }
+};
+
+export const loadCases = () => async (
+  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
+  getState: () => RootState
+) => {
+  getCases(dispatch, getState, "concat");
+};
+
+export const reLoadCases = () => async (
+  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
+  getState: () => RootState
+) => {
+  getCases(dispatch, getState, "replace");
 };
 
 export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {

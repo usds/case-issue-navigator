@@ -27,9 +27,9 @@ export const casesActionCreators = {
     action("cases/SET_CASE_SUMMARY", summary),
   setLastUpdated: (lastUpdated: string) =>
     action("cases/SET_LAST_UPDATED", lastUpdated),
-  setCaseCreationStart: (caseCreationStart: Date) =>
+  setCaseCreationStart: (caseCreationStart?: Date) =>
     action("cases/SET_CASE_CREATION_START", caseCreationStart),
-  setCaseCreationEnd: (caseCreationEnd: Date) =>
+  setCaseCreationEnd: (caseCreationEnd?: Date) =>
     action("cases/SET_CASE_CREATION_END", caseCreationEnd)
 };
 
