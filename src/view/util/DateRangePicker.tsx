@@ -8,8 +8,8 @@ interface Props {
   end?: Date;
   lastUpdated?: string;
   caselist: Case[];
-  onStartChange: (start: Date) => void;
-  onEndChange: (start: Date) => void;
+  onStartChange: (start?: Date) => void;
+  onEndChange: (start?: Date) => void;
   onSubmit: () => void;
 }
 
@@ -22,17 +22,23 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
   /**
    * Hook that alerts clicks outside of the passed ref
    */
-  const useOutsideAlerter = (extrenalTriggerRef: React.MutableRefObject<any>, extrenalPopperRef: React.MutableRefObject<any>) => {
+  const useOutsideAlerter = (
+    extrenalTriggerRef: React.MutableRefObject<any>,
+    extrenalPopperRef: React.MutableRefObject<any>
+  ) => {
     /**
      * Alert if clicked on outside of element
      */
     const handleClickOutside = (event: any) => {
       if (extrenalTriggerRef.current && extrenalPopperRef.current) {
-        if (!extrenalTriggerRef.current.contains(event.target) && !extrenalPopperRef.current.contains(event.target)) {
+        if (
+          !extrenalTriggerRef.current.contains(event.target) &&
+          !extrenalPopperRef.current.contains(event.target)
+        ) {
           hidePopper();
         }
       }
-    }
+    };
 
     useEffect(() => {
       // Bind the event listener
@@ -42,26 +48,25 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     });
-  }
+  };
   const extrenalTriggerRef = useRef(null);
   const extrenalPopperRef = useRef(null);
   useOutsideAlerter(extrenalTriggerRef, extrenalPopperRef);
-
-  const getDefaultStart = () => {
-    if (props.caselist.length) {
-      return new Date(props.caselist[0].caseCreation);
-    }
-    return new Date();
-  }
 
   const getStart = () => {
     if (props.start) {
       return props.start;
     }
-    return getDefaultStart();
-  }
+    if (props.caselist.length) {
+      return new Date(props.caselist[0].caseCreation);
+    }
+    return new Date();
+  };
 
-  const getDefaultEnd = () => {
+  const getEnd = () => {
+    if (props.end) {
+      return props.end;
+    }
     if (props.lastUpdated) {
       const end = new Date(props.lastUpdated);
       // HACK: This hard codes the fact that the case data currntly include cases older than 1 year
@@ -69,27 +74,21 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
       return end;
     }
     return new Date();
-  }
-
-
-  const getEnd = () => {
-    if (props.end) {
-      return props.end;
-    }
-    return getDefaultEnd();
-  }
+  };
 
   const setYear = (year: number) => {
     props.onStartChange(new Date(`01/01/${year}`));
     props.onEndChange(new Date((year + 1).toString()));
     hidePopper();
+    props.onSubmit();
   };
 
   const defaultDateRange = () => {
-    props.onStartChange(getDefaultStart());
-    props.onEndChange(getDefaultEnd());
+    props.onStartChange();
+    props.onEndChange();
     hidePopper();
-  }
+    props.onSubmit();
+  };
 
   const Tooltip = ({ tooltipRef, getTooltipProps }: any) => (
     <div
@@ -101,14 +100,13 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
       <div ref={extrenalPopperRef}>
         <div className="caseCreationForm">
           {/* HACK: hard code years for current i90 case list */}
-          {[2014, 2015, 2016, 2017, 2018].map((year) => (
-            <React.Fragment>
-           <UsaButton buttonStyle="outline" onClick={() => setYear(year)}>
-              {year}
-            </UsaButton>
-            <br />
+          {[2014, 2015, 2016, 2017, 2018].map(year => (
+            <React.Fragment key={year}>
+              <UsaButton buttonStyle="outline" onClick={() => setYear(year)}>
+                {year}
+              </UsaButton>
+              <br />
             </React.Fragment>
-
           ))}
 
           <UsaButton buttonStyle="outline" onClick={defaultDateRange}>
@@ -141,7 +139,6 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
         {Trigger}
       </TooltipTrigger>
     </React.Fragment>
-
   );
 };
 

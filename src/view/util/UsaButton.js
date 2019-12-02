@@ -37,7 +37,7 @@ UsaButton.propTypes = {
   onClick: PropTypes.func,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   children: PropTypes.any,
-  buttonId: PropTypes.string,
+  buttonId: PropTypes.string
 };
 
 UsaButton.defaultProps = {
