@@ -84,29 +84,6 @@ class CaseList extends React.Component<Props, State> {
     );
   }
 
-  getCaseCreationStart() {
-    if (this.props.start) {
-      return this.props.start;
-    }
-    if (this.props.caselist.length) {
-      return new Date(this.props.caselist[0].caseCreation);
-    }
-    return new Date();
-  }
-
-  getCaseCreationEnd() {
-    if (this.props.end) {
-      return this.props.end;
-    }
-    if (this.props.lastUpdated) {
-      const end = new Date(this.props.lastUpdated);
-      // HACK: This hard codes the fact that the case data currntly include cases older than 1 year
-      end.setFullYear(end.getFullYear() - 1);
-      return end;
-    }
-    return new Date();
-  }
-
   onFilterSubmit() {
     this.props.clearCases();
     this.props.loadCases();
@@ -120,8 +97,8 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <CaseAgeFilter
-          start={this.getCaseCreationStart()}
-          end={this.getCaseCreationEnd()}
+          start={this.props.start}
+          end={this.props.end}
           lastUpdated={this.props.lastUpdated}
           caselist={this.props.caselist}
           onStartChange={this.props.setStart}
