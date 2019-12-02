@@ -27,8 +27,9 @@ storiesOf("CaseList", module)
     </Provider>
   ))
   .add("Case list with some data", () => {
+    store.dispatch(casesActionCreators.clearCases());
     store.dispatch(
-      casesActionCreators.setCases([
+      casesActionCreators.addCases([
         {
           receiptNumber: "fak1",
           extraData: {
@@ -54,8 +55,9 @@ storiesOf("CaseList", module)
     );
   })
   .add("Case list while loading data", () => {
+    store.dispatch(casesActionCreators.clearCases());
     store.dispatch(
-      casesActionCreators.setCases([
+      casesActionCreators.addCases([
         {
           receiptNumber: "fak1",
           extraData: {
@@ -80,8 +82,9 @@ storiesOf("CaseList", module)
     );
   })
   .add("Caselist with more cases to load", () => {
+    store.dispatch(casesActionCreators.clearCases());
     store.dispatch(
-      casesActionCreators.setCases([
+      casesActionCreators.addCases([
         {
           receiptNumber: "FAK1",
           extraData: {

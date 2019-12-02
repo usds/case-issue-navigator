@@ -3,7 +3,7 @@ import { DesnoozedWarning } from "./notifications/DesnoozedWarning";
 import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../redux/modules/cases";
-import { loadCases, reLoadCases } from "../redux/modules/casesAsync";
+import { loadCases } from "../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
@@ -24,7 +24,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     {
       setCaseType: casesActionCreators.setCaseType,
       loadCases: loadCases,
-      reLoadCases: reLoadCases,
       setError: appStatusActionCreators.setDataLoadError,
       clearCases: casesActionCreators.clearCases,
       setStart: casesActionCreators.setCaseCreationStart,
@@ -108,6 +107,11 @@ class CaseList extends React.Component<Props, State> {
     return new Date();
   }
 
+  onFilterSubmit() {
+    this.props.clearCases();
+    this.props.loadCases();
+  }
+
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -122,7 +126,7 @@ class CaseList extends React.Component<Props, State> {
           caselist={this.props.caselist}
           onStartChange={this.props.setStart}
           onEndChange={this.props.setEnd}
-          onSubmit={this.props.reLoadCases}
+          onSubmit={this.onFilterSubmit.bind(this)}
         />
         {this.renderDeSnoozeWarning()}
         <I90Table />

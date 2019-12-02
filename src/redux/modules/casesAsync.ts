@@ -3,21 +3,16 @@ import { Dispatch, AnyAction } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
 import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
-import { async } from "q";
 
-const getCases = async (
+export const loadCases = () => async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
-  getState: () => RootState,
-  setList: "concat" | "replace"
+  getState: () => RootState
 ) => {
-  const { setIsLoading, addCases, setCases } = casesActionCreators;
+  const { setIsLoading, addCases } = casesActionCreators;
   const { cases } = getState();
   const { caselist, type, caseCreationEnd, caseCreationStart } = cases;
 
-  let lastReceiptNumber = undefined
-  if (caselist.length > 0 && setList === "concat") {
-    lastReceiptNumber = caselist[caselist.length - 1].receiptNumber;
-  }
+  const lastReceiptNumber = caselist.length > 0 ? caselist[caselist.length - 1].receiptNumber: undefined;
 
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
@@ -38,11 +33,7 @@ const getCases = async (
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
-    if (setList === "concat") {
-      dispatch(addCases(response.payload));
-    } else {
-      dispatch(setCases(response.payload));
-    }
+    dispatch(addCases(response.payload));
     return;
   }
 
@@ -52,20 +43,6 @@ const getCases = async (
   } else {
     console.error(response);
   }
-};
-
-export const loadCases = () => async (
-  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
-  getState: () => RootState
-) => {
-  getCases(dispatch, getState, "concat");
-};
-
-export const reLoadCases = () => async (
-  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
-  getState: () => RootState
-) => {
-  getCases(dispatch, getState, "replace");
 };
 
 export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {

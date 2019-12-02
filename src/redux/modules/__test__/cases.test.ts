@@ -122,7 +122,6 @@ describe("redux - cases", () => {
   let testStore: Store;
   const {
     addCases,
-    setCases,
     removeCase,
     updateSnooze,
     clearCases,
@@ -150,20 +149,24 @@ describe("redux - cases", () => {
   });
   it("sets cases, replacing previous cases", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(initialCases));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
     expect(testStore.getState().cases.caselist).toEqual(initialCases);
-    dispatch(setCases(newCases));
+    dispatch(clearCases());
+    dispatch(addCases(newCases));
     expect(testStore.getState().cases.caselist).toEqual(newCases);
   });
   it("removes a case", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(initialCases));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
     dispatch(removeCase("ABC123"));
     expect(testStore.getState().cases.caselist).toEqual([]);
   });
   it("adds a note and snooze information to a snoozed case", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(snoozedCases));
+    dispatch(clearCases());
+    dispatch(addCases(snoozedCases));
     dispatch(
       updateSnooze(
         "FKE9703329",
@@ -207,7 +210,8 @@ describe("redux - cases", () => {
   });
   it("sorts cases by snooze end asc", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(snoozedCases));
+    dispatch(clearCases());
+    dispatch(addCases(snoozedCases));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -241,7 +245,8 @@ describe("redux - cases", () => {
       PREVIOUSLY_SNOOZED: 0
     };
     dispatch(setCaseSummary(summary));
-    dispatch(setCases(snoozedCases));
+    dispatch(clearCases());
+    dispatch(addCases(snoozedCases));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -269,7 +274,8 @@ describe("redux - cases", () => {
   });
   it("clears all cases", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(initialCases));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
     dispatch(addCases(newCases));
     dispatch(clearCases());
     expect(testStore.getState().cases.caselist).toEqual([]);
@@ -281,7 +287,8 @@ describe("redux - cases", () => {
   });
   it("toggles case details", () => {
     const { dispatch } = testStore;
-    dispatch(setCases(initialCases));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
     dispatch(addCases(newCases));
     dispatch(toggleDetails("ABC123"));
     const expected = [...initialCases, ...newCases].map(c => {
