@@ -71,8 +71,7 @@ const UnconnnectedHeader: React.FunctionComponent<HeaderProps> = props => {
       <PrimaryNavMenu views={VIEWS} />
       <FormattedDate label="Last Refresh" date={lastUpdated} />
       <p>
-        Showing open cases older then 365 days. Excluding cases that have been
-        referred to BCU or FDNS.
+        Excluding cases that have been referred to BCU or FDNS.
       </p>
     </React.Fragment>
   );

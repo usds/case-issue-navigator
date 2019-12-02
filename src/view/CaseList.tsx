@@ -15,7 +15,8 @@ const mapStateToProps = (state: RootState) => ({
   isLoading: state.cases.isLoading,
   summary: state.cases.summary,
   start: state.cases.caseCreationStart,
-  end: state.cases.caseCreationEnd
+  end: state.cases.caseCreationEnd,
+  lastUpdated: state.cases.lastUpdated
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setError: appStatusActionCreators.setDataLoadError,
       clearCases: casesActionCreators.clearCases,
       setStart: casesActionCreators.setCaseCreationStart,
-      setEnd: casesActionCreators.setCaseCreationEnd,
+      setEnd: casesActionCreators.setCaseCreationEnd
     },
     dispatch
   );
@@ -83,6 +84,29 @@ class CaseList extends React.Component<Props, State> {
     );
   }
 
+  getCaseCreationStart() {
+    if (this.props.start) {
+      return this.props.start;
+    }
+    if (this.props.caselist.length) {
+      return new Date(this.props.caselist[0].caseCreation);
+    }
+    return new Date();
+  }
+
+  getCaseCreationEnd() {
+    if (this.props.end) {
+      return this.props.end;
+    }
+    if (this.props.lastUpdated) {
+      const end = new Date(this.props.lastUpdated);
+      // HACK: This hard codes the fact that the case data currntly include cases older than 1 year
+      end.setFullYear(end.getFullYear() - 1);
+      return end;
+    }
+    return new Date();
+  }
+
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -91,8 +115,10 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <DateRangePicker
-          start={this.props.start}
-          end={this.props.end}
+          start={this.getCaseCreationStart()}
+          end={this.getCaseCreationEnd()}
+          lastUpdated={this.props.lastUpdated}
+          caselist={this.props.caselist}
           onStartChange={this.props.setStart}
           onEndChange={this.props.setEnd}
           onSubmit={() => console.error("`/api/cases` should be called here")}

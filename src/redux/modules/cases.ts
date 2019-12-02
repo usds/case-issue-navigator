@@ -44,8 +44,8 @@ export type CasesState = {
   isLoading: boolean;
   summary: Summary;
   lastUpdated?: string;
-  caseCreationStart: Date;
-  caseCreationEnd: Date;
+  caseCreationStart?: Date;
+  caseCreationEnd?: Date;
 };
 
 export const initialState: CasesState = {
@@ -56,9 +56,7 @@ export const initialState: CasesState = {
     CASES_TO_WORK: 0,
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
-  },
-  caseCreationStart: new Date(),
-  caseCreationEnd: new Date()
+  }
 };
 
 // Reducer
