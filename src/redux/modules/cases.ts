@@ -4,7 +4,6 @@ import { RootAction } from "../create";
 // Actions
 export const casesActionCreators = {
   addCases: (cases: Case[]) => action("cases/ADD_CASES", cases),
-  setCases: (cases: Case[]) => action("cases/SET_CASES", cases),
   removeCase: (receiptNumber: string) =>
     action("cases/REMOVE_CASE", receiptNumber),
   updateSnooze: (
@@ -69,11 +68,6 @@ export default function reducer(
       return {
         ...state,
         caselist: state.caselist.concat(action.payload)
-      };
-    case "cases/SET_CASES":
-      return {
-        ...state,
-        caselist: action.payload
       };
     case "cases/REMOVE_CASE":
       return {

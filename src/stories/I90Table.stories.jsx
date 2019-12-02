@@ -78,11 +78,13 @@ storiesOf("I90Table", module)
   })
   .add("Active case view", () => {
     store.dispatch(casesActionCreators.setCaseType("active"));
-    store.dispatch(casesActionCreators.setCases(sampleCases));
+    store.dispatch(casesActionCreators.clearCases());
+    store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
   })
   .add("Snoozed case view", () => {
     store.dispatch(casesActionCreators.setCaseType("snoozed"));
-    store.dispatch(casesActionCreators.setCases(sampleCases));
+    store.dispatch(casesActionCreators.clearCases());
+    store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
   });
