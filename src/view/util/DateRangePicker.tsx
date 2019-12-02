@@ -4,8 +4,10 @@ import UsaButton from "./UsaButton";
 import "./DateRangePicker.scss";
 
 interface Props {
-  start: Date;
-  end: Date;
+  start?: Date;
+  end?: Date;
+  lastUpdated?: string;
+  caselist: Case[];
   onStartChange: (start: Date) => void;
   onEndChange: (start: Date) => void;
   onSubmit: () => void;
@@ -45,25 +47,49 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
   const extrenalPopperRef = useRef(null);
   useOutsideAlerter(extrenalTriggerRef, extrenalPopperRef);
 
-  const lastMonth = () => {
-    const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth() - 1);
-    const end = new Date(today.getFullYear(), today.getMonth());
-    end.setDate(end.getDate() - 1);
-    props.onStartChange(start);
-    props.onEndChange(end);
+  const getDefaultStart = () => {
+    if (props.caselist.length) {
+      return new Date(props.caselist[0].caseCreation);
+    }
+    return new Date();
+  }
+
+  const getStart = () => {
+    if (props.start) {
+      return props.start;
+    }
+    return getDefaultStart();
+  }
+
+  const getDefaultEnd = () => {
+    if (props.lastUpdated) {
+      const end = new Date(props.lastUpdated);
+      // HACK: This hard codes the fact that the case data currntly include cases older than 1 year
+      end.setFullYear(end.getFullYear() - 1);
+      return end;
+    }
+    return new Date();
+  }
+
+
+  const getEnd = () => {
+    if (props.end) {
+      return props.end;
+    }
+    return getDefaultEnd();
+  }
+
+  const setYear = (year: number) => {
+    props.onStartChange(new Date(`01/01/${year}`));
+    props.onEndChange(new Date((year + 1).toString()));
     hidePopper();
   };
 
-  const thisMonth = () => {
-    const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth());
-    const end = new Date(today.getFullYear(), today.getMonth() + 1);
-    end.setDate(end.getDate() - 1);
-    props.onStartChange(start);
-    props.onEndChange(end);
+  const defaultDateRange = () => {
+    props.onStartChange(getDefaultStart());
+    props.onEndChange(getDefaultEnd());
     hidePopper();
-  };
+  }
 
   const Tooltip = ({ tooltipRef, getTooltipProps }: any) => (
     <div
@@ -74,15 +100,18 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
     >
       <div ref={extrenalPopperRef}>
         <div className="caseCreationForm">
-          <UsaButton buttonStyle="outline" onClick={lastMonth}>
-            Last Month
-          </UsaButton>
-          <br />
-          <UsaButton buttonStyle="outline" onClick={thisMonth}>
-            This Month
-          </UsaButton>
-          <br />
-          <UsaButton buttonStyle="outline" onClick={thisMonth}>
+          {/* HACK: hard code years for current i90 case list */}
+          {[2014, 2015, 2016, 2017, 2018].map((year) => (
+            <React.Fragment>
+           <UsaButton buttonStyle="outline" onClick={() => setYear(year)}>
+              {year}
+            </UsaButton>
+            <br />
+            </React.Fragment>
+
+          ))}
+
+          <UsaButton buttonStyle="outline" onClick={defaultDateRange}>
             All Cases
           </UsaButton>
         </div>
@@ -94,21 +123,25 @@ const DateRangePicker: React.FunctionComponent<Props> = props => {
     <span {...getTriggerProps({ ref: triggerRef })}>
       <span ref={extrenalTriggerRef}>
         <UsaButton onClick={togglePopper}>
-          {props.start.toLocaleDateString()} - {props.end.toLocaleDateString()}
+          {getStart().toLocaleDateString()} - {getEnd().toLocaleDateString()}
         </UsaButton>
       </span>
     </span>
   );
 
   return (
-    <TooltipTrigger
-      placement="bottom"
-      trigger="click"
-      tooltip={Tooltip}
-      tooltipShown={show}
-    >
-      {Trigger}
-    </TooltipTrigger>
+    <React.Fragment>
+      <span>Case Creation Range: </span>
+      <TooltipTrigger
+        placement="bottom"
+        trigger="click"
+        tooltip={Tooltip}
+        tooltipShown={show}
+      >
+        {Trigger}
+      </TooltipTrigger>
+    </React.Fragment>
+
   );
 };
 
