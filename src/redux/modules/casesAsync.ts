@@ -12,7 +12,10 @@ export const loadCases = () => async (
   const { cases } = getState();
   const { caselist, type, caseCreationEnd, caseCreationStart } = cases;
 
-  const lastReceiptNumber = caselist.length > 0 ? caselist[caselist.length - 1].receiptNumber: undefined;
+  const lastReceiptNumber =
+    caselist.length > 0
+      ? caselist[caselist.length - 1].receiptNumber
+      : undefined;
 
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());

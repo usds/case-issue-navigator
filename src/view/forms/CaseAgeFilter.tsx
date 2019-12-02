@@ -82,7 +82,7 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
     </UsaButton>
   );
 
-  if (props.caselist.length <= 0) {
+  if (props.caselist.length <= 0 && !props.start && !props.end) {
     return null;
   }
 
