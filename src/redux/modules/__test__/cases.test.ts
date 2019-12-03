@@ -313,7 +313,7 @@ describe("redux - cases", () => {
     await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
-  it("calls getCases without a recipetnumber when there are no cases", async () => {
+  it("calls getCases without a receiptNumber when there are no cases", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
     const summary: Summary = {
@@ -330,7 +330,7 @@ describe("redux - cases", () => {
       undefined
     );
   });
-  it("calls getCases with a recipetnumber when there is a case", async () => {
+  it("calls getCases with a receiptNumber when there is a case", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
     const summary: Summary = {
