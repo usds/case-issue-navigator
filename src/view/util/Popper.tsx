@@ -10,7 +10,6 @@ interface Props {
 }
 
 const Popper: React.FunctionComponent<Props> = props => {
-
   /**
    * Hook that alerts clicks outside of the passed ref
    */
@@ -52,20 +51,15 @@ const Popper: React.FunctionComponent<Props> = props => {
         className: "popper"
       })}
     >
-      <div ref={extrenalPopperRef}>
-        {props.tooltip}
-      </div>
+      <div ref={extrenalPopperRef}>{props.tooltip}</div>
     </div>
   );
 
   const Trigger = ({ getTriggerProps, triggerRef }: any) => (
     <span ref={extrenalTriggerRef}>
-      <span {...getTriggerProps({ ref: triggerRef })}>
-        {props.trigger}
-      </span>
+      <span {...getTriggerProps({ ref: triggerRef })}>{props.trigger}</span>
     </span>
   );
-
 
   return (
     <TooltipTrigger

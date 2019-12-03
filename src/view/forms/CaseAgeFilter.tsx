@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import UsaButton from "../util/UsaButton";
 import Popper from "../util/Popper";
 import "./CaseAgeFilter.scss";
@@ -18,7 +18,7 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
 
   const togglePopper = () => {
     setShow(!show);
-  }
+  };
   const hidePopper = () => setShow(false);
 
   const getStart = () => {

@@ -334,6 +334,8 @@ describe("redux - cases", () => {
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
+      undefined,
+      undefined,
       undefined
     );
   });
@@ -352,7 +354,9 @@ describe("redux - cases", () => {
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
-      initialCases[initialCases.length - 1].receiptNumber
+      initialCases[initialCases.length - 1].receiptNumber,
+      undefined,
+      undefined
     );
   });
   it("sets the case summary", () => {
