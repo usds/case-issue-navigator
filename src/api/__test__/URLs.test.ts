@@ -34,6 +34,18 @@ describe("URLs", () => {
     );
   });
 
+  it("should producte the correct snooze cases path with range", () => {
+    expectURLEquals(
+      URLs.cases(
+        "SNOOZED",
+        undefined,
+        new Date("2/4/2018"),
+        new Date("3/5/2019")
+      ),
+      "/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=20&caseCreationRangeBegin=2018-02-04T05%3A00%3A00.000Z&caseCreationRangeEnd=2019-03-05T05%3A00%3A00.000Z"
+    );
+  });
+
   it("should producte the correct case details path", () => {
     expectURLEquals(URLs.caseDetails("123"), "/api/caseDetails/DEFAULT/123");
   });
