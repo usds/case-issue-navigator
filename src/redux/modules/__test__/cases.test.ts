@@ -4,6 +4,7 @@ import { casesActionCreators, initialState } from "../cases";
 import { loadCases, getCaseSummary } from "../casesAsync";
 import RestAPIClient from "../../../api/RestAPIClient";
 
+const COMMENT: AttachmentType = "COMMENT";
 const initialCases: Case[] = [
   {
     receiptNumber: "ABC123",
@@ -48,7 +49,10 @@ const snoozedCases: Case[] = [
         type: "COMMENT",
         subType: null,
         href: null,
-        userId: "admin",
+        user: {
+          id: "admin",
+          name: "admin"
+        },
         timestamp: "2019-11-13T15:15:26.726+0000"
       }
     ],
@@ -68,7 +72,11 @@ const snoozedCases: Case[] = [
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2018-11-12T03:00:00-05:00",
-      snoozeStart: "2017-11-13T10:15:26.70979-05:00"
+      snoozeStart: "2017-11-13T10:15:26.70979-05:00",
+      user: {
+        id: "admin",
+        name: "admin"
+      }
     },
     showDetails: false
   },
@@ -90,7 +98,11 @@ const snoozedCases: Case[] = [
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2019-11-12T03:00:00-05:00",
-      snoozeStart: "2017-11-13T10:27:57.319233-05:00"
+      snoozeStart: "2017-11-13T10:27:57.319233-05:00",
+      user: {
+        id: "admin",
+        name: "admin"
+      }
     },
     showDetails: false
   },
@@ -112,7 +124,11 @@ const snoozedCases: Case[] = [
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
-      snoozeStart: "2019-11-13T10:27:59.495681-05:00"
+      snoozeStart: "2019-11-13T10:27:59.495681-05:00",
+      user: {
+        id: "admin",
+        name: "admin"
+      }
     },
     showDetails: false
   }
@@ -173,17 +189,24 @@ describe("redux - cases", () => {
         [
           {
             content: "hi",
-            type: "COMMENT",
+            type: COMMENT,
             subType: null,
             href: null,
-            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            user: {
+              id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+              name: "John Kennedy"
+            },
             timestamp: "2019-11-13T15:15:26.726+0000"
           }
         ],
         {
           snoozeReason: "test_data",
           snoozeEnd: "2020-11-12T03:00:00-05:00",
-          snoozeStart: "2019-11-13T10:15:26.70979-05:00"
+          snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+          user: {
+            id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            name: "John Kennedy"
+          }
         }
       )
     );
@@ -198,14 +221,21 @@ describe("redux - cases", () => {
         type: "COMMENT",
         subType: null,
         href: null,
-        userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+        user: {
+          id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+          name: "John Kennedy"
+        },
         timestamp: "2019-11-13T15:15:26.726+0000"
       }
     ]);
     expect(testCase.snoozeInformation as SnoozeInformation).toEqual({
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
-      snoozeStart: "2019-11-13T10:15:26.70979-05:00"
+      snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+      user: {
+        id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+        name: "John Kennedy"
+      }
     });
   });
   it("sorts cases by snooze end asc", () => {
@@ -218,17 +248,24 @@ describe("redux - cases", () => {
         [
           {
             content: "snooze for a very long time",
-            type: "COMMENT",
+            type: COMMENT,
             subType: null,
             href: null,
-            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            user: {
+              id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+              name: "John Kennedy"
+            },
             timestamp: "2019-13-13T15:15:26.726+0000"
           }
         ],
         {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
-          snoozeStart: "2019-12-13T10:15:26.70979-05:00"
+          snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          user: {
+            id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            name: "John Kennedy"
+          }
         }
       )
     );
@@ -253,17 +290,24 @@ describe("redux - cases", () => {
         [
           {
             content: "snooze for a very long time",
-            type: "COMMENT",
+            type: COMMENT,
             subType: null,
             href: null,
-            userId: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            user: {
+              id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+              name: "John Kennedy"
+            },
             timestamp: "2019-13-13T15:15:26.726+0000"
           }
         ],
         {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
-          snoozeStart: "2019-12-13T10:15:26.70979-05:00"
+          snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          user: {
+            id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
+            name: "John Kennedy"
+          }
         }
       )
     );
