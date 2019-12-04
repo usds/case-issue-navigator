@@ -405,6 +405,49 @@ describe("redux - cases", () => {
       undefined
     );
   });
+  it("calls getCases without a receiptNumber and with a date filter", async () => {
+    jest.spyOn(RestAPIClient.cases, "getCases");
+    const { dispatch, getState } = store;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(clearCases());
+    dispatch(setCaseCreationStart(new Date("1/1/2018")));
+    dispatch(setCaseCreationEnd(new Date("1/1/2019")));
+    dispatch(setCaseType("active"));
+    await loadCases()(dispatch, getState);
+    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+      "ACTIVE",
+      undefined,
+      new Date("1/1/2018"),
+      new Date("1/1/2019")
+    );
+  });
+  it("calls getCases with a receiptNumber and with a date filter", async () => {
+    jest.spyOn(RestAPIClient.cases, "getCases");
+    const { dispatch, getState } = store;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
+    dispatch(setCaseCreationStart(new Date("1/1/2018")));
+    dispatch(setCaseCreationEnd(new Date("1/1/2019")));
+    dispatch(setCaseType("active"));
+    await loadCases()(dispatch, getState);
+    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+      "ACTIVE",
+      initialCases[initialCases.length - 1].receiptNumber,
+      new Date("1/1/2018"),
+      new Date("1/1/2019")
+    );
+  });
   it("sets the case summary", () => {
     const { dispatch } = testStore;
     const summary: Summary = {
