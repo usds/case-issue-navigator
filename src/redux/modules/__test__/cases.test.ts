@@ -145,7 +145,9 @@ describe("redux - cases", () => {
     toggleDetails,
     setIsLoading,
     setCaseSummary,
-    setLastUpdated
+    setLastUpdated,
+    setCaseCreationStart,
+    setCaseCreationEnd
   } = casesActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer, { cases: initialState });
@@ -417,6 +419,21 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(setLastUpdated("January 20, 2019"));
     expect(testStore.getState().cases.lastUpdated).toBe("January 20, 2019");
+  });
+  it("sets case creation start", () => {
+    const { dispatch } = testStore;
+    dispatch(setCaseCreationStart(new Date("1/20/2019")));
+    expect(
+      (testStore.getState().cases
+        .caseCreationStart as Date).toLocaleDateString()
+    ).toBe("1/20/2019");
+  });
+  it("sets case creation end", () => {
+    const { dispatch } = testStore;
+    dispatch(setCaseCreationEnd(new Date("1/20/2019")));
+    expect(
+      (testStore.getState().cases.caseCreationEnd as Date).toLocaleDateString()
+    ).toBe("1/20/2019");
   });
   it("asynchronously loads case summary", async () => {
     const testAsyncStore = store;
