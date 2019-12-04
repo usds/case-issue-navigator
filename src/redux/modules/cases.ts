@@ -31,7 +31,9 @@ export const casesActionCreators = {
   setCaseCreationEnd: (caseCreationEnd?: Date) =>
     action("cases/SET_CASE_CREATION_END", caseCreationEnd),
   setSnoozeReasonFilter: (snoozeReason?: SnoozeReason) =>
-    action("cases/SET_SNOOZE_REASON_FILTER", snoozeReason)
+    action("cases/SET_SNOOZE_REASON_FILTER", snoozeReason),
+  setServiceNowFilter: (serviceNowFilter?: boolean) =>
+    action("cases/SET_SERVICE_NOW_FILTER", serviceNowFilter)
 };
 
 type ActionCreator = typeof casesActionCreators;
@@ -48,6 +50,7 @@ export type CasesState = {
   caseCreationStart?: Date;
   caseCreationEnd?: Date;
   snoozeReasonFilter?: SnoozeReason;
+  serviceNowFilter?: boolean;
 };
 
 export const initialState: CasesState = {
@@ -150,6 +153,8 @@ export default function reducer(
       return { ...state, caseCreationEnd: action.payload };
     case "cases/SET_SNOOZE_REASON_FILTER":
       return { ...state, snoozeReasonFilter: action.payload };
+    case "cases/SET_SERVICE_NOW_FILTER":
+      return { ...state, serviceNowFilter: action.payload };
     default:
       return state;
   }

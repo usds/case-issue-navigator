@@ -10,6 +10,7 @@ import LoadMore from "./layout/LoadMore";
 import I90Table from "./tables/i90-table/I90Table";
 import { CaseAgeFilter } from "./forms/CaseAgeFilter";
 import { SnoozeReasonFilter } from "./forms/SnoozeReasonFilter";
+import { ServiceNowFilter } from "./forms/ServiceNowFilter";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -18,7 +19,8 @@ const mapStateToProps = (state: RootState) => ({
   start: state.cases.caseCreationStart,
   end: state.cases.caseCreationEnd,
   lastUpdated: state.cases.lastUpdated,
-  snoozeReasonFilter: state.cases.snoozeReasonFilter
+  snoozeReasonFilter: state.cases.snoozeReasonFilter,
+  serviceNowFilter: state.cases.serviceNowFilter
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -30,7 +32,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       clearCases: casesActionCreators.clearCases,
       setStart: casesActionCreators.setCaseCreationStart,
       setEnd: casesActionCreators.setCaseCreationEnd,
-      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter
+      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter,
+      setServiceNowFilter: casesActionCreators.setServiceNowFilter
     },
     dispatch
   );
@@ -99,6 +102,11 @@ class CaseList extends React.Component<Props, State> {
     this.onFilterSubmit();
   }
 
+  onServiceNowFilter(serviceNowFilter?: boolean) {
+    this.props.setServiceNowFilter(serviceNowFilter);
+    this.onFilterSubmit();
+  }
+
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -120,6 +128,11 @@ class CaseList extends React.Component<Props, State> {
           snoozeState={this.props.snoozeState}
           snoozeReason={this.props.snoozeReasonFilter}
           onUpdate={this.onSnoozeReasonFilterUpdate.bind(this)}
+        />
+        <ServiceNowFilter
+          snoozeState={this.props.snoozeState}
+          serviceNowFilter={this.props.serviceNowFilter}
+          onUpdate={this.onServiceNowFilter.bind(this)}
         />
         <I90Table />
         <LoadMore
