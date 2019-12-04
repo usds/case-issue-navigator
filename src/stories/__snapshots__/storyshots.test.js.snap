@@ -39,6 +39,31 @@ exports[`Storyshots AuthForm AuthForm view 1`] = `
 </div>
 `;
 
+exports[`Storyshots CaseAgeFilter Empty case list 1`] = `
+Array [
+  <span>
+    Case Creation Range: 
+  </span>,
+  <span>
+    <span
+      onClick={[Function]}
+      onTouchEnd={[Function]}
+    >
+      <button
+        className="usa-button"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        1/1/2014
+         - 
+        12/4/2019
+      </button>
+    </span>
+  </span>,
+]
+`;
+
 exports[`Storyshots CaseList Case list while loading data 1`] = `
 <p>
   Loading...
