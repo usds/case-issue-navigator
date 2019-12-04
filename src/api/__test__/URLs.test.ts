@@ -46,6 +46,13 @@ describe("URLs", () => {
     );
   });
 
+  it("should producte the correct snooze cases path with snooze reason", () => {
+    expectURLEquals(
+      URLs.cases("SNOOZED", undefined, undefined, undefined, "test_data"),
+      "/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=20&snoozeReason=test_data"
+    );
+  });
+
   it("should producte the correct case details path", () => {
     expectURLEquals(URLs.caseDetails("123"), "/api/caseDetails/DEFAULT/123");
   });
