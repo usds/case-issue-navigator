@@ -9,6 +9,7 @@ import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
 import I90Table from "./tables/i90-table/I90Table";
 import { CaseAgeFilter } from "./forms/CaseAgeFilter";
+import { SnoozeReasonFilter } from "./forms/SnoozeReasonFilter";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -16,7 +17,8 @@ const mapStateToProps = (state: RootState) => ({
   summary: state.cases.summary,
   start: state.cases.caseCreationStart,
   end: state.cases.caseCreationEnd,
-  lastUpdated: state.cases.lastUpdated
+  lastUpdated: state.cases.lastUpdated,
+  snoozeReasonFilter: state.cases.snoozeReasonFilter
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -27,7 +29,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setError: appStatusActionCreators.setDataLoadError,
       clearCases: casesActionCreators.clearCases,
       setStart: casesActionCreators.setCaseCreationStart,
-      setEnd: casesActionCreators.setCaseCreationEnd
+      setEnd: casesActionCreators.setCaseCreationEnd,
+      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter
     },
     dispatch
   );
@@ -89,6 +92,13 @@ class CaseList extends React.Component<Props, State> {
     this.props.loadCases();
   }
 
+  onSnoozeReasonFilterUpdate(snoozeReason: SnoozeReason | "") {
+    snoozeReason === ""
+      ? this.props.setSnoozeReasonFilter()
+      : this.props.setSnoozeReasonFilter(snoozeReason);
+    this.onFilterSubmit();
+  }
+
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -106,6 +116,11 @@ class CaseList extends React.Component<Props, State> {
           onSubmit={this.onFilterSubmit.bind(this)}
         />
         {this.renderDeSnoozeWarning()}
+        <SnoozeReasonFilter
+          snoozeState={this.props.snoozeState}
+          snoozeReason={this.props.snoozeReasonFilter}
+          onUpdate={this.onSnoozeReasonFilterUpdate.bind(this)}
+        />
         <I90Table />
         <LoadMore
           totalCases={this.getTotalCases()}

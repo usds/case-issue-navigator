@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import { store } from "../../redux/create";
 import { Provider } from "react-redux";
+import { store } from "../../redux/create";
 import { casesActionCreators } from "../../redux/modules/cases";
 import CaseList from "../CaseList";
 import { CaseAgeFilter } from "../forms/CaseAgeFilter";
@@ -76,4 +76,36 @@ describe("CaseList", () => {
     );
     expect(store.getState().cases.caselist.length).toBe(0);
   });
+  // it("existing cases are cleared on snooze reason filter submit", () => {
+  //   const store = store;
+  //   jest.spyOn(RestAPIClient.cases, "getCases");
+  //   const wrapper = mount(
+  //     <Provider store={store}>
+  //       <CaseList snoozeState={"snoozed"} />
+  //     </Provider>
+  //   );
+  //   expect(wrapper.find("p").text()).toBe("Loading...");
+
+  //   store.dispatch(casesActionCreators.addCases(initialCases));
+  //   store.dispatch(casesActionCreators.setIsLoading(false));
+  //   store.dispatch(casesActionCreators.setSnoozeReasonFilter("test_data"));
+
+  //   wrapper.update();
+
+  //   expect(wrapper.find(SnoozeReasonFilter).length).toBe(1);
+  //   wrapper
+  //     .find(SnoozeReasonFilter)
+  //     .first()
+  //     .props()
+  //     .onUpdate();
+
+  //   expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+  //     "SNOOZED",
+  //     undefined,
+  //     undefined,
+  //     undefined,
+  //     "test_data"
+  //   );
+  //   expect(store.getState().cases.caselist.length).toBe(0);
+  // });
 });

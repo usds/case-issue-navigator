@@ -147,7 +147,8 @@ describe("redux - cases", () => {
     setCaseSummary,
     setLastUpdated,
     setCaseCreationStart,
-    setCaseCreationEnd
+    setCaseCreationEnd,
+    setSnoozeReasonFilter
   } = casesActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer, { cases: initialState });
@@ -405,6 +406,29 @@ describe("redux - cases", () => {
       undefined
     );
   });
+  it("calls getCases with a snooze reason when there is a case", async () => {
+    jest.spyOn(RestAPIClient.cases, "getCases");
+    const { dispatch, getState } = store;
+    const summary: Summary = {
+      CASES_TO_WORK: 15,
+      SNOOZED_CASES: 5,
+      PREVIOUSLY_SNOOZED: 2
+    };
+    dispatch(setCaseSummary(summary));
+    dispatch(clearCases());
+    dispatch(addCases(initialCases));
+    dispatch(setSnoozeReasonFilter("test_data"));
+
+    dispatch(setCaseType("snoozed"));
+    await loadCases()(dispatch, getState);
+    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+      "SNOOZED",
+      initialCases[initialCases.length - 1].receiptNumber,
+      undefined,
+      undefined,
+      "test_data"
+    );
+  });
   it("calls getCases without a receiptNumber and with a date filter", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
@@ -477,6 +501,11 @@ describe("redux - cases", () => {
     expect(
       (testStore.getState().cases.caseCreationEnd as Date).toLocaleDateString()
     ).toBe("1/20/2019");
+  });
+  it("sets snooze reason filter", () => {
+    const { dispatch } = testStore;
+    dispatch(setSnoozeReasonFilter("test_data"));
+    expect(testStore.getState().cases.snoozeReasonFilter).toBe("test_data");
   });
   it("asynchronously loads case summary", async () => {
     const testAsyncStore = store;
