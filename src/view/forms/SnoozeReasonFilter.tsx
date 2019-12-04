@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { SNOOZE_OPTIONS } from "../../controller/config";
 import UsaSelect from "./UsaSelect";
-import Popper from "../util/Popper";
 import "./CaseAgeFilter.scss";
 
 interface Props {
