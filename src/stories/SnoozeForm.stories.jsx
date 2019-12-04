@@ -26,7 +26,7 @@ storiesOf("SnoozeForm", module)
 
     const rowData = {
       snoozeInformation: {
-        snoozeEnd: addDays(new Date(), 300).toString(),
+        snoozeEnd: addDays(new Date("11/27/2019"), 300).toString(),
         snoozeStart: new Date().toString(),
         snoozeReason: "assigned_case"
       },
