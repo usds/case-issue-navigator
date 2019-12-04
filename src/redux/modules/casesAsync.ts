@@ -10,7 +10,13 @@ export const loadCases = () => async (
 ) => {
   const { setIsLoading, addCases } = casesActionCreators;
   const { cases } = getState();
-  const { caselist, type, caseCreationEnd, caseCreationStart } = cases;
+  const {
+    caselist,
+    type,
+    caseCreationEnd,
+    caseCreationStart,
+    snoozeReasonFilter
+  } = cases;
 
   const lastReceiptNumber =
     caselist.length > 0
@@ -31,7 +37,8 @@ export const loadCases = () => async (
           "SNOOZED",
           lastReceiptNumber,
           caseCreationStart,
-          caseCreationEnd
+          caseCreationEnd,
+          snoozeReasonFilter
         );
   dispatch(setIsLoading(false));
 

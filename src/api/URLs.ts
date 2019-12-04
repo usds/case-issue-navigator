@@ -43,7 +43,8 @@ class URLs {
     filter: CaseSnoozeFilter,
     receiptNumber?: string,
     from?: Date,
-    to?: Date
+    to?: Date,
+    snoozeReason?: string
   ): URL {
     const url = URLs.casesBase();
     url.searchParams.append("mainFilter", filter);
@@ -57,6 +58,9 @@ class URLs {
     }
     if (to) {
       url.searchParams.append("caseCreationRangeEnd", to.toISOString());
+    }
+    if (snoozeReason) {
+      url.searchParams.append("snoozeReason", snoozeReason);
     }
     return url;
   }
