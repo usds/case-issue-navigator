@@ -84,10 +84,6 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
     </div>
   );
 
-  if (props.caselist.length <= 0 && !props.start && !props.end) {
-    return null;
-  }
-
   return (
     <React.Fragment>
       <div>Case Creation Range</div>
