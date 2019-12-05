@@ -15,6 +15,8 @@ interface Option {
   text: string;
 }
 
+const DEFAULT_TEXT = "- Show all cases -";
+
 const ServiceNowFilter: React.FunctionComponent<Props> = props => {
   if (props.snoozeState !== "snoozed") {
     return null;
@@ -23,7 +25,7 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
   const options: Option[] = [
     {
       value: "",
-      text: "- Show all cases (regardless of service now ticket) -"
+      text: DEFAULT_TEXT
     },
     {
       value: "true",
@@ -36,28 +38,32 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
   ];
 
   const onUpdate = (serviceNowFilter: trilean) => {
-    switch(serviceNowFilter){
+    switch (serviceNowFilter) {
       case "":
         props.onUpdate();
         return;
       case "true":
-          props.onUpdate(true);
-          return;
+        props.onUpdate(true);
+        return;
       case "false":
-          props.onUpdate(false);
-          return;
+        props.onUpdate(false);
+        return;
     }
-  }
+  };
 
   return (
     <React.Fragment>
       <UsaSelect
         options={options}
-        placeholder="- Show all cases (regardless of service now ticket) -"
+        placeholder={DEFAULT_TEXT}
         name="serviceNowTicket"
-        selected={props.serviceNowFilter === undefined ? "" : props.serviceNowFilter.toString()}
+        selected={
+          props.serviceNowFilter === undefined
+            ? ""
+            : props.serviceNowFilter.toString()
+        }
         onChange={onUpdate}
-        label="Filter by Has Service Now Ticket"
+        label="Has Service Now Ticket"
       />
     </React.Fragment>
   );

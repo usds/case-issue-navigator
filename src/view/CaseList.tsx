@@ -8,20 +8,14 @@ import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
 import I90Table from "./tables/i90-table/I90Table";
-import { CaseAgeFilter } from "./forms/CaseAgeFilter";
-import { SnoozeReasonFilter } from "./forms/SnoozeReasonFilter";
-import { ServiceNowFilter } from "./forms/ServiceNowFilter";
+import CaseFilterForm from "./forms/CaseFilterForm";
 import { Well } from "./util/Well";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
   summary: state.cases.summary,
-  start: state.cases.caseCreationStart,
-  end: state.cases.caseCreationEnd,
-  lastUpdated: state.cases.lastUpdated,
-  snoozeReasonFilter: state.cases.snoozeReasonFilter,
-  serviceNowFilter: state.cases.serviceNowFilter
+  lastUpdated: state.cases.lastUpdated
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -30,11 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setCaseType: casesActionCreators.setCaseType,
       loadCases: loadCases,
       setError: appStatusActionCreators.setDataLoadError,
-      clearCases: casesActionCreators.clearCases,
-      setStart: casesActionCreators.setCaseCreationStart,
-      setEnd: casesActionCreators.setCaseCreationEnd,
-      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter,
-      setServiceNowFilter: casesActionCreators.setServiceNowFilter
+      clearCases: casesActionCreators.clearCases
     },
     dispatch
   );
@@ -91,23 +81,6 @@ class CaseList extends React.Component<Props, State> {
     );
   }
 
-  onFilterSubmit() {
-    this.props.clearCases();
-    this.props.loadCases();
-  }
-
-  onSnoozeReasonFilterUpdate(snoozeReason: SnoozeReason | "") {
-    snoozeReason === ""
-      ? this.props.setSnoozeReasonFilter()
-      : this.props.setSnoozeReasonFilter(snoozeReason);
-    this.onFilterSubmit();
-  }
-
-  onServiceNowFilter(serviceNowFilter?: boolean) {
-    this.props.setServiceNowFilter(serviceNowFilter);
-    this.onFilterSubmit();
-  }
-
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -116,27 +89,7 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         {this.renderDeSnoozeWarning()}
-        <Well>
-          <CaseAgeFilter
-            start={this.props.start}
-            end={this.props.end}
-            lastUpdated={this.props.lastUpdated}
-            caselist={this.props.caselist}
-            onStartChange={this.props.setStart}
-            onEndChange={this.props.setEnd}
-            onSubmit={this.onFilterSubmit.bind(this)}
-          />
-          <SnoozeReasonFilter
-            snoozeState={this.props.snoozeState}
-            snoozeReason={this.props.snoozeReasonFilter}
-            onUpdate={this.onSnoozeReasonFilterUpdate.bind(this)}
-          />
-          <ServiceNowFilter
-            snoozeState={this.props.snoozeState}
-            serviceNowFilter={this.props.serviceNowFilter}
-            onUpdate={this.onServiceNowFilter.bind(this)}
-          />
-        </Well>
+        <CaseFilterForm snoozeState={this.props.snoozeState} />
         <I90Table />
         <LoadMore
           totalCases={this.getTotalCases()}

@@ -41,24 +41,28 @@ exports[`Storyshots AuthForm AuthForm view 1`] = `
 
 exports[`Storyshots CaseAgeFilter Empty case list 1`] = `
 Array [
-  <span>
-    Case Creation Range: 
-  </span>,
+  <div>
+    Case Creation Range
+  </div>,
   <span>
     <span
       onClick={[Function]}
       onTouchEnd={[Function]}
     >
-      <button
-        className="usa-button"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="trigger"
       >
-        1/1/2014
-         - 
-        12/4/2019
-      </button>
+        <button
+          className="usa-button"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          1/1/2014
+           - 
+          12/4/2019
+        </button>
+      </div>
     </span>
   </span>,
 ]

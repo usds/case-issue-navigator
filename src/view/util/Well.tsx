@@ -1,13 +1,10 @@
 import React from "react";
-import "./Well.scss"
+import "./Well.scss";
 
-interface Props {
-}
+interface Props {}
 
 const Well: React.FunctionComponent<Props> = props => (
-  <div className="well">
-    {props.children}
-  </div>
+  <div className="well">{props.children}</div>
 );
 
 export { Well };
