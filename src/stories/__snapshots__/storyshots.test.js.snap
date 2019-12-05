@@ -1009,3 +1009,17 @@ exports[`Storyshots UsaSelect Select 1`] = `
   </option>
 </select>
 `;
+
+exports[`Storyshots Well no content 1`] = `
+<div
+  className="well"
+/>
+`;
+
+exports[`Storyshots Well with text 1`] = `
+<div
+  className="well"
+>
+  Hi I'm a well
+</div>
+`;
