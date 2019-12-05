@@ -6,7 +6,7 @@ storiesOf("CaseAgeFilter", module).add("Empty case list", () => (
   <CaseAgeFilter
     caselist={[
       {
-        caseCreation: "1/1/2014",
+        caseCreation: "1/1/2014"
       }
     ]}
     end={new Date("12/4/2019")}
