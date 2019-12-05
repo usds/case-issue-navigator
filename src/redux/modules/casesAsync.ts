@@ -5,10 +5,13 @@ import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
 import NoteUtils from "../../utils/NoteUtils";
 
-
 const serviceNowCaseFilter = (c: Case) => {
-  if (["test_data", "technical_issue"].includes((c.snoozeInformation as SnoozeInformation).snoozeReason)) {
-    if(NoteUtils.getFollowUp(c.notes, "troubleticket")){
+  if (
+    ["test_data", "technical_issue"].includes(
+      (c.snoozeInformation as SnoozeInformation).snoozeReason
+    )
+  ) {
+    if (NoteUtils.getFollowUp(c.notes, "troubleticket")) {
       return true;
     }
   }
@@ -17,7 +20,7 @@ const serviceNowCaseFilter = (c: Case) => {
 
 export const loadCases = (reciptnumber?: string) => async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
-  getState: () => RootState,
+  getState: () => RootState
 ) => {
   const { setIsLoading, addCases } = casesActionCreators;
   const { cases } = getState();
@@ -47,23 +50,25 @@ export const loadCases = (reciptnumber?: string) => async (
         )
       : await RestAPIClient.cases.getCases(
           "SNOOZED",
-          reciptnumber ? reciptnumber: lastReceiptNumber,
+          reciptnumber ? reciptnumber : lastReceiptNumber,
           caseCreationStart,
           caseCreationEnd,
-          snoozeReasonFilter,
+          snoozeReasonFilter
         );
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
-    if (type=== "snoozed" && serviceNowFilter !== undefined) {
-      const cases = serviceNowFilter? response.payload.filter((c: Case) => {
-        return serviceNowCaseFilter(c)
-      }): response.payload.filter((c: Case) => {
-        return !serviceNowCaseFilter(c)
-      })
+    if (type === "snoozed" && serviceNowFilter !== undefined) {
+      const cases = serviceNowFilter
+        ? response.payload.filter((c: Case) => {
+            return serviceNowCaseFilter(c);
+          })
+        : response.payload.filter((c: Case) => {
+            return !serviceNowCaseFilter(c);
+          });
       if (cases.length === 0 && response.payload.length > 0) {
         const r = response.payload[response.payload.length - 1].receiptNumber;
-        dispatch(loadCases(r))
+        dispatch(loadCases(r));
       }
       dispatch(addCases(cases));
     } else {
