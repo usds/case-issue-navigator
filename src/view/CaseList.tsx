@@ -11,6 +11,7 @@ import I90Table from "./tables/i90-table/I90Table";
 import { CaseAgeFilter } from "./forms/CaseAgeFilter";
 import { SnoozeReasonFilter } from "./forms/SnoozeReasonFilter";
 import { ServiceNowFilter } from "./forms/ServiceNowFilter";
+import { Well } from "./util/Well";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -114,26 +115,28 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <CaseAgeFilter
-          start={this.props.start}
-          end={this.props.end}
-          lastUpdated={this.props.lastUpdated}
-          caselist={this.props.caselist}
-          onStartChange={this.props.setStart}
-          onEndChange={this.props.setEnd}
-          onSubmit={this.onFilterSubmit.bind(this)}
-        />
         {this.renderDeSnoozeWarning()}
-        <SnoozeReasonFilter
-          snoozeState={this.props.snoozeState}
-          snoozeReason={this.props.snoozeReasonFilter}
-          onUpdate={this.onSnoozeReasonFilterUpdate.bind(this)}
-        />
-        <ServiceNowFilter
-          snoozeState={this.props.snoozeState}
-          serviceNowFilter={this.props.serviceNowFilter}
-          onUpdate={this.onServiceNowFilter.bind(this)}
-        />
+        <Well>
+          <CaseAgeFilter
+            start={this.props.start}
+            end={this.props.end}
+            lastUpdated={this.props.lastUpdated}
+            caselist={this.props.caselist}
+            onStartChange={this.props.setStart}
+            onEndChange={this.props.setEnd}
+            onSubmit={this.onFilterSubmit.bind(this)}
+          />
+          <SnoozeReasonFilter
+            snoozeState={this.props.snoozeState}
+            snoozeReason={this.props.snoozeReasonFilter}
+            onUpdate={this.onSnoozeReasonFilterUpdate.bind(this)}
+          />
+          <ServiceNowFilter
+            snoozeState={this.props.snoozeState}
+            serviceNowFilter={this.props.serviceNowFilter}
+            onUpdate={this.onServiceNowFilter.bind(this)}
+          />
+        </Well>
         <I90Table />
         <LoadMore
           totalCases={this.getTotalCases()}
