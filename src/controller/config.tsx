@@ -1,3 +1,8 @@
+export const CASE_CREATION_START = "CaseCreationStart";
+export const CASE_CREATION_END = "CaseCreationEnd";
+export const SNOOOZE_REASON = "snoozeReason";
+export const SN_TICKET = "snTicket";
+
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
