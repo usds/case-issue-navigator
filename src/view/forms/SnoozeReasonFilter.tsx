@@ -14,6 +14,8 @@ interface Option {
   text: string;
 }
 
+const DEFAULT_TEXT = "- Show all snooze reasons -";
+
 const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
   if (props.snoozeState !== "snoozed") {
     return null;
@@ -22,7 +24,7 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
   const options: Option[] = [
     {
       value: "",
-      text: "- Show all snooze reasons -"
+      text: DEFAULT_TEXT
     }
   ];
   Object.keys(SNOOZE_OPTIONS).forEach((snoozeReason: string) => {
@@ -35,11 +37,11 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
     <React.Fragment>
       <UsaSelect
         options={options}
-        placeholder="- Show all snooze reasons -"
+        placeholder={DEFAULT_TEXT}
         name="snoozeReason"
         selected={props.snoozeReason ? props.snoozeReason : ""}
         onChange={props.onUpdate}
-        label="Filter by Snooze Reason"
+        label="Snooze Reason"
       />
     </React.Fragment>
   );

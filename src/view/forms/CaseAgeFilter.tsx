@@ -77,9 +77,11 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
   );
 
   const trigger = () => (
-    <UsaButton onClick={togglePopper}>
-      {getStart().toLocaleDateString()} - {getEnd().toLocaleDateString()}
-    </UsaButton>
+    <div className="trigger">
+      <UsaButton onClick={togglePopper}>
+        {getStart().toLocaleDateString()} - {getEnd().toLocaleDateString()}
+      </UsaButton>
+    </div>
   );
 
   if (props.caselist.length <= 0 && !props.start && !props.end) {
@@ -88,7 +90,7 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
 
   return (
     <React.Fragment>
-      <span>Case Creation Range: </span>
+      <div>Case Creation Range</div>
       <Popper
         trigger={trigger()}
         tooltip={tooltip()}
