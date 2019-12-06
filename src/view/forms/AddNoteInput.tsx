@@ -25,7 +25,7 @@ export default function AddNoteInput(props: Props) {
     <div>
       <UsaButton
         buttonId="showNoteField"
-        onClick={setShowNotes}
+        onClick={() => setShowNotes(true)}
         buttonStyle="outline"
       >
         Add a note

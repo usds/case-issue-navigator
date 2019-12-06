@@ -17,7 +17,7 @@ const AddNoteForm = (props: Props) => {
 
   const { rowData } = props;
 
-  const addNote = async (e: React.ChangeEvent<HTMLButtonElement>) => {
+  const addNote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!rowData.snoozeInformation) {
       // TODO
