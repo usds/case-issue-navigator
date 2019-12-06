@@ -1,5 +1,5 @@
 import React from "react";
-import { DesnoozedWarning } from "./notifications/DesnoozedWarning";
+import { OverdueCasesWarning } from "./notifications/OverdueCasesWarning";
 import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../redux/modules/cases";
@@ -109,18 +109,6 @@ class CaseList extends React.Component<Props, State> {
     return summary.SNOOZED_CASES;
   }
 
-  renderDeSnoozeWarning() {
-    const { summary, snoozeState } = this.props;
-    if (snoozeState !== "ACTIVE") {
-      return null;
-    }
-    return (
-      <DesnoozedWarning
-        previouslySnoozedCases={summary.PREVIOUSLY_SNOOZED || 0}
-      />
-    );
-  }
-
   render() {
     if (this.state.initializing) {
       return <p>Loading...</p>;
@@ -128,8 +116,11 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        {this.renderDeSnoozeWarning()}
-        <CaseFilterForm/>
+        <OverdueCasesWarning
+          snoozeState={this.props.snoozeState}
+          overdueCases={this.props.summary.PREVIOUSLY_SNOOZED}
+        />
+        <CaseFilterForm />
         <I90Table />
         <LoadMore
           hasMoreCases={this.props.hasMoreCases}
