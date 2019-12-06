@@ -18,7 +18,7 @@ describe("CaseFilterForm", () => {
     );
     const wrapper = mount(
       <Provider store={store}>
-        <CaseFilterForm snoozeState={"active"} />
+        <CaseFilterForm snoozeState={"ACTIVE"} />
       </Provider>
     );
 
@@ -31,7 +31,8 @@ describe("CaseFilterForm", () => {
       "ACTIVE",
       undefined,
       new Date("1/1/2018"),
-      new Date("1/1/2019")
+      new Date("1/1/2019"),
+      undefined
     );
     expect(store.getState().cases.caselist.length).toBe(0);
   });

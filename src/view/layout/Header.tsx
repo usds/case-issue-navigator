@@ -40,7 +40,7 @@ const UnconnnectedHeader: React.FunctionComponent<HeaderProps> = props => {
 
   useEffect(() => {
     const subtitle =
-      caseType === "active"
+      caseType === "ACTIVE"
         ? VIEWS.CASES_TO_WORK.TITLE
         : VIEWS.SNOOZED_CASES.TITLE;
     setPageTitle(`${subtitle} | Case Issue Navigator`);

@@ -67,7 +67,7 @@ export type CasesState = {
 
 export const initialState: CasesState = {
   caselist: [],
-  type: "active",
+  type: "ACTIVE",
   isLoading: false,
   summary: {
     CASES_TO_WORK: 0,

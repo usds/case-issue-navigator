@@ -43,7 +43,7 @@ class URLs {
   }
 
   public static cases(
-    filter: CaseSnoozeFilter,
+    filter: SnoozeState,
     receiptNumber?: string,
     from?: Date,
     to?: Date,

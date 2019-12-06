@@ -16,8 +16,6 @@ type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
 type SubType = "troubleticket" | "assignee" | "fieldoffice" | "referral";
 
-type CaseSnoozeFilter = "ACTIVE" | "SNOOZED" | "ALARMED";
-
 interface Views {
   CASES_TO_WORK: {
     title: "Cases to Work";
@@ -241,7 +239,7 @@ interface SnoozeOptionValue extends SnoozeOption {
   value: SnoozeReason;
 }
 
-type SnoozeState = "active" | "snoozed";
+type SnoozeState = "ACTIVE" | "SNOOZED" | "ALARMED";
 
 type SnoozeEvent = {
   date: Date;
