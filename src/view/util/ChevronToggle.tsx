@@ -4,7 +4,7 @@ import UsaButton from "./UsaButton";
 
 interface ChevronToggleProps {
   open: boolean;
-  toggle: (event: MouseEvent) => void;
+  toggle: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ChevronToggle: React.FunctionComponent<ChevronToggleProps> = props => {

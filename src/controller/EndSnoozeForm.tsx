@@ -10,7 +10,7 @@ interface Props {
 const EndSnoozeForm = (props: Props) => {
   const [showDialog, setDialog] = useState(false);
 
-  const desnooze = (e: React.ChangeEvent<HTMLButtonElement>) => {
+  const desnooze = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!props.rowData) {
       console.error("resnooze called with out a vaild snooze option selected");
