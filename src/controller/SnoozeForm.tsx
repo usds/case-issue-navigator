@@ -27,7 +27,7 @@ class SnoozeForm extends Component<Props, State> {
 
   getSnoozeInformation(): CallbackState {
     if (
-      this.props.caseType === "active" ||
+      this.props.caseType === "ACTIVE" ||
       !this.props.rowData ||
       !this.props.rowData.snoozeInformation
     ) {
@@ -170,7 +170,7 @@ class SnoozeForm extends Component<Props, State> {
   render() {
     return (
       <form className="usa-form">
-        {this.props.caseType === "active" ? (
+        {this.props.caseType === "ACTIVE" ? (
           this.deSnoozeCheck()
         ) : (
           <h4>Re-snooze or update the snooze information for this case:</h4>

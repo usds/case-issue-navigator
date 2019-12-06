@@ -17,7 +17,7 @@ interface Option {
 const DEFAULT_TEXT = "- Show all snooze reasons -";
 
 const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
-  if (props.snoozeState !== "snoozed") {
+  if (props.snoozeState !== "SNOOZED") {
     return null;
   }
 

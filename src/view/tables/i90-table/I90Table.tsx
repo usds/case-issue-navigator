@@ -91,7 +91,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Creation",
       Cell: CaseCreation,
-      displayIf: caseType === "active"
+      displayIf: caseType === "ACTIVE"
     },
     {
       header: "Application Reason",
@@ -100,12 +100,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Status",
       Cell: CaseStatus,
-      displayIf: caseType === "active"
+      displayIf: caseType === "ACTIVE"
     },
     {
       header: "Case Substatus",
       Cell: CaseSubstatus,
-      displayIf: caseType === "active"
+      displayIf: caseType === "ACTIVE"
     },
     {
       header: "Platform",
@@ -114,12 +114,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Problem",
       Cell: Problem,
-      displayIf: caseType === "snoozed"
+      displayIf: caseType === "SNOOZED"
     },
     {
       header: "Snoozed",
       Cell: SnoozeDaysLeft,
-      displayIf: caseType === "snoozed"
+      displayIf: caseType === "SNOOZED"
     },
     {
       header: "Assigned",
@@ -128,7 +128,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "SN Ticket #",
       Cell: ServiceNowTicket,
-      displayIf: caseType === "snoozed"
+      displayIf: caseType === "SNOOZED"
     },
     {
       header: "Actions",

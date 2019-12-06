@@ -11,12 +11,13 @@ interface SummarySuccess {
 
 class CaseIssueAPIClient extends ClientBase {
   public async getCases(
-    filter: CaseSnoozeFilter,
+    filter: SnoozeState,
     receiptNumber?: string,
     from?: Date,
     to?: Date,
     snoozeReason?: string
   ): Promise<c.ApiResponse<Case[], APIError>> {
+
     if (filter !== "SNOOZED" && snoozeReason) {
       console.error(
         `Invalid api call. get ${filter} cases with a snoozeReason filter`

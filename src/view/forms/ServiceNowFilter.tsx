@@ -18,7 +18,7 @@ interface Option {
 const DEFAULT_TEXT = "- Show all cases -";
 
 const ServiceNowFilter: React.FunctionComponent<Props> = props => {
-  if (props.snoozeState !== "snoozed") {
+  if (props.snoozeState !== "SNOOZED") {
     return null;
   }
 

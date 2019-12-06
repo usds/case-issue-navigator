@@ -41,21 +41,13 @@ export const loadCases = (reciptnumber?: string) => async (
 
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
-  const response =
-    type === "active"
-      ? await RestAPIClient.cases.getCases(
-          "ACTIVE",
-          reciptnumber ? reciptnumber : lastReceiptNumber,
-          caseCreationStart,
-          caseCreationEnd
-        )
-      : await RestAPIClient.cases.getCases(
-          "SNOOZED",
-          reciptnumber ? reciptnumber : lastReceiptNumber,
-          caseCreationStart,
-          caseCreationEnd,
-          snoozeReasonFilter
-        );
+  const response = await RestAPIClient.cases.getCases(
+    type,
+    reciptnumber ? reciptnumber : lastReceiptNumber,
+    caseCreationStart,
+    caseCreationEnd,
+    type === "SNOOZED" ? snoozeReasonFilter : undefined
+  );
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
@@ -65,8 +57,7 @@ export const loadCases = (reciptnumber?: string) => async (
     } else {
       dispatch(setHasMoreCases(false));
     }
-
-    if (type === "snoozed" && serviceNowFilter !== undefined) {
+    if (type === "SNOOZED" && serviceNowFilter !== undefined) {
       const cases = serviceNowFilter
         ? response.payload.filter((c: Case) => {
             return serviceNowCaseFilter(c);

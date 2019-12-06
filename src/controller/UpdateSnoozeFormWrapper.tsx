@@ -116,7 +116,7 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
           snooze={reSnooze}
           closeDialog={closeModal}
           rowData={rowData}
-          caseType="snoozed"
+          caseType="SNOOZED"
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">

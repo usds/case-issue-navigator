@@ -103,7 +103,7 @@ class CaseList extends React.Component<Props, State> {
 
   getTotalCases() {
     const { summary, snoozeState } = this.props;
-    if (snoozeState === "active") {
+    if (snoozeState === "ACTIVE") {
       return summary.CASES_TO_WORK;
     }
     return summary.SNOOZED_CASES;
@@ -111,7 +111,7 @@ class CaseList extends React.Component<Props, State> {
 
   renderDeSnoozeWarning() {
     const { summary, snoozeState } = this.props;
-    if (snoozeState !== "active") {
+    if (snoozeState !== "ACTIVE") {
       return null;
     }
     return (

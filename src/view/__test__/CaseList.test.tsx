@@ -10,12 +10,13 @@ describe("CaseList", () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const wrapper = mount(
       <Provider store={store}>
-        <CaseList snoozeState={"active"} />
+        <CaseList snoozeState={"ACTIVE"} />
       </Provider>
     );
-    expect(store.getState().cases.type).toBe("active");
+    expect(store.getState().cases.type).toBe("ACTIVE");
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
+      undefined,
       undefined,
       undefined,
       undefined
