@@ -2,32 +2,77 @@ import React, { Component } from "react";
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
 import UsaButton from "../view/util/UsaButton";
+import NoteUtils from "../utils/NoteUtils";
+import DateUtils from "../utils/DateUtils";
 
 interface Props {
   rowData?: Case;
   snooze: (receiptNumber: string, state: CallbackState) => void;
   closeDialog: () => void;
+  caseType: SnoozeState;
 }
 
-interface State {
-  snoozeReason: SnoozeReason;
-  followUp: string;
-  caseIssueNotes: string;
-  duration: number | undefined;
+type State = {
   fieldErrors: { [key: string]: string };
-}
+} & CallbackState;
 
 class SnoozeForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const selectedOption = SNOOZE_OPTIONS_SELECT[0];
     this.state = {
-      snoozeReason: selectedOption.value,
-      followUp: "",
-      caseIssueNotes: "",
-      duration: selectedOption.duration,
-      fieldErrors: {}
+      fieldErrors: {},
+      ...this.getSnoozeInformation()
     };
+  }
+
+  getSnoozeInformation(): CallbackState {
+    if (
+      this.props.caseType === "active" ||
+      !this.props.rowData ||
+      !this.props.rowData.snoozeInformation
+    ) {
+      return {
+        snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+        duration: SNOOZE_OPTIONS_SELECT[0].duration,
+        followUp: "",
+        caseIssueNotes: ""
+      };
+    }
+
+    return {
+      snoozeReason: this.props.rowData.snoozeInformation.snoozeReason,
+      duration: DateUtils.numberOfDaysUntil(
+        this.props.rowData.snoozeInformation.snoozeEnd
+      ),
+      followUp: SnoozeForm.getFollowUp(this.props.rowData),
+      caseIssueNotes: ""
+    };
+  }
+
+  static getFollowUp(rowData?: Case): string {
+    if (!rowData || !rowData.snoozeInformation) {
+      return "";
+    }
+    const subtype = SnoozeForm.getSubtype(
+      rowData.snoozeInformation.snoozeReason
+    );
+    if (subtype === null) {
+      return "";
+    }
+    const followUp = NoteUtils.getFollowUp(rowData.notes, subtype);
+    return followUp ? followUp.content : "";
+  }
+
+  static getSubtype(snoozeReason: SnoozeReason): SubType | null {
+    switch (snoozeReason) {
+      case "assigned_case":
+        return "assignee";
+      case "technical_issue":
+        return "troubleticket";
+      case "fo_referral":
+        return "fieldoffice";
+    }
+    return null;
   }
 
   snoozeReasonChange(snoozeReason: SnoozeReason) {
@@ -44,7 +89,9 @@ class SnoozeForm extends Component<Props, State> {
   }
 
   durationChange(duration?: number) {
-    this.setState({ duration });
+    this.setState({
+      duration: duration ? duration : 0
+    });
   }
 
   setFieldError(key: string, value: string) {
@@ -66,7 +113,7 @@ class SnoozeForm extends Component<Props, State> {
       return;
     }
     const duration = this.state.duration;
-    if (duration === undefined) {
+    if (!duration) {
       return;
     }
     const fieldErrors = Object.values(this.state.fieldErrors);
@@ -123,7 +170,11 @@ class SnoozeForm extends Component<Props, State> {
   render() {
     return (
       <form className="usa-form">
-        {this.deSnoozeCheck()}
+        {this.props.caseType === "active" ? (
+          this.deSnoozeCheck()
+        ) : (
+          <h4>Re-snooze or update the snooze information for this case:</h4>
+        )}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}

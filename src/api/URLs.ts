@@ -39,13 +39,25 @@ class URLs {
     return url;
   }
 
-  public static cases(snoozeState: SnoozeState, receiptNumber?: string): URL {
+  public static cases(
+    filter: CaseSnoozeFilter,
+    receiptNumber?: string,
+    from?: Date,
+    to?: Date
+  ): URL {
     const url = URLs.casesBase();
-    url.pathname += "/" + snoozeState;
-    if (receiptNumber) {
-      url.searchParams.append("receiptNumber", receiptNumber);
-    }
+    url.searchParams.append("mainFilter", filter);
     url.searchParams.append("size", String(this.resultsPerPage));
+
+    if (receiptNumber) {
+      url.searchParams.append("pageReference", receiptNumber);
+    }
+    if (from) {
+      url.searchParams.append("caseCreationRangeBegin", from.toISOString());
+    }
+    if (to) {
+      url.searchParams.append("caseCreationRangeEnd", to.toISOString());
+    }
     return url;
   }
 

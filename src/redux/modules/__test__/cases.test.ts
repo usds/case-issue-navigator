@@ -313,8 +313,8 @@ describe("redux - cases", () => {
     await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
-  it("calls getActive without a recipetnumber when there are no cases", async () => {
-    jest.spyOn(RestAPIClient.cases, "getActive");
+  it("calls getCases without a receiptNumber when there are no cases", async () => {
+    jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
     const summary: Summary = {
       CASES_TO_WORK: 15,
@@ -325,10 +325,13 @@ describe("redux - cases", () => {
     dispatch(clearCases());
     dispatch(setCaseType("active"));
     await loadCases()(dispatch, getState);
-    expect(RestAPIClient.cases.getActive).toHaveBeenCalledWith(undefined);
+    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+      "ACTIVE",
+      undefined
+    );
   });
-  it("calls getActive with a recipetnumber when there is a case", async () => {
-    jest.spyOn(RestAPIClient.cases, "getActive");
+  it("calls getCases with a receiptNumber when there is a case", async () => {
+    jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
     const summary: Summary = {
       CASES_TO_WORK: 15,
@@ -340,7 +343,8 @@ describe("redux - cases", () => {
     dispatch(addCases(initialCases));
     dispatch(setCaseType("active"));
     await loadCases()(dispatch, getState);
-    expect(RestAPIClient.cases.getActive).toHaveBeenCalledWith(
+    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
+      "ACTIVE",
       initialCases[initialCases.length - 1].receiptNumber
     );
   });

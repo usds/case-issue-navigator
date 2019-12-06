@@ -10,16 +10,15 @@ interface SummarySuccess {
 }
 
 class CaseIssueAPIClient extends ClientBase {
-  public async getActive(
-    receiptNumber?: string
+  public async getCases(
+    filter: CaseSnoozeFilter,
+    receiptNumber?: string,
+    from?: Date,
+    to?: Date
   ): Promise<c.ApiResponse<Case[], APIError>> {
-    return (await this.getAsJson(URLs.cases("active", receiptNumber))) as any;
-  }
-
-  public async getSnoozed(
-    receiptNumber?: string
-  ): Promise<c.ApiResponse<Case[], APIError>> {
-    return (await this.getAsJson(URLs.cases("snoozed", receiptNumber))) as any;
+    return (await this.getAsJson(
+      URLs.cases(filter, receiptNumber, from, to)
+    )) as any;
   }
 
   public async getCaseSummary(): Promise<c.ApiResponse<SummarySuccess, {}>> {

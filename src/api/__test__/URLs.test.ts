@@ -21,15 +21,15 @@ describe("URLs", () => {
 
   it("should producte the correct active cases path", () => {
     expectURLEquals(
-      URLs.cases("active", "ABC1234567890"),
-      "/api/cases/DEFAULT/STANDARD/active?receiptNumber=ABC1234567890&size=20"
+      URLs.cases("ACTIVE", "ABC1234567890"),
+      "/api/cases/DEFAULT/STANDARD?mainFilter=ACTIVE&size=20&pageReference=ABC1234567890"
     );
   });
 
   it("should producte the correct snooze cases path", () => {
     expectURLEquals(
-      URLs.cases("snoozed", "ABC1234567890"),
-      "/api/cases/DEFAULT/STANDARD/snoozed?receiptNumber=ABC1234567890&size=20"
+      URLs.cases("SNOOZED", "ABC1234567890"),
+      "/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=20&pageReference=ABC1234567890"
     );
   });
 

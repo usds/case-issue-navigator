@@ -14,6 +14,7 @@ describe("SnoozeForm", () => {
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
+        caseType="active"
       />
     );
     SNOOZE_OPTIONS_SELECT.forEach(option => {
@@ -23,7 +24,12 @@ describe("SnoozeForm", () => {
   it("should call the snooze callback on submit", () => {
     const snooze = jest.fn();
     const wrapper = mount(
-      <SnoozeForm rowData={rowData} snooze={snooze} closeDialog={jest.fn()} />
+      <SnoozeForm
+        rowData={rowData}
+        snooze={snooze}
+        closeDialog={jest.fn()}
+        caseType="active"
+      />
     );
     wrapper.find("#SnoozeSumbit").simulate("click");
     expect(snooze).toBeCalledTimes(1);
@@ -35,6 +41,7 @@ describe("SnoozeForm", () => {
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={closeDialog}
+        caseType="active"
       />
     );
     wrapper.find("#SnoozeSumbit").simulate("click");
@@ -47,6 +54,7 @@ describe("SnoozeForm", () => {
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
+        caseType="active"
       />
     );
     wrapper.find("select").simulate("change", {
@@ -61,6 +69,7 @@ describe("SnoozeForm", () => {
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
+        caseType="active"
       />
     );
     wrapper.find("select").simulate("change", {
@@ -84,6 +93,7 @@ describe("SnoozeForm", () => {
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
+        caseType="active"
       />
     );
     wrapper.find("select").simulate("change", {
