@@ -163,7 +163,10 @@ export default function reducer(
       } else {
         urlParams.delete(CASE_CREATION_START);
       }
-      history.push({ search: `?${urlParams.toString()}` });
+      history.push({
+        pathname: window.location.pathname,
+        search: `?${urlParams.toString()}`
+      });
       return { ...state, caseCreationStart: action.payload };
     case "cases/SET_CASE_CREATION_END":
       const params = new URLSearchParams(window.location.search);
@@ -172,7 +175,10 @@ export default function reducer(
       } else {
         params.delete(CASE_CREATION_END);
       }
-      history.push({ search: `?${params.toString()}` });
+      history.push({
+        pathname: window.location.pathname,
+        search: `?${params.toString()}`
+      });
       return { ...state, caseCreationEnd: action.payload };
     case "cases/SET_SNOOZE_REASON_FILTER":
       const p = new URLSearchParams(window.location.search);
@@ -181,7 +187,10 @@ export default function reducer(
       } else {
         p.delete(SNOOOZE_REASON);
       }
-      history.push({ search: `?${p.toString()}` });
+      history.push({
+        pathname: window.location.pathname,
+        search: `?${p.toString()}`
+      });
       return { ...state, snoozeReasonFilter: action.payload };
     case "cases/SET_SERVICE_NOW_FILTER":
       const urlP = new URLSearchParams(window.location.search);
@@ -190,7 +199,10 @@ export default function reducer(
       } else {
         urlP.delete(SN_TICKET);
       }
-      history.push({ search: `?${urlP.toString()}` });
+      history.push({
+        pathname: window.location.pathname,
+        search: `?${urlP.toString()}`
+      });
       return { ...state, serviceNowFilter: action.payload };
     default:
       return state;
