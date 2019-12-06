@@ -92,42 +92,6 @@ exports[`Storyshots CaseList Empty case list 1`] = `
 </p>
 `;
 
-exports[`Storyshots DesnoozedWarning Multiple desnoozed cases 1`] = `
-<div
-  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
->
-  <div
-    className="usa-alert__body"
-  >
-    <p
-      className="usa-alert__text"
-    >
-      You have 20 reminders to review cases highlighted below.
-       
-    </p>
-  </div>
-</div>
-`;
-
-exports[`Storyshots DesnoozedWarning No desnoozed cases 1`] = `null`;
-
-exports[`Storyshots DesnoozedWarning One desnoozed case 1`] = `
-<div
-  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
->
-  <div
-    className="usa-alert__body"
-  >
-    <p
-      className="usa-alert__text"
-    >
-      You have 1 reminder to review a case highlighted below.
-       
-    </p>
-  </div>
-</div>
-`;
-
 exports[`Storyshots DetailNoteDisplay Assignee 1`] = `"Joe was assigned to follow-up on this case."`;
 
 exports[`Storyshots DetailNoteDisplay General comment 1`] = `"This is a general comment."`;
@@ -642,6 +606,40 @@ exports[`Storyshots LoadMore more cases loading 1`] = `
 
 exports[`Storyshots LoadMore no more cases 1`] = `null`;
 
+exports[`Storyshots OverdueCasesWarning Multiple desnoozed cases 1`] = `
+<div
+  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <p
+      className="usa-alert__text"
+    >
+      You have 20 reminders to review cases highlighted below.
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots OverdueCasesWarning No desnoozed cases 1`] = `null`;
+
+exports[`Storyshots OverdueCasesWarning One desnoozed case 1`] = `
+<div
+  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <p
+      className="usa-alert__text"
+    >
+      You have 1 reminder to review a case highlighted below.
+    </p>
+  </div>
+</div>
+`;
+
 exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
 <form
   className="usa-form"
@@ -874,51 +872,7 @@ exports[`Storyshots UsaAlert Success 1`] = `
       className="usa-alert__text"
     >
       Well done!
-       
     </p>
-  </div>
-</div>
-`;
-
-exports[`Storyshots UsaAlert dismissible 1`] = `
-<div>
-  <div
-    className="usa-alert--fit-content usa-alert usa-alert--success usa-alert--slim"
-  >
-    <div
-      className="usa-alert__body"
-    >
-      <p
-        className="usa-alert__text"
-      >
-        This is a success alert.
-         
-        <button
-          onClick={[Function]}
-        >
-          Dismiss
-        </button>
-      </p>
-    </div>
-  </div>
-  <div
-    className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
-  >
-    <div
-      className="usa-alert__body"
-    >
-      <p
-        className="usa-alert__text"
-      >
-        This is a warning alert.
-         
-        <button
-          onClick={[Function]}
-        >
-          Dismiss
-        </button>
-      </p>
-    </div>
   </div>
 </div>
 `;
@@ -934,7 +888,6 @@ exports[`Storyshots UsaAlert info 1`] = `
       className="usa-alert__text"
     >
       This is some information.
-       
     </p>
   </div>
 </div>
@@ -951,7 +904,6 @@ exports[`Storyshots UsaAlert warning 1`] = `
       className="usa-alert__text"
     >
       Watch out for this!
-       
     </p>
   </div>
 </div>
