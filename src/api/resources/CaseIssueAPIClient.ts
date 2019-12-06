@@ -17,7 +17,6 @@ class CaseIssueAPIClient extends ClientBase {
     to?: Date,
     snoozeReason?: string
   ): Promise<c.ApiResponse<Case[], APIError>> {
-
     if (filter !== "SNOOZED" && snoozeReason) {
       console.error(
         `Invalid api call. get ${filter} cases with a snoozeReason filter`

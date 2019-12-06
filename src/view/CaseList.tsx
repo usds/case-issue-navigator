@@ -129,7 +129,7 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         {this.renderDeSnoozeWarning()}
-        <CaseFilterForm snoozeState={this.props.snoozeState} />
+        <CaseFilterForm/>
         <I90Table />
         <LoadMore
           hasMoreCases={this.props.hasMoreCases}
