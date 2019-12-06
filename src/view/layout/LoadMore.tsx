@@ -5,7 +5,7 @@ interface Props {
   totalCases: number;
   loadedCases: number;
   isLoading: boolean;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const LoadMore: React.FunctionComponent<Props> = props => {
