@@ -13,7 +13,7 @@ storiesOf("SnoozeForm", module)
         rowData={rowData}
         snooze={action("snooze")}
         closeDialog={action("close")}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
   })
@@ -44,7 +44,7 @@ storiesOf("SnoozeForm", module)
         rowData={rowData}
         snooze={action("snooze")}
         closeDialog={action("close")}
-        caseType="snooze"
+        caseType="SNOOZED"
       />
     );
   });

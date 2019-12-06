@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { CaseAgeFilter } from "./CaseAgeFilter";
 import { SnoozeReasonFilter } from "./SnoozeReasonFilter";
 import { ServiceNowFilter } from "./ServiceNowFilter";
+import { SnoozeStateFilter } from "./SnoozeStateFilter";
 import { Well } from "../util/Well";
 import "./CaseFilterForm.scss";
 
@@ -16,7 +17,9 @@ const mapStateToProps = (state: RootState) => ({
   end: state.cases.caseCreationEnd,
   lastUpdated: state.cases.lastUpdated,
   snoozeReasonFilter: state.cases.snoozeReasonFilter,
-  serviceNowFilter: state.cases.serviceNowFilter
+  serviceNowFilter: state.cases.serviceNowFilter,
+  snoozeState: state.cases.type,
+  summary: state.cases.summary
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -27,17 +30,13 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setStart: casesActionCreators.setCaseCreationStart,
       setEnd: casesActionCreators.setCaseCreationEnd,
       setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter,
-      setServiceNowFilter: casesActionCreators.setServiceNowFilter
+      setServiceNowFilter: casesActionCreators.setServiceNowFilter,
+      setCaseType: casesActionCreators.setCaseType
     },
     dispatch
   );
 
-interface PassedProps {
-  snoozeState: SnoozeState;
-}
-
-type Props = PassedProps &
-  ReturnType<typeof mapStateToProps> &
+type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const CaseFilterForm: React.FunctionComponent<Props> = props => {
@@ -58,6 +57,11 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
     onFilterSubmit();
   };
 
+  const onSnoozeStateFilterUpdate = (snoozeState: SnoozeState) => {
+    props.setCaseType(snoozeState);
+    onFilterSubmit();
+  };
+
   return (
     <Well>
       <div className="filter-form">
@@ -70,6 +74,13 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
             onStartChange={props.setStart}
             onEndChange={props.setEnd}
             onSubmit={onFilterSubmit}
+          />
+        </div>
+        <div className="filter-input">
+          <SnoozeStateFilter
+            snoozeState={props.snoozeState}
+            alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
+            onUpdate={onSnoozeStateFilterUpdate}
           />
         </div>
         <div className="filter-input">

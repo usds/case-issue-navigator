@@ -68,7 +68,7 @@ storiesOf("I90Table", module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add("Empty Table - Active", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(casesActionCreators.setCaseType("active"));
+    store.dispatch(casesActionCreators.setCaseType("ACTIVE"));
     return <I90Table />;
   })
   .add("Empty Table - With Filter On", () => {
@@ -79,17 +79,17 @@ storiesOf("I90Table", module)
   })
   .add("Empty Table - Snoozed", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(casesActionCreators.setCaseType("snoozed"));
+    store.dispatch(casesActionCreators.setCaseType("SNOOZED"));
     return <I90Table />;
   })
   .add("Active case view", () => {
-    store.dispatch(casesActionCreators.setCaseType("active"));
+    store.dispatch(casesActionCreators.setCaseType("ACTIVE"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
   })
   .add("Snoozed case view", () => {
-    store.dispatch(casesActionCreators.setCaseType("snoozed"));
+    store.dispatch(casesActionCreators.setCaseType("SNOOZED"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
