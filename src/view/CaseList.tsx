@@ -134,7 +134,7 @@ class CaseList extends React.Component<Props, State> {
           totalCases={this.getTotalCases()}
           loadedCases={this.props.caselist.length}
           isLoading={this.props.isLoading}
-          onClick={this.props.loadCases}
+          onClick={() => this.props.loadCases()}
         />
       </React.Fragment>
     );
