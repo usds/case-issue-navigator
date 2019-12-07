@@ -91,7 +91,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Creation",
       Cell: CaseCreation,
-      displayIf: caseType === "ACTIVE"
+      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
     },
     {
       header: "Application Reason",
@@ -100,12 +100,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Status",
       Cell: CaseStatus,
-      displayIf: caseType === "ACTIVE"
+      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
     },
     {
       header: "Case Substatus",
       Cell: CaseSubstatus,
-      displayIf: caseType === "ACTIVE"
+      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
     },
     {
       header: "Platform",

@@ -1,9 +1,11 @@
 import React from "react";
 import { UsaAlert } from "../util/UsaAlert";
+import "./OverdueCasesWarning.scss"
 
 interface Props {
   overdueCases: number;
   snoozeState: SnoozeState;
+  onShowCases: () => void;
 }
 
 const OverdueCasesWarning: React.FC<Props> = props => {
@@ -16,11 +18,15 @@ const OverdueCasesWarning: React.FC<Props> = props => {
     return null;
   }
 
-  const pluralS = overdueCases !== 1 ? "s" : "";
-  const pluralCases = overdueCases !== 1 ? "cases" : "a case";
-  const reminder = `You have ${overdueCases} reminder${pluralS} to review ${pluralCases} highlighted below.`;
-
-  return <UsaAlert alertType="warning">{reminder}</UsaAlert>;
+  return (
+    <div className="overdue-cases-warning">
+      <UsaAlert
+        alertType="warning"
+        heading={`${overdueCases} Overdue Cases`}
+        text={<a href="javascript:void(0);" onClick={props.onShowCases}>View Overdue Cases</a>}
+      />
+    </div>
+  );
 };
 
 export { OverdueCasesWarning };

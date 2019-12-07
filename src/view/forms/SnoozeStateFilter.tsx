@@ -28,7 +28,7 @@ const SnoozeStateFilter: React.FunctionComponent<Props> = props => {
         id="snoozeState"
         value={props.snoozeState === "ALARMED"}
         onChange={onChange}
-        label={`Overdue Cases OInly`}
+        label={`Overdue Cases Only`}
       />
     </div>
   );
