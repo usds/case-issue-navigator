@@ -11,9 +11,9 @@ import AuthContainer from "./view/auth/AuthContainer";
 
 library.add(fas);
 
-const ActiveCaseList: React.FC<{}> = () => <CaseList snoozeState={"ACTIVE"} />;
+const ActiveCaseList: React.FC<{}> = () => <CaseList initialSnoozeState={"ACTIVE"} />;
 const SnoozedCaseList: React.FC<{}> = () => (
-  <CaseList snoozeState={"SNOOZED"} />
+  <CaseList initialSnoozeState={"SNOOZED"} />
 );
 
 const App: React.FC = () => {

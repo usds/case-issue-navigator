@@ -21,6 +21,12 @@ const pushURLParam = (param: string, value?: string) => {
     search: `?${urlParams.toString()}`
   });
 }
+const clearParams = () => {
+  history.push({
+    pathname: window.location.pathname,
+    search: ``
+  });
+}
 
 // Actions
 export const caseFilterActionCreators = {
@@ -31,7 +37,9 @@ export const caseFilterActionCreators = {
   setSnoozeReasonFilter: (snoozeReason?: SnoozeReason) =>
     action("caseFilters/SET_SNOOZE_REASON_FILTER", snoozeReason),
   setServiceNowFilter: (serviceNowFilter?: boolean) =>
-    action("caseFilters/SET_SERVICE_NOW_FILTER", serviceNowFilter)
+    action("caseFilters/SET_SERVICE_NOW_FILTER", serviceNowFilter),
+  clearFilters: () =>
+    action("caseFilters/CLEAR_FILTERS"),
 };
 
 type ActionCreator = typeof caseFilterActionCreators;
@@ -66,6 +74,9 @@ export default function reducer(
     case "caseFilters/SET_SERVICE_NOW_FILTER":
       pushURLParam(SN_TICKET, action.payload? action.payload.toString() : undefined);
       return { ...state, serviceNowFilter: action.payload };
+    case "caseFilters/CLEAR_FILTERS":
+      clearParams();
+      return {};
     default:
       return state;
   }

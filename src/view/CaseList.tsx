@@ -23,7 +23,8 @@ const mapStateToProps = (state: RootState) => ({
   isLoading: state.cases.isLoading,
   summary: state.cases.summary,
   lastUpdated: state.cases.lastUpdated,
-  hasMoreCases: state.cases.hasMoreCases
+  hasMoreCases: state.cases.hasMoreCases,
+  currentSnoozeState: state.cases.type
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -36,13 +37,14 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setStart: caseFilterActionCreators.setCaseCreationStart,
       setEnd: caseFilterActionCreators.setCaseCreationEnd,
       setSnoozeReasonFilter: caseFilterActionCreators.setSnoozeReasonFilter,
-      setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter
+      setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter,
+      clearFilters: caseFilterActionCreators.clearFilters
     },
     dispatch
   );
 
 interface PassedProps {
-  snoozeState: SnoozeState;
+  initialSnoozeState: SnoozeState;
 }
 
 type Props = PassedProps &
@@ -72,7 +74,7 @@ class CaseList extends React.Component<Props, State> {
         this.props.setEnd(endDate);
       }
     }
-    if (props.snoozeState) {
+    if (props.initialSnoozeState) {
       const reason = urlParams.get(SNOOOZE_REASON);
       if (reason && Object.keys(SNOOZE_OPTIONS).includes(reason)) {
         this.props.setSnoozeReasonFilter(reason as SnoozeReason);
@@ -86,7 +88,7 @@ class CaseList extends React.Component<Props, State> {
     }
 
     this.props.clearCases();
-    this.props.setCaseType(props.snoozeState);
+    this.props.setCaseType(props.initialSnoozeState);
     this.props.loadCases();
     this.state = {
       initializing: true
@@ -103,11 +105,18 @@ class CaseList extends React.Component<Props, State> {
   }
 
   getTotalCases() {
-    const { summary, snoozeState } = this.props;
-    if (snoozeState === "ACTIVE") {
+    const { summary, currentSnoozeState } = this.props;
+    if (currentSnoozeState === "ACTIVE") {
       return summary.CASES_TO_WORK;
     }
     return summary.SNOOZED_CASES;
+  }
+
+  showAllOverdueCases() {
+    this.props.clearCases();
+    this.props.clearFilters();
+    this.props.setCaseType("ALARMED");
+    this.props.loadCases();
   }
 
   render() {
@@ -118,8 +127,9 @@ class CaseList extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <OverdueCasesWarning
-          snoozeState={this.props.snoozeState}
+          snoozeState={this.props.currentSnoozeState}
           overdueCases={this.props.summary.PREVIOUSLY_SNOOZED}
+          onShowCases={this.showAllOverdueCases.bind(this)}
         />
         <CaseFilterForm />
         <I90Table />

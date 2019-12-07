@@ -25,7 +25,7 @@ export const Actions: React.FC<Props> = ({
   onSnoozeUpdate
 }) => (
   <React.Fragment>
-    {caseType === "ACTIVE" ? (
+    {["ACTIVE", "ALARMED"].includes(caseType) ? (
       <SnoozeFormWrapper
         rowData={caseData}
         updateSummaryData={updateSummaryData}
