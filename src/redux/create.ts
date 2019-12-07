@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { AppStatusAction } from "./modules/appStatus";
 import { CasesAction } from "./modules/cases";
+import { CaseFilterAction } from "./modules/caseFilters";
 import { rootReducer } from "./modules/root";
 
 export const store = createStore(
@@ -15,6 +16,6 @@ export const store = createStore(
 );
 
 export { rootReducer };
-export type RootAction = AppStatusAction | CasesAction;
+export type RootAction = AppStatusAction | CasesAction | CaseFilterAction;
 export type Store = typeof store;
 export type RootState = ReturnType<typeof rootReducer>;

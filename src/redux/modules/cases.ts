@@ -1,14 +1,5 @@
 import { action } from "typesafe-actions";
 import { RootAction } from "../create";
-import { createBrowserHistory } from "history";
-import {
-  CASE_CREATION_START,
-  CASE_CREATION_END,
-  SNOOOZE_REASON,
-  SN_TICKET
-} from "../../controller/config";
-
-const history = createBrowserHistory();
 
 // Actions
 export const casesActionCreators = {
@@ -35,14 +26,6 @@ export const casesActionCreators = {
     action("cases/SET_CASE_SUMMARY", summary),
   setLastUpdated: (lastUpdated: string) =>
     action("cases/SET_LAST_UPDATED", lastUpdated),
-  setCaseCreationStart: (caseCreationStart?: Date) =>
-    action("cases/SET_CASE_CREATION_START", caseCreationStart),
-  setCaseCreationEnd: (caseCreationEnd?: Date) =>
-    action("cases/SET_CASE_CREATION_END", caseCreationEnd),
-  setSnoozeReasonFilter: (snoozeReason?: SnoozeReason) =>
-    action("cases/SET_SNOOZE_REASON_FILTER", snoozeReason),
-  setServiceNowFilter: (serviceNowFilter?: boolean) =>
-    action("cases/SET_SERVICE_NOW_FILTER", serviceNowFilter),
   setHasMoreCases: (hasMoreCases: boolean) =>
     action("cases/SET_HAS_MORE_CASES", hasMoreCases)
 };
@@ -59,10 +42,6 @@ export type CasesState = {
   summary: Summary;
   hasMoreCases: boolean;
   lastUpdated?: string;
-  caseCreationStart?: Date;
-  caseCreationEnd?: Date;
-  snoozeReasonFilter?: SnoozeReason;
-  serviceNowFilter?: boolean;
 };
 
 export const initialState: CasesState = {
@@ -160,54 +139,6 @@ export default function reducer(
       return { ...state, summary: action.payload };
     case "cases/SET_LAST_UPDATED":
       return { ...state, lastUpdated: action.payload };
-    case "cases/SET_CASE_CREATION_START":
-      const urlParams = new URLSearchParams(window.location.search);
-      if (action.payload) {
-        urlParams.set(CASE_CREATION_START, action.payload.toLocaleDateString());
-      } else {
-        urlParams.delete(CASE_CREATION_START);
-      }
-      history.push({
-        pathname: window.location.pathname,
-        search: `?${urlParams.toString()}`
-      });
-      return { ...state, caseCreationStart: action.payload };
-    case "cases/SET_CASE_CREATION_END":
-      const params = new URLSearchParams(window.location.search);
-      if (action.payload) {
-        params.set(CASE_CREATION_END, action.payload.toLocaleDateString());
-      } else {
-        params.delete(CASE_CREATION_END);
-      }
-      history.push({
-        pathname: window.location.pathname,
-        search: `?${params.toString()}`
-      });
-      return { ...state, caseCreationEnd: action.payload };
-    case "cases/SET_SNOOZE_REASON_FILTER":
-      const p = new URLSearchParams(window.location.search);
-      if (action.payload) {
-        p.set(SNOOOZE_REASON, action.payload);
-      } else {
-        p.delete(SNOOOZE_REASON);
-      }
-      history.push({
-        pathname: window.location.pathname,
-        search: `?${p.toString()}`
-      });
-      return { ...state, snoozeReasonFilter: action.payload };
-    case "cases/SET_SERVICE_NOW_FILTER":
-      const urlP = new URLSearchParams(window.location.search);
-      if (action.payload !== undefined) {
-        urlP.set(SN_TICKET, action.payload.toString());
-      } else {
-        urlP.delete(SN_TICKET);
-      }
-      history.push({
-        pathname: window.location.pathname,
-        search: `?${urlP.toString()}`
-      });
-      return { ...state, serviceNowFilter: action.payload };
     case "cases/SET_HAS_MORE_CASES":
       return { ...state, hasMoreCases: action.payload };
     default:

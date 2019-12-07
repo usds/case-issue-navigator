@@ -3,6 +3,7 @@ import { OverdueCasesWarning } from "./notifications/OverdueCasesWarning";
 import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../redux/modules/cases";
+import { caseFilterActionCreators } from "../redux/modules/caseFilters";
 import { loadCases } from "../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
@@ -32,10 +33,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       loadCases: loadCases,
       setError: appStatusActionCreators.setDataLoadError,
       clearCases: casesActionCreators.clearCases,
-      setStart: casesActionCreators.setCaseCreationStart,
-      setEnd: casesActionCreators.setCaseCreationEnd,
-      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter,
-      setServiceNowFilter: casesActionCreators.setServiceNowFilter
+      setStart: caseFilterActionCreators.setCaseCreationStart,
+      setEnd: caseFilterActionCreators.setCaseCreationEnd,
+      setSnoozeReasonFilter: caseFilterActionCreators.setSnoozeReasonFilter,
+      setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter
     },
     dispatch
   );
