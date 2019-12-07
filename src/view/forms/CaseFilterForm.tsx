@@ -2,6 +2,7 @@ import React from "react";
 import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../../redux/modules/cases";
+import { caseFilterActionCreators } from "../../redux/modules/caseFilters";
 import { loadCases } from "../../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { CaseAgeFilter } from "./CaseAgeFilter";
@@ -13,11 +14,11 @@ import "./CaseFilterForm.scss";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
-  start: state.cases.caseCreationStart,
-  end: state.cases.caseCreationEnd,
+  start: state.caseFilters.caseCreationStart,
+  end: state.caseFilters.caseCreationEnd,
   lastUpdated: state.cases.lastUpdated,
-  snoozeReasonFilter: state.cases.snoozeReasonFilter,
-  serviceNowFilter: state.cases.serviceNowFilter,
+  snoozeReasonFilter: state.caseFilters.snoozeReasonFilter,
+  serviceNowFilter: state.caseFilters.serviceNowFilter,
   snoozeState: state.cases.type,
   summary: state.cases.summary
 });
@@ -27,10 +28,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     {
       loadCases: loadCases,
       clearCases: casesActionCreators.clearCases,
-      setStart: casesActionCreators.setCaseCreationStart,
-      setEnd: casesActionCreators.setCaseCreationEnd,
-      setSnoozeReasonFilter: casesActionCreators.setSnoozeReasonFilter,
-      setServiceNowFilter: casesActionCreators.setServiceNowFilter,
+      setStart: caseFilterActionCreators.setCaseCreationStart,
+      setEnd: caseFilterActionCreators.setCaseCreationEnd,
+      setSnoozeReasonFilter: caseFilterActionCreators.setSnoozeReasonFilter,
+      setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter,
       setCaseType: casesActionCreators.setCaseType
     },
     dispatch

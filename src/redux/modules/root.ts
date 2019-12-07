@@ -2,6 +2,7 @@ import { action } from "typesafe-actions";
 import { combineReducers, AnyAction } from "redux";
 import appStatusReducer, { AppStatusState } from "./appStatus";
 import casesReducer, { CasesState } from "./cases";
+import caseFilterReducer, { CaseFilterState } from "./caseFilters";
 
 const userLogout = "root/USER_LOGOUT";
 
@@ -12,6 +13,7 @@ export const rootActionCreators = {
 interface AppState {
   appStatus: AppStatusState;
   cases: CasesState;
+  caseFilters: CaseFilterState;
 }
 
 export const rootReducer = (state: AppState | undefined, action: AnyAction) => {
@@ -23,7 +25,8 @@ export const rootReducer = (state: AppState | undefined, action: AnyAction) => {
 
 const appReducerMapObject = {
   appStatus: appStatusReducer,
-  cases: casesReducer
+  cases: casesReducer,
+  caseFilters: caseFilterReducer
 };
 
 export const appReducer = combineReducers(appReducerMapObject);

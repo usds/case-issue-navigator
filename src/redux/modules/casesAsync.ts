@@ -24,15 +24,14 @@ export const loadCases = (reciptnumber?: string) => async (
   getState: () => RootState
 ) => {
   const { setIsLoading, addCases, setHasMoreCases } = casesActionCreators;
-  const { cases } = getState();
+  const { cases, caseFilters } = getState();
+  const { caselist, type } = cases;
   const {
-    caselist,
-    type,
     caseCreationEnd,
     caseCreationStart,
     snoozeReasonFilter,
     serviceNowFilter
-  } = cases;
+  } = caseFilters;
 
   const lastReceiptNumber =
     caselist.length > 0
