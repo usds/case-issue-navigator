@@ -7,7 +7,7 @@ interface Props {
   caseData: Case;
 }
 
-const label = "Case Overdue - Please Review"
+const label = "Case Overdue - Please Review";
 
 export const ReceiptNumberLink: React.FC<Props> = ({ caseData }) => (
   <React.Fragment>

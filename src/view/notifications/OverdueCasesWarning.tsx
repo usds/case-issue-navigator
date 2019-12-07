@@ -1,6 +1,6 @@
 import React from "react";
 import { UsaAlert } from "../util/UsaAlert";
-import "./OverdueCasesWarning.scss"
+import "./OverdueCasesWarning.scss";
 
 interface Props {
   overdueCases: number;
@@ -23,7 +23,11 @@ const OverdueCasesWarning: React.FC<Props> = props => {
       <UsaAlert
         alertType="warning"
         heading={`${overdueCases} Overdue Cases`}
-        text={<a href="#" onClick={props.onShowCases}>View Overdue Cases</a>}
+        text={
+          <a href="#" onClick={props.onShowCases}>
+            View Overdue Cases
+          </a>
+        }
       />
     </div>
   );

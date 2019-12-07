@@ -68,6 +68,13 @@ class URLs {
     return url;
   }
 
+  public static casesSearch(query: string): URL {
+    const url = URLs.casesBase();
+    url.pathname += "/search";
+    url.searchParams.append("query", query);
+    return url;
+  }
+
   /* Case Details */
   public static caseDetails(receiptNumber: string): URL {
     return URLs.APIBaseUrl(

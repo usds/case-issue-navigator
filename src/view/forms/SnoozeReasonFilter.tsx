@@ -36,13 +36,13 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
 
   const getSelected = () => {
     if (props.snoozeState === "ACTIVE") {
-      return "all"
-    } else if (props.snoozeReason ) {
-      return props.snoozeReason
+      return "all";
+    } else if (props.snoozeReason) {
+      return props.snoozeReason;
     } else {
-      return "unkown"
+      return "unkown";
     }
-  }
+  };
 
   return (
     <React.Fragment>

@@ -10,7 +10,7 @@ describe("CaseList", () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const wrapper = mount(
       <Provider store={store}>
-        <CaseList/>
+        <CaseList />
       </Provider>
     );
     expect(wrapper.find("p").text()).toBe("Loading...");

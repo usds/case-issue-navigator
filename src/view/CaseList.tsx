@@ -15,7 +15,8 @@ import {
   CASE_CREATION_START,
   CASE_CREATION_END,
   SNOOOZE_REASON,
-  SN_TICKET
+  SN_TICKET,
+  SEARCH
 } from "../controller/config";
 
 const mapStateToProps = (state: RootState) => ({
@@ -38,7 +39,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setEnd: caseFilterActionCreators.setCaseCreationEnd,
       setSnoozeReasonFilter: caseFilterActionCreators.setSnoozeReasonFilter,
       setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter,
-      clearFilters: caseFilterActionCreators.clearFilters
+      clearFilters: caseFilterActionCreators.clearFilters,
+      setActiveSearch: caseFilterActionCreators.setActiveSearch,
+      setSearch: caseFilterActionCreators.setSearch
     },
     dispatch
   );
@@ -55,38 +58,47 @@ class CaseList extends React.Component<Props, State> {
     super(props);
 
     const urlParams = new URLSearchParams(window.location.search);
-    const start = urlParams.get(CASE_CREATION_START);
-    const end = urlParams.get(CASE_CREATION_END);
-    if (start) {
-      const startDate = new Date(decodeURI(start));
-      if (!isNaN(startDate.getTime())) {
-        this.props.setStart(startDate);
+    const search = urlParams.get(SEARCH);
+    if (search) {
+      this.props.setSearch(search);
+      this.props.setActiveSearch(true);
+    } else {
+      const start = urlParams.get(CASE_CREATION_START);
+      const end = urlParams.get(CASE_CREATION_END);
+      if (start) {
+        const startDate = new Date(decodeURI(start));
+        if (!isNaN(startDate.getTime())) {
+          this.props.setStart(startDate);
+        }
       }
-    }
-    if (end) {
-      const endDate = new Date(decodeURI(end));
-      if (!isNaN(endDate.getTime())) {
-        this.props.setEnd(endDate);
+      if (end) {
+        const endDate = new Date(decodeURI(end));
+        if (!isNaN(endDate.getTime())) {
+          this.props.setEnd(endDate);
+        }
       }
-    }
 
-    const reason = urlParams.get(SNOOOZE_REASON);
-    if (reason && Object.keys(SNOOZE_OPTIONS).includes(reason)) {
-      this.props.setSnoozeReasonFilter(reason as SnoozeReason);
-    }
-
-    if (props.snoozeState === "SNOOZED") {
-      const sn = urlParams.get(SN_TICKET);
-      if (sn === "true") {
-        this.props.setServiceNowFilter(true);
-      } else if (sn === "false") {
-        this.props.setServiceNowFilter(false);
+      const reason = urlParams.get(SNOOOZE_REASON);
+      if (reason && Object.keys(SNOOZE_OPTIONS).includes(reason)) {
+        this.props.setSnoozeReasonFilter(reason as SnoozeReason);
       }
-    }
 
-    const snoozeState = urlParams.get(SNOOOZE_REASON);
-    if (snoozeState && ["SNOOZED", "ACTIVE", "ALARMED"].includes(snoozeState)) {
-      this.props.setCaseType(snoozeState as SnoozeState);
+      if (props.snoozeState === "SNOOZED") {
+        const sn = urlParams.get(SN_TICKET);
+        if (sn === "true") {
+          this.props.setServiceNowFilter(true);
+        } else if (sn === "false") {
+          this.props.setServiceNowFilter(false);
+        }
+      }
+
+      const snoozeState = urlParams.get(SNOOOZE_REASON);
+      if (
+        snoozeState &&
+        ["SNOOZED", "ACTIVE", "ALARMED"].includes(snoozeState)
+      ) {
+        this.props.setCaseType(snoozeState as SnoozeState);
+      }
     }
 
     this.props.loadCases();

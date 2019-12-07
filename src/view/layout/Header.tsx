@@ -14,15 +14,10 @@ const mapStateToProps = (state: RootState) => ({
   lastUpdated: state.cases.lastUpdated
 });
 
-
 type Props = ReturnType<typeof mapStateToProps>;
 
 const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
-  const {
-    notification,
-    pageTitle,
-    lastUpdated
-  } = props;
+  const { notification, pageTitle, lastUpdated } = props;
 
   useEffect(() => {
     if (!notification) {
@@ -53,5 +48,4 @@ const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default connect(
-  mapStateToProps)(UnconnnectedHeader);
+export default connect(mapStateToProps)(UnconnnectedHeader);

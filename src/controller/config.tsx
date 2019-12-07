@@ -3,6 +3,7 @@ export const CASE_CREATION_END = "CaseCreationEnd";
 export const SNOOOZE_REASON = "snoozeReason";
 export const SN_TICKET = "snTicket";
 export const SNOOZE_STATE = "snoozeState";
+export const SEARCH = "search";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
