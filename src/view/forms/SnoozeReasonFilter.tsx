@@ -17,6 +17,9 @@ interface Option {
 const DEFAULT_TEXT = "All problem cases";
 
 const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
+  if (props.snoozeState === "ALARMED") {
+    return null;
+  }
   const options: Option[] = [
     {
       value: "unknown",
@@ -36,11 +39,11 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
 
   const getSelected = () => {
     if (props.snoozeState === "ACTIVE") {
-      return "all";
+      return "unknown";
     } else if (props.snoozeReason) {
       return props.snoozeReason;
     } else {
-      return "unkown";
+      return "all";
     }
   };
 
@@ -50,7 +53,7 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
         options={options}
         placeholder={DEFAULT_TEXT}
         name="snoozeReason"
-        selected={props.snoozeReason}
+        selected={getSelected()}
         onChange={props.onUpdate}
         label="Problem"
       />

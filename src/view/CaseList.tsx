@@ -4,7 +4,7 @@ import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../redux/modules/cases";
 import { caseFilterActionCreators } from "../redux/modules/caseFilters";
-import { loadCases } from "../redux/modules/casesAsync";
+import { loadCases, loadSearchResults } from "../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { appStatusActionCreators } from "../redux/modules/appStatus";
 import LoadMore from "./layout/LoadMore";
@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     {
       setCaseType: caseFilterActionCreators.setSnoozeState,
       loadCases: loadCases,
+      loadSearchResults: loadSearchResults,
       setError: appStatusActionCreators.setDataLoadError,
       clearCases: casesActionCreators.clearCases,
       setStart: caseFilterActionCreators.setCaseCreationStart,
@@ -62,6 +63,7 @@ class CaseList extends React.Component<Props, State> {
     if (search) {
       this.props.setSearch(search);
       this.props.setActiveSearch(true);
+      this.props.loadSearchResults();
     } else {
       const start = urlParams.get(CASE_CREATION_START);
       const end = urlParams.get(CASE_CREATION_END);
@@ -99,9 +101,9 @@ class CaseList extends React.Component<Props, State> {
       ) {
         this.props.setCaseType(snoozeState as SnoozeState);
       }
+      this.props.loadCases();
     }
 
-    this.props.loadCases();
     this.state = {
       initializing: true
     };
