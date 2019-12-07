@@ -44,14 +44,14 @@ export default function SnoozeInputs(props: Props) {
         name="snoozeReason"
         selected={props.selectedOption.value}
         onChange={props.snoozeReasonChange}
-        label="Reason to snooze this case:"
+        label="Problem"
       />
       {followUpFragment()}
       <UsaNumberInput
         onChange={props.durationChange}
         name="duration"
         value={props.duration}
-        label="Snooze Duration (in days)"
+        label="Due in (days)"
         min={1}
         max={365}
         setError={props.setError}

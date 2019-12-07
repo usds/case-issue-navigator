@@ -16,19 +16,6 @@ type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
 type SubType = "troubleticket" | "assignee" | "fieldoffice" | "referral";
 
-interface Views {
-  CASES_TO_WORK: {
-    title: "Cases to Work";
-    route: "";
-  };
-  SNOOZED_CASES: {
-    title: "Snoozed Cases";
-    route: "snoozed-cases";
-  };
-}
-
-type ViewTitles = Views[keyof Views]["title"];
-
 type Summary = {
   [key in keyof Views | "PREVIOUSLY_SNOOZED"]: number;
 };
@@ -166,7 +153,6 @@ interface Header {
   header: string;
   field?: keyof Case;
   content: Function | "LINK" | "DATE";
-  views: ViewTitles[];
 }
 
 interface CaseExtraData {

@@ -19,7 +19,6 @@ export const casesActionCreators = {
   clearCases: () => action("cases/CLEAR_CASES"),
   toggleDetails: (receiptNumber: string) =>
     action("cases/TOGGLE_DETAILS", receiptNumber),
-  setCaseType: (type: SnoozeState) => action("cases/SET_CASE_TYPE", type),
   setIsLoading: (isLoading: boolean) =>
     action("cases/SET_IS_LOADING", isLoading),
   setCaseSummary: (summary: Summary) =>
@@ -37,7 +36,6 @@ export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
 // Initial state
 export type CasesState = {
   caselist: Case[];
-  type: SnoozeState;
   isLoading: boolean;
   summary: Summary;
   hasMoreCases: boolean;
@@ -46,7 +44,6 @@ export type CasesState = {
 
 export const initialState: CasesState = {
   caselist: [],
-  type: "ACTIVE",
   isLoading: false,
   summary: {
     CASES_TO_WORK: 0,
@@ -111,11 +108,6 @@ export default function reducer(
       return {
         ...state,
         caselist: []
-      };
-    case "cases/SET_CASE_TYPE":
-      return {
-        ...state,
-        type: action.payload
       };
     case "cases/TOGGLE_DETAILS":
       return {

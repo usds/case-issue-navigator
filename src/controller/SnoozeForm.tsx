@@ -155,14 +155,13 @@ class SnoozeForm extends Component<Props, State> {
     const snoozeStart = new Date(
       this.props.rowData.snoozeInformation.snoozeStart
     ).toLocaleDateString("en-US");
-
     return (
       <UsaAlert
         alertType="warning"
         text={
           <React.Fragment>
-            Case was previously snoozed on {snoozeStart}. Reason given:{" "}
-            {this.props.rowData.snoozeInformation.snoozeReason}.
+            Originally triaged on: {snoozeStart}.<br/>
+            Problem given: {this.props.rowData.snoozeInformation.snoozeReason}.
           </React.Fragment>
         }
       />
@@ -175,7 +174,7 @@ class SnoozeForm extends Component<Props, State> {
         {this.props.caseType === "ACTIVE" ? (
           this.deSnoozeCheck()
         ) : (
-          <h4>Re-snooze or update the snooze information for this case:</h4>
+          <h4>Update case problem</h4>
         )}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
@@ -189,7 +188,7 @@ class SnoozeForm extends Component<Props, State> {
           {...this.state}
         />
         <UsaButton buttonId="SnoozeSumbit" onClick={this.formSubmit.bind(this)}>
-          Snooze
+          Save
         </UsaButton>
       </form>
     );

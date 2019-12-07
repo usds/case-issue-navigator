@@ -35,7 +35,7 @@ const EndSnoozeForm = (props: Props) => {
         </UsaButton>
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="secondary">
-        End
+        Resolve
       </UsaButton>
     </React.Fragment>
   );

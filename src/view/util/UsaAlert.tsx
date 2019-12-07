@@ -1,4 +1,5 @@
 import React from "react";
+import "./UsaAlert.scss";
 
 interface Props {
   heading?: string | JSX.Element;
@@ -15,7 +16,7 @@ const UsaAlert: React.FC<Props> = props => {
   ) : null;
 
   return (
-    <div className={`usa-alert usa-alert--${props.alertType} sa-alert--fit-content`}>
+    <div className={`usa-alert usa-alert--${props.alertType} usa-alert--fit-content`}>
       <div className="usa-alert__body">
         {heading}
         {text}

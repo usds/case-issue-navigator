@@ -201,7 +201,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
          
         <svg
           aria-hidden="true"
-          aria-label="Snooze expired - Please review case"
+          aria-label="Case Overdue - Please Review"
           className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
           data-icon="exclamation-triangle"
           data-place="right"
@@ -223,7 +223,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
           className="__react_component_tooltip place-top type-dark "
           data-id="tooltip"
         >
-          Snooze expired - Please review case
+          Case Overdue - Please Review
         </div>
       </td>
       <td>
@@ -254,7 +254,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
           onClick={[Function]}
           type="button"
         >
-          Snooze
+          Triage
         </button>
       </td>
     </tr>
@@ -325,7 +325,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
           onClick={[Function]}
           type="button"
         >
-          Snooze
+          Triage
         </button>
       </td>
     </tr>
@@ -423,7 +423,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
          
         <svg
           aria-hidden="true"
-          aria-label="Snooze expired - Please review case"
+          aria-label="Case Overdue - Please Review"
           className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
           data-icon="exclamation-triangle"
           data-place="right"
@@ -445,7 +445,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           className="__react_component_tooltip place-top type-dark "
           data-id="tooltip"
         >
-          Snooze expired - Please review case
+          Case Overdue - Please Review
         </div>
       </td>
       <td>
@@ -480,7 +480,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           onClick={[Function]}
           type="button"
         >
-          End
+          Resolve
         </button>
       </td>
     </tr>
@@ -566,7 +566,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           onClick={[Function]}
           type="button"
         >
-          End
+          Resolve
         </button>
       </td>
     </tr>
@@ -608,16 +608,29 @@ exports[`Storyshots LoadMore no more cases 1`] = `null`;
 
 exports[`Storyshots OverdueCasesWarning Multiple desnoozed cases 1`] = `
 <div
-  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+  className="overdue-cases-warning"
 >
   <div
-    className="usa-alert__body"
+    className="usa-alert usa-alert--warning usa-alert--fit-content"
   >
-    <p
-      className="usa-alert__text"
+    <div
+      className="usa-alert__body"
     >
-      You have 20 reminders to review cases highlighted below.
-    </p>
+      <h3
+        className="usa-alert__heading"
+      >
+        20 Overdue Cases
+      </h3>
+      <p
+        className="usa-alert__text"
+      >
+        <a
+          href="#"
+        >
+          View Overdue Cases
+        </a>
+      </p>
+    </div>
   </div>
 </div>
 `;
@@ -626,16 +639,29 @@ exports[`Storyshots OverdueCasesWarning No desnoozed cases 1`] = `null`;
 
 exports[`Storyshots OverdueCasesWarning One desnoozed case 1`] = `
 <div
-  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+  className="overdue-cases-warning"
 >
   <div
-    className="usa-alert__body"
+    className="usa-alert usa-alert--warning usa-alert--fit-content"
   >
-    <p
-      className="usa-alert__text"
+    <div
+      className="usa-alert__body"
     >
-      You have 1 reminder to review a case highlighted below.
-    </p>
+      <h3
+        className="usa-alert__heading"
+      >
+        1 Overdue Cases
+      </h3>
+      <p
+        className="usa-alert__text"
+      >
+        <a
+          href="#"
+        >
+          View Overdue Cases
+        </a>
+      </p>
+    </div>
   </div>
 </div>
 `;
@@ -645,13 +671,13 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
   className="usa-form"
 >
   <h4>
-    Re-snooze or update the snooze information for this case:
+    Update case problem
   </h4>
   <label
     className="usa-label"
     htmlFor="snoozeReason"
   >
-    Reason to snooze this case:
+    Problem
   </label>
   <select
     className="usa-select"
@@ -717,7 +743,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     className="usa-label"
     htmlFor="duration"
   >
-    Snooze Duration (in days)
+    Due in (days)
   </label>
   <input
     className="usa-input"
@@ -747,7 +773,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     onClick={[Function]}
     type="button"
   >
-    Snooze
+    Save
   </button>
 </form>
 `;
@@ -760,7 +786,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     className="usa-label"
     htmlFor="snoozeReason"
   >
-    Reason to snooze this case:
+    Problem
   </label>
   <select
     className="usa-select"
@@ -812,7 +838,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     className="usa-label"
     htmlFor="followUp"
   >
-    ServiceNow ticket ID:
+    ServiceNow ticket ID
   </label>
   <input
     className="usa-input"
@@ -826,7 +852,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     className="usa-label"
     htmlFor="duration"
   >
-    Snooze Duration (in days)
+    Due in (days)
   </label>
   <input
     className="usa-input"
@@ -856,22 +882,62 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     onClick={[Function]}
     type="button"
   >
-    Snooze
+    Save
   </button>
 </form>
 `;
 
 exports[`Storyshots UsaAlert Success 1`] = `
 <div
-  className="usa-alert--fit-content usa-alert usa-alert--success usa-alert--slim"
+  className="usa-alert usa-alert--success usa-alert--fit-content"
 >
   <div
     className="usa-alert__body"
   >
+    <h3
+      className="usa-alert__heading"
+    >
+      Success status
+    </h3>
     <p
       className="usa-alert__text"
     >
-      Well done!
+      Lorem ipsum dolor sit amet,
+       
+      <a
+        href="javascript:void(0);"
+      >
+        consectetur adipiscing
+      </a>
+       elit, sed do eiusmod.
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots UsaAlert error 1`] = `
+<div
+  className="usa-alert usa-alert--error usa-alert--fit-content"
+>
+  <div
+    className="usa-alert__body"
+  >
+    <h3
+      className="usa-alert__heading"
+    >
+      Error status
+    </h3>
+    <p
+      className="usa-alert__text"
+    >
+      Lorem ipsum dolor sit amet,
+       
+      <a
+        href="javascript:void(0);"
+      >
+        consectetur adipiscing
+      </a>
+       elit, sed do eiusmod.
     </p>
   </div>
 </div>
@@ -879,15 +945,27 @@ exports[`Storyshots UsaAlert Success 1`] = `
 
 exports[`Storyshots UsaAlert info 1`] = `
 <div
-  className="usa-alert--fit-content usa-alert usa-alert--info usa-alert--slim"
+  className="usa-alert usa-alert--info usa-alert--fit-content"
 >
   <div
     className="usa-alert__body"
   >
+    <h3
+      className="usa-alert__heading"
+    >
+      Informative status
+    </h3>
     <p
       className="usa-alert__text"
     >
-      This is some information.
+      Lorem ipsum dolor sit amet,
+       
+      <a
+        href="javascript:void(0);"
+      >
+        consectetur adipiscing
+      </a>
+       elit, sed do eiusmod.
     </p>
   </div>
 </div>
@@ -895,15 +973,27 @@ exports[`Storyshots UsaAlert info 1`] = `
 
 exports[`Storyshots UsaAlert warning 1`] = `
 <div
-  className="usa-alert--fit-content usa-alert usa-alert--warning usa-alert--slim"
+  className="usa-alert usa-alert--warning usa-alert--fit-content"
 >
   <div
     className="usa-alert__body"
   >
+    <h3
+      className="usa-alert__heading"
+    >
+      Warning status
+    </h3>
     <p
       className="usa-alert__text"
     >
-      Watch out for this!
+      Lorem ipsum dolor sit amet,
+       
+      <a
+        href="javascript:void(0);"
+      >
+        consectetur adipiscing
+      </a>
+       elit, sed do eiusmod.
     </p>
   </div>
 </div>

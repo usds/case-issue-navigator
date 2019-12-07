@@ -6,20 +6,12 @@ import CaseList from "../CaseList";
 import RestAPIClient from "../../api/RestAPIClient";
 
 describe("CaseList", () => {
-  it("gets the cases of the correct type on initalization", () => {
+  it("lodaing when there are no cases", () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const wrapper = mount(
       <Provider store={store}>
-        <CaseList snoozeState={"ACTIVE"} />
+        <CaseList/>
       </Provider>
-    );
-    expect(store.getState().cases.type).toBe("ACTIVE");
-    expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
-      undefined,
-      undefined,
-      undefined,
-      undefined
     );
     expect(wrapper.find("p").text()).toBe("Loading...");
   });

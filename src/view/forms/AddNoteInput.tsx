@@ -14,7 +14,7 @@ export default function AddNoteInput(props: Props) {
   if (showNotes) {
     return (
       <UsaTextArea
-        label="Case Issue Notes"
+        label="Note"
         name="caseIssueNotes"
         onChange={props.onChange}
         value={props.value}

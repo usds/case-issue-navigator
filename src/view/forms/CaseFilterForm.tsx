@@ -19,7 +19,7 @@ const mapStateToProps = (state: RootState) => ({
   lastUpdated: state.cases.lastUpdated,
   snoozeReasonFilter: state.caseFilters.snoozeReasonFilter,
   serviceNowFilter: state.caseFilters.serviceNowFilter,
-  snoozeState: state.cases.type,
+  snoozeState: state.caseFilters.snoozeState,
   summary: state.cases.summary
 });
 
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setEnd: caseFilterActionCreators.setCaseCreationEnd,
       setSnoozeReasonFilter: caseFilterActionCreators.setSnoozeReasonFilter,
       setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter,
-      setCaseType: casesActionCreators.setCaseType
+      setSnoozeState: caseFilterActionCreators.setSnoozeState
     },
     dispatch
   );
@@ -46,10 +46,21 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
     props.loadCases();
   };
 
-  const onSnoozeReasonFilterUpdate = (snoozeReason: SnoozeReason | "") => {
-    snoozeReason === ""
-      ? props.setSnoozeReasonFilter()
-      : props.setSnoozeReasonFilter(snoozeReason);
+  const onSnoozeReasonFilterUpdate = (problem: SnoozeReason | "all" | "unknown") => {
+    switch (problem) {
+      case "all":
+        props.setSnoozeState("SNOOZED");
+        props.setSnoozeReasonFilter();
+        break;
+      case "unknown":
+        props.setSnoozeState("ACTIVE");
+        props.setSnoozeReasonFilter();
+        props.setServiceNowFilter()
+        break;
+      default:
+        props.setSnoozeState("SNOOZED");
+        props.setSnoozeReasonFilter(problem);
+    }
     onFilterSubmit();
   };
 
@@ -59,7 +70,7 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
   };
 
   const onSnoozeStateFilterUpdate = (snoozeState: SnoozeState) => {
-    props.setCaseType(snoozeState);
+    props.setSnoozeState(snoozeState);
     onFilterSubmit();
   };
 
@@ -78,17 +89,17 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
           />
         </div>
         <div className="filter-input">
-          <SnoozeStateFilter
-            snoozeState={props.snoozeState}
-            alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
-            onUpdate={onSnoozeStateFilterUpdate}
-          />
-        </div>
-        <div className="filter-input">
           <SnoozeReasonFilter
             snoozeState={props.snoozeState}
             snoozeReason={props.snoozeReasonFilter}
             onUpdate={onSnoozeReasonFilterUpdate}
+          />
+        </div>
+        <div className="filter-input">
+          <SnoozeStateFilter
+            snoozeState={props.snoozeState}
+            alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
+            onUpdate={onSnoozeStateFilterUpdate}
           />
         </div>
         <div className="filter-input">

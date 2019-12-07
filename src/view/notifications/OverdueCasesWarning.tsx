@@ -23,7 +23,7 @@ const OverdueCasesWarning: React.FC<Props> = props => {
       <UsaAlert
         alertType="warning"
         heading={`${overdueCases} Overdue Cases`}
-        text={<a href="javascript:void(0);" onClick={props.onShowCases}>View Overdue Cases</a>}
+        text={<a href="#" onClick={props.onShowCases}>View Overdue Cases</a>}
       />
     </div>
   );
