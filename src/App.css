@@ -22,18 +22,6 @@
   visibility: visible;
 }
 
-.usa-alert button {
-  background-color: transparent;
-  border: 0;
-  text-decoration: underline;
-  color: #005ea2;
-  padding: 0;
-}
-
-.usa-alert button:hover {
-  color: #1a4480;
-}
-
 .usa-alert--fit-content {
   width: fit-content;
 }

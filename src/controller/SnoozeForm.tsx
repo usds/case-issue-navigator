@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "./config";
 import SnoozeInputs from "../view/forms/SnoozeInputs";
+import { UsaAlert } from "../view/util/UsaAlert";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
 import DateUtils from "../utils/DateUtils";
@@ -156,14 +157,15 @@ class SnoozeForm extends Component<Props, State> {
     ).toLocaleDateString("en-US");
 
     return (
-      <div className="usa-alert usa-alert--warning usa-alert--slim">
-        <div className="usa-alert__body">
-          <p className="usa-alert__text">
+      <UsaAlert
+        alertType="warning"
+        text={
+          <React.Fragment>
             Case was previously snoozed on {snoozeStart}. Reason given:{" "}
             {this.props.rowData.snoozeInformation.snoozeReason}.
-          </p>
-        </div>
-      </div>
+          </React.Fragment>
+        }
+      />
     );
   }
 
