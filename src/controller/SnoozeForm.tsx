@@ -160,7 +160,7 @@ class SnoozeForm extends Component<Props, State> {
         alertType="warning"
         text={
           <React.Fragment>
-            Originally triaged on: {snoozeStart}.<br/>
+            Originally triaged on: {snoozeStart}.<br />
             Problem given: {this.props.rowData.snoozeInformation.snoozeReason}.
           </React.Fragment>
         }

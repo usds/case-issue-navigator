@@ -85,6 +85,35 @@ export const loadCases = (reciptnumber?: string) => async (
   }
 };
 
+export const loadSearchResults = () => async (
+  dispatch: ThunkDispatch<RootState, {}, AnyAction>,
+  getState: () => RootState
+) => {
+  const { setIsLoading, addCases, clearCases } = casesActionCreators;
+  const { caseFilters } = getState();
+  const { search } = caseFilters;
+  dispatch(setIsLoading(true));
+  if (!search) {
+    console.error("search called with our a query");
+    return;
+  }
+  const response = await RestAPIClient.cases.getSearch(search);
+  dispatch(setIsLoading(false));
+
+  if (response.succeeded) {
+    dispatch(clearCases());
+    dispatch(addCases(response.payload));
+    return;
+  }
+
+  if (response.responseReceived) {
+    const errorJson = await response.responseError.getJson();
+    console.error(errorJson);
+  } else {
+    console.error(response);
+  }
+};
+
 export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {
   const response = await RestAPIClient.cases.getCaseSummary();
   const { setCaseSummary, setLastUpdated } = casesActionCreators;

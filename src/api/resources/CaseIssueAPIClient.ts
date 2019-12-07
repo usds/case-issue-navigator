@@ -27,6 +27,12 @@ class CaseIssueAPIClient extends ClientBase {
     )) as any;
   }
 
+  public async getSearch(
+    query: string
+  ): Promise<c.ApiResponse<Case[], APIError>> {
+    return (await this.getAsJson(URLs.casesSearch(query))) as any;
+  }
+
   public async getCaseSummary(): Promise<c.ApiResponse<SummarySuccess, {}>> {
     return (await this.getAsJson(URLs.casesSummary())) as any;
   }

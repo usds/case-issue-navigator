@@ -5,14 +5,12 @@ import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.appStatus.user,
+  user: state.appStatus.user
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
 
-const UnconnectedPrimaryNavMenu: React.FC<Props> = ({
-  user,
-}) => {
+const UnconnectedPrimaryNavMenu: React.FC<Props> = ({ user }) => {
   return (
     <React.Fragment>
       <div className="usa-overlay"></div>

@@ -18,7 +18,7 @@ describe("CaseFilterForm", () => {
     );
     const wrapper = mount(
       <Provider store={store}>
-        <CaseFilterForm/>
+        <CaseFilterForm />
       </Provider>
     );
 
