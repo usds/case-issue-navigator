@@ -25,12 +25,13 @@ export const loadCases = (reciptnumber?: string) => async (
 ) => {
   const { setIsLoading, addCases, setHasMoreCases } = casesActionCreators;
   const { cases, caseFilters } = getState();
-  const { caselist, type } = cases;
+  const { caselist } = cases;
   const {
     caseCreationEnd,
     caseCreationStart,
     snoozeReasonFilter,
-    serviceNowFilter
+    serviceNowFilter,
+    snoozeState
   } = caseFilters;
 
   const lastReceiptNumber =
@@ -41,11 +42,11 @@ export const loadCases = (reciptnumber?: string) => async (
   dispatch(setIsLoading(true));
   dispatch(getCaseSummary());
   const response = await RestAPIClient.cases.getCases(
-    type,
+    snoozeState,
     reciptnumber ? reciptnumber : lastReceiptNumber,
     caseCreationStart,
     caseCreationEnd,
-    type === "SNOOZED" ? snoozeReasonFilter : undefined
+    snoozeState === "SNOOZED" ? snoozeReasonFilter : undefined
   );
   dispatch(setIsLoading(false));
 
@@ -56,7 +57,7 @@ export const loadCases = (reciptnumber?: string) => async (
     } else {
       dispatch(setHasMoreCases(false));
     }
-    if (type === "SNOOZED" && serviceNowFilter !== undefined) {
+    if (snoozeState === "SNOOZED" && serviceNowFilter !== undefined) {
       const cases = serviceNowFilter
         ? response.payload.filter((c: Case) => {
             return serviceNowCaseFilter(c);

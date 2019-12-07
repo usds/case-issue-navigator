@@ -6,24 +6,24 @@ import "./CaseAgeFilter.scss";
 interface Props {
   snoozeReason?: SnoozeReason;
   snoozeState: SnoozeState;
-  onUpdate: (snoozeReason: SnoozeReason | "") => void;
+  onUpdate: (snoozeReason: SnoozeReason | "all" | "unknown") => void;
 }
 
 interface Option {
-  value: SnoozeReason | "";
+  value: SnoozeReason | "all" | "unknown";
   text: string;
 }
 
-const DEFAULT_TEXT = "- Show all snooze reasons -";
+const DEFAULT_TEXT = "All problem cases";
 
 const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
-  if (props.snoozeState !== "SNOOZED") {
-    return null;
-  }
-
   const options: Option[] = [
     {
-      value: "",
+      value: "unknown",
+      text: "Unknown"
+    },
+    {
+      value: "all",
       text: DEFAULT_TEXT
     }
   ];
@@ -33,15 +33,26 @@ const SnoozeReasonFilter: React.FunctionComponent<Props> = props => {
       text: SNOOZE_OPTIONS[snoozeReason as SnoozeReason].shortText
     });
   });
+
+  const getSelected = () => {
+    if (props.snoozeState === "ACTIVE") {
+      return "all"
+    } else if (props.snoozeReason ) {
+      return props.snoozeReason
+    } else {
+      return "unkown"
+    }
+  }
+
   return (
     <React.Fragment>
       <UsaSelect
         options={options}
         placeholder={DEFAULT_TEXT}
         name="snoozeReason"
-        selected={props.snoozeReason ? props.snoozeReason : ""}
+        selected={props.snoozeReason}
         onChange={props.onUpdate}
-        label="Snooze Reason"
+        label="Problem"
       />
     </React.Fragment>
   );

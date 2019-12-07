@@ -5,16 +5,17 @@ import {
   CASE_CREATION_START,
   CASE_CREATION_END,
   SNOOOZE_REASON,
-  SN_TICKET
+  SN_TICKET,
+  SNOOZE_STATE
 } from "../../controller/config";
 
 const history = createBrowserHistory();
 const pushURLParam = (param: string, value?: string) => {
   const urlParams = new URLSearchParams(window.location.search);
   if (value) {
-    urlParams.set(CASE_CREATION_START, value);
+    urlParams.set(param, value);
   } else {
-    urlParams.delete(CASE_CREATION_START);
+    urlParams.delete(param);
   }
   history.push({
     pathname: window.location.pathname,
@@ -38,6 +39,7 @@ export const caseFilterActionCreators = {
     action("caseFilters/SET_SNOOZE_REASON_FILTER", snoozeReason),
   setServiceNowFilter: (serviceNowFilter?: boolean) =>
     action("caseFilters/SET_SERVICE_NOW_FILTER", serviceNowFilter),
+  setSnoozeState: (snoozeState: SnoozeState) => action("caseFilters/SET_SNOOZE_STATE", snoozeState),
   clearFilters: () =>
     action("caseFilters/CLEAR_FILTERS"),
 };
@@ -52,9 +54,12 @@ export type CaseFilterState = {
   caseCreationEnd?: Date;
   snoozeReasonFilter?: SnoozeReason;
   serviceNowFilter?: boolean;
+  snoozeState: SnoozeState;
 };
 
-export const initialState: CaseFilterState = {};
+export const initialState: CaseFilterState = {
+  snoozeState: "ACTIVE"
+};
 
 // Reducer
 export default function reducer(
@@ -74,9 +79,15 @@ export default function reducer(
     case "caseFilters/SET_SERVICE_NOW_FILTER":
       pushURLParam(SN_TICKET, action.payload? action.payload.toString() : undefined);
       return { ...state, serviceNowFilter: action.payload };
+    case "caseFilters/SET_SNOOZE_STATE":
+      pushURLParam(SNOOZE_STATE, action.payload);
+      return {
+        ...state,
+        snoozeState: action.payload
+      };
     case "caseFilters/CLEAR_FILTERS":
       clearParams();
-      return {};
+      return initialState;
     default:
       return state;
   }

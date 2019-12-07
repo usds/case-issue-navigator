@@ -25,9 +25,9 @@ import { hasFilters } from "../../../redux/selectors";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
-  caseType: state.cases.type,
   isLoading: state.cases.isLoading,
-  hasFilters: hasFilters(state)
+  hasFilters: hasFilters(state),
+  snoozeState: state.caseFilters.snoozeState
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -48,7 +48,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 export const UnconnectedI90Table: React.FC<Props> = ({
   caselist,
-  caseType,
+  snoozeState,
   isLoading,
   hasFilters,
   toggleDetails,
@@ -91,7 +91,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Creation",
       Cell: CaseCreation,
-      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
+      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
     },
     {
       header: "Application Reason",
@@ -100,12 +100,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Case Status",
       Cell: CaseStatus,
-      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
+      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
     },
     {
       header: "Case Substatus",
       Cell: CaseSubstatus,
-      displayIf: ["ACTIVE", "ALARMED"].includes(caseType)
+      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
     },
     {
       header: "Platform",
@@ -114,12 +114,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "Problem",
       Cell: Problem,
-      displayIf: caseType === "SNOOZED"
+      displayIf: snoozeState === "SNOOZED"
     },
     {
       header: "Snoozed",
       Cell: SnoozeDaysLeft,
-      displayIf: caseType === "SNOOZED"
+      displayIf: snoozeState === "SNOOZED"
     },
     {
       header: "Assigned",
@@ -128,14 +128,14 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     {
       header: "SN Ticket #",
       Cell: ServiceNowTicket,
-      displayIf: caseType === "SNOOZED"
+      displayIf: snoozeState === "SNOOZED"
     },
     {
       header: "Actions",
       Cell: ({ caseData }) => (
         <Actions
           caseData={caseData}
-          caseType={caseType}
+          caseType={snoozeState}
           updateSummaryData={updateSummaryData}
           setError={setError}
           setNotification={setNotification}

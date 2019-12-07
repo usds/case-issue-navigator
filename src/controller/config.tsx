@@ -2,6 +2,7 @@ export const CASE_CREATION_START = "CaseCreationStart";
 export const CASE_CREATION_END = "CaseCreationEnd";
 export const SNOOOZE_REASON = "snoozeReason";
 export const SN_TICKET = "snTicket";
+export const SNOOZE_STATE = "snoozeState";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -10,7 +11,7 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     snoozeReason: "Test Data - should be deleted", // Snooze Reason
     shortText: "Test Data",
     duration: 365,
-    followUp: "ServiceNow ticket ID:",
+    followUp: "ServiceNow ticket ID",
     type: "LINK",
     subType: "troubleticket"
   },
@@ -32,7 +33,7 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
   fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
     shortText: "Stuck at Field Office",
-    followUp: "Enter Field Office location code:",
+    followUp: "Field Office location code",
     duration: 5,
     type: "TAG",
     subType: "fieldoffice"
@@ -40,7 +41,7 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
   technical_issue: {
     snoozeReason: "Technical Issue",
     shortText: "Technical Issue",
-    followUp: "ServiceNow ticket ID:",
+    followUp: "ServiceNow ticket ID",
     duration: 14,
     type: "LINK",
     subType: "troubleticket"
@@ -76,10 +77,6 @@ const VIEWS = {
   CASES_TO_WORK: {
     ROUTE: "",
     TITLE: "Cases to Work"
-  },
-  SNOOZED_CASES: {
-    ROUTE: "snoozed-cases",
-    TITLE: "Snoozed Cases"
   }
 };
 

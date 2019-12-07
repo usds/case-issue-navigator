@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import { store } from "../../../redux/create";
-import { casesActionCreators } from "../../../redux/modules/cases";
+import { caseFilterActionCreators } from "../../../redux/modules/caseFilters";
 import CaseFilterForm from "../CaseFilterForm";
 import { CaseAgeFilter } from "../CaseAgeFilter";
 import RestAPIClient from "../../../api/RestAPIClient";
@@ -11,14 +11,14 @@ describe("CaseFilterForm", () => {
   it("existing cases are cleared on filter submit", () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     store.dispatch(
-      casesActionCreators.setCaseCreationStart(new Date("1/1/2018"))
+      caseFilterActionCreators.setCaseCreationStart(new Date("1/1/2018"))
     );
     store.dispatch(
-      casesActionCreators.setCaseCreationEnd(new Date("1/1/2019"))
+      caseFilterActionCreators.setCaseCreationEnd(new Date("1/1/2019"))
     );
     const wrapper = mount(
       <Provider store={store}>
-        <CaseFilterForm snoozeState={"ACTIVE"} />
+        <CaseFilterForm/>
       </Provider>
     );
 

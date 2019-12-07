@@ -37,8 +37,6 @@ describe("App integration", () => {
 
     // Completed when user endpoint resolved
     await waitForElement(() => getByText("John Doe"));
-    // Completed when summary endpoint resolves
-    await waitForElement(() => getByText("Cases to Work (286)"));
     // Completed when active cases endpoint resolves
     await waitForElement(() => getByText(activeCases[0].receiptNumber));
 
@@ -71,13 +69,11 @@ describe("App integration", () => {
 
     // Completed when user endpoint resolved
     await waitForElement(() => getByText("John Doe"));
-    // Completed when summary endpoint resolves
-    await waitForElement(() => getByText("Cases to Work (286)"));
     // Completed when active cases endpoint resolves
     await waitForElement(() => getByText(activeCases[0].receiptNumber));
 
     fireEvent(
-      getByText("Snooze"),
+      getByText("Triage"),
       new MouseEvent("click", {
         bubbles: true,
         cancelable: true
@@ -87,7 +83,7 @@ describe("App integration", () => {
     const mock = snoozeMock(activeCases[0].receiptNumber);
 
     fireEvent(
-      queryAllByText("Snooze")[1],
+      getByText("Save"),
       new MouseEvent("click", {
         bubbles: true,
         cancelable: true

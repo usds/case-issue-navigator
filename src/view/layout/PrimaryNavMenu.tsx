@@ -1,37 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import close from "uswds/dist/img/close.svg";
 import "./PrimaryNavMenu.css";
 import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
-import { VIEWS } from "../../controller/config";
 
 const mapStateToProps = (state: RootState) => ({
   user: state.appStatus.user,
-  summary: state.cases.summary
 });
 
-type PrimaryNavMenuProps = {
-  views: typeof VIEWS;
-} & ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps>;
 
-const UnconnectedPrimaryNavMenu: React.FC<PrimaryNavMenuProps> = ({
+const UnconnectedPrimaryNavMenu: React.FC<Props> = ({
   user,
-  views,
-  summary
 }) => {
-  const navItems = Object.entries(views).map(([key, view]) => (
-    <li key={view.ROUTE} className="usa-nav__primary-item">
-      <NavLink
-        to={"/" + view.ROUTE}
-        activeClassName="usa-current"
-        className={"usa-nav__link"}
-        exact={true}
-      >
-        {view.TITLE} {summary && `(${summary[key as keyof Summary]})`}
-      </NavLink>
-    </li>
-  ));
   return (
     <React.Fragment>
       <div className="usa-overlay"></div>
@@ -49,9 +30,6 @@ const UnconnectedPrimaryNavMenu: React.FC<PrimaryNavMenuProps> = ({
           <button className="usa-nav__close">
             <img src={close} alt="close" />
           </button>
-          <div className="usa-nav__inner">
-            <ul className="usa-nav__primary usa-accordion">{navItems}</ul>
-          </div>
           {user && (
             <div className="usa-nav__secondary margin-bottom-105">
               <ul className="usa-nav__secondary-links">

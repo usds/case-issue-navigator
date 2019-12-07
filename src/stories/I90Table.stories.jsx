@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import I90Table from "../view/tables/i90-table/I90Table";
 import { store } from "../redux/create";
 import { casesActionCreators } from "../redux/modules/cases";
+import { caseFilterActionCreators } from "../redux/modules/caseFilters";
 import { Provider } from "react-redux";
 import DateUtils, { ONE_DAY_IN_MS } from "../utils/DateUtils";
 import { IS_TEST_ENV } from "../controller/config";
@@ -68,7 +69,7 @@ storiesOf("I90Table", module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add("Empty Table - Active", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(casesActionCreators.setCaseType("ACTIVE"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("ACTIVE"));
     return <I90Table />;
   })
   .add("Empty Table - With Filter On", () => {
@@ -79,17 +80,17 @@ storiesOf("I90Table", module)
   })
   .add("Empty Table - Snoozed", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(casesActionCreators.setCaseType("SNOOZED"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("SNOOZED"));
     return <I90Table />;
   })
   .add("Active case view", () => {
-    store.dispatch(casesActionCreators.setCaseType("ACTIVE"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("ACTIVE"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
   })
   .add("Snoozed case view", () => {
-    store.dispatch(casesActionCreators.setCaseType("SNOOZED"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("SNOOZED"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;

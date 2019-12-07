@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import { rootReducer, Store, store } from "../../create";
 import { casesActionCreators, initialState } from "../cases";
+import { caseFilterActionCreators } from "../caseFilters";
 import { loadCases, getCaseSummary } from "../casesAsync";
 import RestAPIClient from "../../../api/RestAPIClient";
 import { RESULTS_PER_PAGE } from "../../../api/URLs";
@@ -154,16 +155,19 @@ describe("redux - cases", () => {
     removeCase,
     updateSnooze,
     clearCases,
-    setCaseType,
     toggleDetails,
     setIsLoading,
     setCaseSummary,
     setLastUpdated,
-    setCaseCreationStart,
-    setCaseCreationEnd,
-    setSnoozeReasonFilter,
     setHasMoreCases
   } = casesActionCreators;
+  const {
+    setSnoozeState,
+    setCaseCreationStart,
+    setCaseCreationEnd,
+    setSnoozeReasonFilter
+  } = caseFilterActionCreators;
+
   beforeEach(() => {
     testStore = createStore(rootReducer, { cases: initialState });
   });
@@ -343,8 +347,8 @@ describe("redux - cases", () => {
   });
   it("sets the case type", () => {
     const { dispatch } = testStore;
-    dispatch(setCaseType("SNOOZED"));
-    expect(testStore.getState().cases.type).toBe("SNOOZED");
+    dispatch(setSnoozeState("SNOOZED"));
+    expect(testStore.getState().caseFilters.snoozeState).toBe("SNOOZED");
   });
   it("toggles case details", () => {
     const { dispatch } = testStore;
@@ -377,7 +381,7 @@ describe("redux - cases", () => {
       })
     );
     const { dispatch, getState } = testAsyncStore;
-    dispatch(setCaseType("ACTIVE"));
+    dispatch(setSnoozeState("ACTIVE"));
     await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
@@ -391,7 +395,7 @@ describe("redux - cases", () => {
     };
     dispatch(setCaseSummary(summary));
     dispatch(clearCases());
-    dispatch(setCaseType("ACTIVE"));
+    dispatch(setSnoozeState("ACTIVE"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
@@ -412,7 +416,7 @@ describe("redux - cases", () => {
     dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
-    dispatch(setCaseType("ACTIVE"));
+    dispatch(setSnoozeState("ACTIVE"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
@@ -435,7 +439,7 @@ describe("redux - cases", () => {
     dispatch(addCases(initialCases));
     dispatch(setSnoozeReasonFilter("test_data"));
 
-    dispatch(setCaseType("SNOOZED"));
+    dispatch(setSnoozeState("SNOOZED"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "SNOOZED",
@@ -457,7 +461,7 @@ describe("redux - cases", () => {
     dispatch(clearCases());
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setCaseType("ACTIVE"));
+    dispatch(setSnoozeState("ACTIVE"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
@@ -480,7 +484,7 @@ describe("redux - cases", () => {
     dispatch(addCases(initialCases));
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setCaseType("ACTIVE"));
+    dispatch(setSnoozeState("ACTIVE"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
@@ -509,7 +513,7 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(setCaseCreationStart(new Date("1/20/2019")));
     expect(
-      (testStore.getState().cases
+      (testStore.getState().caseFilters
         .caseCreationStart as Date).toLocaleDateString()
     ).toBe("1/20/2019");
   });
@@ -517,13 +521,16 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(setCaseCreationEnd(new Date("1/20/2019")));
     expect(
-      (testStore.getState().cases.caseCreationEnd as Date).toLocaleDateString()
+      (testStore.getState().caseFilters
+        .caseCreationEnd as Date).toLocaleDateString()
     ).toBe("1/20/2019");
   });
   it("sets snooze reason filter", () => {
     const { dispatch } = testStore;
     dispatch(setSnoozeReasonFilter("test_data"));
-    expect(testStore.getState().cases.snoozeReasonFilter).toBe("test_data");
+    expect(testStore.getState().caseFilters.snoozeReasonFilter).toBe(
+      "test_data"
+    );
   });
   it("asynchronously loads case summary", async () => {
     const testAsyncStore = store;

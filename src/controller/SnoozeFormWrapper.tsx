@@ -72,7 +72,7 @@ const SnoozeFormWrapper = (props: Props) => {
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">
-        Snooze
+        Triage
       </UsaButton>
     </React.Fragment>
   );
