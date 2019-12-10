@@ -29,7 +29,7 @@ export const casesActionCreators = {
     action("cases/SET_LAST_UPDATED", lastUpdated)
 };
 
-type ActionCreator = typeof casesActionCreators;
+export type ActionCreator = typeof casesActionCreators;
 
 export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
 

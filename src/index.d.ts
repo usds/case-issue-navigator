@@ -116,10 +116,10 @@ interface SNTicket {
 
 interface CasesActionCreators {
   removeCase: ReturnType<
-    typeof import("./redux/modules/cases").casesActionCreators.removeCase
+    import("./redux/modules/cases").ActionCreator.removeCase
   >;
   updateSnooze: ReturnType<
-    typeof import("./redux/modules/cases").casesActionCreators.updateSnooze
+    import("./redux/modules/cases").ActionCreator.updateSnooze
   >;
 }
 
