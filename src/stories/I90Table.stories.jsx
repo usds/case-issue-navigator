@@ -71,6 +71,12 @@ storiesOf("I90Table", module)
     store.dispatch(casesActionCreators.setCaseType("active"));
     return <I90Table />;
   })
+  .add("Empty Table - With Filter On", () => {
+    store.dispatch(casesActionCreators.clearCases());
+    store.dispatch(casesActionCreators.setCaseType("active"));
+    store.dispatch(casesActionCreators.setServiceNowFilter(true));
+    return <I90Table />;
+  })
   .add("Empty Table - Snoozed", () => {
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.setCaseType("snoozed"));
