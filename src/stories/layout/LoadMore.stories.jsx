@@ -2,36 +2,15 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import LoadMore from "../../view/layout/LoadMore";
 
+const onClick = () => undefined;
+
 storiesOf("LoadMore", module)
-  .add("no cases", () => (
-    <LoadMore
-      totalCases={0}
-      loadedCases={0}
-      isLoading={false}
-      onClick={() => undefined}
-    />
-  ))
   .add("no more cases", () => (
-    <LoadMore
-      totalCases={14000}
-      loadedCases={14000}
-      isLoading={false}
-      onClick={() => undefined}
-    />
+    <LoadMore hasMoreCases={false} isLoading={false} onClick={onClick} />
   ))
   .add("more cases", () => (
-    <LoadMore
-      totalCases={14000}
-      loadedCases={20}
-      isLoading={false}
-      onClick={() => undefined}
-    />
+    <LoadMore hasMoreCases={true} isLoading={false} onClick={onClick} />
   ))
   .add("more cases loading", () => (
-    <LoadMore
-      totalCases={14000}
-      loadedCases={20}
-      isLoading={true}
-      onClick={() => undefined}
-    />
+    <LoadMore hasMoreCases={true} isLoading={true} onClick={onClick} />
   ));

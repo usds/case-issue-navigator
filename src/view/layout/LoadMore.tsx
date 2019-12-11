@@ -2,17 +2,16 @@ import React from "react";
 import UsaButton from "../util/UsaButton";
 
 interface Props {
-  totalCases: number;
-  loadedCases: number;
   isLoading: boolean;
+  hasMoreCases: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const LoadMore: React.FunctionComponent<Props> = props => {
-  const { loadedCases, totalCases, isLoading, onClick } = props;
+  const { hasMoreCases, isLoading, onClick } = props;
 
   const renderLoadMoreAction = () => {
-    if (totalCases > loadedCases) {
+    if (hasMoreCases) {
       return (
         <UsaButton onClick={onClick} disabled={isLoading} buttonStyle="outline">
           {isLoading ? "Loading..." : "Show More"}

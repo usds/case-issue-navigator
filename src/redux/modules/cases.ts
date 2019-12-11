@@ -42,7 +42,9 @@ export const casesActionCreators = {
   setSnoozeReasonFilter: (snoozeReason?: SnoozeReason) =>
     action("cases/SET_SNOOZE_REASON_FILTER", snoozeReason),
   setServiceNowFilter: (serviceNowFilter?: boolean) =>
-    action("cases/SET_SERVICE_NOW_FILTER", serviceNowFilter)
+    action("cases/SET_SERVICE_NOW_FILTER", serviceNowFilter),
+  setHasMoreCases: (hasMoreCases: boolean) =>
+    action("cases/SET_HAS_MORE_CASES", hasMoreCases)
 };
 
 export type ActionCreator = typeof casesActionCreators;
@@ -55,6 +57,7 @@ export type CasesState = {
   type: SnoozeState;
   isLoading: boolean;
   summary: Summary;
+  hasMoreCases: boolean;
   lastUpdated?: string;
   caseCreationStart?: Date;
   caseCreationEnd?: Date;
@@ -70,7 +73,8 @@ export const initialState: CasesState = {
     CASES_TO_WORK: 0,
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
-  }
+  },
+  hasMoreCases: true
 };
 
 // Reducer
@@ -204,6 +208,8 @@ export default function reducer(
         search: `?${urlP.toString()}`
       });
       return { ...state, serviceNowFilter: action.payload };
+    case "cases/SET_HAS_MORE_CASES":
+      return { ...state, hasMoreCases: action.payload };
     default:
       return state;
   }

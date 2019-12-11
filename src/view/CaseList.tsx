@@ -21,7 +21,8 @@ const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
   summary: state.cases.summary,
-  lastUpdated: state.cases.lastUpdated
+  lastUpdated: state.cases.lastUpdated,
+  hasMoreCases: state.cases.hasMoreCases
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -131,8 +132,7 @@ class CaseList extends React.Component<Props, State> {
         <CaseFilterForm snoozeState={this.props.snoozeState} />
         <I90Table />
         <LoadMore
-          totalCases={this.getTotalCases()}
-          loadedCases={this.props.caselist.length}
+          hasMoreCases={this.props.hasMoreCases}
           isLoading={this.props.isLoading}
           onClick={() => this.props.loadCases()}
         />
