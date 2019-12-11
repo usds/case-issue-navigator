@@ -41,9 +41,12 @@ exports[`Storyshots AuthForm AuthForm view 1`] = `
 
 exports[`Storyshots CaseAgeFilter Empty case list 1`] = `
 Array [
-  <div>
+  <label
+    className="usa-label"
+    htmlFor="caseCreationFilterToggle"
+  >
     Case Creation Range
-  </div>,
+  </label>,
   <span>
     <span
       onClick={[Function]}
@@ -55,6 +58,7 @@ Array [
         <button
           className="usa-button"
           disabled={false}
+          id="caseCreationFilterToggle"
           onClick={[Function]}
           type="button"
         >

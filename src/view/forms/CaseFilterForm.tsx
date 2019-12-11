@@ -12,6 +12,7 @@ import { SnoozeStateFilter } from "./SnoozeStateFilter";
 import { CaseSearch } from "./CaseSearch";
 import { Well } from "../util/Well";
 import "./CaseFilterForm.scss";
+import UsaButton from "../util/UsaButton";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -103,7 +104,7 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
   return (
     <Well>
       <div className="filter-form">
-        <div className="filter-input">
+        <div className="float-left margin-right-2">
           <CaseSearch
             search={props.search}
             onSearchChange={props.setSearch}
@@ -111,9 +112,9 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
             onSearchClear={onClear}
           />
         </div>
-        {!props.activeSearch ? (
+        {!props.activeSearch && (
           <React.Fragment>
-            <div className="filter-input">
+            <div className="float-left margin-right-2">
               <CaseAgeFilter
                 start={props.start}
                 end={props.end}
@@ -124,21 +125,21 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
                 onSubmit={onFilterSubmit}
               />
             </div>
-            <div className="filter-input">
+            <div className="float-left margin-right-2">
               <SnoozeReasonFilter
                 snoozeState={props.snoozeState}
                 snoozeReason={props.snoozeReasonFilter}
                 onUpdate={onSnoozeReasonFilterUpdate}
               />
             </div>
-            <div className="filter-input">
+            <div className="float-left margin-right-2 margin-top-4">
               <SnoozeStateFilter
                 snoozeState={props.snoozeState}
                 alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
                 onUpdate={onSnoozeStateFilterUpdate}
               />
             </div>
-            <div className="filter-input">
+            <div className="float-left margin-right-2">
               <ServiceNowFilter
                 snoozeState={props.snoozeState}
                 serviceNowFilter={props.serviceNowFilter}
@@ -146,7 +147,12 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
               />
             </div>
           </React.Fragment>
-        ) : null}
+        )}
+        <div className="float-right margin-right-2 margin-top-2">
+          <UsaButton buttonStyle="outline" onClick={onClear}>
+            Clear Filters
+          </UsaButton>
+        </div>
       </div>
     </Well>
   );
