@@ -640,13 +640,7 @@ exports[`Storyshots LoadMore more cases loading 1`] = `
 </div>
 `;
 
-exports[`Storyshots LoadMore no more cases 1`] = `
-<div
-  className="display-flex flex-column flex-align-center"
->
-  There are no more cases on this list.
-</div>
-`;
+exports[`Storyshots LoadMore no more cases 1`] = `null`;
 
 exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
 <form
