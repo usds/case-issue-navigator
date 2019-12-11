@@ -45,7 +45,7 @@ export const casesActionCreators = {
     action("cases/SET_SERVICE_NOW_FILTER", serviceNowFilter)
 };
 
-type ActionCreator = typeof casesActionCreators;
+export type ActionCreator = typeof casesActionCreators;
 
 export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
 

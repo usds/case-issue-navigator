@@ -114,11 +114,20 @@ interface SNTicket {
   props?;
 }
 
+interface CasesActionCreators {
+  removeCase: ReturnType<
+    import("./redux/modules/cases").ActionCreator.removeCase
+  >;
+  updateSnooze: ReturnType<
+    import("./redux/modules/cases").ActionCreator.updateSnooze
+  >;
+}
+
 interface ActionsProps {
   updateSummaryData: () => Dispatch<AnyAction>;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<AnyAction>;
-  removeCase: Dispatch<ReturnType<typeof casesActionCreators.removeCase>>;
+  removeCase: Dispatch<CasesActionCreators["removeCase"]>;
 }
 
 interface Actions {
@@ -130,8 +139,8 @@ interface SnoozeActionsProps {
   updateSummaryData: () => void;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<React.SetStateAction<AppNotification>>;
-  onSnoozeUpdate: ReturnType<typeof casesActionCreators.updateSnooze>;
-  removeCase: Dispatch<ReturnType<typeof casesActionCreators.removeCase>>;
+  onSnoozeUpdate: ReturnType<CasesActionCreators["updateSnooze"]>;
+  removeCase: Dispatch<CasesActionCreators["removeCase"]>;
 }
 
 interface SnoozeActions {

@@ -43,12 +43,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "ci-checks": "yarn run prettier-check && CI=true yarn run test",
+    "ci-checks": "yarn run prettier-check && yarn run eslint-check && CI=true yarn run test",
     "postbuild": "echo 'pushstate: enabled' > build/Staticfile",
     "deploy": "cf push -f truffles_manifest.yml",
     "test": "react-scripts test",
     "coverage": "TZ=America/New_York react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
+    "eslint-check": "yarn run eslint './src/**/*.{js,jsx,ts,tsx}'  --max-warnings 0 --report-unused-disable-directives",
     "prettier-all": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
     "prettier-check": "prettier --check './src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 3333"

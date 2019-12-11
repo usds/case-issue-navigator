@@ -59,7 +59,7 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
   useEffect(() => {
     setIsLoading(true);
     getCaseDetails();
-  }, [props.rowData]);
+  }, [props.rowData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const detailsSection = () => {
     if (isLoading) {
