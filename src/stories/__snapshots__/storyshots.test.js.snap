@@ -373,6 +373,8 @@ exports[`Storyshots I90Table Empty Table - Active 1`] = `null`;
 
 exports[`Storyshots I90Table Empty Table - Snoozed 1`] = `null`;
 
+exports[`Storyshots I90Table Empty Table - With Filter On 1`] = `null`;
+
 exports[`Storyshots I90Table Snoozed case view 1`] = `
 <table
   className="usa-table usa-table--borderless width-full"

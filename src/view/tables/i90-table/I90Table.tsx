@@ -21,11 +21,13 @@ import { ServiceNowTicket } from "./ServiceNowTicket";
 import { Actions } from "./Actions";
 import "./ReceiptDisplayRow.scss";
 import "./TableCell.scss";
+import { hasFilters } from "../../../redux/selectors";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   caseType: state.cases.type,
-  isLoading: state.cases.isLoading
+  isLoading: state.cases.isLoading,
+  hasFilters: hasFilters(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -48,6 +50,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
   caselist,
   caseType,
   isLoading,
+  hasFilters,
   toggleDetails,
   updateSummaryData,
   setError,
@@ -60,7 +63,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
   }
 
   if (caselist.length === 0 && !isLoading) {
-    return <p>No cases found.</p>;
+    return <p>No cases found.{hasFilters && " Check your filters."}</p>;
   }
 
   const elements: Array<{
