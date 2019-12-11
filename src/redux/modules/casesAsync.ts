@@ -4,6 +4,7 @@ import RestAPIClient from "../../api/RestAPIClient";
 import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
 import NoteUtils from "../../utils/NoteUtils";
+import { RESULTS_PER_PAGE } from "../../api/URLs";
 
 const serviceNowCaseFilter = (c: Case) => {
   if (
@@ -22,7 +23,7 @@ export const loadCases = (reciptnumber?: string) => async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
   getState: () => RootState
 ) => {
-  const { setIsLoading, addCases } = casesActionCreators;
+  const { setIsLoading, addCases, setHasMoreCases } = casesActionCreators;
   const { cases } = getState();
   const {
     caselist,
@@ -58,6 +59,13 @@ export const loadCases = (reciptnumber?: string) => async (
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
+    if (response.payload.length > RESULTS_PER_PAGE) {
+      response.payload.pop();
+      dispatch(setHasMoreCases(true));
+    } else {
+      dispatch(setHasMoreCases(false));
+    }
+
     if (type === "snoozed" && serviceNowFilter !== undefined) {
       const cases = serviceNowFilter
         ? response.payload.filter((c: Case) => {

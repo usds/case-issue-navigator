@@ -1,12 +1,15 @@
 import { API_BASE_URL } from "../controller/config";
 
+export const RESULTS_PER_PAGE: number = 20;
+
 class URLs {
   private static caseManagementSystem: CaseManagementSystem =
     (process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM as CaseManagementSystem) ||
     "DEFAULT";
   private static caseType: CaseType =
     (process.env.REACT_APP_CASE_TYPE as CaseType) || "STANDARD";
-  private static resultsPerPage: number = 20;
+  // Add 1 to resultsPerPage to see if there are more results
+  private static resultsPerPage: number = RESULTS_PER_PAGE + 1;
 
   private static baseUrl(path: string): URL {
     return new URL(API_BASE_URL + path);

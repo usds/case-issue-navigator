@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "../../controller/config";
 import nock from "nock";
 import { activeCases } from "./fakeData";
+import { RESULTS_PER_PAGE } from "../../api/URLs";
 
 const caseManagementSystem = process.env.REACT_APP_CASE_MANAGEMENT_SYSTEM;
 const caseType = process.env.REACT_APP_CASE_TYPE;
@@ -33,7 +34,8 @@ export const successfulLoadAPIMock = () => {
 
   apiMock
     .get(
-      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ACTIVE&size=20`
+      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ACTIVE&size=${RESULTS_PER_PAGE +
+        1}`
     )
     .reply(200, activeCases);
 

@@ -6,8 +6,7 @@ describe("LoadMore", () => {
   it("should be disabled when loading more cases", () => {
     const wrapper = shallow(
       <LoadMore
-        totalCases={14000}
-        loadedCases={20}
+        hasMoreCases={true}
         isLoading={true}
         onClick={() => undefined}
       />

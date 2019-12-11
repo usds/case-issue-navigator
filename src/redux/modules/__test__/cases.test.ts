@@ -1,8 +1,10 @@
-import { createStore } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 import { rootReducer, Store, store } from "../../create";
 import { casesActionCreators, initialState } from "../cases";
 import { loadCases, getCaseSummary } from "../casesAsync";
 import RestAPIClient from "../../../api/RestAPIClient";
+import { RESULTS_PER_PAGE } from "../../../api/URLs";
+import thunk from "redux-thunk";
 
 const COMMENT: AttachmentType = "COMMENT";
 const initialCases: Case[] = [
@@ -134,6 +136,17 @@ const snoozedCases: Case[] = [
   }
 ];
 
+export const createTestStore = () =>
+  createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__
+        ? window.__REDUX_DEVTOOLS_EXTENSION__()
+        : (f: any) => f
+    )
+  );
+
 describe("redux - cases", () => {
   let testStore: Store;
   const {
@@ -148,7 +161,8 @@ describe("redux - cases", () => {
     setLastUpdated,
     setCaseCreationStart,
     setCaseCreationEnd,
-    setSnoozeReasonFilter
+    setSnoozeReasonFilter,
+    setHasMoreCases
   } = casesActionCreators;
   beforeEach(() => {
     testStore = createStore(rootReducer, { cases: initialState });
@@ -530,5 +544,50 @@ describe("redux - cases", () => {
     const { dispatch } = testAsyncStore;
     await getCaseSummary()(dispatch);
     expect(dispatch).toHaveBeenCalledWith(setCaseSummary(expected));
+  });
+  it("sets hasMoreCases to true if there is an extra case on the response", async () => {
+    const testAsyncStore = createTestStore();
+    const sampleCase: Case = initialCases[0];
+    const response = new Array(RESULTS_PER_PAGE + 1).fill(sampleCase);
+    jest.spyOn(testAsyncStore, "dispatch");
+    jest.spyOn(global as any, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => response
+      })
+    );
+    const { dispatch, getState } = testAsyncStore;
+    await loadCases()(dispatch, getState);
+    expect(dispatch).toHaveBeenCalledWith(setHasMoreCases(true));
+  });
+  it("sets hasMoreCases to false if the response is equal to resultsPerPage", async () => {
+    const testAsyncStore = createTestStore();
+    const sampleCase: Case = initialCases[0];
+    const response = new Array(RESULTS_PER_PAGE).fill(sampleCase);
+    jest.spyOn(testAsyncStore, "dispatch");
+    jest.spyOn(global as any, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => response
+      })
+    );
+    const { dispatch, getState } = testAsyncStore;
+    await loadCases()(dispatch, getState);
+    expect(dispatch).toHaveBeenCalledWith(setHasMoreCases(false));
+  });
+  it("sets hasMoreCases to false if the response is less than resultsPerPage", async () => {
+    const testAsyncStore = createTestStore();
+    const sampleCase: Case = initialCases[0];
+    const response = new Array(RESULTS_PER_PAGE - 1).fill(sampleCase);
+    jest.spyOn(testAsyncStore, "dispatch");
+    jest.spyOn(global as any, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => response
+      })
+    );
+    const { dispatch, getState } = testAsyncStore;
+    await loadCases()(dispatch, getState);
+    expect(dispatch).toHaveBeenCalledWith(setHasMoreCases(false));
   });
 });
