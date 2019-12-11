@@ -78,7 +78,7 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
 
   const trigger = () => (
     <div className="trigger">
-      <UsaButton onClick={togglePopper}>
+      <UsaButton onClick={togglePopper} buttonId="caseCreationFilterToggle">
         {getStart().toLocaleDateString()} - {getEnd().toLocaleDateString()}
       </UsaButton>
     </div>
@@ -86,7 +86,9 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
 
   return (
     <React.Fragment>
-      <div>Case Creation Range</div>
+      <label className="usa-label" htmlFor="caseCreationFilterToggle">
+        Case Creation Range
+      </label>
       <Popper
         trigger={trigger()}
         tooltip={tooltip()}
