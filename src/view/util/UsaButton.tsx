@@ -17,6 +17,7 @@ interface Props {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
   buttonId?: string;
+  value?: string;
 }
 
 const UsaButton: React.FunctionComponent<Props> = props => {
@@ -31,6 +32,7 @@ const UsaButton: React.FunctionComponent<Props> = props => {
       disabled={props.disabled}
       type={props.type}
       id={props.buttonId}
+      value={props.value}
     >
       {props.children}
     </button>
