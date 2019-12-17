@@ -74,8 +74,7 @@ storiesOf("I90Table", module)
   })
   .add("Empty Table - With Filter On", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(casesActionCreators.setCaseType("active"));
-    store.dispatch(casesActionCreators.setServiceNowFilter(true));
+    store.dispatch(caseFilterActionCreators.setServiceNowFilter(true));
     return <I90Table />;
   })
   .add("Empty Table - Snoozed", () => {

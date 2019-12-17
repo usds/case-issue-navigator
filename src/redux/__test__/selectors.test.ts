@@ -18,7 +18,11 @@ const baseState: RootState = {
       PREVIOUSLY_SNOOZED: 0,
       SNOOZED_CASES: 0
     },
-    type: "active"
+    hasMoreCases: false
+  },
+  caseFilters: {
+    snoozeState: "ACTIVE",
+    activeSearch: false
   }
 };
 
@@ -30,8 +34,8 @@ describe("selectors", () => {
     it("should indicate having a filter for caseCreationEnd", () => {
       const filteredState: RootState = {
         ...baseState,
-        cases: {
-          ...baseState.cases,
+        caseFilters: {
+          ...baseState.caseFilters,
           caseCreationEnd: new Date()
         }
       };
@@ -40,8 +44,8 @@ describe("selectors", () => {
     it("should indicate having a filter for caseCreationStart", () => {
       const filteredState: RootState = {
         ...baseState,
-        cases: {
-          ...baseState.cases,
+        caseFilters: {
+          ...baseState.caseFilters,
           caseCreationStart: new Date()
         }
       };
@@ -50,8 +54,8 @@ describe("selectors", () => {
     it("should indicate having a filter for serviceNowFilter", () => {
       const filteredState: RootState = {
         ...baseState,
-        cases: {
-          ...baseState.cases,
+        caseFilters: {
+          ...baseState.caseFilters,
           serviceNowFilter: true
         }
       };
@@ -60,8 +64,8 @@ describe("selectors", () => {
     it("should indicate having a filter for SnoozeReasonFilter", () => {
       const filteredState: RootState = {
         ...baseState,
-        cases: {
-          ...baseState.cases,
+        caseFilters: {
+          ...baseState.caseFilters,
           snoozeReasonFilter: "test_data"
         }
       };
