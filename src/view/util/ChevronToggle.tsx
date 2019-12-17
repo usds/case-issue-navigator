@@ -5,6 +5,7 @@ import UsaButton from "./UsaButton";
 interface ChevronToggleProps {
   open: boolean;
   toggle: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  ariaLabel: string;
 }
 
 const ChevronToggle: React.FunctionComponent<ChevronToggleProps> = props => {
@@ -14,7 +15,11 @@ const ChevronToggle: React.FunctionComponent<ChevronToggleProps> = props => {
     <FontAwesomeIcon icon="plus" />
   );
   return (
-    <UsaButton buttonStyle="none" onClick={props.toggle}>
+    <UsaButton
+      buttonStyle="none"
+      onClick={props.toggle}
+      ariaLabel={props.ariaLabel}
+    >
       {icon}
     </UsaButton>
   );

@@ -13,5 +13,6 @@ export const DetailToggle: React.FC<Props> = ({ caseData, toggleDetails }) => (
   <ChevronToggle
     toggle={() => toggleDetails(caseData.receiptNumber)}
     open={caseData.showDetails}
+    ariaLabel={`Toggle details for ${caseData.receiptNumber}`}
   />
 );
