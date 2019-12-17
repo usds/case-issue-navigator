@@ -18,6 +18,7 @@ interface Props {
   type?: "button" | "submit" | "reset";
   buttonId?: string;
   value?: string;
+  ariaLabel?: string;
 }
 
 const UsaButton: React.FunctionComponent<Props> = props => {
@@ -33,6 +34,7 @@ const UsaButton: React.FunctionComponent<Props> = props => {
       type={props.type}
       id={props.buttonId}
       value={props.value}
+      aria-label={props.ariaLabel}
     >
       {props.children}
     </button>

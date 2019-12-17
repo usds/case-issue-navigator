@@ -13,6 +13,7 @@ import { CaseSearch } from "./CaseSearch";
 import { Well } from "../util/Well";
 import "./CaseFilterForm.scss";
 import UsaButton from "../util/UsaButton";
+import { hasFilters } from "../../redux/selectors";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
@@ -24,7 +25,8 @@ const mapStateToProps = (state: RootState) => ({
   snoozeState: state.caseFilters.snoozeState,
   summary: state.cases.summary,
   search: state.caseFilters.search,
-  activeSearch: state.caseFilters.activeSearch
+  activeSearch: state.caseFilters.activeSearch,
+  hasFilters: hasFilters(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -148,11 +150,13 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
             </div>
           </React.Fragment>
         )}
-        <div className="float-right margin-right-2 margin-top-2">
-          <UsaButton buttonStyle="outline" onClick={onClear}>
-            Clear Filters
-          </UsaButton>
-        </div>
+        {props.hasFilters && (
+          <div className="float-right margin-right-2 margin-top-2">
+            <UsaButton buttonStyle="secondary" onClick={onClear}>
+              Clear Filters
+            </UsaButton>
+          </div>
+        )}
       </div>
     </Well>
   );
