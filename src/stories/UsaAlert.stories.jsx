@@ -10,7 +10,7 @@ storiesOf("UsaAlert", module)
       text={
         <React.Fragment>
           Lorem ipsum dolor sit amet,{" "}
-          <a href="javascript:void(0);">consectetur adipiscing</a> elit, sed do
+          <a href="http://example.com">consectetur adipiscing</a> elit, sed do
           eiusmod.
         </React.Fragment>
       }
@@ -23,7 +23,7 @@ storiesOf("UsaAlert", module)
       text={
         <React.Fragment>
           Lorem ipsum dolor sit amet,{" "}
-          <a href="javascript:void(0);">consectetur adipiscing</a> elit, sed do
+          <a href="http://example.com">consectetur adipiscing</a> elit, sed do
           eiusmod.
         </React.Fragment>
       }
@@ -36,7 +36,7 @@ storiesOf("UsaAlert", module)
       text={
         <React.Fragment>
           Lorem ipsum dolor sit amet,{" "}
-          <a href="javascript:void(0);">consectetur adipiscing</a> elit, sed do
+          <a href="http://example.com">consectetur adipiscing</a> elit, sed do
           eiusmod.
         </React.Fragment>
       }
@@ -49,7 +49,7 @@ storiesOf("UsaAlert", module)
       text={
         <React.Fragment>
           Lorem ipsum dolor sit amet,{" "}
-          <a href="javascript:void(0);">consectetur adipiscing</a> elit, sed do
+          <a href="http://example.com">consectetur adipiscing</a> elit, sed do
           eiusmod.
         </React.Fragment>
       }

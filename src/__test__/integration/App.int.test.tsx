@@ -59,7 +59,7 @@ describe("App integration", () => {
 
   it("Loads successfully and allows the user to snooze a case", async () => {
     apiMock = successfulLoadAPIMock();
-    const { getByText, queryAllByText } = render(
+    const { getByText } = render(
       <MemoryRouter>
         <Provider store={createTestStore()}>
           <App />

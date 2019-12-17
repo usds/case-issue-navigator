@@ -628,11 +628,13 @@ exports[`Storyshots OverdueCasesWarning Multiple desnoozed cases 1`] = `
       <p
         className="usa-alert__text"
       >
-        <a
-          href="#"
+        <button
+          className="usa-button usa-button--unstyled"
+          disabled={false}
+          type="button"
         >
           View Overdue Cases
-        </a>
+        </button>
       </p>
     </div>
   </div>
@@ -659,11 +661,13 @@ exports[`Storyshots OverdueCasesWarning One desnoozed case 1`] = `
       <p
         className="usa-alert__text"
       >
-        <a
-          href="#"
+        <button
+          className="usa-button usa-button--unstyled"
+          disabled={false}
+          type="button"
         >
           View Overdue Cases
-        </a>
+        </button>
       </p>
     </div>
   </div>
@@ -909,7 +913,7 @@ exports[`Storyshots UsaAlert Success 1`] = `
       Lorem ipsum dolor sit amet,
        
       <a
-        href="javascript:void(0);"
+        href="http://example.com"
       >
         consectetur adipiscing
       </a>
@@ -937,7 +941,7 @@ exports[`Storyshots UsaAlert error 1`] = `
       Lorem ipsum dolor sit amet,
        
       <a
-        href="javascript:void(0);"
+        href="http://example.com"
       >
         consectetur adipiscing
       </a>
@@ -965,7 +969,7 @@ exports[`Storyshots UsaAlert info 1`] = `
       Lorem ipsum dolor sit amet,
        
       <a
-        href="javascript:void(0);"
+        href="http://example.com"
       >
         consectetur adipiscing
       </a>
@@ -993,7 +997,7 @@ exports[`Storyshots UsaAlert warning 1`] = `
       Lorem ipsum dolor sit amet,
        
       <a
-        href="javascript:void(0);"
+        href="http://example.com"
       >
         consectetur adipiscing
       </a>
