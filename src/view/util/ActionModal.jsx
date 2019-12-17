@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import close from "uswds/dist/img/close.svg";
+import UsaButton from "./UsaButton";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
@@ -29,7 +30,16 @@ const ActionModal = props => {
     >
       <h3>
         {props.title}
-        <img src={close} align="right" onClick={props.closeModal} alt="close" />
+        <div className="float-right">
+          <UsaButton
+            align="right"
+            buttonStyle="unstyled"
+            onClick={props.closeModal}
+            value="close modal"
+          >
+            <img src={close} alt="close" />
+          </UsaButton>
+        </div>
       </h3>
       {props.children}
     </Modal>
