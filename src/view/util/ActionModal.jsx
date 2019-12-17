@@ -35,9 +35,9 @@ const ActionModal = props => {
             align="right"
             buttonStyle="unstyled"
             onClick={props.closeModal}
-            value="close modal"
+            ariaLabel="close modal"
           >
-            <img src={close} alt="close" />
+            <img src={close} alt="close modal" />
           </UsaButton>
         </div>
       </h3>

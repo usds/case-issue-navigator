@@ -71,5 +71,25 @@ describe("selectors", () => {
       };
       expect(hasFilters(filteredState)).toBe(true);
     });
+    it("should indicate having a filter when there is an active search", () => {
+      const filteredState: RootState = {
+        ...baseState,
+        caseFilters: {
+          ...baseState.caseFilters,
+          activeSearch: true
+        }
+      };
+      expect(hasFilters(filteredState)).toBe(true);
+    });
+    it("should indicate having a filter when snoozeState is not active", () => {
+      const filteredState: RootState = {
+        ...baseState,
+        caseFilters: {
+          ...baseState.caseFilters,
+          snoozeState: "SNOOZED"
+        }
+      };
+      expect(hasFilters(filteredState)).toBe(true);
+    });
   });
 });

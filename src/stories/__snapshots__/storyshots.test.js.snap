@@ -169,6 +169,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
         className="min"
       >
         <button
+          aria-label="Toggle details for FKE5381523"
           className="usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
@@ -267,6 +268,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
         className="min"
       >
         <button
+          aria-label="Toggle details for FKE8206743"
           className="usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
@@ -391,6 +393,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         className="min"
       >
         <button
+          aria-label="Toggle details for FKE5381523"
           className="usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
@@ -493,6 +496,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         className="min"
       >
         <button
+          aria-label="Toggle details for FKE8206743"
           className="usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}

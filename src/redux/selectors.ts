@@ -5,7 +5,9 @@ export const hasFilters = (state: RootState): boolean => {
     state.caseFilters.caseCreationStart !== undefined ||
     state.caseFilters.caseCreationEnd !== undefined ||
     state.caseFilters.snoozeReasonFilter !== undefined ||
-    state.caseFilters.serviceNowFilter !== undefined
+    state.caseFilters.serviceNowFilter !== undefined ||
+    state.caseFilters.activeSearch ||
+    state.caseFilters.snoozeState !== "ACTIVE"
   ) {
     return true;
   }
