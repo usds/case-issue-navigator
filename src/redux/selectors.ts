@@ -2,10 +2,10 @@ import { RootState } from "./create";
 
 export const hasFilters = (state: RootState): boolean => {
   if (
-    state.cases.caseCreationStart !== undefined ||
-    state.cases.caseCreationEnd !== undefined ||
-    state.cases.snoozeReasonFilter !== undefined ||
-    state.cases.serviceNowFilter !== undefined
+    state.caseFilters.caseCreationStart !== undefined ||
+    state.caseFilters.caseCreationEnd !== undefined ||
+    state.caseFilters.snoozeReasonFilter !== undefined ||
+    state.caseFilters.serviceNowFilter !== undefined
   ) {
     return true;
   }
