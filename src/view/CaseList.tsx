@@ -15,6 +15,7 @@ import {
   CASE_CREATION_START,
   CASE_CREATION_END,
   SNOOOZE_REASON,
+  SNOOZE_STATE,
   SN_TICKET,
   SEARCH
 } from "../controller/config";
@@ -94,7 +95,7 @@ class CaseList extends React.Component<Props, State> {
         }
       }
 
-      const snoozeState = urlParams.get(SNOOOZE_REASON);
+      const snoozeState = urlParams.get(SNOOZE_STATE);
       if (
         snoozeState &&
         ["SNOOZED", "ACTIVE", "ALARMED"].includes(snoozeState)
