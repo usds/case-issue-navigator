@@ -34,7 +34,7 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
   fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
     shortText: "Stuck at Field Office",
-    followUp: "Field Office location code",
+    followUp: "ServiceNow ticket ID",
     duration: 5,
     type: "LINK",
     subType: "troubleticket"
