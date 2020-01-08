@@ -28,8 +28,8 @@ describe("formatNotes", () => {
     expect(notes).toEqual([
       {
         content: "ZLA",
-        subType: "fieldoffice",
-        type: "TAG"
+        subType: "troubleticket",
+        type: "LINK"
       }
     ]);
   });

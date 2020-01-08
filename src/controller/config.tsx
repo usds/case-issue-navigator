@@ -36,8 +36,8 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     shortText: "Stuck at Field Office",
     followUp: "Field Office location code",
     duration: 5,
-    type: "TAG",
-    subType: "fieldoffice"
+    type: "LINK",
+    subType: "troubleticket"
   },
   technical_issue: {
     snoozeReason: "Technical Issue",
