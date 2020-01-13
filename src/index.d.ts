@@ -32,8 +32,6 @@ interface CallbackState {
   duration: number;
 }
 
-type Callbacks = any;
-
 interface RowData {
   receiptNumber: string;
 }
