@@ -20,7 +20,6 @@ const AddNoteForm = (props: Props) => {
   const addNote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!rowData.snoozeInformation) {
-      // TODO
       return;
     }
     const duration = DateUtils.numberOfDaysUntil(
@@ -56,6 +55,10 @@ const AddNoteForm = (props: Props) => {
   const openModal = () => setDialog(true);
   const closeModal = () => setDialog(false);
 
+  if (!rowData.snoozeInformation) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <ActionModal
@@ -68,12 +71,9 @@ const AddNoteForm = (props: Props) => {
           <UsaButton onClick={addNote}>Add Note</UsaButton>
         </form>
       </ActionModal>
-      {rowData.snoozeInformation ? (
-        <UsaButton onClick={openModal} buttonStyle="unstyled">
-          Add A Note
-        </UsaButton>
-      ) : null}
-      {/*TODO remove ternary statement*/}
+      <UsaButton onClick={openModal} buttonStyle="unstyled">
+        Add A Note
+      </UsaButton>
     </React.Fragment>
   );
 };
