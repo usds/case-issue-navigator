@@ -2,13 +2,23 @@ import { formatNotes } from "../formatNotes";
 
 describe("formatNotes", () => {
   it("should return an empty notes array for no snoozeOption", () => {
-    const snoozeOption = {};
+    const snoozeOption: CallbackState = {
+      snoozeReason: "test_data",
+      subreason: "",
+      followUp: "",
+      caseIssueNotes: "",
+      duration: 0
+    };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([]);
   });
   it("should create a basic comment note", () => {
-    const snoozeOption = {
-      caseIssueNotes: "I am a note."
+    const snoozeOption: CallbackState = {
+      snoozeReason: "test_data",
+      subreason: "",
+      followUp: "",
+      caseIssueNotes: "I am a note.",
+      duration: 0
     };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([
@@ -20,9 +30,12 @@ describe("formatNotes", () => {
     ]);
   });
   it("should create a note with a type but no subType", () => {
-    const snoozeOption = {
+    const snoozeOption: CallbackState = {
       snoozeReason: "fo_referral",
-      followUp: "ZLA"
+      subreason: "",
+      followUp: "ZLA",
+      caseIssueNotes: "",
+      duration: 0
     };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([
@@ -34,9 +47,12 @@ describe("formatNotes", () => {
     ]);
   });
   it("should create a note with a type and subType", () => {
-    const snoozeOption = {
+    const snoozeOption: CallbackState = {
       snoozeReason: "technical_issue",
-      followUp: "12345"
+      subreason: "",
+      followUp: "12345",
+      caseIssueNotes: "",
+      duration: 0
     };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([
@@ -48,10 +64,12 @@ describe("formatNotes", () => {
     ]);
   });
   it("should add both a comment and a follow-up at the same time", () => {
-    const snoozeOption = {
+    const snoozeOption: CallbackState = {
       snoozeReason: "technical_issue",
+      subreason: "",
       followUp: "12345",
-      caseIssueNotes: "I am a note."
+      caseIssueNotes: "I am a note.",
+      duration: 0
     };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([
