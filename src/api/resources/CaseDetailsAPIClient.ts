@@ -2,9 +2,9 @@ import { FetchClient as c } from "tbest-fetch-client";
 import ClientBase from "../ClientBase";
 import URLs from "../URLs";
 
-export interface SnoozeInputs {
+interface SnoozeInputs {
   duration: number;
-  reason: string; //SnoozeReason????
+  reason: SnoozeReason;
   notes: PartialNote[];
 }
 
