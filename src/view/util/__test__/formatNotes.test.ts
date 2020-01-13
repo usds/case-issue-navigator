@@ -29,23 +29,6 @@ describe("formatNotes", () => {
       }
     ]);
   });
-  it("should create a note with a type but no subType", () => {
-    const snoozeOption: CallbackState = {
-      snoozeReason: "fo_referral",
-      subreason: "",
-      followUp: "ZLA",
-      caseIssueNotes: "",
-      duration: 0
-    };
-    const notes = formatNotes(snoozeOption);
-    expect(notes).toEqual([
-      {
-        content: "ZLA",
-        subType: "troubleticket",
-        type: "LINK"
-      }
-    ]);
-  });
   it("should create a note with a type and subType", () => {
     const snoozeOption: CallbackState = {
       snoozeReason: "technical_issue",
@@ -56,6 +39,28 @@ describe("formatNotes", () => {
     };
     const notes = formatNotes(snoozeOption);
     expect(notes).toEqual([
+      {
+        content: "12345",
+        subType: "troubleticket",
+        type: "LINK"
+      }
+    ]);
+  });
+  it("should add both a comment and a follow-up at the same time", () => {
+    const snoozeOption: CallbackState = {
+      snoozeReason: "technical_issue",
+      subreason: "",
+      followUp: "12345",
+      caseIssueNotes: "I am a note.",
+      duration: 0
+    };
+    const notes = formatNotes(snoozeOption);
+    expect(notes).toEqual([
+      {
+        content: "I am a note.",
+        subType: null,
+        type: "COMMENT"
+      },
       {
         content: "12345",
         subType: "troubleticket",
