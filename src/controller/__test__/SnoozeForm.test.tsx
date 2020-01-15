@@ -1,30 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 import SnoozeForm from "../SnoozeForm";
-import { SNOOZE_OPTIONS_SELECT } from "../config";
+import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "../config";
 
 describe("SnoozeForm", () => {
-  it("renders a snooze form with required snooze option select values", () => {
-    const rowData: Case = {
-      receiptNumber: "FAK123",
-      caseCreation: "",
-      extraData: {} as CaseExtraData,
-      previouslySnoozed: false,
-      showDetails: false,
-      snoozeInformation: undefined
-    };
-    const wrapper = mount(
-      <SnoozeForm
-        rowData={rowData}
-        snooze={jest.fn()}
-        closeDialog={jest.fn()}
-        caseType="ACTIVE"
-      />
-    );
-    SNOOZE_OPTIONS_SELECT.forEach(option => {
-      expect(wrapper.find(`option[value="${option.value}"]`).length).toBe(1);
-    });
-  });
   it("calls snooze on submit", () => {
     const rowData: Case = {
       receiptNumber: "FAK123",
@@ -76,7 +55,6 @@ describe("SnoozeForm", () => {
       showDetails: false,
       snoozeInformation: undefined
     };
-    const spy = jest.spyOn(SnoozeForm.prototype, "snoozeReasonChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
@@ -85,10 +63,11 @@ describe("SnoozeForm", () => {
         caseType="ACTIVE"
       />
     );
-    wrapper.find("select").simulate("change", {
-      target: { value: SNOOZE_OPTIONS_SELECT[1].value }
-    });
-    expect(spy).toHaveBeenCalledTimes(1);
+    const snoozeReason = SNOOZE_OPTIONS_SELECT[1].value;
+    (wrapper.find("SnoozeInputs").prop("snoozeReasonChange") as any)(snoozeReason)
+    wrapper.update();
+    expect((wrapper.state('snoozeReason') as any)).toBe(snoozeReason);
+    expect((wrapper.state('duration') as any)).toBe(SNOOZE_OPTIONS[snoozeReason].duration);
   });
   it("updates follow-up reason on change", () => {
     const rowData: Case = {
@@ -99,7 +78,6 @@ describe("SnoozeForm", () => {
       showDetails: false,
       snoozeInformation: undefined
     };
-    const spy = jest.spyOn(SnoozeForm.prototype, "followUpChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
@@ -108,19 +86,8 @@ describe("SnoozeForm", () => {
         caseType="ACTIVE"
       />
     );
-    wrapper.find("select").simulate("change", {
-      target: {
-        value: (SNOOZE_OPTIONS_SELECT.find(
-          option => option.followUp
-        ) as SnoozeOptionValue).value
-      }
-    });
-    wrapper.find("#followUp").simulate("change", {
-      target: {
-        value: "Some entry"
-      }
-    });
-    expect(spy).toHaveBeenCalledTimes(1);
+    (wrapper.find("SnoozeInputs").prop("followUpChange") as any)("Some entry")
+    expect((wrapper.state('followUp') as any)).toBe("Some entry");
   });
   it("updates case issue notes on change", () => {
     const rowData: Case = {
@@ -140,17 +107,7 @@ describe("SnoozeForm", () => {
         caseType="ACTIVE"
       />
     );
-    wrapper.find("select").simulate("change", {
-      target: {
-        value: SNOOZE_OPTIONS_SELECT[1].value
-      }
-    });
-    wrapper.find("#showNoteField").simulate("click");
-    wrapper.find("#caseIssueNotes").simulate("change", {
-      target: {
-        value: "Some entry"
-      }
-    });
-    expect(spy).toHaveBeenCalledTimes(1);
+    (wrapper.find("SnoozeInputs").prop("caseIssueNotesChange") as any)("Some entry")
+    expect((wrapper.state('caseIssueNotes') as any)).toBe("Some entry");
   });
 });
