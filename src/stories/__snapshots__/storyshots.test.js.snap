@@ -96,8 +96,6 @@ exports[`Storyshots CaseList Empty case list 1`] = `
 </p>
 `;
 
-exports[`Storyshots DetailNoteDisplay Assignee 1`] = `"Joe was assigned to follow-up on this case."`;
-
 exports[`Storyshots DetailNoteDisplay General comment 1`] = `"This is a general comment."`;
 
 exports[`Storyshots DetailNoteDisplay Trouble ticket 1`] = `
@@ -154,9 +152,6 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         Platform
-      </td>
-      <td>
-        Assigned
       </td>
       <td>
         Actions
@@ -250,9 +245,6 @@ exports[`Storyshots I90Table Active case view 1`] = `
         Legacy
       </td>
       <td>
-        Phil
-      </td>
-      <td>
         <button
           className="usa-button usa-button--outline"
           disabled={false}
@@ -322,9 +314,6 @@ exports[`Storyshots I90Table Active case view 1`] = `
         SP
       </td>
       <td>
-        
-      </td>
-      <td>
         <button
           className="usa-button usa-button--outline"
           disabled={false}
@@ -375,9 +364,6 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         Snoozed
-      </td>
-      <td>
-        Assigned
       </td>
       <td>
         SN Ticket #
@@ -468,9 +454,6 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         
       </td>
       <td />
-      <td>
-        Phil
-      </td>
       <td />
       <td>
         <button
@@ -545,9 +528,6 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         259 days
-      </td>
-      <td>
-        
       </td>
       <td>
         <a
@@ -697,7 +677,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     name="snoozeReason"
     onChange={[Function]}
     required={true}
-    value="assigned_case"
+    value="fo_referral"
   >
     <option
       disabled={true}
@@ -726,17 +706,12 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     >
       Stuck at field office - awaiting response
     </option>
-    <option
-      value="assigned_case"
-    >
-      Case has been assigned - remind me later
-    </option>
   </select>
   <label
     className="usa-label"
     htmlFor="followUp"
   >
-    Who is the case being assigned to?
+    ServiceNow ticket ID
   </label>
   <input
     className="usa-input"
@@ -744,7 +719,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     name="followUp"
     onChange={[Function]}
     type="text"
-    value="Fran"
+    value=""
   />
   <label
     className="usa-label"
@@ -829,11 +804,6 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       value="fo_referral"
     >
       Stuck at field office - awaiting response
-    </option>
-    <option
-      value="assigned_case"
-    >
-      Case has been assigned - remind me later
     </option>
   </select>
   <label

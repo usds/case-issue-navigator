@@ -21,7 +21,7 @@ const sampleCases = [
       applicationReason: "Boredom"
     },
     previouslySnoozed: true,
-    notes: [{ type: "comment", subType: "assignee", content: "Phil" }]
+    notes: [{ type: "comment", subType: "fieldoffice", content: "Phil" }]
   },
   {
     receiptNumber: "FKE8206743",

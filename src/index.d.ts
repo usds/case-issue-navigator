@@ -14,7 +14,7 @@ type MatomoTrackEvent = (
 
 type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
-type SubType = "troubleticket" | "assignee" | "fieldoffice" | "referral";
+type SubType = "troubleticket" | "fieldoffice" | "referral";
 
 type Summary = {
   [key in keyof Views | "PREVIOUSLY_SNOOZED"]: number;
@@ -90,10 +90,6 @@ interface Snoozed {
   props?;
 }
 
-interface Assigned {
-  key: "assigned";
-  props?;
-}
 interface SNTicket {
   key: "SNTicket";
   props?;
@@ -144,7 +140,6 @@ type I90Header =
   | Platform
   | Problem
   | Snoozed
-  | Assigned
   | SNTicket
   | Actions
   | SnoozeActions;
@@ -204,7 +199,6 @@ interface Note extends PartialNote {
 }
 
 type SnoozeReason =
-  | "assigned_case"
   | "test_data"
   | "fo_referral"
   | "technical_issue"
