@@ -3,58 +3,86 @@ import { mount } from "enzyme";
 import SnoozeForm from "../SnoozeForm";
 import { SNOOZE_OPTIONS_SELECT } from "../config";
 
-const rowData = {
-  receiptNumber: "FAK123"
-} as Case;
-
 describe("SnoozeForm", () => {
-  it("should render a snooze form with required snooze option select values", () => {
+  it("renders a snooze form with required snooze option select values", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     SNOOZE_OPTIONS_SELECT.forEach(option => {
       expect(wrapper.find(`option[value="${option.value}"]`).length).toBe(1);
     });
   });
-  it("should call the snooze callback on submit", () => {
+  it("calls snooze on submit", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const snooze = jest.fn();
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={snooze}
         closeDialog={jest.fn()}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     wrapper.find("#SnoozeSumbit").simulate("click");
     expect(snooze).toBeCalledTimes(1);
   });
-  it("should call the closeDialog callback on submit", () => {
+  it("calls closeDialog on submit", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const closeDialog = jest.fn();
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={closeDialog}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     wrapper.find("#SnoozeSumbit").simulate("click");
     expect(closeDialog).toBeCalledTimes(1);
   });
-  it("should handle snooze reason dropdown changes", () => {
+  it("updates reason on dropdown change", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const spy = jest.spyOn(SnoozeForm.prototype, "snoozeReasonChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     wrapper.find("select").simulate("change", {
@@ -62,14 +90,22 @@ describe("SnoozeForm", () => {
     });
     expect(spy).toHaveBeenCalledTimes(1);
   });
-  it("should handle follow-up reason changes", () => {
+  it("updates follow-up reason on change", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const spy = jest.spyOn(SnoozeForm.prototype, "followUpChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     wrapper.find("select").simulate("change", {
@@ -86,14 +122,22 @@ describe("SnoozeForm", () => {
     });
     expect(spy).toHaveBeenCalledTimes(1);
   });
-  it("should handle case issue notes changes", () => {
+  it("updates case issue notes on change", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: undefined
+    };
     const spy = jest.spyOn(SnoozeForm.prototype, "caseIssueNotesChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
-        caseType="active"
+        caseType="ACTIVE"
       />
     );
     wrapper.find("select").simulate("change", {
