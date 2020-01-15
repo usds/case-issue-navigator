@@ -12,7 +12,7 @@ describe("NoteUtils", () => {
       subType: "troubleticket",
       timestamp: "2019-10-18T14:23:27.887+0000",
       type: "LINK",
-      userId: "42b78e9e-408c-4e32-8fbc-dc4b70ae3718"
+      user: { id: "admin", name: "Admin Anna" }
     };
     expect(NoteUtils.getFollowUp([fieldoffice], "fieldoffice")).toBeNull();
   });
@@ -24,7 +24,7 @@ describe("NoteUtils", () => {
       subType: "fieldoffice",
       timestamp: "2019-10-18T14:23:27.887+0000",
       type: "TAG",
-      userId: "28f247e4-a022-454e-acc5-b287aa679b59"
+      user: { id: "admin", name: "Admin Anna" }
     };
     expect(
       (NoteUtils.getFollowUp([fieldoffice], "fieldoffice") as any).content
@@ -38,7 +38,7 @@ describe("NoteUtils", () => {
       subType: "fieldoffice",
       timestamp: "2019-10-17T14:23:27.887+0000",
       type: "TAG",
-      userId: "28f247e4-a022-454e-acc5-b287aa679b59"
+      user: { id: "admin", name: "Admin Anna" }
     };
     const Updatedfieldoffice: Note = {
       content: "Eric",
@@ -46,7 +46,7 @@ describe("NoteUtils", () => {
       subType: "fieldoffice",
       timestamp: "2019-10-18T14:23:27.887+0000",
       type: "TAG",
-      userId: "28f247e4-a022-454e-acc5-b287aa679b59"
+      user: { id: "admin", name: "Admin Anna" }
     };
     expect(
       (NoteUtils.getFollowUp(
