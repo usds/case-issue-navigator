@@ -28,6 +28,8 @@ const AddNoteForm = (props: Props) => {
     const reason = rowData.snoozeInformation.snoozeReason;
     const snoozeOption = {
       snoozeReason: reason,
+      // type caseting because Typescript interprets `""` as a `string` not the literal string `""`
+      subreason: "" as "",
       followUp: "",
       caseIssueNotes: note,
       duration

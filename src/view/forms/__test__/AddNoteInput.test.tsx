@@ -3,15 +3,10 @@ import { mount } from "enzyme";
 import AddNoteInput from "../AddNoteInput";
 
 describe("AddNoteInput", () => {
-
   it("updates case issue notes on change", () => {
     const spy = jest.fn();
     const wrapper = mount(
-      <AddNoteInput
-        onChange={spy}
-        value=""
-        defaultShow={false}
-      />
+      <AddNoteInput onChange={spy} value="" defaultShow={false} />
     );
 
     wrapper.find("#showNoteField").simulate("click");

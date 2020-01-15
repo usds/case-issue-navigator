@@ -64,10 +64,14 @@ describe("SnoozeForm", () => {
       />
     );
     const snoozeReason = SNOOZE_OPTIONS_SELECT[1].value;
-    (wrapper.find("SnoozeInputs").prop("snoozeReasonChange") as any)(snoozeReason)
+    (wrapper.find("SnoozeInputs").prop("snoozeReasonChange") as any)(
+      snoozeReason
+    );
     wrapper.update();
-    expect((wrapper.state('snoozeReason') as any)).toBe(snoozeReason);
-    expect((wrapper.state('duration') as any)).toBe(SNOOZE_OPTIONS[snoozeReason].duration);
+    expect(wrapper.state("snoozeReason") as any).toBe(snoozeReason);
+    expect(wrapper.state("duration") as any).toBe(
+      SNOOZE_OPTIONS[snoozeReason].duration
+    );
   });
   it("updates follow-up reason on change", () => {
     const rowData: Case = {
@@ -86,8 +90,8 @@ describe("SnoozeForm", () => {
         caseType="ACTIVE"
       />
     );
-    (wrapper.find("SnoozeInputs").prop("followUpChange") as any)("Some entry")
-    expect((wrapper.state('followUp') as any)).toBe("Some entry");
+    (wrapper.find("SnoozeInputs").prop("followUpChange") as any)("Some entry");
+    expect(wrapper.state("followUp") as any).toBe("Some entry");
   });
   it("updates case issue notes on change", () => {
     const rowData: Case = {
@@ -98,7 +102,6 @@ describe("SnoozeForm", () => {
       showDetails: false,
       snoozeInformation: undefined
     };
-    const spy = jest.spyOn(SnoozeForm.prototype, "caseIssueNotesChange");
     const wrapper = mount(
       <SnoozeForm
         rowData={rowData}
@@ -107,7 +110,46 @@ describe("SnoozeForm", () => {
         caseType="ACTIVE"
       />
     );
-    (wrapper.find("SnoozeInputs").prop("caseIssueNotesChange") as any)("Some entry")
-    expect((wrapper.state('caseIssueNotes') as any)).toBe("Some entry");
+    (wrapper.find("SnoozeInputs").prop("caseIssueNotesChange") as any)(
+      "Some entry"
+    );
+    expect(wrapper.state("caseIssueNotes") as any).toBe("Some entry");
+  });
+  it("updates subreason on change", () => {
+    const rowData: Case = {
+      receiptNumber: "FAK123",
+      caseCreation: "",
+      extraData: {} as CaseExtraData,
+      previouslySnoozed: false,
+      showDetails: false,
+      snoozeInformation: {
+        snoozeReason: "technical_issue",
+        snoozeEnd: "",
+        snoozeStart: new Date("01/15/2020").toString(),
+        user: { id: "admin", name: "Admin Anna" }
+      },
+      notes: [
+        {
+          content: "card_production_error",
+          type: "TAG",
+          subType: "subreason",
+          href: null,
+          timestamp: "2020-01-15T17:24:42.42Z",
+          user: { id: "admin", name: "Admin Anna" }
+        }
+      ]
+    };
+    const wrapper = mount(
+      <SnoozeForm
+        rowData={rowData}
+        snooze={jest.fn()}
+        closeDialog={jest.fn()}
+        caseType="SNOOZED"
+      />
+    );
+    (wrapper.find("SnoozeInputs").prop("subreasonChange") as any)(
+      "undo_referral"
+    );
+    expect(wrapper.state("subreason") as any).toBe("undo_referral");
   });
 });
