@@ -22,6 +22,17 @@ const formatNotes = (snoozeOption: CallbackState): Array<PartialNote> => {
     });
   }
 
+  if (
+    snoozeOption.snoozeReason === "technical_issue" &&
+    snoozeOption.subreason !== ""
+  ) {
+    notes.push({
+      type: "TAG",
+      subType: "subreason",
+      content: snoozeOption.subreason
+    });
+  }
+
   return notes;
 };
 

@@ -14,7 +14,7 @@ type MatomoTrackEvent = (
 
 type CaseManagementSystem = "DEFAULT";
 type CaseType = "STANDARD";
-type SubType = "troubleticket" | "fieldoffice" | "referral";
+type SubType = "troubleticket" | "fieldoffice" | "referral" | "subreason";
 
 type Summary = {
   [key in keyof Views | "PREVIOUSLY_SNOOZED"]: number;
@@ -25,8 +25,24 @@ type ToastNotifier = (
   type: ToastOptions["type"]
 ) => void;
 
+type Subreason =
+  | "tecs_check"
+  | "undo_referral"
+  | "unable_to_update_dob"
+  | "unable_to_update_address"
+  | "unable_to_assign"
+  | "card_production_error"
+  | "stuck_in_a_state"
+  | "needs_to_be_closed";
+
+interface TechnicalSubtype {
+  value: Subreason;
+  text: string;
+}
+
 interface CallbackState {
   snoozeReason: SnoozeReason;
+  subreason: Subreason | "";
   followUp: string;
   caseIssueNotes: string;
   duration: number;

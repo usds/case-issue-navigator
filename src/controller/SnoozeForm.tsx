@@ -26,26 +26,37 @@ class SnoozeForm extends Component<Props, State> {
     };
   }
 
+  getSubReason(
+    snoozeReason: SnoozeReason,
+    notes: Note[] | undefined
+  ): Subreason | "" {
+    if (snoozeReason !== "technical_issue") {
+      return "";
+    }
+    const subreaon = NoteUtils.getFollowUp(notes, "subreason");
+    return subreaon ? (subreaon.content as Subreason) : "";
+  }
+
   getSnoozeInformation(): CallbackState {
-    if (
-      this.props.caseType === "ACTIVE" ||
-      !this.props.rowData ||
-      !this.props.rowData.snoozeInformation
-    ) {
+    const { rowData, caseType } = this.props;
+    if (caseType === "ACTIVE" || !rowData || !rowData.snoozeInformation) {
       return {
         snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+        subreason: "",
         duration: SNOOZE_OPTIONS_SELECT[0].duration,
         followUp: "",
         caseIssueNotes: ""
       };
     }
 
+    const snoozeReason = rowData.snoozeInformation.snoozeReason;
     return {
-      snoozeReason: this.props.rowData.snoozeInformation.snoozeReason,
+      snoozeReason: snoozeReason,
+      subreason: this.getSubReason(snoozeReason, rowData.notes),
       duration: DateUtils.numberOfDaysUntil(
-        this.props.rowData.snoozeInformation.snoozeEnd
+        rowData.snoozeInformation.snoozeEnd
       ),
-      followUp: SnoozeForm.getFollowUp(this.props.rowData),
+      followUp: SnoozeForm.getFollowUp(rowData),
       caseIssueNotes: ""
     };
   }
@@ -77,6 +88,10 @@ class SnoozeForm extends Component<Props, State> {
   snoozeReasonChange(snoozeReason: SnoozeReason) {
     const duration = SNOOZE_OPTIONS[snoozeReason].duration;
     this.setState({ snoozeReason, duration });
+  }
+
+  subReasonChange(subreason: Subreason | "") {
+    this.setState({ subreason });
   }
 
   followUpChange(followUp: string) {
@@ -121,6 +136,7 @@ class SnoozeForm extends Component<Props, State> {
     }
     this.props.snooze(this.props.rowData.receiptNumber, {
       duration,
+      subreason: this.state.subreason,
       snoozeReason: this.state.snoozeReason,
       followUp: this.state.followUp,
       caseIssueNotes: this.state.caseIssueNotes
@@ -177,6 +193,7 @@ class SnoozeForm extends Component<Props, State> {
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
+          subreasonChange={this.subReasonChange.bind(this)}
           snoozeReasonChange={this.snoozeReasonChange.bind(this)}
           followUpChange={this.followUpChange.bind(this)}
           caseIssueNotesChange={this.caseIssueNotesChange.bind(this)}
