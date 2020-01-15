@@ -8,11 +8,34 @@ export const SEARCH = "search";
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 
 const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
+  technical_issue: {
+    snoozeReason: "Technical Issue",
+    shortText: "Technical Issue",
+    followUp: "ServiceNow ticket ID",
+    duration: 14,
+    type: "LINK",
+    subType: "troubleticket"
+  },
   test_data: {
     snoozeReason: "Test Data - should be deleted", // Snooze Reason
     shortText: "Test Data",
     duration: 365,
     followUp: "ServiceNow ticket ID",
+    type: "LINK",
+    subType: "troubleticket"
+  },
+  record_analysis: {
+    snoozeReason: "Needs record analysis to review",
+    shortText: "Record Analysis",
+    duration: 7,
+    type: null,
+    subType: null
+  },
+  fo_referral: {
+    snoozeReason: "Stuck at field office - awaiting response",
+    shortText: "Stuck at Field Office",
+    followUp: "ServiceNow ticket ID",
+    duration: 5,
     type: "LINK",
     subType: "troubleticket"
   },
@@ -28,29 +51,6 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     snoozeReason: "Case is pending removal proceedings - check back later",
     shortText: "Pending Removal",
     duration: 30,
-    type: null,
-    subType: null
-  },
-  fo_referral: {
-    snoozeReason: "Stuck at field office - awaiting response",
-    shortText: "Stuck at Field Office",
-    followUp: "ServiceNow ticket ID",
-    duration: 5,
-    type: "LINK",
-    subType: "troubleticket"
-  },
-  technical_issue: {
-    snoozeReason: "Technical Issue",
-    shortText: "Technical Issue",
-    followUp: "ServiceNow ticket ID",
-    duration: 14,
-    type: "LINK",
-    subType: "troubleticket"
-  },
-  record_analysis: {
-    snoozeReason: "Needs record analysis to review",
-    shortText: "Record Analysis",
-    duration: 7,
     type: null,
     subType: null
   }
