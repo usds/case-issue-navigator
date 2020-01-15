@@ -36,12 +36,6 @@ const DetailNoteDisplay: React.FunctionComponent<
       }
     case "TAG":
       switch (caseDetail.subType) {
-        case "assignee":
-          return (
-            <React.Fragment>
-              {`${caseDetail.content} was assigned to follow-up on this case.`}
-            </React.Fragment>
-          );
         case "fieldoffice":
           return (
             <React.Fragment>

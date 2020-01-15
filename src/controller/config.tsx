@@ -38,14 +38,6 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     duration: 5,
     type: "LINK",
     subType: "troubleticket"
-  },
-  assigned_case: {
-    snoozeReason: "Case has been assigned - remind me later",
-    shortText: "Assigned",
-    duration: 5,
-    followUp: "Who is the case being assigned to?",
-    type: "TAG",
-    subType: "assignee"
   }
 };
 

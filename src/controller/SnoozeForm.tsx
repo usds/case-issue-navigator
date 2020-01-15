@@ -66,8 +66,6 @@ class SnoozeForm extends Component<Props, State> {
 
   static getSubtype(snoozeReason: SnoozeReason): SubType | null {
     switch (snoozeReason) {
-      case "assigned_case":
-        return "assignee";
       case "technical_issue":
         return "troubleticket";
       case "fo_referral":

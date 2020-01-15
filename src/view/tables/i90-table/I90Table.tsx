@@ -16,7 +16,6 @@ import { CaseSubstatus } from "./CaseSubstatus";
 import { Platform } from "./Platform";
 import { Problem } from "./Problem";
 import { SnoozeDaysLeft } from "./SnoozeDaysLeft";
-import { Assigned } from "./Assigned";
 import { ServiceNowTicket } from "./ServiceNowTicket";
 import { Actions } from "./Actions";
 import "./ReceiptDisplayRow.scss";
@@ -120,10 +119,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       header: "Snoozed",
       Cell: SnoozeDaysLeft,
       displayIf: snoozeState === "SNOOZED"
-    },
-    {
-      header: "Assigned",
-      Cell: Assigned
     },
     {
       header: "SN Ticket #",

@@ -12,14 +12,6 @@ storiesOf("DetailNoteDisplay", module)
     };
     return <DetailNoteDisplay caseDetail={note} />;
   })
-  .add("Assignee", () => {
-    const note = {
-      type: "TAG",
-      subType: "assignee",
-      content: "Joe"
-    };
-    return <DetailNoteDisplay caseDetail={note} />;
-  })
   .add("General comment", () => {
     const note = {
       type: "COMMENT",

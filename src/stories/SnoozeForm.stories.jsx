@@ -28,13 +28,13 @@ storiesOf("SnoozeForm", module)
       snoozeInformation: {
         snoozeEnd: addDays(new Date("11/27/2019"), 300).toString(),
         snoozeStart: new Date().toString(),
-        snoozeReason: "assigned_case"
+        snoozeReason: "fo_referral"
       },
       notes: [
         {
-          content: "Fran",
-          type: "COMMENT",
-          subType: "assignee"
+          content: "ABC123",
+          type: "LINK",
+          subType: "troubleticket"
         }
       ]
     };
