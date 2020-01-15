@@ -206,7 +206,6 @@ interface Note extends PartialNote {
 type SnoozeReason =
   | "assigned_case"
   | "test_data"
-  | "in_proceedings"
   | "fo_referral"
   | "technical_issue"
   | "record_analysis";

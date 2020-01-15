@@ -731,11 +731,6 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     >
       Case has been assigned - remind me later
     </option>
-    <option
-      value="in_proceedings"
-    >
-      Case is pending removal proceedings - check back later
-    </option>
   </select>
   <label
     className="usa-label"
@@ -839,11 +834,6 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       value="assigned_case"
     >
       Case has been assigned - remind me later
-    </option>
-    <option
-      value="in_proceedings"
-    >
-      Case is pending removal proceedings - check back later
     </option>
   </select>
   <label
