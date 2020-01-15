@@ -707,9 +707,24 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
       - Select Reason -
     </option>
     <option
+      value="technical_issue"
+    >
+      Technical Issue
+    </option>
+    <option
       value="test_data"
     >
       Test Data - should be deleted
+    </option>
+    <option
+      value="record_analysis"
+    >
+      Needs record analysis to review
+    </option>
+    <option
+      value="fo_referral"
+    >
+      Stuck at field office - awaiting response
     </option>
     <option
       value="assigned_case"
@@ -720,21 +735,6 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
       value="in_proceedings"
     >
       Case is pending removal proceedings - check back later
-    </option>
-    <option
-      value="fo_referral"
-    >
-      Stuck at field office - awaiting response
-    </option>
-    <option
-      value="technical_issue"
-    >
-      Technical Issue
-    </option>
-    <option
-      value="record_analysis"
-    >
-      Needs record analysis to review
     </option>
   </select>
   <label
@@ -806,7 +806,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     name="snoozeReason"
     onChange={[Function]}
     required={true}
-    value="test_data"
+    value="technical_issue"
   >
     <option
       disabled={true}
@@ -816,9 +816,24 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       - Select Reason -
     </option>
     <option
+      value="technical_issue"
+    >
+      Technical Issue
+    </option>
+    <option
       value="test_data"
     >
       Test Data - should be deleted
+    </option>
+    <option
+      value="record_analysis"
+    >
+      Needs record analysis to review
+    </option>
+    <option
+      value="fo_referral"
+    >
+      Stuck at field office - awaiting response
     </option>
     <option
       value="assigned_case"
@@ -829,21 +844,6 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       value="in_proceedings"
     >
       Case is pending removal proceedings - check back later
-    </option>
-    <option
-      value="fo_referral"
-    >
-      Stuck at field office - awaiting response
-    </option>
-    <option
-      value="technical_issue"
-    >
-      Technical Issue
-    </option>
-    <option
-      value="record_analysis"
-    >
-      Needs record analysis to review
     </option>
   </select>
   <label
@@ -874,7 +874,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     name="duration"
     onChange={[Function]}
     type="number"
-    value={365}
+    value={14}
   />
   <div>
     <button
