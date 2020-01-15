@@ -46,13 +46,6 @@ const SNOOZE_OPTIONS: { [key in SnoozeReason]: SnoozeOption } = {
     followUp: "Who is the case being assigned to?",
     type: "TAG",
     subType: "assignee"
-  },
-  in_proceedings: {
-    snoozeReason: "Case is pending removal proceedings - check back later",
-    shortText: "Pending Removal",
-    duration: 30,
-    type: null,
-    subType: null
   }
 };
 
