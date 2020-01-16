@@ -32,6 +32,7 @@ describe("CaseFilterForm", () => {
       undefined,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
+      undefined,
       undefined
     );
     expect(store.getState().cases.caselist.length).toBe(0);

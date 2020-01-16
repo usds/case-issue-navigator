@@ -402,6 +402,7 @@ describe("redux - cases", () => {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     );
   });
@@ -421,6 +422,7 @@ describe("redux - cases", () => {
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
       "ACTIVE",
       initialCases[initialCases.length - 1].receiptNumber,
+      undefined,
       undefined,
       undefined,
       undefined
@@ -446,7 +448,8 @@ describe("redux - cases", () => {
       initialCases[initialCases.length - 1].receiptNumber,
       undefined,
       undefined,
-      "test_data"
+      "test_data",
+      undefined
     );
   });
   it("calls getCases without a receiptNumber and with a date filter", async () => {
@@ -468,6 +471,7 @@ describe("redux - cases", () => {
       undefined,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
+      undefined,
       undefined
     );
   });
@@ -491,6 +495,7 @@ describe("redux - cases", () => {
       initialCases[initialCases.length - 1].receiptNumber,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
+      undefined,
       undefined
     );
   });
