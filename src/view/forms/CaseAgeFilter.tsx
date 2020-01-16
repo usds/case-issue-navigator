@@ -61,7 +61,7 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
   const tooltip = () => (
     <div className="caseCreationForm">
       {/* HACK: hard code years for current i90 case list */}
-      {[2014, 2015, 2016, 2017, 2018].map(year => (
+      {[2015, 2016, 2017, 2018, 2019].map(year => (
         <React.Fragment key={year}>
           <UsaButton buttonStyle="outline" onClick={() => setYear(year)}>
             {year}
