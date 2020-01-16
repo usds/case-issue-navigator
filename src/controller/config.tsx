@@ -4,6 +4,7 @@ export const SNOOOZE_REASON = "snoozeReason";
 export const SN_TICKET = "snTicket";
 export const SNOOZE_STATE = "snoozeState";
 export const SEARCH = "search";
+export const CASE_STATUS = "caseStatus";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 

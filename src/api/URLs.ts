@@ -47,7 +47,8 @@ class URLs {
     receiptNumber?: string,
     from?: Date,
     to?: Date,
-    snoozeReason?: string
+    snoozeReason?: string,
+    caseStatus?: CaseStatusOptions
   ): URL {
     const url = URLs.casesBase();
     url.searchParams.append("mainFilter", filter);
@@ -64,6 +65,9 @@ class URLs {
     }
     if (snoozeReason) {
       url.searchParams.append("snoozeReason", snoozeReason);
+    }
+    if (caseStatus) {
+      url.searchParams.append("filter_dataField[caseStatus]", caseStatus);
     }
     return url;
   }

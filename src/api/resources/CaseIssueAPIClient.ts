@@ -15,7 +15,8 @@ class CaseIssueAPIClient extends ClientBase {
     receiptNumber?: string,
     from?: Date,
     to?: Date,
-    snoozeReason?: string
+    snoozeReason?: string,
+    caseStatus?: CaseStatusOptions
   ): Promise<c.ApiResponse<Case[], APIError>> {
     if (filter !== "SNOOZED" && snoozeReason) {
       console.error(
@@ -23,7 +24,7 @@ class CaseIssueAPIClient extends ClientBase {
       );
     }
     return (await this.getAsJson(
-      URLs.cases(filter, receiptNumber, from, to, snoozeReason)
+      URLs.cases(filter, receiptNumber, from, to, snoozeReason, caseStatus)
     )) as any;
   }
 

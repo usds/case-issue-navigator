@@ -6,6 +6,7 @@ import { caseFilterActionCreators } from "../../redux/modules/caseFilters";
 import { loadCases, loadSearchResults } from "../../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { CaseAgeFilter } from "./CaseAgeFilter";
+import { CaseStatusFilter } from "./CaseStatusFilter";
 import { SnoozeReasonFilter } from "./SnoozeReasonFilter";
 import { ServiceNowFilter } from "./ServiceNowFilter";
 import { SnoozeStateFilter } from "./SnoozeStateFilter";
@@ -26,6 +27,7 @@ const mapStateToProps = (state: RootState) => ({
   summary: state.cases.summary,
   search: state.caseFilters.search,
   activeSearch: state.caseFilters.activeSearch,
+  caseStatus: state.caseFilters.caseStatus,
   hasFilters: hasFilters(state)
 });
 
@@ -42,6 +44,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setSnoozeState: caseFilterActionCreators.setSnoozeState,
       setSearch: caseFilterActionCreators.setSearch,
       setActiveSearch: caseFilterActionCreators.setActiveSearch,
+      setCaseStatus: caseFilterActionCreators.setCaseStatus,
       clearFilters: caseFilterActionCreators.clearFilters
     },
     dispatch
@@ -83,6 +86,11 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
 
   const onSnoozeStateFilterUpdate = (snoozeState: SnoozeState) => {
     props.setSnoozeState(snoozeState);
+    onFilterSubmit();
+  };
+
+  const onCaseStatusUpdate = (caseStatus: CaseStatusOptions) => {
+    props.setCaseStatus(caseStatus);
     onFilterSubmit();
   };
 
@@ -132,6 +140,12 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
                 snoozeState={props.snoozeState}
                 snoozeReason={props.snoozeReasonFilter}
                 onUpdate={onSnoozeReasonFilterUpdate}
+              />
+            </div>
+            <div className="float-left margin-right-2">
+              <CaseStatusFilter
+                caseStatus={props.caseStatus}
+                onUpdate={onCaseStatusUpdate}
               />
             </div>
             <div className="float-left margin-right-2 margin-top-4">

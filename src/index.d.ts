@@ -199,6 +199,12 @@ type SnoozeInformation = {
 
 type AttachmentType = "CORRELATION_ID" | "LINK" | "COMMENT" | "TAG";
 
+type CaseStatusOptions =
+  | "Approved"
+  | "Denied"
+  | "In Process"
+  | "Terminated";
+
 interface PartialNote {
   content: string;
   type: AttachmentType | null;
