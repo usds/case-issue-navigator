@@ -5,7 +5,7 @@ describe("NoteUtils", () => {
     expect(NoteUtils.getFollowUp([], "fieldoffice")).toBeNull();
   });
 
-  it("no fieldoffice note returns null", () => {
+  it("returns null when there are no notes with subtype fieldoffice", () => {
     const fieldoffice: Note = {
       content: "123",
       href: "http://tickets.example.com/ticket/123/details",
