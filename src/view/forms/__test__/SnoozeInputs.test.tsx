@@ -14,7 +14,7 @@ describe("SnoozeInputs", () => {
           shortText: "",
           type: null,
           subType: null,
-          value: "in_proceedings"
+          value: "test_data"
         }}
         snoozeReasonChange={jest.fn()}
         followUpChange={jest.fn()}
@@ -25,12 +25,14 @@ describe("SnoozeInputs", () => {
         deleteError={jest.fn()}
         duration={SNOOZE_OPTIONS_SELECT[0].duration}
         followUp=""
-        subreason=""
+        subreason={undefined}
         caseIssueNotes=""
       />
     );
-    SNOOZE_OPTIONS_SELECT.forEach(option => {
-      expect(wrapper.find(`option[value="${option.value}"]`).length).toBe(1);
+    SNOOZE_OPTIONS_SELECT.forEach((_, index) => {
+      expect(
+        wrapper.find(`#snoozeReason option[value="${index}"]`).length
+      ).toBe(1);
     });
   });
 
@@ -45,7 +47,7 @@ describe("SnoozeInputs", () => {
           shortText: "",
           type: null,
           subType: null,
-          value: "in_proceedings"
+          value: "test_data"
         }}
         snoozeReasonChange={spy}
         followUpChange={jest.fn()}
@@ -56,14 +58,14 @@ describe("SnoozeInputs", () => {
         deleteError={jest.fn()}
         duration={SNOOZE_OPTIONS_SELECT[0].duration}
         followUp=""
-        subreason=""
+        subreason={undefined}
         caseIssueNotes=""
       />
     );
-    wrapper.find("select").simulate("change", {
-      target: { value: "selectedValue" }
+    wrapper.find("#snoozeReason").simulate("change", {
+      target: { value: 0 }
     });
-    expect(spy).toBeCalledWith("selectedValue");
+    expect(spy).toBeCalledWith("technical_issue");
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -78,7 +80,7 @@ describe("SnoozeInputs", () => {
           shortText: "",
           type: null,
           subType: null,
-          value: "in_proceedings",
+          value: "test_data",
           followUp: "true"
         }}
         snoozeReasonChange={jest.fn()}
@@ -90,7 +92,7 @@ describe("SnoozeInputs", () => {
         deleteError={jest.fn()}
         duration={SNOOZE_OPTIONS_SELECT[0].duration}
         followUp=""
-        subreason=""
+        subreason={undefined}
         caseIssueNotes=""
       />
     );
@@ -115,7 +117,7 @@ describe("SnoozeInputs", () => {
           shortText: "",
           type: null,
           subType: null,
-          value: "in_proceedings"
+          value: "test_data"
         }}
         snoozeReasonChange={jest.fn()}
         followUpChange={jest.fn()}
@@ -126,7 +128,7 @@ describe("SnoozeInputs", () => {
         deleteError={jest.fn()}
         duration={SNOOZE_OPTIONS_SELECT[0].duration}
         followUp=""
-        subreason=""
+        subreason={undefined}
         caseIssueNotes=""
       />
     );
@@ -158,14 +160,14 @@ describe("SnoozeInputs", () => {
         deleteError={jest.fn()}
         duration={SNOOZE_OPTIONS_SELECT[0].duration}
         followUp=""
-        subreason=""
+        subreason={undefined}
         caseIssueNotes=""
       />
     );
 
     wrapper.find("#technicalSubtype").simulate("change", {
       target: {
-        value: "undo_referral"
+        value: 1
       }
     });
     expect(spy).toBeCalledWith("undo_referral");

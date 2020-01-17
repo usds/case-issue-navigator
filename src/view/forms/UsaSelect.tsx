@@ -8,7 +8,7 @@ interface Option<T> {
 interface Props<T> {
   name: string;
   id?: string;
-  selected?: string;
+  selected?: T;
   placeholder: string;
   onChange: (value: T) => void;
   options: Option<T>[];
@@ -17,6 +17,15 @@ interface Props<T> {
 
 export default function UsaSelect<T>(props: Props<T>) {
   const selectId = props.id || props.name;
+  const optionLookup: { [key: string]: T } = {};
+  let selected: string | undefined;
+  props.options.forEach((element: Option<T>, index: number) => {
+    const lookupKey = String(index);
+    optionLookup[lookupKey] = element.value;
+    if (element.value === props.selected) {
+      selected = lookupKey;
+    }
+  });
 
   const label = props.label && (
     <label className="usa-label" htmlFor={selectId}>
@@ -29,24 +38,24 @@ export default function UsaSelect<T>(props: Props<T>) {
     </option>
   );
 
-  const renderOption = (option: Option<T>) => {
-    const value = String(option.value);
+  const renderOption = (option: Option<T>, index: number) => {
+    const lookupKey = String(index);
     return (
-      <option key={value} value={value}>
+      <option key={lookupKey} value={lookupKey}>
         {option.text}
       </option>
     );
   };
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    props.onChange((e.target.value as any) as T);
+    props.onChange(optionLookup[e.target.value]);
   };
 
   return (
     <Fragment>
       {label}
       <select
-        value={props.selected}
+        value={selected}
         onChange={onChange}
         required={true}
         className="usa-select"

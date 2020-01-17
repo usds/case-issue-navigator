@@ -4,7 +4,7 @@ import SnoozeForm from "../SnoozeForm";
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "../config";
 
 describe("SnoozeForm", () => {
-  it("calls snooze on submit", () => {
+  it("should call the snooze callback on submit", () => {
     const rowData: Case = {
       receiptNumber: "FAK123",
       caseCreation: "",

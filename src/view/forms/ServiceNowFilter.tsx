@@ -51,17 +51,24 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
     }
   };
 
+  const toString = (serviceNowFilter: boolean | undefined): trilean => {
+    switch (serviceNowFilter) {
+      case undefined:
+        return "";
+      case true:
+        return "true";
+      case false:
+        return "false";
+    }
+  };
+
   return (
     <React.Fragment>
       <UsaSelect
         options={options}
         placeholder={DEFAULT_TEXT}
         name="serviceNowTicket"
-        selected={
-          props.serviceNowFilter === undefined
-            ? ""
-            : props.serviceNowFilter.toString()
-        }
+        selected={toString(props.serviceNowFilter)}
         onChange={onUpdate}
         label="Has Service Now Ticket"
       />
