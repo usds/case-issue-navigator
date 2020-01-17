@@ -3,20 +3,22 @@ import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 
 interface Props {
-  rowData: Case;
+  selectedCases: Case[];
   deSnooze: (receiptNumber: string) => void;
 }
 
-const EndSnoozeForm = (props: Props) => {
+const EndSnoozeForm: React.FC<Props> = ({selectedCases, deSnooze}) => {
   const [showDialog, setDialog] = useState(false);
 
   const desnooze = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!props.rowData) {
+    if (selectedCases.length < 1) {
       console.error("resnooze called with out a vaild snooze option selected");
       return;
     }
-    props.deSnooze(props.rowData.receiptNumber);
+    selectedCases.forEach(c => {
+      deSnooze(c.receiptNumber);
+    });
     closeModal();
   };
 
@@ -27,11 +29,15 @@ const EndSnoozeForm = (props: Props) => {
     <React.Fragment>
       <ActionModal
         isOpen={showDialog}
-        title={props.rowData.receiptNumber}
+        title={"Resolve Cases"}
         closeModal={closeModal}
       >
+        <p>Pleace confirm you want to resolve the following cases:</p>
+        <ul>
+          {selectedCases.map(c => <li>{c.receiptNumber}</li>)}
+        </ul>
         <UsaButton onClick={desnooze} buttonStyle="secondary">
-          End Current Snooze
+          Resolve
         </UsaButton>
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="secondary">

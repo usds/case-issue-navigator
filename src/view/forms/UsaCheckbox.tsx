@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Props {
-  name: string;
+  name?: string;
   id: string;
   value: boolean;
   onChange: (value: boolean) => void;

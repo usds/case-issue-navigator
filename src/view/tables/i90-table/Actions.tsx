@@ -6,7 +6,7 @@ import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 
 interface Props {
-  caseData: Case;
+  selectedCases: Case[];
   caseType: SnoozeState;
   updateSummaryData: typeof getCaseSummary;
   setError: typeof appStatusActionCreators.setDataLoadError;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const Actions: React.FC<Props> = ({
-  caseData,
+  selectedCases,
   caseType,
   updateSummaryData,
   setError,
@@ -27,7 +27,7 @@ export const Actions: React.FC<Props> = ({
   <React.Fragment>
     {["ACTIVE", "ALARMED"].includes(caseType) ? (
       <SnoozeFormWrapper
-        rowData={caseData}
+        selectedCases={selectedCases}
         updateSummaryData={updateSummaryData}
         setError={setError}
         setNotification={setNotification}
@@ -35,7 +35,7 @@ export const Actions: React.FC<Props> = ({
       />
     ) : (
       <UpdateSnoozeFormWrapper
-        rowData={caseData}
+        rowData={selectedCases[0]}
         updateSummaryData={updateSummaryData}
         setError={setError}
         setNotification={setNotification}

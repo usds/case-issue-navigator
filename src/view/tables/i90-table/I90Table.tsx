@@ -7,6 +7,7 @@ import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 import { DetailToggle } from "./DetailToggle";
+import { CaseSelect } from "./CaseSelect";
 import { ReceiptNumberLink } from "./ReceiptNumberLink";
 import { CaseAge } from "./CaseAge";
 import { CaseCreation } from "./CaseCreation";
@@ -21,12 +22,14 @@ import { Actions } from "./Actions";
 import "./ReceiptDisplayRow.scss";
 import "./TableCell.scss";
 import { hasFilters } from "../../../redux/selectors";
+import { Banner } from "../../util/Banner";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
   isLoading: state.cases.isLoading,
   hasFilters: hasFilters(state),
-  snoozeState: state.caseFilters.snoozeState
+  snoozeState: state.caseFilters.snoozeState,
+  selecedCases: state.cases.selectedCases
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
@@ -37,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setError: appStatusActionCreators.setDataLoadError,
       setNotification: appStatusActionCreators.setNotification,
       removeCase: casesActionCreators.removeCase,
-      onSnoozeUpdate: casesActionCreators.updateSnooze
+      onSnoozeUpdate: casesActionCreators.updateSnooze,
+      toggleCaseSelected: casesActionCreators.toggleCaseSelected
     },
     dispatch
   );
@@ -55,7 +59,9 @@ export const UnconnectedI90Table: React.FC<Props> = ({
   setError,
   setNotification,
   removeCase,
-  onSnoozeUpdate
+  onSnoozeUpdate,
+  selecedCases,
+  toggleCaseSelected
 }) => {
   if (caselist.length === 0 && isLoading) {
     return null;
@@ -71,6 +77,17 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     className?: string;
     displayIf?: boolean;
   }> = [
+    {
+      header: "",
+      Cell: ({ caseData }) => (
+        <CaseSelect
+          caseData={caseData}
+          selected={Boolean(selecedCases.find(c => c.receiptNumber === caseData.receiptNumber))}
+          toggleSelect={toggleCaseSelected}
+        />
+      ),
+      className: "min"
+    },
     {
       header: "",
       Cell: ({ caseData }) => (
@@ -145,46 +162,63 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     ({ displayIf }) => displayIf === undefined || displayIf
   );
 
+  const renderBanner = () => {
+    if (selecedCases.length === 0) {
+      return null;
+    }
+    return (
+      <Banner>
+        <div>
+          {selecedCases.length} case{selecedCases.length === 1 ? "" : "s"}{" "}
+          selected.
+        </div>
+      </Banner>
+    );
+  };
+
   return (
-    <table className="usa-table usa-table--borderless width-full">
-      <thead>
-        <tr>
-          {viewElements.map(({ header, className }) => (
-            <td key={header} className={className}>
-              {header}
-            </td>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {caselist.map(caseData => {
-          return (
-            <React.Fragment key={caseData.receiptNumber}>
-              <tr
-                className={
-                  caseData.showDetails ? "row--show-details" : undefined
-                }
-              >
-                {viewElements.map(({ header, Cell, className }) => (
-                  <td
-                    key={`${header}-${caseData.receiptNumber}`}
-                    className={className}
-                  >
-                    <Cell caseData={caseData} />
-                  </td>
-                ))}
-              </tr>
-              {caseData.showDetails && (
-                <CaseDetails
-                  numberOfColumns={viewElements.length}
-                  rowData={caseData}
-                />
-              )}
-            </React.Fragment>
-          );
-        })}
-      </tbody>
-    </table>
+    <>
+      {renderBanner()}
+      <table className="usa-table usa-table--borderless width-full">
+        <thead>
+          <tr>
+            {viewElements.map(({ header, className }) => (
+              <td key={header} className={className}>
+                {header}
+              </td>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {caselist.map(caseData => {
+            return (
+              <React.Fragment key={caseData.receiptNumber}>
+                <tr
+                  className={
+                    caseData.showDetails ? "row--show-details" : undefined
+                  }
+                >
+                  {viewElements.map(({ header, Cell, className }) => (
+                    <td
+                      key={`${header}-${caseData.receiptNumber}`}
+                      className={className}
+                    >
+                      <Cell caseData={caseData} />
+                    </td>
+                  ))}
+                </tr>
+                {caseData.showDetails && (
+                  <CaseDetails
+                    numberOfColumns={viewElements.length}
+                    rowData={caseData}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import NoteUtils from "../utils/NoteUtils";
 import DateUtils from "../utils/DateUtils";
 
 interface Props {
-  rowData?: Case;
+  selectedCases: Case[];
   snooze: (receiptNumber: string, state: CallbackState) => void;
   closeDialog: () => void;
   caseType: SnoozeState;
@@ -26,12 +26,12 @@ class SnoozeForm extends Component<Props, State> {
     };
   }
 
+  hasSnoozedCase() {
+    return Boolean(this.props.selectedCases.find(c => c.snoozeInformation));
+  }
+
   getSnoozeInformation(): CallbackState {
-    if (
-      this.props.caseType === "ACTIVE" ||
-      !this.props.rowData ||
-      !this.props.rowData.snoozeInformation
-    ) {
+    if (this.props.caseType === "ACTIVE" || !this.hasSnoozedCase()) {
       return {
         snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
         duration: SNOOZE_OPTIONS_SELECT[0].duration,
@@ -40,12 +40,22 @@ class SnoozeForm extends Component<Props, State> {
       };
     }
 
+    const aCase = this.props.selectedCases[0]
+    console.error("handing snooze form when first case has no snooze. this is a bug")
+    if (!aCase.snoozeInformation) {
+      return {
+        snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
+        duration: SNOOZE_OPTIONS_SELECT[0].duration,
+        followUp: "",
+        caseIssueNotes: ""
+      };;
+    }
     return {
-      snoozeReason: this.props.rowData.snoozeInformation.snoozeReason,
+      snoozeReason: aCase.snoozeInformation.snoozeReason,
       duration: DateUtils.numberOfDaysUntil(
-        this.props.rowData.snoozeInformation.snoozeEnd
+        aCase.snoozeInformation.snoozeEnd
       ),
-      followUp: SnoozeForm.getFollowUp(this.props.rowData),
+      followUp: SnoozeForm.getFollowUp(aCase),
       caseIssueNotes: ""
     };
   }

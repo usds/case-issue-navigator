@@ -14,7 +14,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 interface PassedProps extends SnoozeActionsProps {
-  rowData: Case;
+  selectedCases: Case[];
 }
 
 type Props = ReturnType<typeof mapStateToProps> & PassedProps;
@@ -26,7 +26,7 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
   onSnoozeUpdate,
   updateSummaryData,
   removeCase,
-  rowData
+  selectedCases
 }) => {
   const [showDialog, setDialog] = useState(false);
 
@@ -109,20 +109,20 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
     <React.Fragment>
       <ActionModal
         isOpen={showDialog}
-        title={rowData.receiptNumber}
+        title={"Edit Case"}
         closeModal={closeModal}
       >
         <SnoozeForm
           snooze={reSnooze}
           closeDialog={closeModal}
-          rowData={rowData}
+          selectedCases={selectedCases}
           caseType="SNOOZED"
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">
         Update
       </UsaButton>
-      <EndSnoozeForm rowData={rowData} deSnooze={deSnooze} />
+      <EndSnoozeForm selectedCases={selectedCases} deSnooze={deSnooze} />
     </React.Fragment>
   );
 };

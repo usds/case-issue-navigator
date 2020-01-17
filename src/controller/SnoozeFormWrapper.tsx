@@ -7,7 +7,7 @@ import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 
 interface Props extends ActionsProps {
-  rowData: Case;
+  recipetNumbers: string[];
 }
 
 const SnoozeFormWrapper = (props: Props) => {
@@ -52,7 +52,7 @@ const SnoozeFormWrapper = (props: Props) => {
   };
 
   const openModal = () => {
-    setDialog({ show: true, title: props.rowData.receiptNumber });
+    setDialog({ show: true, title: "Triage Case" });
   };
 
   const closeModal = () => setDialog({ show: false, title: "" });
@@ -67,7 +67,7 @@ const SnoozeFormWrapper = (props: Props) => {
         <SnoozeForm
           snooze={snooze}
           closeDialog={closeModal}
-          rowData={props.rowData}
+          recipetNumbers={props.recipetNumbers}
           caseType="ACTIVE"
         />
       </ActionModal>

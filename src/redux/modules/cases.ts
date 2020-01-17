@@ -26,7 +26,9 @@ export const casesActionCreators = {
   setLastUpdated: (lastUpdated: string) =>
     action("cases/SET_LAST_UPDATED", lastUpdated),
   setHasMoreCases: (hasMoreCases: boolean) =>
-    action("cases/SET_HAS_MORE_CASES", hasMoreCases)
+    action("cases/SET_HAS_MORE_CASES", hasMoreCases),
+  toggleCaseSelected: (c: Case) =>
+    action("cases/TOGGLE_CASE_SELECTED", c)
 };
 
 export type ActionCreator = typeof casesActionCreators;
@@ -40,6 +42,7 @@ export type CasesState = {
   summary: Summary;
   hasMoreCases: boolean;
   lastUpdated?: string;
+  selectedCases: Case[];
 };
 
 export const initialState: CasesState = {
@@ -50,7 +53,8 @@ export const initialState: CasesState = {
     SNOOZED_CASES: 0,
     PREVIOUSLY_SNOOZED: 0
   },
-  hasMoreCases: true
+  hasMoreCases: true,
+  selectedCases: []
 };
 
 // Reducer
@@ -133,6 +137,18 @@ export default function reducer(
       return { ...state, lastUpdated: action.payload };
     case "cases/SET_HAS_MORE_CASES":
       return { ...state, hasMoreCases: action.payload };
+    case "cases/TOGGLE_CASE_SELECTED":
+      if (state.selectedCases.find(c => c.receiptNumber === action.payload.receiptNumber)) {
+        return {
+          ...state,
+          selectedCases: state.selectedCases.filter(
+            c => c.receiptNumber !== action.payload.receiptNumber
+          )
+        };
+      }
+      const selectedCases = Array.from(state.selectedCases);
+      selectedCases.push(action.payload)
+      return { ...state, selectedCases };
     default:
       return state;
   }
