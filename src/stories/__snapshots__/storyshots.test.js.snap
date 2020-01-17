@@ -677,7 +677,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     name="snoozeReason"
     onChange={[Function]}
     required={true}
-    value="fo_referral"
+    value="3"
   >
     <option
       disabled={true}
@@ -687,22 +687,22 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
       - Select Reason -
     </option>
     <option
-      value="technical_issue"
+      value="0"
     >
       Technical Issue
     </option>
     <option
-      value="test_data"
+      value="1"
     >
       Test Data - should be deleted
     </option>
     <option
-      value="record_analysis"
+      value="2"
     >
       Needs record analysis to review
     </option>
     <option
-      value="fo_referral"
+      value="3"
     >
       Stuck at field office - awaiting response
     </option>
@@ -776,7 +776,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     name="snoozeReason"
     onChange={[Function]}
     required={true}
-    value="technical_issue"
+    value="0"
   >
     <option
       disabled={true}
@@ -786,22 +786,22 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       - Select Reason -
     </option>
     <option
-      value="technical_issue"
+      value="0"
     >
       Technical Issue
     </option>
     <option
-      value="test_data"
+      value="1"
     >
       Test Data - should be deleted
     </option>
     <option
-      value="record_analysis"
+      value="2"
     >
       Needs record analysis to review
     </option>
     <option
-      value="fo_referral"
+      value="3"
     >
       Stuck at field office - awaiting response
     </option>
@@ -818,7 +818,6 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     name="technicalSubtype"
     onChange={[Function]}
     required={true}
-    value=""
   >
     <option
       disabled={true}
@@ -828,42 +827,42 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       - Select Specific Issue -
     </option>
     <option
-      value="tecs_check"
+      value="0"
     >
       Cannot refresh TECS Check
     </option>
     <option
-      value="undo_referral"
+      value="1"
     >
       Undo referral
     </option>
     <option
-      value="unable_to_update_dob"
+      value="2"
     >
       Unable to Update DOB
     </option>
     <option
-      value="unable_to_update_address"
+      value="3"
     >
       Unable to update address
     </option>
     <option
-      value="unable_to_assign"
+      value="4"
     >
       Unable to assign/un-assign
     </option>
     <option
-      value="card_production_error"
+      value="5"
     >
       Card Production Error
     </option>
     <option
-      value="stuck_in_a_state"
+      value="6"
     >
       Case stuck in current state, and needs to be pushed to next phase
     </option>
     <option
-      value="needs_to_be_closed"
+      value="7"
     >
       Needs to be Closed
     </option>
@@ -1051,7 +1050,7 @@ exports[`Storyshots UsaSelect Select 1`] = `
   name="name"
   onChange={[Function]}
   required={true}
-  value="X"
+  value="0"
 >
   <option
     disabled={true}
@@ -1061,17 +1060,17 @@ exports[`Storyshots UsaSelect Select 1`] = `
     placeholder
   </option>
   <option
-    value="X"
+    value="0"
   >
     x
   </option>
   <option
-    value="Y"
+    value="1"
   >
     y
   </option>
   <option
-    value="Z"
+    value="2"
   >
     z
   </option>

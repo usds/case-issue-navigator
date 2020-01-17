@@ -65,7 +65,7 @@ export default function SnoozeInputs(props: Props) {
         options={technicalSubtypes}
         placeholder="- Select Specific Issue -"
         name="technicalSubtype"
-        selected={props.subreason ? props.subreason : ""}
+        selected={props.subreason}
         onChange={props.subreasonChange}
         label="Specific Issue"
       />
