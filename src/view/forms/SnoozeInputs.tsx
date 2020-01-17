@@ -49,7 +49,7 @@ interface Props {
   durationChange: (value?: number) => void;
   setError: (key: string, value: string) => void;
   deleteError: (key: string) => void;
-  subreason: Subreason | "";
+  subreason: Subreason | undefined;
   followUp: string;
   caseIssueNotes: string;
   duration: number | undefined;
@@ -65,7 +65,7 @@ export default function SnoozeInputs(props: Props) {
         options={technicalSubtypes}
         placeholder="- Select Technical Subtype -"
         name="technicalSubtype"
-        selected={props.subreason}
+        selected={props.subreason ? props.subreason : ""}
         onChange={props.subreasonChange}
         label="Technical Subtype"
       />

@@ -29,12 +29,12 @@ class SnoozeForm extends Component<Props, State> {
   getSubReason(
     snoozeReason: SnoozeReason,
     notes: Note[] | undefined
-  ): Subreason | "" {
+  ): Subreason | undefined {
     if (snoozeReason !== "technical_issue") {
-      return "";
+      return;
     }
-    const subreaon = NoteUtils.getFollowUp(notes, "subreason");
-    return subreaon ? (subreaon.content as Subreason) : "";
+    const subreason = NoteUtils.getFollowUp(notes, "subreason");
+    return subreason ? (subreason.content as Subreason) : undefined;
   }
 
   getSnoozeInformation(): CallbackState {
@@ -42,7 +42,7 @@ class SnoozeForm extends Component<Props, State> {
     if (caseType === "ACTIVE" || !rowData || !rowData.snoozeInformation) {
       return {
         snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
-        subreason: "",
+        subreason: undefined,
         duration: SNOOZE_OPTIONS_SELECT[0].duration,
         followUp: "",
         caseIssueNotes: ""
@@ -90,7 +90,7 @@ class SnoozeForm extends Component<Props, State> {
     this.setState({ snoozeReason, duration });
   }
 
-  subReasonChange(subreason: Subreason | "") {
+  subReasonChange(subreason: Subreason) {
     this.setState({ subreason });
   }
 

@@ -42,7 +42,7 @@ interface TechnicalSubtype {
 
 interface CallbackState {
   snoozeReason: SnoozeReason;
-  subreason: Subreason | "";
+  subreason: Subreason | undefined;
   followUp: string;
   caseIssueNotes: string;
   duration: number;
