@@ -808,6 +808,68 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
   </select>
   <label
     className="usa-label"
+    htmlFor="technicalSubtype"
+  >
+    Technical Subtype
+  </label>
+  <select
+    className="usa-select"
+    id="technicalSubtype"
+    name="technicalSubtype"
+    onChange={[Function]}
+    required={true}
+    value=""
+  >
+    <option
+      disabled={true}
+      hidden={true}
+      value=""
+    >
+      - Select Technical Subtype -
+    </option>
+    <option
+      value="tecs_check"
+    >
+      Cannot refresh TECS Check
+    </option>
+    <option
+      value="undo_referral"
+    >
+      Undo referral
+    </option>
+    <option
+      value="unable_to_update_dob"
+    >
+      Unable to Update DOB
+    </option>
+    <option
+      value="unable_to_update_address"
+    >
+      Unable to update address
+    </option>
+    <option
+      value="unable_to_assign"
+    >
+      Unable to assign/un-assign
+    </option>
+    <option
+      value="card_production_error"
+    >
+      Card Production Error
+    </option>
+    <option
+      value="stuck_in_a_state"
+    >
+      Case stuck in [x] state, and needs to be pushed to next phase
+    </option>
+    <option
+      value="needs_to_be_closed"
+    >
+      Needs to be Closed
+    </option>
+  </select>
+  <label
+    className="usa-label"
     htmlFor="followUp"
   >
     ServiceNow ticket ID
