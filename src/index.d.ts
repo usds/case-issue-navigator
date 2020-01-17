@@ -199,11 +199,24 @@ type SnoozeInformation = {
 
 type AttachmentType = "CORRELATION_ID" | "LINK" | "COMMENT" | "TAG";
 
-type CaseStatusOptions =
-  | "Approved"
-  | "Denied"
+type CaseStatusOptions = "Approved" | "Denied" | "In Process" | "Terminated";
+
+type CaseSubstatusOptions =
+  | "ASC Appt. Completed"
+  | "ASC Appt. Requested"
+  | "ASC Appt. Scheduled"
+  | "Awaiting Decision Notice"
+  | "Awaiting RFE Notice Generation"
+  | "Card Production Failed"
   | "In Process"
-  | "Terminated";
+  | "Pending Biometric Fee Payment"
+  | "Ready for Pre-Adjudication"
+  | "Ready For Adjudication"
+  | "Referred to Field Office"
+  | "Returning to Adjudications"
+  | "RFE Response"
+  | "Supervisory Review Completed"
+  | "Supervisory Review Requested";
 
 interface PartialNote {
   content: string;
