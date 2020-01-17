@@ -7,6 +7,7 @@ import { loadCases, loadSearchResults } from "../../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { CaseAgeFilter } from "./CaseAgeFilter";
 import { CaseStatusFilter } from "./CaseStatusFilter";
+import { CaseSubstatusFilter } from "./CaseSubstatusFilter";
 import { SnoozeReasonFilter } from "./SnoozeReasonFilter";
 import { ServiceNowFilter } from "./ServiceNowFilter";
 import { SnoozeStateFilter } from "./SnoozeStateFilter";
@@ -28,6 +29,7 @@ const mapStateToProps = (state: RootState) => ({
   search: state.caseFilters.search,
   activeSearch: state.caseFilters.activeSearch,
   caseStatus: state.caseFilters.caseStatus,
+  caseSubstatus: state.caseFilters.caseSubstatus,
   hasFilters: hasFilters(state)
 });
 
@@ -45,6 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setSearch: caseFilterActionCreators.setSearch,
       setActiveSearch: caseFilterActionCreators.setActiveSearch,
       setCaseStatus: caseFilterActionCreators.setCaseStatus,
+      setCaseSubstatus: caseFilterActionCreators.setCaseSubstatus,
       clearFilters: caseFilterActionCreators.clearFilters
     },
     dispatch
@@ -89,8 +92,13 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
     onFilterSubmit();
   };
 
-  const onCaseStatusUpdate = (caseStatus: CaseStatusOptions) => {
+  const onCaseStatusUpdate = (caseStatus?: CaseStatusOptions) => {
     props.setCaseStatus(caseStatus);
+    onFilterSubmit();
+  };
+
+  const onCaseSubstatusUpdate = (caseSubstatus?: CaseSubstatusOptions) => {
+    props.setCaseSubstatus(caseSubstatus);
     onFilterSubmit();
   };
 
@@ -146,6 +154,12 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
               <CaseStatusFilter
                 caseStatus={props.caseStatus}
                 onUpdate={onCaseStatusUpdate}
+              />
+            </div>
+            <div className="float-left margin-right-2">
+              <CaseSubstatusFilter
+                caseSubstatus={props.caseSubstatus}
+                onUpdate={onCaseSubstatusUpdate}
               />
             </div>
             <div className="float-left margin-right-2 margin-top-4">

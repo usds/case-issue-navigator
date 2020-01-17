@@ -32,7 +32,8 @@ export const loadCases = (reciptnumber?: string) => async (
     snoozeReasonFilter,
     serviceNowFilter,
     snoozeState,
-    caseStatus
+    caseStatus,
+    caseSubstatus
   } = caseFilters;
 
   const lastReceiptNumber =
@@ -48,7 +49,8 @@ export const loadCases = (reciptnumber?: string) => async (
     caseCreationStart,
     caseCreationEnd,
     snoozeState === "SNOOZED" ? snoozeReasonFilter : undefined,
-    caseStatus
+    caseStatus,
+    caseSubstatus
   );
   dispatch(setIsLoading(false));
 

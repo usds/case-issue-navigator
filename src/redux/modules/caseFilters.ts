@@ -8,7 +8,8 @@ import {
   SN_TICKET,
   SNOOZE_STATE,
   SEARCH,
-  CASE_STATUS
+  CASE_STATUS,
+  CASE_SUBSTATUS
 } from "../../controller/config";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -80,6 +81,10 @@ export const caseFilterActionCreators = {
     pushURLParam(CASE_STATUS, caseStatus);
     return action("caseFilters/SET_CASE_STATUS", caseStatus);
   },
+  setCaseSubstatus: (caseSubstatus?: CaseSubstatusOptions) => {
+    pushURLParam(CASE_SUBSTATUS, caseSubstatus);
+    return action("caseFilters/SET_CASE_SUBSTATUS", caseSubstatus);
+  },
   setSearch: (search?: string) => action("caseFilters/SET_SEARCH", search),
   setActiveSearch: (active: boolean): any => async (
     dispatch: ThunkDispatch<RootState, {}, AnyAction>,
@@ -109,6 +114,7 @@ export type CaseFilterState = {
   snoozeState: SnoozeState;
   activeSearch: boolean;
   caseStatus?: CaseStatusOptions;
+  caseSubstatus?: CaseSubstatusOptions;
 };
 
 export const initialState: CaseFilterState = {
@@ -148,6 +154,8 @@ export default function reducer(
       };
     case "caseFilters/SET_CASE_STATUS":
       return { ...state, caseStatus: action.payload };
+    case "caseFilters/SET_CASE_SUBSTATUS":
+      return { ...state, caseSubstatus: action.payload };
     case "caseFilters/CLEAR_FILTERS":
       return initialState;
     default:

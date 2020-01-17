@@ -5,6 +5,7 @@ export const SN_TICKET = "snTicket";
 export const SNOOZE_STATE = "snoozeState";
 export const SEARCH = "search";
 export const CASE_STATUS = "caseStatus";
+export const CASE_SUBSTATUS = "caseSubStatus";
 
 const IS_TEST_ENV = process.env.NODE_ENV === "test";
 

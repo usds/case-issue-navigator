@@ -48,7 +48,8 @@ class URLs {
     from?: Date,
     to?: Date,
     snoozeReason?: string,
-    caseStatus?: CaseStatusOptions
+    caseStatus?: CaseStatusOptions,
+    caseSubstatus?: CaseSubstatusOptions
   ): URL {
     const url = URLs.casesBase();
     url.searchParams.append("mainFilter", filter);
@@ -68,6 +69,9 @@ class URLs {
     }
     if (caseStatus) {
       url.searchParams.append("filter_dataField[caseStatus]", caseStatus);
+    }
+    if (caseSubstatus) {
+      url.searchParams.append("filter_dataField[caseSubstatus]", caseSubstatus);
     }
     return url;
   }
