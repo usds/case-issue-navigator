@@ -31,7 +31,7 @@ const technicalSubtypes: TechnicalSubtype[] = [
   },
   {
     value: "stuck_in_a_state",
-    text: "Case stuck in [x] state, and needs to be pushed to next phase"
+    text: "Case stuck in current state, and needs to be pushed to next phase"
   },
   {
     value: "needs_to_be_closed",
@@ -63,11 +63,11 @@ export default function SnoozeInputs(props: Props) {
     return (
       <UsaSelect
         options={technicalSubtypes}
-        placeholder="- Select Technical Subtype -"
+        placeholder="- Select Specific Issue -"
         name="technicalSubtype"
         selected={props.subreason ? props.subreason : ""}
         onChange={props.subreasonChange}
-        label="Technical Subtype"
+        label="Specific Issue"
       />
     );
   };

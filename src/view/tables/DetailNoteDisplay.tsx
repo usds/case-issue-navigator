@@ -48,6 +48,12 @@ const DetailNoteDisplay: React.FunctionComponent<
               {`Referred beacause: ${caseDetail.content}`}
             </React.Fragment>
           );
+        case "subreason":
+          return (
+            <React.Fragment>
+              {`Specific issue: ${caseDetail.content}`}
+            </React.Fragment>
+          );
         default:
           return (
             <React.Fragment>

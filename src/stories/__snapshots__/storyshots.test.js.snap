@@ -810,7 +810,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     className="usa-label"
     htmlFor="technicalSubtype"
   >
-    Technical Subtype
+    Specific Issue
   </label>
   <select
     className="usa-select"
@@ -825,7 +825,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
       hidden={true}
       value=""
     >
-      - Select Technical Subtype -
+      - Select Specific Issue -
     </option>
     <option
       value="tecs_check"
@@ -860,7 +860,7 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     <option
       value="stuck_in_a_state"
     >
-      Case stuck in [x] state, and needs to be pushed to next phase
+      Case stuck in current state, and needs to be pushed to next phase
     </option>
     <option
       value="needs_to_be_closed"
