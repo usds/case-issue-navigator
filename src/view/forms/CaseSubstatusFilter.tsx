@@ -23,12 +23,14 @@ const OPTIONS: Option[] = [
     text: "Awaiting RFE Notice Generation",
     value: "Awaiting RFE Notice Generation"
   },
+  { text: "Card Produced", value: "Card Produced" },
   { text: "Card Production Failed", value: "Card Production Failed" },
   { text: "In Process", value: "In Process" },
   {
     text: "Pending Biometric Fee Payment",
     value: "Pending Biometric Fee Payment"
   },
+  { text: "Producing Card", value: "Producing Card" },
   { text: "Ready for Pre-Adjudication", value: "Ready for Pre-Adjudication" },
   { text: "Ready For Adjudication", value: "Ready For Adjudication" },
   { text: "Referred to Field Office", value: "Referred to Field Office" },
