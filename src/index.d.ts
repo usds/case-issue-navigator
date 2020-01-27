@@ -199,7 +199,18 @@ type SnoozeInformation = {
 
 type AttachmentType = "CORRELATION_ID" | "LINK" | "COMMENT" | "TAG";
 
-type CaseStatusOptions = "Approved" | "Denied" | "In Process" | "Terminated";
+type CaseStatusOptions =
+  | "Approved"
+  | "Denied"
+  | "In Process"
+  | "Terminated"
+  | "Pending"
+  | "Fee Payment Issues"
+  | "Overdue Biometric Payment"
+  | "Withdrawn"
+  | "Administratively Closed"
+  | "In Suspense"
+  | "Request A-File";
 
 type CaseSubstatusOptions =
   | "ASC Appt. Completed"
@@ -207,9 +218,11 @@ type CaseSubstatusOptions =
   | "ASC Appt. Scheduled"
   | "Awaiting Decision Notice"
   | "Awaiting RFE Notice Generation"
+  | "Card Produced"
   | "Card Production Failed"
   | "In Process"
   | "Pending Biometric Fee Payment"
+  | "Producing Card"
   | "Ready for Pre-Adjudication"
   | "Ready For Adjudication"
   | "Referred to Field Office"

@@ -18,7 +18,14 @@ const OPTIONS: Option[] = [
   { text: "Approved", value: "Approved" },
   { text: "Denied", value: "Denied" },
   { text: "In Process", value: "In Process" },
-  { text: "Terminated", value: "Terminated" }
+  { text: "Terminated", value: "Terminated" },
+  { text: "Pending", value: "Pending" },
+  { text: "Fee Payment Issues", value: "Fee Payment Issues" },
+  { text: "Overdue Biometric Payment", value: "Overdue Biometric Payment" },
+  { text: "Withdrawn", value: "Withdrawn" },
+  { text: "Administratively Closed", value: "Administratively Closed" },
+  { text: "In Suspense", value: "In Suspense" },
+  { text: "Request A-File", value: "Request A-File" }
 ];
 
 const CaseStatusFilter: React.FunctionComponent<Props> = props => {
