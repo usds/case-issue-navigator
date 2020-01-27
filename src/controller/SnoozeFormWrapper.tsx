@@ -52,7 +52,10 @@ const SnoozeFormWrapper = (props: Props) => {
   };
 
   const openModal = () => {
-    setDialog({ show: true, title: props.rowData.receiptNumber });
+    setDialog({
+      show: true,
+      title: `Triage Case (${props.rowData.receiptNumber})`
+    });
   };
 
   const closeModal = () => setDialog({ show: false, title: "" });

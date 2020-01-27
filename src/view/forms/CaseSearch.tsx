@@ -21,11 +21,13 @@ const CaseSearch: React.FunctionComponent<Props> = props => {
           name="search"
           value={props.search || ""}
           onChange={e => props.onSearchChange(e.target.value)}
+          style={{ height: "38px" }}
         />
         <button
           className="usa-button"
           type="submit"
           onClick={props.onSearchSubmit}
+          style={{ height: "38px" }}
         >
           <span className="usa-sr-only">Search</span>
         </button>

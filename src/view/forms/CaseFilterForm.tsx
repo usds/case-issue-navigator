@@ -162,25 +162,21 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
                 onUpdate={onCaseSubstatusUpdate}
               />
             </div>
-            <div className="float-left margin-right-2 margin-top-4">
-              <SnoozeStateFilter
-                snoozeState={props.snoozeState}
-                alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
-                onUpdate={onSnoozeStateFilterUpdate}
-              />
-            </div>
-            <div className="float-left margin-right-2">
-              <ServiceNowFilter
-                snoozeState={props.snoozeState}
-                serviceNowFilter={props.serviceNowFilter}
-                onUpdate={onServiceNowFilter}
-              />
-            </div>
+            <SnoozeStateFilter
+              snoozeState={props.snoozeState}
+              alarmedCases={props.summary.PREVIOUSLY_SNOOZED}
+              onUpdate={onSnoozeStateFilterUpdate}
+            />
+            <ServiceNowFilter
+              snoozeState={props.snoozeState}
+              serviceNowFilter={props.serviceNowFilter}
+              onUpdate={onServiceNowFilter}
+            />
           </React.Fragment>
         )}
         {props.hasFilters && (
-          <div className="float-right margin-right-2 margin-top-2">
-            <UsaButton buttonStyle="secondary" onClick={onClear}>
+          <div className="float-right margin-right-2 margin-top-3 clear-filter-button">
+            <UsaButton buttonStyle="outline" onClick={onClear}>
               Clear Filters
             </UsaButton>
           </div>

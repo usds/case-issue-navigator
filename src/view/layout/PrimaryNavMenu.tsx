@@ -1,5 +1,4 @@
 import React from "react";
-import close from "uswds/dist/img/close.svg";
 import "./PrimaryNavMenu.css";
 import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
@@ -20,22 +19,13 @@ const UnconnectedPrimaryNavMenu: React.FC<Props> = ({ user }) => {
       >
         <div className="usa-navbar">
           <div className="usa-logo" id="extended-logo">
-            <em className="usa-logo__text">Case Issue Navigator</em>
+            <em className="usa-logo__text">ELIS Search Party</em>
           </div>
-          <button className="usa-menu-btn">Menu</button>
-        </div>
-        <nav role="navigation" className="usa-nav ">
-          <button className="usa-nav__close">
-            <img src={close} alt="close" />
-          </button>
           {user && (
-            <div className="usa-nav__secondary margin-bottom-105">
-              <ul className="usa-nav__secondary-links">
-                <li className="usa-nav__secondary-item">{user.name}</li>
-              </ul>
-            </div>
+            <span className="signed-in-as">Signed in as: {user.name}</span>
           )}
-        </nav>
+        </div>
+        <nav role="navigation" className="usa-nav "></nav>
       </header>
     </React.Fragment>
   );

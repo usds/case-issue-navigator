@@ -116,7 +116,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       displayIf: snoozeState === "SNOOZED"
     },
     {
-      header: "Snoozed",
+      header: "Due in",
       Cell: SnoozeDaysLeft,
       displayIf: snoozeState === "SNOOZED"
     },

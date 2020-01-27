@@ -56,6 +56,41 @@ const SNOOZE_OPTIONS_SELECT = Object.entries(SNOOZE_OPTIONS).reduce(
   []
 );
 
+const SPECIFIC_TECHNICAL_ISSUES: TechnicalSubtype[] = [
+  {
+    value: "tecs_check",
+    text: "Cannot refresh TECS Check"
+  },
+  {
+    value: "undo_referral",
+    text: "Undo referral"
+  },
+  {
+    value: "unable_to_update_dob",
+    text: "Unable to Update DOB"
+  },
+  {
+    value: "unable_to_update_address",
+    text: "Unable to update address"
+  },
+  {
+    value: "unable_to_assign",
+    text: "Unable to assign/un-assign"
+  },
+  {
+    value: "card_production_error",
+    text: "Card Production Error"
+  },
+  {
+    value: "stuck_in_a_state",
+    text: "Case stuck in current state, and needs to be pushed to next phase"
+  },
+  {
+    value: "needs_to_be_closed",
+    text: "Needs to be Closed"
+  }
+];
+
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
@@ -78,5 +113,6 @@ export {
   IS_TEST_ENV,
   SNOOZE_OPTIONS,
   SNOOZE_OPTIONS_SELECT,
-  VIEWS
+  VIEWS,
+  SPECIFIC_TECHNICAL_ISSUES
 };

@@ -36,7 +36,7 @@ describe("App integration", () => {
     );
 
     // Completed when user endpoint resolved
-    await waitForElement(() => getByText("John Doe"));
+    await waitForElement(() => getByText("Signed in as: John Doe"));
     // Completed when active cases endpoint resolves
     await waitForElement(() => getByText(activeCases[0].receiptNumber));
 
@@ -68,7 +68,7 @@ describe("App integration", () => {
     );
 
     // Completed when user endpoint resolved
-    await waitForElement(() => getByText("John Doe"));
+    await waitForElement(() => getByText("Signed in as: John Doe"));
     // Completed when active cases endpoint resolves
     await waitForElement(() => getByText(activeCases[0].receiptNumber));
 

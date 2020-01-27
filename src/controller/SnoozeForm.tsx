@@ -65,24 +65,15 @@ class SnoozeForm extends Component<Props, State> {
     if (!rowData || !rowData.snoozeInformation) {
       return "";
     }
-    const subtype = SnoozeForm.getSubtype(
-      rowData.snoozeInformation.snoozeReason
-    );
-    if (subtype === null) {
+    const subtype =
+      rowData.snoozeInformation.snoozeReason === "record_analysis"
+        ? null
+        : "troubleticket";
+    if (!subtype) {
       return "";
     }
     const followUp = NoteUtils.getFollowUp(rowData.notes, subtype);
     return followUp ? followUp.content : "";
-  }
-
-  static getSubtype(snoozeReason: SnoozeReason): SubType | null {
-    switch (snoozeReason) {
-      case "technical_issue":
-        return "troubleticket";
-      case "fo_referral":
-        return "fieldoffice";
-    }
-    return null;
   }
 
   snoozeReasonChange(snoozeReason: SnoozeReason) {
@@ -156,13 +147,13 @@ class SnoozeForm extends Component<Props, State> {
     if (!this.props.rowData) {
       return;
     }
-    if (!this.props.rowData.previouslySnoozed) {
-      return;
-    }
-    if (!this.props.rowData.snoozeInformation) {
+    if (
+      !this.props.rowData.snoozeInformation ||
+      !this.props.rowData.snoozeInformation.snoozeStart
+    ) {
       console.error(
         "Missing snooze information when previously snoozed",
-        this.props.rowData.previouslySnoozed
+        this.props.rowData
       );
       return;
     }
@@ -175,7 +166,12 @@ class SnoozeForm extends Component<Props, State> {
         text={
           <React.Fragment>
             Previously triaged on: {snoozeStart}.<br />
-            Problem given: {this.props.rowData.snoozeInformation.snoozeReason}.
+            Problem given:{" "}
+            {
+              SNOOZE_OPTIONS[this.props.rowData.snoozeInformation.snoozeReason]
+                .shortText
+            }
+            .
           </React.Fragment>
         }
       />
@@ -185,11 +181,7 @@ class SnoozeForm extends Component<Props, State> {
   render() {
     return (
       <form className="usa-form">
-        {this.props.caseType === "ACTIVE" ? (
-          this.deSnoozeCheck()
-        ) : (
-          <h4>Update case problem</h4>
-        )}
+        {this.props.caseType === "ACTIVE" ? this.deSnoozeCheck() : null}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}

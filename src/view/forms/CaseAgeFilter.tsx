@@ -58,21 +58,50 @@ const CaseAgeFilter: React.FunctionComponent<Props> = props => {
     props.onSubmit();
   };
 
+  const isActive = (year: number | undefined) => {
+    if (!year && !props.start && !props.end) {
+      return true;
+    }
+    if (!props.start || !props.end) {
+      return false;
+    }
+    if (
+      props.start.getMonth() + 1 === 1 &&
+      props.start.getDate() === 1 &&
+      props.start.getFullYear() === year &&
+      props.end.getMonth() + 1 === 12 &&
+      props.end.getDate() === 31 &&
+      props.end.getFullYear() === year
+    ) {
+      return true;
+    }
+  };
+
   const tooltip = () => (
     <div className="caseCreationForm">
       {/* HACK: hard code years for current i90 case list */}
       {[2015, 2016, 2017, 2018, 2019].map(year => (
-        <React.Fragment key={year}>
+        <div
+          key={year}
+          className={
+            (isActive(year) ? "selected-year " : "") + " select-year-button"
+          }
+        >
           <UsaButton buttonStyle="outline" onClick={() => setYear(year)}>
             {year}
           </UsaButton>
           <br />
-        </React.Fragment>
+        </div>
       ))}
-
-      <UsaButton buttonStyle="outline" onClick={defaultDateRange}>
-        All Cases
-      </UsaButton>
+      <div
+        className={
+          (isActive(undefined) ? "selected-year " : "") + " select-year-button"
+        }
+      >
+        <UsaButton buttonStyle="outline" onClick={defaultDateRange}>
+          All Cases
+        </UsaButton>
+      </div>
     </div>
   );
 

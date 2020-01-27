@@ -3,41 +3,7 @@ import UsaSelect from "./UsaSelect";
 import UsaTextInput from "./UsaTextInput";
 import UsaNumberInput from "./UsaNumberInput";
 import AddNoteInput from "./AddNoteInput";
-
-const technicalSubtypes: TechnicalSubtype[] = [
-  {
-    value: "tecs_check",
-    text: "Cannot refresh TECS Check"
-  },
-  {
-    value: "undo_referral",
-    text: "Undo referral"
-  },
-  {
-    value: "unable_to_update_dob",
-    text: "Unable to Update DOB"
-  },
-  {
-    value: "unable_to_update_address",
-    text: "Unable to update address"
-  },
-  {
-    value: "unable_to_assign",
-    text: "Unable to assign/un-assign"
-  },
-  {
-    value: "card_production_error",
-    text: "Card Production Error"
-  },
-  {
-    value: "stuck_in_a_state",
-    text: "Case stuck in current state, and needs to be pushed to next phase"
-  },
-  {
-    value: "needs_to_be_closed",
-    text: "Needs to be Closed"
-  }
-];
+import { SPECIFIC_TECHNICAL_ISSUES } from "../../controller/config";
 
 interface Props {
   options: SnoozeOptionValue[];
@@ -62,7 +28,7 @@ export default function SnoozeInputs(props: Props) {
     }
     return (
       <UsaSelect
-        options={technicalSubtypes}
+        options={SPECIFIC_TECHNICAL_ISSUES}
         placeholder="- Select Specific Issue -"
         name="technicalSubtype"
         selected={props.subreason}

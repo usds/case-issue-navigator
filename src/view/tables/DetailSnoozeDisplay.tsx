@@ -16,7 +16,7 @@ const DetailSnoozeDisplay: React.FunctionComponent<
   return (
     <React.Fragment>
       {caseDetail.type === "snoozeStart"
-        ? `Snooze started for reason "${translatedReason}."`
+        ? `Triaged as "${translatedReason}."`
         : `Snooze ended for reason "${translatedReason}."`}
     </React.Fragment>
   );

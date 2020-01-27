@@ -88,7 +88,7 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
       removeCase(receiptNumber);
       trackEvent("snooze", "deSnooze", "desnoozed");
       setNotification({
-        message: `${receiptNumber} has been Unsnoozed.`,
+        message: `${receiptNumber} has been resolved.`,
         type: "info"
       });
       return;
@@ -109,7 +109,7 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
     <React.Fragment>
       <ActionModal
         isOpen={showDialog}
-        title={rowData.receiptNumber}
+        title={`Update Case (${rowData.receiptNumber})`}
         closeModal={closeModal}
       >
         <SnoozeForm

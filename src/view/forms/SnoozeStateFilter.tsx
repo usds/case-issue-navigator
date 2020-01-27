@@ -22,14 +22,16 @@ const SnoozeStateFilter: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className="snooze-state-filter">
-      <UsaCheckbox
-        name="snoozeState"
-        id="snoozeState"
-        value={props.snoozeState === "ALARMED"}
-        onChange={onChange}
-        label={`Overdue Cases Only`}
-      />
+    <div className="float-left margin-right-2" style={{ marginTop: "28px" }}>
+      <div className="snooze-state-filter">
+        <UsaCheckbox
+          name="snoozeState"
+          id="snoozeState"
+          value={props.snoozeState === "ALARMED"}
+          onChange={onChange}
+          label={`Overdue Cases Only`}
+        />
+      </div>
     </div>
   );
 };
