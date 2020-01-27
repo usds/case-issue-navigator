@@ -1,8 +1,15 @@
 .sp-full-width.usa-header--extended .usa-nav__inner,
 .sp-full-width .usa-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 100%;
   padding-left: 0 !important;
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
+}
+
+.signed-in-as {
+  font-size: 0.8em;
 }

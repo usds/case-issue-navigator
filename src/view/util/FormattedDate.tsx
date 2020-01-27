@@ -1,4 +1,5 @@
 import React from "react";
+import "./FormattedDate.scss";
 
 interface Props {
   label: string;
@@ -16,7 +17,7 @@ const FormattedDate: React.FC<Props> = props => {
   }
 
   return (
-    <p>
+    <p className="formatted-date">
       {props.label}: {new Date(props.date).toLocaleString()}
     </p>
   );

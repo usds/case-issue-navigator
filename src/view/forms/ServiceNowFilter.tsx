@@ -63,7 +63,7 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <React.Fragment>
+    <div className="float-left margin-right-2">
       <UsaSelect
         options={options}
         placeholder={DEFAULT_TEXT}
@@ -72,7 +72,7 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
         onChange={onUpdate}
         label="Has Service Now Ticket"
       />
-    </React.Fragment>
+    </div>
   );
 };
 

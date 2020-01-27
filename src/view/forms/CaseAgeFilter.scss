@@ -2,13 +2,22 @@
   text-align: center;
   padding: 10px;
 
-  .usa-button {
-    width: 150px;
+  .select-year-button {
     margin-top: 10px;
     margin-right: 0px;
 
     &:first-child {
       margin-top: 0px;
+    }
+  }
+
+  .usa-button {
+    width: 150px;
+  }
+
+  .selected-year {
+    button {
+      background-color: #d3d3d3;
     }
   }
 }

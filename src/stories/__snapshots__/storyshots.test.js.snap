@@ -112,7 +112,9 @@ Array [
 `;
 
 exports[`Storyshots FormattedDate Last Refresh 1`] = `
-<p>
+<p
+  className="formatted-date"
+>
   Last Refresh
   : 
   8/11/2014, 12:00:00 AM
@@ -363,7 +365,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         Problem
       </td>
       <td>
-        Snoozed
+        Due in
       </td>
       <td>
         SN Ticket #
@@ -662,9 +664,6 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
 <form
   className="usa-form"
 >
-  <h4>
-    Update case problem
-  </h4>
   <label
     className="usa-label"
     htmlFor="snoozeReason"
@@ -719,7 +718,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     name="followUp"
     onChange={[Function]}
     type="text"
-    value=""
+    value="ABC123"
   />
   <label
     className="usa-label"

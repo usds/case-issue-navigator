@@ -42,8 +42,10 @@ const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
       </Helmet>
       <ToastContainer />
       <PrimaryNavMenu />
-      <FormattedDate label="Last Refresh" date={lastUpdated} />
-      <p>Excluding cases that have been referred to BCU or FDNS.</p>
+      <div>
+        <FormattedDate label="Last Refresh" date={lastUpdated} />
+        <p>Aging I-90 cases excluding BCU and FDNS referrals.</p>
+      </div>
     </React.Fragment>
   );
 };
