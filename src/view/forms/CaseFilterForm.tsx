@@ -122,7 +122,7 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
   return (
     <Well>
       <div className="filter-form">
-        <div className="float-left margin-right-2">
+        <div className="margin-right-2">
           <CaseSearch
             search={props.search}
             onSearchChange={props.setSearch}
@@ -132,7 +132,7 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
         </div>
         {!props.activeSearch && (
           <React.Fragment>
-            <div className="float-left margin-right-2">
+            <div className="margin-right-2">
               <CaseAgeFilter
                 start={props.start}
                 end={props.end}
@@ -143,20 +143,20 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
                 onSubmit={onFilterSubmit}
               />
             </div>
-            <div className="float-left margin-right-2">
+            <div className="margin-right-2">
               <SnoozeReasonFilter
                 snoozeState={props.snoozeState}
                 snoozeReason={props.snoozeReasonFilter}
                 onUpdate={onSnoozeReasonFilterUpdate}
               />
             </div>
-            <div className="float-left margin-right-2">
+            <div className="margin-right-2">
               <CaseStatusFilter
                 caseStatus={props.caseStatus}
                 onUpdate={onCaseStatusUpdate}
               />
             </div>
-            <div className="float-left margin-right-2">
+            <div className="margin-right-2">
               <CaseSubstatusFilter
                 caseSubstatus={props.caseSubstatus}
                 onUpdate={onCaseSubstatusUpdate}
