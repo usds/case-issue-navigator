@@ -65,11 +65,10 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     return <p>No cases found.{hasFilters && " Check your filters."}</p>;
   }
 
-  const elements: Array<{
+  const viewElements: Array<{
     header: string;
-    Cell: React.FC<{ caseData: Case }>;
+    Cell: React.FC<{ caseData: Case; snoozeState: SnoozeState }>;
     className?: string;
-    displayIf?: boolean;
     align?: "left" | "right";
   }> = [
     {
@@ -91,8 +90,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Case Creation",
-      Cell: CaseCreation,
-      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
+      Cell: CaseCreation
     },
     {
       header: "Application Reason",
@@ -100,13 +98,11 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Case Status",
-      Cell: CaseStatus,
-      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
+      Cell: CaseStatus
     },
     {
       header: "Case Substatus",
-      Cell: CaseSubstatus,
-      displayIf: ["ACTIVE", "ALARMED"].includes(snoozeState)
+      Cell: CaseSubstatus
     },
     {
       header: "Platform",
@@ -114,19 +110,16 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Problem",
-      Cell: Problem,
-      displayIf: snoozeState === "SNOOZED"
+      Cell: Problem
     },
     {
       header: "Due in (days)",
       Cell: SnoozeDaysLeft,
-      displayIf: snoozeState === "SNOOZED",
       align: "right"
     },
     {
       header: "SN Ticket #",
-      Cell: ServiceNowTicket,
-      displayIf: snoozeState === "SNOOZED"
+      Cell: ServiceNowTicket
     },
     {
       header: "Actions",
@@ -143,10 +136,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       )
     }
   ];
-
-  const viewElements = elements.filter(
-    ({ displayIf }) => displayIf === undefined || displayIf
-  );
 
   return (
     <table className="usa-table usa-table--borderless width-full">
@@ -174,7 +163,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                     className={className}
                     align={align}
                   >
-                    <Cell caseData={caseData} />
+                    <Cell caseData={caseData} snoozeState={snoozeState} />
                   </td>
                 ))}
               </tr>

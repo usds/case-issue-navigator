@@ -5,14 +5,19 @@ import ReactTooltip from "react-tooltip";
 
 interface Props {
   caseData: Case;
+  snoozeState: SnoozeState;
 }
 
-export const ReceiptNumberLink: React.FC<Props> = ({ caseData }) => (
+export const ReceiptNumberLink: React.FC<Props> = ({
+  caseData,
+  snoozeState
+}) => (
   <React.Fragment>
     <a href={ELIS_CASE_BASE_URL + caseData.receiptNumber} target="_elis_viewer">
       {caseData.receiptNumber}
     </a>
-    {caseData &&
+    {snoozeState === "ACTIVE" &&
+    caseData &&
     caseData.snoozeInformation &&
     caseData.snoozeInformation.snoozeStart ? (
       <React.Fragment>
