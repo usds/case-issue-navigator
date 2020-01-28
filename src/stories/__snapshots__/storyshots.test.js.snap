@@ -137,8 +137,10 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         Receipt Number
       </td>
-      <td>
-        Case Age
+      <td
+        align="right"
+      >
+        Case Age (days)
       </td>
       <td>
         Case Creation
@@ -200,36 +202,11 @@ exports[`Storyshots I90Table Active case view 1`] = `
         >
           FKE5381523
         </a>
-         
-        <svg
-          aria-hidden="true"
-          aria-label="Case Overdue - Please Review"
-          className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
-          data-icon="exclamation-triangle"
-          data-place="right"
-          data-prefix="fas"
-          data-tip={true}
-          focusable="false"
-          role="img"
-          style={Object {}}
-          viewBox="0 0 576 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
-        <div
-          className="__react_component_tooltip place-top type-dark "
-          data-id="tooltip"
-        >
-          Case Overdue - Please Review
-        </div>
       </td>
-      <td>
-        101 days
+      <td
+        align="right"
+      >
+        101
       </td>
       <td>
         8/6/2019
@@ -297,8 +274,10 @@ exports[`Storyshots I90Table Active case view 1`] = `
           FKE8206743
         </a>
       </td>
-      <td>
-        151 days
+      <td
+        align="right"
+      >
+        151
       </td>
       <td>
         6/17/2019
@@ -352,8 +331,10 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       >
         Receipt Number
       </td>
-      <td>
-        Case Age
+      <td
+        align="right"
+      >
+        Case Age (days)
       </td>
       <td>
         Application Reason
@@ -364,8 +345,10 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         Problem
       </td>
-      <td>
-        Due in
+      <td
+        align="right"
+      >
+        Due in (days)
       </td>
       <td>
         SN Ticket #
@@ -415,36 +398,11 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         >
           FKE5381523
         </a>
-         
-        <svg
-          aria-hidden="true"
-          aria-label="Case Overdue - Please Review"
-          className="svg-inline--fa fa-exclamation-triangle fa-w-18 text-accent-warm"
-          data-icon="exclamation-triangle"
-          data-place="right"
-          data-prefix="fas"
-          data-tip={true}
-          focusable="false"
-          role="img"
-          style={Object {}}
-          viewBox="0 0 576 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
-        <div
-          className="__react_component_tooltip place-top type-dark "
-          data-id="tooltip"
-        >
-          Case Overdue - Please Review
-        </div>
       </td>
-      <td>
-        101 days
+      <td
+        align="right"
+      >
+        101
       </td>
       <td>
         Boredom
@@ -455,7 +413,9 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         
       </td>
-      <td />
+      <td
+        align="right"
+      />
       <td />
       <td>
         <button
@@ -516,8 +476,10 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           FKE8206743
         </a>
       </td>
-      <td>
-        151 days
+      <td
+        align="right"
+      >
+        151
       </td>
       <td>
         Enthusiasm
@@ -528,8 +490,10 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         Technical Issue
       </td>
-      <td>
-        259 days
+      <td
+        align="right"
+      >
+        259
       </td>
       <td>
         <a

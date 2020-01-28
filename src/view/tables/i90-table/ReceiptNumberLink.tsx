@@ -12,7 +12,9 @@ export const ReceiptNumberLink: React.FC<Props> = ({ caseData }) => (
     <a href={ELIS_CASE_BASE_URL + caseData.receiptNumber} target="_elis_viewer">
       {caseData.receiptNumber}
     </a>
-    {caseData && caseData.snoozeInformation && caseData.snoozeInformation.snoozeStart ? (
+    {caseData &&
+    caseData.snoozeInformation &&
+    caseData.snoozeInformation.snoozeStart ? (
       <React.Fragment>
         &nbsp;
         <FontAwesomeIcon
@@ -24,6 +26,6 @@ export const ReceiptNumberLink: React.FC<Props> = ({ caseData }) => (
         />
         <ReactTooltip>Case Overdue - Please Review</ReactTooltip>
       </React.Fragment>
-    ) : null }
+    ) : null}
   </React.Fragment>
 );

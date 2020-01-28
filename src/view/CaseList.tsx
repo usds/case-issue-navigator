@@ -146,7 +146,7 @@ class CaseList extends React.Component<Props, State> {
           overdueCases={this.props.summary.PREVIOUSLY_SNOOZED}
           onShowCases={this.showAllOverdueCases.bind(this)}
         />
-        <div style={{display: "inline-block"}}>
+        <div style={{ display: "inline-block" }}>
           <CaseFilterForm />
           <I90Table />
           <LoadMore
