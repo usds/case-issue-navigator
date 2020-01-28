@@ -17,9 +17,9 @@ const FormattedDate: React.FC<Props> = props => {
   }
 
   return (
-    <p className="formatted-date">
+    <span className="formatted-date">
       {props.label}: {new Date(props.date).toLocaleString()}
-    </p>
+    </span>
   );
 };
 

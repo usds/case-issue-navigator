@@ -112,13 +112,13 @@ Array [
 `;
 
 exports[`Storyshots FormattedDate Last Refresh 1`] = `
-<p
+<span
   className="formatted-date"
 >
   Last Refresh
   : 
   8/11/2014, 12:00:00 AM
-</p>
+</span>
 `;
 
 exports[`Storyshots I90Table Active case view 1`] = `
@@ -600,70 +600,6 @@ exports[`Storyshots LoadMore more cases loading 1`] = `
 `;
 
 exports[`Storyshots LoadMore no more cases 1`] = `null`;
-
-exports[`Storyshots OverdueCasesWarning Multiple desnoozed cases 1`] = `
-<div
-  className="overdue-cases-warning"
->
-  <div
-    className="usa-alert usa-alert--warning usa-alert--fit-content"
-  >
-    <div
-      className="usa-alert__body"
-    >
-      <h3
-        className="usa-alert__heading"
-      >
-        20 Overdue Cases
-      </h3>
-      <p
-        className="usa-alert__text"
-      >
-        <button
-          className="usa-button usa-button--unstyled"
-          disabled={false}
-          type="button"
-        >
-          View Overdue Cases
-        </button>
-      </p>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots OverdueCasesWarning No desnoozed cases 1`] = `null`;
-
-exports[`Storyshots OverdueCasesWarning One desnoozed case 1`] = `
-<div
-  className="overdue-cases-warning"
->
-  <div
-    className="usa-alert usa-alert--warning usa-alert--fit-content"
-  >
-    <div
-      className="usa-alert__body"
-    >
-      <h3
-        className="usa-alert__heading"
-      >
-        1 Overdue Cases
-      </h3>
-      <p
-        className="usa-alert__text"
-      >
-        <button
-          className="usa-button usa-button--unstyled"
-          disabled={false}
-          type="button"
-        >
-          View Overdue Cases
-        </button>
-      </p>
-    </div>
-  </div>
-</div>
-`;
 
 exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
 <form

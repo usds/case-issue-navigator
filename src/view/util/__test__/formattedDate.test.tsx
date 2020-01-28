@@ -24,7 +24,7 @@ describe("FormattedDate", () => {
   it("should return a labeled date", () => {
     const wrapper = mount(<FormattedDate label="a" date="October 10, 2019" />);
     expect(wrapper.html()).toBe(
-      '<p class="formatted-date">a: 10/10/2019, 12:00:00 AM</p>'
+      '<span class="formatted-date">a: 10/10/2019, 12:00:00 AM</span>'
     );
   });
 });

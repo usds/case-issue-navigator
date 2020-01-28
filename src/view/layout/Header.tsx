@@ -6,18 +6,16 @@ import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import { trackPageView, setDocumentTitle } from "../../matomo-setup";
-import FormattedDate from "../util/FormattedDate";
 
 const mapStateToProps = (state: RootState) => ({
   notification: state.appStatus.notification,
-  pageTitle: state.appStatus.pageTitle,
-  lastUpdated: state.cases.lastUpdated
+  pageTitle: state.appStatus.pageTitle
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
 
 const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
-  const { notification, pageTitle, lastUpdated } = props;
+  const { notification, pageTitle } = props;
 
   useEffect(() => {
     if (!notification) {
@@ -43,7 +41,6 @@ const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
       <ToastContainer />
       <PrimaryNavMenu />
       <div>
-        <FormattedDate label="Last Refresh" date={lastUpdated} />
         <p>Aging I-90 cases excluding BCU and FDNS referrals.</p>
       </div>
     </React.Fragment>
