@@ -8,7 +8,6 @@ import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 import { DetailToggle } from "./DetailToggle";
 import { ReceiptNumberLink } from "./ReceiptNumberLink";
-import { CaseAge } from "./CaseAge";
 import { CaseCreation } from "./CaseCreation";
 import { ApplicationReason } from "./ApplicationReason";
 import { CaseStatus } from "./CaseStatus";
@@ -84,11 +83,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       className: "nowrap"
     },
     {
-      header: "Case Age (days)",
-      Cell: CaseAge,
-      align: "right"
-    },
-    {
       header: "Case Creation",
       Cell: CaseCreation
     },
@@ -113,12 +107,11 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       Cell: Problem
     },
     {
-      header: "Due in (days)",
-      Cell: SnoozeDaysLeft,
-      align: "right"
+      header: "Due Date",
+      Cell: SnoozeDaysLeft
     },
     {
-      header: "SN Ticket #",
+      header: "SN Ticket",
       Cell: ServiceNowTicket
     },
     {

@@ -11,4 +11,15 @@ export default class DateUtils {
       (new Date().valueOf() - new Date(date).valueOf()) / ONE_DAY_IN_MS
     );
   }
+  static shortFormatDate(dateString: string): string {
+    const date = new Date(dateString);
+
+    if (!isNaN(date as any)) {
+      return (
+        date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear()
+      );
+    }
+
+    return "Invalid date";
+  }
 }

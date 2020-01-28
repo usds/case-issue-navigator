@@ -1,18 +1,18 @@
 import React from "react";
+import DateUtils from "../../../utils/DateUtils";
 
 interface Props {
   caseData: Case;
 }
 
 export const CaseCreation: React.FC<Props> = ({ caseData }) => {
-  const d = caseData.caseCreation;
-  const datum = new Date(d);
-  let displayDate = "Invalid date";
+  const displayDate = DateUtils.shortFormatDate(caseData.caseCreation);
+  const caseCreationDays = DateUtils.numberOfDaysSince(caseData.caseCreation);
+  const caseCreationPlural = caseCreationDays === 1 ? "" : "s";
 
-  if (d && !isNaN(datum as any)) {
-    displayDate =
-      datum.getMonth() + 1 + "/" + datum.getDate() + "/" + datum.getFullYear();
-  }
-
-  return <React.Fragment>{displayDate}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {displayDate} ({`${caseCreationDays} day${caseCreationPlural}`})
+    </React.Fragment>
+  );
 };

@@ -137,11 +137,6 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         Receipt Number
       </td>
-      <td
-        align="right"
-      >
-        Case Age (days)
-      </td>
       <td>
         Case Creation
       </td>
@@ -156,6 +151,15 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         Platform
+      </td>
+      <td>
+        Problem
+      </td>
+      <td>
+        Due Date
+      </td>
+      <td>
+        SN Ticket
       </td>
       <td>
         Actions
@@ -203,13 +207,11 @@ exports[`Storyshots I90Table Active case view 1`] = `
           FKE5381523
         </a>
       </td>
-      <td
-        align="right"
-      >
-        101
-      </td>
       <td>
         8/6/2019
+         (
+        101 days
+        )
       </td>
       <td>
         Boredom
@@ -223,6 +225,11 @@ exports[`Storyshots I90Table Active case view 1`] = `
       <td>
         Legacy
       </td>
+      <td>
+        
+      </td>
+      <td />
+      <td />
       <td>
         <button
           className="usa-button usa-button--outline"
@@ -274,13 +281,11 @@ exports[`Storyshots I90Table Active case view 1`] = `
           FKE8206743
         </a>
       </td>
-      <td
-        align="right"
-      >
-        151
-      </td>
       <td>
         6/17/2019
+         (
+        151 days
+        )
       </td>
       <td>
         Enthusiasm
@@ -293,6 +298,22 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         SP
+      </td>
+      <td>
+        Technical Issue
+      </td>
+      <td>
+        7/30/2020
+      </td>
+      <td>
+        <a
+          href="http://www.example.com/1234"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          1234
+        </a>
+        <br />
       </td>
       <td>
         <button
@@ -331,13 +352,17 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       >
         Receipt Number
       </td>
-      <td
-        align="right"
-      >
-        Case Age (days)
+      <td>
+        Case Creation
       </td>
       <td>
         Application Reason
+      </td>
+      <td>
+        Case Status
+      </td>
+      <td>
+        Case Substatus
       </td>
       <td>
         Platform
@@ -345,13 +370,11 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         Problem
       </td>
-      <td
-        align="right"
-      >
-        Due in (days)
+      <td>
+        Due Date
       </td>
       <td>
-        SN Ticket #
+        SN Ticket
       </td>
       <td>
         Actions
@@ -399,13 +422,20 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           FKE5381523
         </a>
       </td>
-      <td
-        align="right"
-      >
-        101
+      <td>
+        8/6/2019
+         (
+        101 days
+        )
       </td>
       <td>
         Boredom
+      </td>
+      <td>
+        Pending
+      </td>
+      <td>
+        Printing
       </td>
       <td>
         Legacy
@@ -413,9 +443,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         
       </td>
-      <td
-        align="right"
-      />
+      <td />
       <td />
       <td>
         <button
@@ -476,13 +504,20 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           FKE8206743
         </a>
       </td>
-      <td
-        align="right"
-      >
-        151
+      <td>
+        6/17/2019
+         (
+        151 days
+        )
       </td>
       <td>
         Enthusiasm
+      </td>
+      <td>
+        Eschewing Obfuscation
+      </td>
+      <td>
+        Amazingly Successful
       </td>
       <td>
         SP
@@ -490,10 +525,8 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       <td>
         Technical Issue
       </td>
-      <td
-        align="right"
-      >
-        259
+      <td>
+        7/30/2020
       </td>
       <td>
         <a
