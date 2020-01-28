@@ -1,5 +1,4 @@
 import React from "react";
-import { OverdueCasesWarning } from "./notifications/OverdueCasesWarning";
 import { RootState } from "../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../redux/modules/cases";
@@ -141,11 +140,6 @@ class CaseList extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <OverdueCasesWarning
-          snoozeState={this.props.snoozeState}
-          overdueCases={this.props.summary.PREVIOUSLY_SNOOZED}
-          onShowCases={this.showAllOverdueCases.bind(this)}
-        />
         <div style={{ display: "inline-block" }}>
           <CaseFilterForm />
           <I90Table />
