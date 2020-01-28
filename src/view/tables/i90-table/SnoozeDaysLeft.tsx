@@ -13,5 +13,7 @@ export const SnoozeDaysLeft: React.FC<Props> = ({ caseData }) => {
     console.error("Snooze information not found");
     return <React.Fragment />;
   }
-  return <React.Fragment>{DateUtils.numberOfDaysUntil(snoozeEnd)}</React.Fragment>;
+  return (
+    <React.Fragment>{DateUtils.numberOfDaysUntil(snoozeEnd)}</React.Fragment>
+  );
 };
