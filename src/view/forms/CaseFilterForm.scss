@@ -1,6 +1,7 @@
 .filter-form {
   overflow: auto;
   display: flex;
+  flex-wrap: wrap;
 
   .usa-label {
     margin-top: 0;
