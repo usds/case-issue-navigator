@@ -70,13 +70,14 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     Cell: React.FC<{ caseData: Case }>;
     className?: string;
     displayIf?: boolean;
+    align?: "left" | "right"
   }> = [
     {
       header: "",
       Cell: ({ caseData }) => (
         <DetailToggle caseData={caseData} toggleDetails={toggleDetails} />
       ),
-      className: "min"
+      className: "min",
     },
     {
       header: "Receipt Number",
@@ -84,8 +85,9 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       className: "nowrap"
     },
     {
-      header: "Case Age",
-      Cell: CaseAge
+      header: "Case Age (days)",
+      Cell: CaseAge,
+      align: "right"
     },
     {
       header: "Case Creation",
@@ -116,9 +118,10 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       displayIf: snoozeState === "SNOOZED"
     },
     {
-      header: "Due in",
+      header: "Due in (days)",
       Cell: SnoozeDaysLeft,
-      displayIf: snoozeState === "SNOOZED"
+      displayIf: snoozeState === "SNOOZED",
+      align: "right"
     },
     {
       header: "SN Ticket #",
@@ -149,8 +152,8 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     <table className="usa-table usa-table--borderless width-full">
       <thead>
         <tr>
-          {viewElements.map(({ header, className }) => (
-            <td key={header} className={className}>
+          {viewElements.map(({ header, className, align }) => (
+            <td key={header} className={className} align={align}>
               {header}
             </td>
           ))}
@@ -165,10 +168,11 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                   caseData.showDetails ? "row--show-details" : undefined
                 }
               >
-                {viewElements.map(({ header, Cell, className }) => (
+                {viewElements.map(({ header, Cell, className, align }) => (
                   <td
                     key={`${header}-${caseData.receiptNumber}`}
                     className={className}
+                    align={align}
                   >
                     <Cell caseData={caseData} />
                   </td>

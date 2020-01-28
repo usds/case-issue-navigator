@@ -22,7 +22,7 @@ const SnoozeStateFilter: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className="float-left margin-right-2" style={{ marginTop: "28px" }}>
+    <div className="margin-right-2" style={{ marginTop: "28px" }}>
       <div className="snooze-state-filter">
         <UsaCheckbox
           name="snoozeState"
