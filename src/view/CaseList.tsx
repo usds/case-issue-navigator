@@ -146,13 +146,15 @@ class CaseList extends React.Component<Props, State> {
           overdueCases={this.props.summary.PREVIOUSLY_SNOOZED}
           onShowCases={this.showAllOverdueCases.bind(this)}
         />
-        <CaseFilterForm />
-        <I90Table />
-        <LoadMore
-          hasMoreCases={this.props.hasMoreCases}
-          isLoading={this.props.isLoading}
-          onClick={() => this.props.loadCases()}
-        />
+        <div style={{display: "inline-block"}}>
+          <CaseFilterForm />
+          <I90Table />
+          <LoadMore
+            hasMoreCases={this.props.hasMoreCases}
+            isLoading={this.props.isLoading}
+            onClick={() => this.props.loadCases()}
+          />
+        </div>
       </React.Fragment>
     );
   }

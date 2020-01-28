@@ -6,9 +6,9 @@ interface Props {
 }
 
 export const CaseAge: React.FC<Props> = ({ caseData }) => {
-  const caseCreationDays = DateUtils.numberOfDaysSince(caseData.caseCreation);
-  const caseCreationPlural = caseCreationDays === 1 ? "" : "s";
   return (
-    <React.Fragment>{`${caseCreationDays} day${caseCreationPlural}`}</React.Fragment>
+    <React.Fragment>
+      {DateUtils.numberOfDaysSince(caseData.caseCreation)}
+    </React.Fragment>
   );
 };

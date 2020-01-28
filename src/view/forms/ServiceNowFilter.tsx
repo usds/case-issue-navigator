@@ -63,7 +63,7 @@ const ServiceNowFilter: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className="float-left margin-right-2">
+    <div className="margin-right-2">
       <UsaSelect
         options={options}
         placeholder={DEFAULT_TEXT}
