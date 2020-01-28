@@ -5,3 +5,7 @@ td.min {
 td.nowrap {
   white-space: nowrap;
 }
+
+.usa-table th, .usa-prose > table th, .usa-table td, .usa-prose > table td {
+  padding: 0.5em 0.7em;
+}

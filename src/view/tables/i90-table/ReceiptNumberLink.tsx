@@ -5,9 +5,7 @@ interface Props {
   caseData: Case;
 }
 
-export const ReceiptNumberLink: React.FC<Props> = ({
-  caseData,
-}) => (
+export const ReceiptNumberLink: React.FC<Props> = ({ caseData }) => (
   <React.Fragment>
     <a href={ELIS_CASE_BASE_URL + caseData.receiptNumber} target="_elis_viewer">
       {caseData.receiptNumber}

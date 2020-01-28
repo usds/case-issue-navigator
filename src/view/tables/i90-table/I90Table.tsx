@@ -79,8 +79,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     },
     {
       header: "Receipt Number",
-      Cell: ReceiptNumberLink,
-      className: "nowrap"
+      Cell: ReceiptNumberLink
     },
     {
       header: "Case Creation",

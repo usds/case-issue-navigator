@@ -5,6 +5,7 @@ import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
+import "./SnoozeFormWrapper.scss";
 
 interface Props extends ActionsProps {
   rowData: Case;
@@ -74,9 +75,11 @@ const SnoozeFormWrapper = (props: Props) => {
           caseType="ACTIVE"
         />
       </ActionModal>
-      <UsaButton onClick={openModal} buttonStyle="outline">
-        Triage
-      </UsaButton>
+      <div className="remove-button-margin">
+        <UsaButton onClick={openModal} buttonStyle="outline">
+          Triage
+        </UsaButton>
+      </div>
     </React.Fragment>
   );
 };
