@@ -12,7 +12,8 @@ export const CaseCreation: React.FC<Props> = ({ caseData }) => {
 
   return (
     <React.Fragment>
-      {displayDate} ({`${caseCreationDays} day${caseCreationPlural}`})
+      {displayDate}
+      <br />({`${caseCreationDays} day${caseCreationPlural}`})
     </React.Fragment>
   );
 };

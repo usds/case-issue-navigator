@@ -3,6 +3,7 @@ import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
 import { SNOOZE_OPTIONS, SPECIFIC_TECHNICAL_ISSUES } from "./config";
+import "./EndSnoozeForm.scss";
 
 interface Props {
   rowData: Case;
@@ -83,9 +84,11 @@ const EndSnoozeForm = ({ rowData, deSnooze }: Props) => {
           <UsaButton onClick={desnooze}>Confirm</UsaButton>
         </div>
       </ActionModal>
-      <UsaButton onClick={openModal} buttonStyle="secondary">
-        Resolve
-      </UsaButton>
+      <div className="remove-button-margin">
+        <UsaButton onClick={openModal} buttonStyle="secondary">
+          Resolve
+        </UsaButton>
+      </div>
     </React.Fragment>
   );
 };

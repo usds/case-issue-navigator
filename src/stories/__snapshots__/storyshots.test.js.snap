@@ -132,9 +132,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         Receipt Number
       </td>
       <td>
@@ -197,9 +195,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
           </svg>
         </button>
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         <a
           href="https://example.com/FKE5381523"
           target="_elis_viewer"
@@ -209,7 +205,8 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         8/6/2019
-         (
+        <br />
+        (
         101 days
         )
       </td>
@@ -231,14 +228,18 @@ exports[`Storyshots I90Table Active case view 1`] = `
       <td />
       <td />
       <td>
-        <button
-          className="usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="remove-button-margin"
         >
-          Triage
-        </button>
+          <button
+            className="usa-button usa-button--outline"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Triage
+          </button>
+        </div>
       </td>
     </tr>
     <tr>
@@ -271,9 +272,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
           </svg>
         </button>
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         <a
           href="https://example.com/FKE8206743"
           target="_elis_viewer"
@@ -283,7 +282,8 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         6/17/2019
-         (
+        <br />
+        (
         151 days
         )
       </td>
@@ -316,14 +316,18 @@ exports[`Storyshots I90Table Active case view 1`] = `
         <br />
       </td>
       <td>
-        <button
-          className="usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="remove-button-margin"
         >
-          Triage
-        </button>
+          <button
+            className="usa-button usa-button--outline"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Triage
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -347,9 +351,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       >
         
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         Receipt Number
       </td>
       <td>
@@ -412,9 +414,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           </svg>
         </button>
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         <a
           href="https://example.com/FKE5381523"
           target="_elis_viewer"
@@ -424,7 +424,8 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         8/6/2019
-         (
+        <br />
+        (
         101 days
         )
       </td>
@@ -454,14 +455,18 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         >
           Update
         </button>
-        <button
-          className="usa-button usa-button--secondary"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="remove-button-margin"
         >
-          Resolve
-        </button>
+          <button
+            className="usa-button usa-button--secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Resolve
+          </button>
+        </div>
       </td>
     </tr>
     <tr>
@@ -494,9 +499,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           </svg>
         </button>
       </td>
-      <td
-        className="nowrap"
-      >
+      <td>
         <a
           href="https://example.com/FKE8206743"
           target="_elis_viewer"
@@ -506,7 +509,8 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         6/17/2019
-         (
+        <br />
+        (
         151 days
         )
       </td>
@@ -547,14 +551,18 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         >
           Update
         </button>
-        <button
-          className="usa-button usa-button--secondary"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="remove-button-margin"
         >
-          Resolve
-        </button>
+          <button
+            className="usa-button usa-button--secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Resolve
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
