@@ -18,7 +18,7 @@ const history = createBrowserHistory();
 export const pushURLParam = (param: string, value?: string) => {
   const urlParams = new URLSearchParams(window.location.search);
   if (value) {
-    urlParams.set(param, value);
+    urlParams.set(param, value.trim());
   } else {
     urlParams.delete(param);
   }
@@ -30,7 +30,7 @@ export const pushURLParam = (param: string, value?: string) => {
 export const setURLParam = (param: string, value?: string) => {
   const urlParams = new URLSearchParams();
   if (value) {
-    urlParams.set(param, value);
+    urlParams.set(param, value.trim());
   } else {
     urlParams.delete(param);
   }
@@ -62,7 +62,7 @@ export const caseFilterActionCreators = {
     );
     return action("caseFilters/SET_CASE_CREATION_END", caseCreationEnd);
   },
-  setSnoozeReasonFilter: (snoozeReason?: SnoozeReason) => {
+  setProblemFilter: (snoozeReason?: CaseProblem) => {
     pushURLParam(SNOOOZE_REASON, snoozeReason);
     return action("caseFilters/SET_SNOOZE_REASON_FILTER", snoozeReason);
   },
@@ -74,7 +74,11 @@ export const caseFilterActionCreators = {
     return action("caseFilters/SET_SERVICE_NOW_FILTER", serviceNowFilter);
   },
   setSnoozeState: (snoozeState: SnoozeState) => {
-    pushURLParam(SNOOZE_STATE, snoozeState);
+    if (snoozeState === "ALL") {
+      pushURLParam(SNOOZE_STATE);
+    } else {
+      pushURLParam(SNOOZE_STATE, snoozeState);
+    }
     return action("caseFilters/SET_SNOOZE_STATE", snoozeState);
   },
   setCaseStatus: (caseStatus?: CaseStatusOptions) => {
@@ -108,7 +112,7 @@ export type CaseFilterAction = ReturnType<ActionCreator[keyof ActionCreator]>;
 export type CaseFilterState = {
   caseCreationStart?: Date;
   caseCreationEnd?: Date;
-  snoozeReasonFilter?: SnoozeReason;
+  snoozeReasonFilter?: CaseProblem;
   serviceNowFilter?: boolean;
   search?: string;
   snoozeState: SnoozeState;
@@ -118,7 +122,7 @@ export type CaseFilterState = {
 };
 
 export const initialState: CaseFilterState = {
-  snoozeState: "ACTIVE",
+  snoozeState: "ALL",
   activeSearch: false
 };
 

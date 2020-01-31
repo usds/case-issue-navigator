@@ -20,22 +20,6 @@ describe("AddNoteForm", () => {
     expect(wrapper.isEmptyRender()).toBe(true);
   });
 
-  it("renders an add a note button", () => {
-    const rowData: Case = {
-      receiptNumber: "",
-      caseCreation: "",
-      extraData: {} as CaseExtraData,
-      previouslySnoozed: false,
-      showDetails: false,
-      snoozeInformation: {}
-    };
-    const wrapper = mount(
-      <AddNoteForm rowData={rowData} getCaseDetails={() => undefined} />
-    );
-
-    expect(wrapper.find("button").text()).toBe("Add A Note");
-  });
-
   it("Adding a note preserves snooze data", () => {
     const snoozeEnd = new Date();
     snoozeEnd.setDate(snoozeEnd.getDate() + 1);
@@ -50,7 +34,7 @@ describe("AddNoteForm", () => {
       snoozeInformation: {
         snoozeStart: new Date().toString(),
         snoozeEnd: snoozeEnd.toString(),
-        snoozeReason: "assigned_case",
+        snoozeReason: "technical_issue",
         user: {
           id: "",
           name: ""
@@ -63,22 +47,15 @@ describe("AddNoteForm", () => {
 
     // Open modal
     wrapper
-      .find("button")
-      .at(0)
-      .simulate("click", {});
-    wrapper
-      .find("textarea")
+      .find("#caseIssueNotes")
       .at(0)
       .simulate("change", { target: { value: "I am a note." } });
-    wrapper
-      .find("button")
-      .at(1)
-      .simulate("click", {});
+    wrapper.find("button").simulate("click", {});
     expect(RestAPIClient.caseDetails.updateActiveSnooze).toHaveBeenCalledWith(
       "ABC123",
       {
         duration: 1,
-        reason: "assigned_case",
+        reason: "technical_issue",
         notes: [
           {
             content: "I am a note.",

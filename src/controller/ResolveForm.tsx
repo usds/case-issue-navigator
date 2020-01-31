@@ -3,14 +3,14 @@ import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
 import { SNOOZE_OPTIONS, SPECIFIC_TECHNICAL_ISSUES } from "./config";
-import "./EndSnoozeForm.scss";
+import "./ResolveForm.scss";
 
 interface Props {
   rowData: Case;
   deSnooze: (receiptNumber: string) => void;
 }
 
-const EndSnoozeForm = ({ rowData, deSnooze }: Props) => {
+const ResolveForm = ({ rowData, deSnooze }: Props) => {
   const [showDialog, setDialog] = useState(false);
 
   const desnooze = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -93,4 +93,4 @@ const EndSnoozeForm = ({ rowData, deSnooze }: Props) => {
   );
 };
 
-export { EndSnoozeForm };
+export { ResolveForm };

@@ -10,24 +10,21 @@ interface Props {
 const CaseSearch: React.FunctionComponent<Props> = props => {
   return (
     <div role="search" className="usa-search usa-search--small">
-      <label className="usa-label" htmlFor="receiptNumberSearch">
-        Search Receipt/INC
-      </label>
       <div className="margin-top-1">
         <input
-          className="usa-input width-15"
+          className="usa-input"
           id="receiptNumberSearch"
           type="search"
           name="search"
           value={props.search || ""}
           onChange={e => props.onSearchChange(e.target.value)}
-          style={{ height: "38px" }}
+          placeholder="Search Receipt/INC"
+          style={{ width: "160px" }}
         />
         <button
           className="usa-button"
           type="submit"
           onClick={props.onSearchSubmit}
-          style={{ height: "38px" }}
         >
           <span className="usa-sr-only">Search</span>
         </button>

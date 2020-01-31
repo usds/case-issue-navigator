@@ -39,37 +39,36 @@ exports[`Storyshots AuthForm AuthForm view 1`] = `
 </div>
 `;
 
-exports[`Storyshots CaseAgeFilter Empty case list 1`] = `
-Array [
-  <label
-    className="usa-label"
-    htmlFor="caseCreationFilterToggle"
+exports[`Storyshots Card no content 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card-header"
   >
-    Case Creation Range
-  </label>,
-  <span>
-    <span
-      onClick={[Function]}
-      onTouchEnd={[Function]}
-    >
-      <div
-        className="trigger"
-      >
-        <button
-          className="usa-button"
-          disabled={false}
-          id="caseCreationFilterToggle"
-          onClick={[Function]}
-          type="button"
-        >
-          1/1/2014
-           - 
-          12/4/2019
-        </button>
-      </div>
-    </span>
-  </span>,
-]
+    
+  </div>
+  <div
+    className="card-body"
+  />
+</div>
+`;
+
+exports[`Storyshots Card with text 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card-header"
+  >
+    
+  </div>
+  <div
+    className="card-body"
+  >
+    Hi I'm a well
+  </div>
+</div>
 `;
 
 exports[`Storyshots CaseList Case list while loading data 1`] = `
@@ -121,47 +120,47 @@ exports[`Storyshots FormattedDate Last Refresh 1`] = `
 </span>
 `;
 
-exports[`Storyshots I90Table Active case view 1`] = `
+exports[`Storyshots I90Table Empty Table - ALL 1`] = `null`;
+
+exports[`Storyshots I90Table Empty Table - TRIAGED 1`] = `null`;
+
+exports[`Storyshots I90Table Empty Table - With Filter On 1`] = `null`;
+
+exports[`Storyshots I90Table Triaged case view 1`] = `
 <table
   className="usa-table usa-table--borderless width-full"
 >
   <thead>
     <tr>
-      <td
+      <th
         className="min"
       >
         
-      </td>
-      <td>
+      </th>
+      <th>
         Receipt Number
-      </td>
-      <td>
+      </th>
+      <th>
         Case Creation
-      </td>
-      <td>
+      </th>
+      <th>
         Application Reason
-      </td>
-      <td>
-        Case Status
-      </td>
-      <td>
-        Case Substatus
-      </td>
-      <td>
+      </th>
+      <th>
+        Case Status - Substatus
+      </th>
+      <th>
         Platform
-      </td>
-      <td>
+      </th>
+      <th>
         Problem
-      </td>
-      <td>
-        Due Date
-      </td>
-      <td>
+      </th>
+      <th>
         SN Ticket
-      </td>
-      <td>
+      </th>
+      <th>
         Actions
-      </td>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -171,7 +170,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         <button
           aria-label="Toggle details for FKE5381523"
-          className="usa-button usa-button--none"
+          className=" usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -204,19 +203,16 @@ exports[`Storyshots I90Table Active case view 1`] = `
         </a>
       </td>
       <td>
-        8/6/2019
-        <br />
-        (
-        101 days
-        )
+        Aug 6, 2019
       </td>
       <td>
         Boredom
       </td>
       <td>
-        Pending
-      </td>
-      <td>
+        <b>
+          Pending
+        </b>
+         - 
         Printing
       </td>
       <td>
@@ -224,15 +220,15 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         
+         
       </td>
-      <td />
       <td />
       <td>
         <div
           className="remove-button-margin"
         >
           <button
-            className="usa-button usa-button--outline"
+            className=" usa-button usa-button--outline"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -248,7 +244,7 @@ exports[`Storyshots I90Table Active case view 1`] = `
       >
         <button
           aria-label="Toggle details for FKE8206743"
-          className="usa-button usa-button--none"
+          className=" usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -281,19 +277,16 @@ exports[`Storyshots I90Table Active case view 1`] = `
         </a>
       </td>
       <td>
-        6/17/2019
-        <br />
-        (
-        151 days
-        )
+        Jun 17, 2019
       </td>
       <td>
         Enthusiasm
       </td>
       <td>
-        Eschewing Obfuscation
-      </td>
-      <td>
+        <b>
+          Eschewing Obfuscation
+        </b>
+         - 
         Amazingly Successful
       </td>
       <td>
@@ -301,9 +294,44 @@ exports[`Storyshots I90Table Active case view 1`] = `
       </td>
       <td>
         Technical Issue
-      </td>
-      <td>
-        7/30/2020
+         
+        <div>
+          <span
+            className="usa-tag "
+            data-place="right"
+            data-tip="Expected to be unblocked by Jul 30"
+            style={
+              Object {
+                "textTransform": "none",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-clock fa-w-16 "
+              data-icon="clock"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+             
+            Jul 30
+          </span>
+        </div>
       </td>
       <td>
         <a
@@ -316,139 +344,8 @@ exports[`Storyshots I90Table Active case view 1`] = `
         <br />
       </td>
       <td>
-        <div
-          className="remove-button-margin"
-        >
-          <button
-            className="usa-button usa-button--outline"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Triage
-          </button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-`;
-
-exports[`Storyshots I90Table Empty Table - Active 1`] = `null`;
-
-exports[`Storyshots I90Table Empty Table - Snoozed 1`] = `null`;
-
-exports[`Storyshots I90Table Empty Table - With Filter On 1`] = `null`;
-
-exports[`Storyshots I90Table Snoozed case view 1`] = `
-<table
-  className="usa-table usa-table--borderless width-full"
->
-  <thead>
-    <tr>
-      <td
-        className="min"
-      >
-        
-      </td>
-      <td>
-        Receipt Number
-      </td>
-      <td>
-        Case Creation
-      </td>
-      <td>
-        Application Reason
-      </td>
-      <td>
-        Case Status
-      </td>
-      <td>
-        Case Substatus
-      </td>
-      <td>
-        Platform
-      </td>
-      <td>
-        Problem
-      </td>
-      <td>
-        Due Date
-      </td>
-      <td>
-        SN Ticket
-      </td>
-      <td>
-        Actions
-      </td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td
-        className="min"
-      >
         <button
-          aria-label="Toggle details for FKE5381523"
-          className="usa-button usa-button--none"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-        </button>
-      </td>
-      <td>
-        <a
-          href="https://example.com/FKE5381523"
-          target="_elis_viewer"
-        >
-          FKE5381523
-        </a>
-      </td>
-      <td>
-        8/6/2019
-        <br />
-        (
-        101 days
-        )
-      </td>
-      <td>
-        Boredom
-      </td>
-      <td>
-        Pending
-      </td>
-      <td>
-        Printing
-      </td>
-      <td>
-        Legacy
-      </td>
-      <td>
-        
-      </td>
-      <td />
-      <td />
-      <td>
-        <button
-          className="usa-button usa-button--outline"
+          className=" usa-button usa-button--outline"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -459,7 +356,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           className="remove-button-margin"
         >
           <button
-            className="usa-button usa-button--secondary"
+            className=" usa-button usa-button--secondary"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -469,13 +366,129 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         </div>
       </td>
     </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Storyshots I90Table Unchecked case view 1`] = `
+<table
+  className="usa-table usa-table--borderless width-full"
+>
+  <thead>
+    <tr>
+      <th
+        className="min"
+      >
+        
+      </th>
+      <th>
+        Receipt Number
+      </th>
+      <th>
+        Case Creation
+      </th>
+      <th>
+        Application Reason
+      </th>
+      <th>
+        Case Status - Substatus
+      </th>
+      <th>
+        Platform
+      </th>
+      <th>
+        Problem
+      </th>
+      <th>
+        SN Ticket
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="min"
+      >
+        <button
+          aria-label="Toggle details for FKE5381523"
+          className=" usa-button usa-button--none"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-plus fa-w-14 "
+            data-icon="plus"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </button>
+      </td>
+      <td>
+        <a
+          href="https://example.com/FKE5381523"
+          target="_elis_viewer"
+        >
+          FKE5381523
+        </a>
+      </td>
+      <td>
+        Aug 6, 2019
+      </td>
+      <td>
+        Boredom
+      </td>
+      <td>
+        <b>
+          Pending
+        </b>
+         - 
+        Printing
+      </td>
+      <td>
+        Legacy
+      </td>
+      <td>
+        
+         
+      </td>
+      <td />
+      <td>
+        <div
+          className="remove-button-margin"
+        >
+          <button
+            className=" usa-button usa-button--outline"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Triage
+          </button>
+        </div>
+      </td>
+    </tr>
     <tr>
       <td
         className="min"
       >
         <button
           aria-label="Toggle details for FKE8206743"
-          className="usa-button usa-button--none"
+          className=" usa-button usa-button--none"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -508,19 +521,16 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
         </a>
       </td>
       <td>
-        6/17/2019
-        <br />
-        (
-        151 days
-        )
+        Jun 17, 2019
       </td>
       <td>
         Enthusiasm
       </td>
       <td>
-        Eschewing Obfuscation
-      </td>
-      <td>
+        <b>
+          Eschewing Obfuscation
+        </b>
+         - 
         Amazingly Successful
       </td>
       <td>
@@ -528,9 +538,44 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         Technical Issue
-      </td>
-      <td>
-        7/30/2020
+         
+        <div>
+          <span
+            className="usa-tag "
+            data-place="right"
+            data-tip="Expected to be unblocked by Jul 30"
+            style={
+              Object {
+                "textTransform": "none",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-clock fa-w-16 "
+              data-icon="clock"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+             
+            Jul 30
+          </span>
+        </div>
       </td>
       <td>
         <a
@@ -544,7 +589,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
       </td>
       <td>
         <button
-          className="usa-button usa-button--outline"
+          className=" usa-button usa-button--outline"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -555,7 +600,7 @@ exports[`Storyshots I90Table Snoozed case view 1`] = `
           className="remove-button-margin"
         >
           <button
-            className="usa-button usa-button--secondary"
+            className=" usa-button usa-button--secondary"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -574,7 +619,7 @@ exports[`Storyshots LoadMore more cases 1`] = `
   className="display-flex flex-column flex-align-center"
 >
   <button
-    className="usa-button usa-button--outline"
+    className=" usa-button usa-button--outline"
     disabled={false}
     onClick={[Function]}
     type="button"
@@ -589,7 +634,7 @@ exports[`Storyshots LoadMore more cases loading 1`] = `
   className="display-flex flex-column flex-align-center"
 >
   <button
-    className="usa-button usa-button--outline"
+    className=" usa-button usa-button--outline"
     disabled={true}
     onClick={[Function]}
     type="button"
@@ -677,19 +722,22 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     type="number"
     value={313}
   />
-  <div>
-    <button
-      className="usa-button usa-button--outline"
-      disabled={false}
-      id="showNoteField"
-      onClick={[Function]}
-      type="button"
-    >
-      Add a note
-    </button>
-  </div>
+  <label
+    className="usa-label"
+    htmlFor="caseIssueNotes"
+  >
+    Note
+  </label>
+  <input
+    className="usa-input"
+    id="caseIssueNotes"
+    name="caseIssueNotes"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
   <button
-    className="usa-button"
+    className=" usa-button"
     disabled={false}
     id="SnoozeSumbit"
     onClick={[Function]}
@@ -837,19 +885,22 @@ exports[`Storyshots SnoozeForm Basic snooze form 1`] = `
     type="number"
     value={14}
   />
-  <div>
-    <button
-      className="usa-button usa-button--outline"
-      disabled={false}
-      id="showNoteField"
-      onClick={[Function]}
-      type="button"
-    >
-      Add a note
-    </button>
-  </div>
+  <label
+    className="usa-label"
+    htmlFor="caseIssueNotes"
+  >
+    Note
+  </label>
+  <input
+    className="usa-input"
+    id="caseIssueNotes"
+    name="caseIssueNotes"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
   <button
-    className="usa-button"
+    className=" usa-button"
     disabled={false}
     id="SnoozeSumbit"
     onClick={[Function]}
@@ -974,7 +1025,7 @@ exports[`Storyshots UsaAlert warning 1`] = `
 
 exports[`Storyshots UsaButton Secondary button 1`] = `
 <button
-  className="usa-button usa-button--secondary"
+  className=" usa-button usa-button--secondary"
   disabled={false}
   onClick={[Function]}
   type="button"
@@ -1015,18 +1066,4 @@ exports[`Storyshots UsaSelect Select 1`] = `
     z
   </option>
 </select>
-`;
-
-exports[`Storyshots Well no content 1`] = `
-<div
-  className="well"
-/>
-`;
-
-exports[`Storyshots Well with text 1`] = `
-<div
-  className="well"
->
-  Hi I'm a well
-</div>
 `;

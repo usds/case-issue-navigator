@@ -19,11 +19,6 @@ class CaseIssueAPIClient extends ClientBase {
     caseStatus?: CaseStatusOptions,
     caseSubstatus?: CaseSubstatusOptions
   ): Promise<c.ApiResponse<Case[], APIError>> {
-    if (filter !== "SNOOZED" && snoozeReason) {
-      console.error(
-        `Invalid api call. get ${filter} cases with a snoozeReason filter`
-      );
-    }
     return (await this.getAsJson(
       URLs.cases(
         filter,
@@ -40,7 +35,7 @@ class CaseIssueAPIClient extends ClientBase {
   public async getSearch(
     query: string
   ): Promise<c.ApiResponse<Case[], APIError>> {
-    return (await this.getAsJson(URLs.casesSearch(query))) as any;
+    return (await this.getAsJson(URLs.casesSearch(query.trim()))) as any;
   }
 
   public async getCaseSummary(): Promise<c.ApiResponse<SummarySuccess, {}>> {

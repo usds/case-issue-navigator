@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import SnoozeForm from "../SnoozeForm";
+import TriageForm from "../TriageForm";
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "../config";
 
 describe("SnoozeForm", () => {
@@ -15,7 +15,7 @@ describe("SnoozeForm", () => {
     };
     const snooze = jest.fn();
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={snooze}
         closeDialog={jest.fn()}
@@ -36,7 +36,7 @@ describe("SnoozeForm", () => {
     };
     const closeDialog = jest.fn();
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={closeDialog}
@@ -56,7 +56,7 @@ describe("SnoozeForm", () => {
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -83,7 +83,7 @@ describe("SnoozeForm", () => {
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -103,7 +103,7 @@ describe("SnoozeForm", () => {
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -140,7 +140,7 @@ describe("SnoozeForm", () => {
       ]
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}

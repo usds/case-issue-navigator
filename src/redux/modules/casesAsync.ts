@@ -48,7 +48,7 @@ export const loadCases = (reciptnumber?: string) => async (
     reciptnumber ? reciptnumber : lastReceiptNumber,
     caseCreationStart,
     caseCreationEnd,
-    snoozeState === "SNOOZED" ? snoozeReasonFilter : undefined,
+    snoozeReasonFilter,
     caseStatus,
     caseSubstatus
   );
@@ -61,7 +61,7 @@ export const loadCases = (reciptnumber?: string) => async (
     } else {
       dispatch(setHasMoreCases(false));
     }
-    if (snoozeState === "SNOOZED" && serviceNowFilter !== undefined) {
+    if (serviceNowFilter !== undefined) {
       const cases = serviceNowFilter
         ? response.payload.filter((c: Case) => {
             return serviceNowCaseFilter(c);

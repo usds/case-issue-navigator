@@ -4,14 +4,14 @@ import URLs from "../URLs";
 
 interface SnoozeInputs {
   duration: number;
-  reason: SnoozeReason;
+  reason: CaseProblem;
   notes: PartialNote[];
 }
 
 interface UpdateSnoozeSuccess {
   notes: Note[];
   snoozeEnd: string;
-  snoozeReason: SnoozeReason;
+  snoozeReason: CaseProblem;
   snoozeStart: string;
 }
 

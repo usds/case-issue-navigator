@@ -34,7 +34,7 @@ export const successfulLoadAPIMock = () => {
 
   apiMock
     .get(
-      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ACTIVE&size=${RESULTS_PER_PAGE +
+      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ALL&size=${RESULTS_PER_PAGE +
         1}`
     )
     .reply(200, activeCases);
@@ -58,7 +58,7 @@ export const unsuccessfulLoadAPIMock = () => {
 
   apiMock
     .get(
-      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ACTIVE&size=20`
+      `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ALL&size=20`
     )
     .reply(401, []);
 

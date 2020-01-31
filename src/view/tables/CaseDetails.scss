@@ -7,11 +7,13 @@
   border-right: 1px solid transparent;
 }
 
+.case-history {
+  height: 300px;
+  overflow: auto;
+}
+
 .case-detail-list {
   margin-bottom: 1em;
-  display: grid;
-  grid-template-columns: max-content max-content auto;
-  column-gap: 15px;
 
   .case-detail-creator {
     font-weight: 600;

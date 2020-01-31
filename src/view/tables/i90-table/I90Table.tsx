@@ -11,10 +11,8 @@ import { ReceiptNumberLink } from "./ReceiptNumberLink";
 import { CaseCreation } from "./CaseCreation";
 import { ApplicationReason } from "./ApplicationReason";
 import { CaseStatus } from "./CaseStatus";
-import { CaseSubstatus } from "./CaseSubstatus";
 import { Platform } from "./Platform";
 import { Problem } from "./Problem";
-import { SnoozeDaysLeft } from "./SnoozeDaysLeft";
 import { ServiceNowTicket } from "./ServiceNowTicket";
 import { Actions } from "./Actions";
 import "./ReceiptDisplayRow.scss";
@@ -90,12 +88,8 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       Cell: ApplicationReason
     },
     {
-      header: "Case Status",
+      header: "Case Status - Substatus",
       Cell: CaseStatus
-    },
-    {
-      header: "Case Substatus",
-      Cell: CaseSubstatus
     },
     {
       header: "Platform",
@@ -106,10 +100,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       Cell: Problem
     },
     {
-      header: "Due Date",
-      Cell: SnoozeDaysLeft
-    },
-    {
       header: "SN Ticket",
       Cell: ServiceNowTicket
     },
@@ -118,7 +108,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       Cell: ({ caseData }) => (
         <Actions
           caseData={caseData}
-          caseType={snoozeState}
           updateSummaryData={updateSummaryData}
           setError={setError}
           setNotification={setNotification}
@@ -134,9 +123,9 @@ export const UnconnectedI90Table: React.FC<Props> = ({
       <thead>
         <tr>
           {viewElements.map(({ header, className, align }) => (
-            <td key={header} className={className} align={align}>
+            <th key={header} className={className} align={align}>
               {header}
-            </td>
+            </th>
           ))}
         </tr>
       </thead>

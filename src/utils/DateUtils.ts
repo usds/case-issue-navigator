@@ -22,4 +22,32 @@ export default class DateUtils {
 
     return "Invalid date";
   }
+
+  static badgeFormat(dateString: string): string {
+    const date = new Date(dateString);
+    const now = new Date();
+    const month = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+
+    const year =
+      date.getFullYear() === now.getFullYear() ? "" : `, ${date.getFullYear()}`;
+
+    if (!isNaN(date as any)) {
+      return `${month[date.getMonth()]} ${date.getDate()}${year}`;
+    }
+
+    return "Invalid date";
+  }
 }

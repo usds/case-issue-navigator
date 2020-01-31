@@ -19,6 +19,7 @@ interface Props {
   buttonId?: string;
   value?: string;
   ariaLabel?: string;
+  className?: string;
 }
 
 const UsaButton: React.FunctionComponent<Props> = props => {
@@ -28,7 +29,7 @@ const UsaButton: React.FunctionComponent<Props> = props => {
   }
   return (
     <button
-      className={buttonClass}
+      className={`${props.className ? props.className : ""} ${buttonClass}`}
       onClick={props.onClick}
       disabled={props.disabled}
       type={props.type}

@@ -67,9 +67,9 @@ if (IS_TEST_ENV) {
 
 storiesOf("I90Table", module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add("Empty Table - Active", () => {
+  .add("Empty Table - ALL", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(caseFilterActionCreators.setSnoozeState("ACTIVE"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("ALL"));
     return <I90Table />;
   })
   .add("Empty Table - With Filter On", () => {
@@ -77,19 +77,19 @@ storiesOf("I90Table", module)
     store.dispatch(caseFilterActionCreators.setServiceNowFilter(true));
     return <I90Table />;
   })
-  .add("Empty Table - Snoozed", () => {
+  .add("Empty Table - TRIAGED", () => {
     store.dispatch(casesActionCreators.clearCases());
-    store.dispatch(caseFilterActionCreators.setSnoozeState("SNOOZED"));
+    store.dispatch(caseFilterActionCreators.setSnoozeState("TRIAGED"));
     return <I90Table />;
   })
-  .add("Active case view", () => {
-    store.dispatch(caseFilterActionCreators.setSnoozeState("ACTIVE"));
+  .add("Unchecked case view", () => {
+    store.dispatch(caseFilterActionCreators.setSnoozeState("UNCHECKED"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;
   })
-  .add("Snoozed case view", () => {
-    store.dispatch(caseFilterActionCreators.setSnoozeState("SNOOZED"));
+  .add("Triaged case view", () => {
+    store.dispatch(caseFilterActionCreators.setSnoozeState("TRIAGED"));
     store.dispatch(casesActionCreators.clearCases());
     store.dispatch(casesActionCreators.addCases(sampleCases));
     return <I90Table />;

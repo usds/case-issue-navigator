@@ -7,7 +7,7 @@ export const hasFilters = (state: RootState): boolean => {
     state.caseFilters.snoozeReasonFilter !== undefined ||
     state.caseFilters.serviceNowFilter !== undefined ||
     state.caseFilters.activeSearch ||
-    state.caseFilters.snoozeState !== "ACTIVE"
+    state.caseFilters.snoozeState !== "ALL"
   ) {
     return true;
   }

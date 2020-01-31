@@ -19,39 +19,39 @@ describe("URLs", () => {
     expectURLEquals(URLs.casesSummary(), "/api/cases/DEFAULT/STANDARD/summary");
   });
 
-  it("should producte the correct active cases path", () => {
+  it("should producte the correct all cases path", () => {
     expectURLEquals(
-      URLs.cases("ACTIVE", "ABC1234567890"),
-      `/api/cases/DEFAULT/STANDARD?mainFilter=ACTIVE&size=${RESULTS_PER_PAGE +
+      URLs.cases("ALL", "ABC1234567890"),
+      `/api/cases/DEFAULT/STANDARD?mainFilter=ALL&size=${RESULTS_PER_PAGE +
         1}&pageReference=ABC1234567890`
     );
   });
 
-  it("should producte the correct snooze cases path", () => {
+  it("should producte the correct triaged cases path", () => {
     expectURLEquals(
-      URLs.cases("SNOOZED", "ABC1234567890"),
-      `/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=${RESULTS_PER_PAGE +
+      URLs.cases("TRIAGED", "ABC1234567890"),
+      `/api/cases/DEFAULT/STANDARD?mainFilter=TRIAGED&size=${RESULTS_PER_PAGE +
         1}&pageReference=ABC1234567890`
     );
   });
 
-  it("should producte the correct snooze cases path with range", () => {
+  it("should producte the correct triaged cases path with range", () => {
     expectURLEquals(
       URLs.cases(
-        "SNOOZED",
+        "TRIAGED",
         undefined,
         new Date("2/4/2018"),
         new Date("3/5/2019")
       ),
-      `/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=${RESULTS_PER_PAGE +
+      `/api/cases/DEFAULT/STANDARD?mainFilter=TRIAGED&size=${RESULTS_PER_PAGE +
         1}&caseCreationRangeBegin=2018-02-04T05%3A00%3A00.000Z&caseCreationRangeEnd=2019-03-05T05%3A00%3A00.000Z`
     );
   });
 
-  it("should producte the correct snooze cases path with snooze reason", () => {
+  it("should producte the correct triaged cases path with snooze reason", () => {
     expectURLEquals(
-      URLs.cases("SNOOZED", undefined, undefined, undefined, "test_data"),
-      `/api/cases/DEFAULT/STANDARD?mainFilter=SNOOZED&size=${RESULTS_PER_PAGE +
+      URLs.cases("TRIAGED", undefined, undefined, undefined, "test_data"),
+      `/api/cases/DEFAULT/STANDARD?mainFilter=TRIAGED&size=${RESULTS_PER_PAGE +
         1}&snoozeReason=test_data`
     );
   });

@@ -40,9 +40,6 @@ const UnconnnectedHeader: React.FunctionComponent<Props> = props => {
       </Helmet>
       <ToastContainer />
       <PrimaryNavMenu />
-      <div>
-        <p>Aging I-90 cases excluding BCU and FDNS referrals.</p>
-      </div>
     </React.Fragment>
   );
 };

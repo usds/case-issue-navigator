@@ -33,7 +33,7 @@ export type AppStatusState = {
 };
 
 export const initialState: AppStatusState = {
-  pageTitle: "ELIS Search Party",
+  pageTitle: "I-90 Aging Cases | Search Party",
   dataFetching: {
     isLoading: false,
     error: null

@@ -165,7 +165,7 @@ describe("redux - cases", () => {
     setSnoozeState,
     setCaseCreationStart,
     setCaseCreationEnd,
-    setSnoozeReasonFilter
+    setProblemFilter
   } = caseFilterActionCreators;
 
   beforeEach(() => {
@@ -347,8 +347,8 @@ describe("redux - cases", () => {
   });
   it("sets the case type", () => {
     const { dispatch } = testStore;
-    dispatch(setSnoozeState("SNOOZED"));
-    expect(testStore.getState().caseFilters.snoozeState).toBe("SNOOZED");
+    dispatch(setSnoozeState("TRIAGED"));
+    expect(testStore.getState().caseFilters.snoozeState).toBe("TRIAGED");
   });
   it("toggles case details", () => {
     const { dispatch } = testStore;
@@ -381,7 +381,7 @@ describe("redux - cases", () => {
       })
     );
     const { dispatch, getState } = testAsyncStore;
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
@@ -395,10 +395,10 @@ describe("redux - cases", () => {
     };
     dispatch(setCaseSummary(summary));
     dispatch(clearCases());
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       undefined,
       undefined,
       undefined,
@@ -418,10 +418,10 @@ describe("redux - cases", () => {
     dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       initialCases[initialCases.length - 1].receiptNumber,
       undefined,
       undefined,
@@ -441,12 +441,12 @@ describe("redux - cases", () => {
     dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
-    dispatch(setSnoozeReasonFilter("test_data"));
+    dispatch(setProblemFilter("test_data"));
 
-    dispatch(setSnoozeState("SNOOZED"));
+    dispatch(setSnoozeState("TRIAGED"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "SNOOZED",
+      "TRIAGED",
       initialCases[initialCases.length - 1].receiptNumber,
       undefined,
       undefined,
@@ -467,10 +467,11 @@ describe("redux - cases", () => {
     dispatch(clearCases());
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
+    dispatch(setProblemFilter());
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       undefined,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
@@ -492,10 +493,10 @@ describe("redux - cases", () => {
     dispatch(addCases(initialCases));
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       initialCases[initialCases.length - 1].receiptNumber,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
@@ -537,7 +538,7 @@ describe("redux - cases", () => {
   });
   it("sets snooze reason filter", () => {
     const { dispatch } = testStore;
-    dispatch(setSnoozeReasonFilter("test_data"));
+    dispatch(setProblemFilter("test_data"));
     expect(testStore.getState().caseFilters.snoozeReasonFilter).toBe(
       "test_data"
     );

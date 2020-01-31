@@ -5,5 +5,7 @@ interface Props {
 }
 
 export const CaseStatus: React.FC<Props> = ({ caseData }) => (
-  <React.Fragment>{caseData.extraData.caseStatus}</React.Fragment>
+  <React.Fragment>
+    <b>{caseData.extraData.caseStatus}</b> - {caseData.extraData.caseSubstatus}
+  </React.Fragment>
 );

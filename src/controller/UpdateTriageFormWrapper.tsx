@@ -4,10 +4,10 @@ import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import { EndSnoozeForm } from "./EndSnoozeForm";
+import { ResolveForm } from "./ResolveForm";
 import { RootState } from "../redux/create";
 import { connect } from "react-redux";
-import SnoozeForm from "./SnoozeForm";
+import TriageForm from "./TriageForm";
 
 const mapStateToProps = (state: RootState) => ({
   currentUser: state.appStatus.user
@@ -19,7 +19,7 @@ interface PassedProps extends SnoozeActionsProps {
 
 type Props = ReturnType<typeof mapStateToProps> & PassedProps;
 
-const UpdateSnoozeFormWrapper: React.FC<Props> = ({
+const UpdateTriageFormWrapper: React.FC<Props> = ({
   setNotification,
   setError,
   currentUser,
@@ -112,19 +112,18 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
         title={`Update Case (${rowData.receiptNumber})`}
         closeModal={closeModal}
       >
-        <SnoozeForm
+        <TriageForm
           snooze={reSnooze}
           closeDialog={closeModal}
           rowData={rowData}
-          caseType="SNOOZED"
         />
       </ActionModal>
       <UsaButton onClick={openModal} buttonStyle="outline">
         Update
       </UsaButton>
-      <EndSnoozeForm rowData={rowData} deSnooze={deSnooze} />
+      <ResolveForm rowData={rowData} deSnooze={deSnooze} />
     </React.Fragment>
   );
 };
 
-export default connect(mapStateToProps)(UpdateSnoozeFormWrapper);
+export default connect(mapStateToProps)(UpdateTriageFormWrapper);

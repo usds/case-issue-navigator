@@ -2,14 +2,13 @@ import React from "react";
 import UsaSelect from "./UsaSelect";
 import UsaTextInput from "./UsaTextInput";
 import UsaNumberInput from "./UsaNumberInput";
-import AddNoteInput from "./AddNoteInput";
 import { SPECIFIC_TECHNICAL_ISSUES } from "../../controller/config";
 
 interface Props {
   options: SnoozeOptionValue[];
   selectedOption: SnoozeOptionValue;
   followUpChange: (value: string) => void;
-  snoozeReasonChange: (value: SnoozeReason) => void;
+  snoozeReasonChange: (value: CaseProblem) => void;
   subreasonChange: (value: Subreason) => void;
   caseIssueNotesChange: (value: string) => void;
   durationChange: (value?: number) => void;
@@ -77,7 +76,9 @@ export default function SnoozeInputs(props: Props) {
         deleteError={props.deleteError}
         requiredText="Enter a number of days to snooze"
       />
-      <AddNoteInput
+      <UsaTextInput
+        label="Note"
+        name="caseIssueNotes"
         onChange={props.caseIssueNotesChange}
         value={props.caseIssueNotes}
       />
