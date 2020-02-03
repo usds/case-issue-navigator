@@ -12,7 +12,7 @@ const IS_TEST_ENV = process.env.NODE_ENV === "test";
 const SNOOZE_OPTIONS: { [key in CaseProblem]: SnoozeOption } = {
   technical_issue: {
     snoozeReason: "Technical Issue",
-    shortText: "Technical Issue",
+    shortText: "Tech Issue",
     followUp: "ServiceNow ticket ID",
     duration: 14,
     type: "LINK",
@@ -28,14 +28,14 @@ const SNOOZE_OPTIONS: { [key in CaseProblem]: SnoozeOption } = {
   },
   record_analysis: {
     snoozeReason: "Needs record analysis to review",
-    shortText: "Record Analysis",
+    shortText: "Needs Records",
     duration: 7,
     type: null,
     subType: null
   },
   fo_referral: {
     snoozeReason: "Stuck at field office - awaiting response",
-    shortText: "Stuck at Field Office",
+    shortText: "At Field Office",
     followUp: "ServiceNow ticket ID",
     duration: 5,
     type: "LINK",

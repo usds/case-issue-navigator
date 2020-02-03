@@ -6,6 +6,13 @@ export default class CaseUtils {
     return Date.parse(c.snoozeInformation.snoozeEnd) < new Date().getTime();
   }
 
+  static isResolved(c: Case): boolean {
+    if (!c.snoozeInformation) {
+      return false;
+    }
+    return c.snoozeInformation.snoozeResolved !== null;
+  }
+
   static getDueDate(c: Case): string | undefined {
     if (!c.snoozeInformation) {
       return undefined;

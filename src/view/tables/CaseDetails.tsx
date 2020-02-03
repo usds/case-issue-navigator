@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import RestAPIClient from "../../api/RestAPIClient";
-import { AddNoteForm } from "../../controller/AddNoteForm";
 import { CaseDetailList } from "./CaseDetailList";
-import DateUtils from "../../utils/DateUtils";
+import { Notes } from "./Notes";
 import "./CaseDetails.scss";
 
 interface CaseDetailsProps {
   rowData: Case;
-  numberOfColumns: number;
 }
 
 const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
@@ -62,64 +60,17 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
     getCaseDetails();
   }, [props.rowData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const notesSection = () => {
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-    return (
-      <div className="case-detail-list">
-        {caseDetails.reverse().map((caseDetail, index) => {
-          if (
-            caseDetail.noteOrSnooze !== "note" ||
-            caseDetail.type !== "COMMENT"
-          ) {
-            return null;
-          }
-          return (
-            <React.Fragment key={index}>
-              <span className="case-detail-creator">{caseDetail.creator} </span>
-              <span className="case-detail-date">
-                {DateUtils.badgeFormat(caseDetail.date.toString()) +
-                  ", " +
-                  caseDetail.date.toLocaleString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit"
-                  })}
-              </span>
-              <div className="case-detail-content">
-                {caseDetail.content ? caseDetail.content : ""}
-              </div>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  };
-
   return (
-    <React.Fragment>
-      <tr className="row--detail-display">
-        <td colSpan={1}></td>
-        <td colSpan={props.numberOfColumns - 1}>
-          {/* <p>
-            <b>Application Reason</b>:{" "}
-            {props.rowData.extraData.applicationReason}
-          </p>
-          <p>
-            <b>Platfrom</b>:{" "}
-            {String(props.rowData.extraData.i90SP) === "true" ? "SP" : "Legacy"}
-          </p> */}
-          <CaseDetailList caseDetails={caseDetails} isLoading={isLoading} />
-          <hr />
-          <h3>Notes</h3>
-          {notesSection()}
-          <AddNoteForm
-            rowData={props.rowData}
-            getCaseDetails={getCaseDetails}
-          />
-        </td>
-      </tr>
-    </React.Fragment>
+    <div style={{ display: "flex" }}>
+      <Notes
+        caseDetails={caseDetails}
+        isLoading={isLoading}
+        rowData={props.rowData}
+        getCaseDetails={getCaseDetails}
+      />
+      <span style={{ margin: "0 5px" }}> · </span>
+      <CaseDetailList caseDetails={caseDetails} isLoading={isLoading} />
+    </div>
   );
 };
 

@@ -10,7 +10,6 @@ describe("AddNoteForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
@@ -30,7 +29,6 @@ describe("AddNoteForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: {
         snoozeStart: new Date().toString(),
         snoozeEnd: snoozeEnd.toString(),

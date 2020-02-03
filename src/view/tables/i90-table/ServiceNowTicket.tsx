@@ -19,7 +19,7 @@ export const ServiceNowTicket: React.FC<Props> = ({ caseData }) => {
       >
         {ticket.content}
       </a>
-      <br />
+      <span style={{ margin: "0 5px" }}> · </span>
     </React.Fragment>
   );
 };

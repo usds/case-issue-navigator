@@ -39,7 +39,7 @@ const DetailNoteDisplay: React.FunctionComponent<
         case "fieldoffice":
           return (
             <React.Fragment>
-              {`Stuck at Field Office: ${caseDetail.content}`}
+              {`At Field Office: ${caseDetail.content}`}
             </React.Fragment>
           );
         case "referral":

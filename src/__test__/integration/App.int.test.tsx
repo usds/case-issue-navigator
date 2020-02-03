@@ -73,7 +73,7 @@ describe("App integration", () => {
     await waitForElement(() => getByText(activeCases[0].receiptNumber));
 
     fireEvent(
-      getByText("Triage"),
+      getByText("Edit"),
       new MouseEvent("click", {
         bubbles: true,
         cancelable: true

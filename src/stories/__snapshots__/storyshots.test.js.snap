@@ -44,11 +44,6 @@ exports[`Storyshots Card no content 1`] = `
   className="card"
 >
   <div
-    className="card-header"
-  >
-    
-  </div>
-  <div
     className="card-body"
   />
 </div>
@@ -58,11 +53,6 @@ exports[`Storyshots Card with text 1`] = `
 <div
   className="card"
 >
-  <div
-    className="card-header"
-  >
-    
-  </div>
   <div
     className="card-body"
   >
@@ -127,491 +117,741 @@ exports[`Storyshots I90Table Empty Table - TRIAGED 1`] = `null`;
 exports[`Storyshots I90Table Empty Table - With Filter On 1`] = `null`;
 
 exports[`Storyshots I90Table Triaged case view 1`] = `
-<table
-  className="usa-table usa-table--borderless width-full"
->
-  <thead>
-    <tr>
-      <th
-        className="min"
+Array [
+  <div
+    style={
+      Object {
+        "margin": "10px 0",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
       >
-        
-      </th>
-      <th>
-        Receipt Number
-      </th>
-      <th>
-        Case Creation
-      </th>
-      <th>
-        Application Reason
-      </th>
-      <th>
-        Case Status - Substatus
-      </th>
-      <th>
-        Platform
-      </th>
-      <th>
-        Problem
-      </th>
-      <th>
-        SN Ticket
-      </th>
-      <th>
-        Actions
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td
-        className="min"
-      >
-        <button
-          aria-label="Toggle details for FKE5381523"
-          className=" usa-button usa-button--none"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-        </button>
-      </td>
-      <td>
-        <a
-          href="https://example.com/FKE5381523"
-          target="_elis_viewer"
-        >
-          FKE5381523
-        </a>
-      </td>
-      <td>
-        Aug 6, 2019
-      </td>
-      <td>
-        Boredom
-      </td>
-      <td>
-        <b>
-          Pending
-        </b>
-         - 
-        Printing
-      </td>
-      <td>
-        Legacy
-      </td>
-      <td>
-        
-         
-      </td>
-      <td />
-      <td>
         <div
-          className="remove-button-margin"
+          className="case-header"
         >
-          <button
-            className=" usa-button usa-button--outline"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+          <a
+            className="receiptNumber"
+            href="https://example.com/FKE5381523"
+            target="_elis_viewer"
           >
-            Triage
-          </button>
+            FKE5381523
+          </a>
+          <div
+            className="remove-button-margin"
+          >
+            <button
+              className=" usa-button"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Edit
+            </button>
+          </div>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="min"
-      >
-        <button
-          aria-label="Toggle details for FKE8206743"
-          className=" usa-button usa-button--none"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="case-data"
         >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-        </button>
-      </td>
-      <td>
-        <a
-          href="https://example.com/FKE8206743"
-          target="_elis_viewer"
-        >
-          FKE8206743
-        </a>
-      </td>
-      <td>
-        Jun 17, 2019
-      </td>
-      <td>
-        Enthusiasm
-      </td>
-      <td>
-        <b>
-          Eschewing Obfuscation
-        </b>
-         - 
-        Amazingly Successful
-      </td>
-      <td>
-        SP
-      </td>
-      <td>
-        Technical Issue
-         
-        <div>
-          <span
-            className="usa-tag "
-            data-place="right"
-            data-tip="Expected to be unblocked by Jul 30"
-            style={
-              Object {
-                "textTransform": "none",
-                "whiteSpace": "nowrap",
-              }
-            }
+          <div
+            className="case-state"
           >
             <div
-              className="__react_component_tooltip place-top type-dark "
-              data-id="tooltip"
-            />
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-clock fa-w-16 "
-              data-icon="clock"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg"
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
             >
-              <path
-                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-             
-            Jul 30
-          </span>
-        </div>
-      </td>
-      <td>
-        <a
-          href="http://www.example.com/1234"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          1234
-        </a>
-        <br />
-      </td>
-      <td>
-        <button
-          className=" usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Update
-        </button>
-        <div
-          className="remove-button-margin"
-        >
-          <button
-            className=" usa-button usa-button--secondary"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+              <span
+                className="usa-tag bg-base-lighter"
+                data-for="Untouched"
+                data-tip="Unkown aging case"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                 
+                <div
+                  className="__react_component_tooltip place-top type-dark "
+                  data-id="tooltip"
+                  id="Untouched"
+                />
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-problem"
+          />
+          <div
+            className="case-creation"
           >
-            Resolve
-          </button>
+            Aug 6, 2019
+          </div>
+          <div
+            className="case-reason text-gray-50"
+          >
+            (
+            Boredom
+            )
+          </div>
         </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <div
+          className="case-metadata text-gray-70"
+        >
+          <div
+            className="status"
+          >
+            Pending
+             -
+             
+            Printing
+          </div>
+          <div
+            className="platform"
+          >
+            Legacy
+             
+            Platform
+          </div>
+        </div>
+        <div
+          className="case-footer"
+        >
+          <div
+            className="case-links"
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Notes
+                </button>
+              </span>
+              <span
+                style={
+                  Object {
+                    "margin": "0 5px",
+                  }
+                }
+              >
+                 · 
+              </span>
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Case History
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    style={
+      Object {
+        "margin": "10px 0",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="case-header"
+        >
+          <a
+            className="receiptNumber"
+            href="https://example.com/FKE8206743"
+            target="_elis_viewer"
+          >
+            FKE8206743
+          </a>
+          <div
+            className="remove-button-margin"
+          >
+            <button
+              className=" usa-button"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+        <div
+          className="case-data"
+        >
+          <div
+            className="case-state"
+          >
+            <div
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
+            >
+              <span
+                className="usa-tag"
+                data-for="resolved"
+                data-tip="Resolved"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-check fa-w-16 "
+                  data-icon="check"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+                <div
+                  className="__react_component_tooltip place-top type-dark "
+                  data-id="tooltip"
+                  id="resolved"
+                />
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-problem"
+          >
+            <div
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
+            >
+              <span
+                className="usa-tag technical_issue"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                Tech Issue
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-creation"
+          >
+            Jun 17, 2019
+          </div>
+          <div
+            className="case-reason text-gray-50"
+          >
+            (
+            Enthusiasm
+            )
+          </div>
+        </div>
+        <div
+          className="case-metadata text-gray-70"
+        >
+          <div
+            className="status"
+          >
+            Eschewing Obfuscation
+             -
+             
+            Amazingly Successful
+          </div>
+          <div
+            className="platform"
+          >
+            SP
+             
+            Platform
+          </div>
+        </div>
+        <div
+          className="case-footer"
+        >
+          <div
+            className="case-links"
+          >
+            <a
+              href="http://www.example.com/1234"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              1234
+            </a>
+            <span
+              style={
+                Object {
+                  "margin": "0 5px",
+                }
+              }
+            >
+               · 
+            </span>
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Notes
+                </button>
+              </span>
+              <span
+                style={
+                  Object {
+                    "margin": "0 5px",
+                  }
+                }
+              >
+                 · 
+              </span>
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Case History
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;
 
 exports[`Storyshots I90Table Unchecked case view 1`] = `
-<table
-  className="usa-table usa-table--borderless width-full"
->
-  <thead>
-    <tr>
-      <th
-        className="min"
+Array [
+  <div
+    style={
+      Object {
+        "margin": "10px 0",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
       >
-        
-      </th>
-      <th>
-        Receipt Number
-      </th>
-      <th>
-        Case Creation
-      </th>
-      <th>
-        Application Reason
-      </th>
-      <th>
-        Case Status - Substatus
-      </th>
-      <th>
-        Platform
-      </th>
-      <th>
-        Problem
-      </th>
-      <th>
-        SN Ticket
-      </th>
-      <th>
-        Actions
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td
-        className="min"
-      >
-        <button
-          aria-label="Toggle details for FKE5381523"
-          className=" usa-button usa-button--none"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-        </button>
-      </td>
-      <td>
-        <a
-          href="https://example.com/FKE5381523"
-          target="_elis_viewer"
-        >
-          FKE5381523
-        </a>
-      </td>
-      <td>
-        Aug 6, 2019
-      </td>
-      <td>
-        Boredom
-      </td>
-      <td>
-        <b>
-          Pending
-        </b>
-         - 
-        Printing
-      </td>
-      <td>
-        Legacy
-      </td>
-      <td>
-        
-         
-      </td>
-      <td />
-      <td>
         <div
-          className="remove-button-margin"
+          className="case-header"
         >
-          <button
-            className=" usa-button usa-button--outline"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+          <a
+            className="receiptNumber"
+            href="https://example.com/FKE5381523"
+            target="_elis_viewer"
           >
-            Triage
-          </button>
+            FKE5381523
+          </a>
+          <div
+            className="remove-button-margin"
+          >
+            <button
+              className=" usa-button"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Edit
+            </button>
+          </div>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="min"
-      >
-        <button
-          aria-label="Toggle details for FKE8206743"
-          className=" usa-button usa-button--none"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="case-data"
         >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-        </button>
-      </td>
-      <td>
-        <a
-          href="https://example.com/FKE8206743"
-          target="_elis_viewer"
-        >
-          FKE8206743
-        </a>
-      </td>
-      <td>
-        Jun 17, 2019
-      </td>
-      <td>
-        Enthusiasm
-      </td>
-      <td>
-        <b>
-          Eschewing Obfuscation
-        </b>
-         - 
-        Amazingly Successful
-      </td>
-      <td>
-        SP
-      </td>
-      <td>
-        Technical Issue
-         
-        <div>
-          <span
-            className="usa-tag "
-            data-place="right"
-            data-tip="Expected to be unblocked by Jul 30"
-            style={
-              Object {
-                "textTransform": "none",
-                "whiteSpace": "nowrap",
-              }
-            }
+          <div
+            className="case-state"
           >
             <div
-              className="__react_component_tooltip place-top type-dark "
-              data-id="tooltip"
-            />
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-clock fa-w-16 "
-              data-icon="clock"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg"
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
             >
-              <path
-                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-             
-            Jul 30
-          </span>
-        </div>
-      </td>
-      <td>
-        <a
-          href="http://www.example.com/1234"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          1234
-        </a>
-        <br />
-      </td>
-      <td>
-        <button
-          className=" usa-button usa-button--outline"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Update
-        </button>
-        <div
-          className="remove-button-margin"
-        >
-          <button
-            className=" usa-button usa-button--secondary"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+              <span
+                className="usa-tag bg-base-lighter"
+                data-for="Untouched"
+                data-tip="Unkown aging case"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                 
+                <div
+                  className="__react_component_tooltip place-top type-dark "
+                  data-id="tooltip"
+                  id="Untouched"
+                />
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-problem"
+          />
+          <div
+            className="case-creation"
           >
-            Resolve
-          </button>
+            Aug 6, 2019
+          </div>
+          <div
+            className="case-reason text-gray-50"
+          >
+            (
+            Boredom
+            )
+          </div>
         </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <div
+          className="case-metadata text-gray-70"
+        >
+          <div
+            className="status"
+          >
+            Pending
+             -
+             
+            Printing
+          </div>
+          <div
+            className="platform"
+          >
+            Legacy
+             
+            Platform
+          </div>
+        </div>
+        <div
+          className="case-footer"
+        >
+          <div
+            className="case-links"
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Notes
+                </button>
+              </span>
+              <span
+                style={
+                  Object {
+                    "margin": "0 5px",
+                  }
+                }
+              >
+                 · 
+              </span>
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Case History
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    style={
+      Object {
+        "margin": "10px 0",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="case-header"
+        >
+          <a
+            className="receiptNumber"
+            href="https://example.com/FKE8206743"
+            target="_elis_viewer"
+          >
+            FKE8206743
+          </a>
+          <div
+            className="remove-button-margin"
+          >
+            <button
+              className=" usa-button"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+        <div
+          className="case-data"
+        >
+          <div
+            className="case-state"
+          >
+            <div
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
+            >
+              <span
+                className="usa-tag"
+                data-for="resolved"
+                data-tip="Resolved"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-check fa-w-16 "
+                  data-icon="check"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+                <div
+                  className="__react_component_tooltip place-top type-dark "
+                  data-id="tooltip"
+                  id="resolved"
+                />
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-problem"
+          >
+            <div
+              style={
+                Object {
+                  "marginRight": "5px",
+                }
+              }
+            >
+              <span
+                className="usa-tag technical_issue"
+                style={
+                  Object {
+                    "textTransform": "none",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                Tech Issue
+              </span>
+            </div>
+          </div>
+          <div
+            className="case-creation"
+          >
+            Jun 17, 2019
+          </div>
+          <div
+            className="case-reason text-gray-50"
+          >
+            (
+            Enthusiasm
+            )
+          </div>
+        </div>
+        <div
+          className="case-metadata text-gray-70"
+        >
+          <div
+            className="status"
+          >
+            Eschewing Obfuscation
+             -
+             
+            Amazingly Successful
+          </div>
+          <div
+            className="platform"
+          >
+            SP
+             
+            Platform
+          </div>
+        </div>
+        <div
+          className="case-footer"
+        >
+          <div
+            className="case-links"
+          >
+            <a
+              href="http://www.example.com/1234"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              1234
+            </a>
+            <span
+              style={
+                Object {
+                  "margin": "0 5px",
+                }
+              }
+            >
+               · 
+            </span>
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Notes
+                </button>
+              </span>
+              <span
+                style={
+                  Object {
+                    "margin": "0 5px",
+                  }
+                }
+              >
+                 · 
+              </span>
+              <span
+                className="remove-button-margin"
+              >
+                <button
+                  className=" usa-button usa-button--unstyled"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Case History
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;
 
 exports[`Storyshots LoadMore more cases 1`] = `

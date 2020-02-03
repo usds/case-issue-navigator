@@ -12,7 +12,6 @@ export const activeCases: Case[] = [
       caseAge: "500",
       caseId: "1234"
     },
-    previouslySnoozed: false,
-    showDetails: false
+    previouslySnoozed: false
   }
 ];

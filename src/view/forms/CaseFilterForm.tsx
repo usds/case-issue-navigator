@@ -443,13 +443,17 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
                   selected={filterValues.value}
                   label=""
                 />
-              ) : null}
-              <UsaButton
-                buttonStyle="unstyled"
-                onClick={() => removeFilter(name)}
-              >
-                X
-              </UsaButton>
+              ) : (
+                <div></div>
+              )}
+              <div className="remove-filter">
+                <UsaButton
+                  buttonStyle="unstyled"
+                  onClick={() => removeFilter(name)}
+                >
+                  X
+                </UsaButton>
+              </div>
             </div>
           );
         })}

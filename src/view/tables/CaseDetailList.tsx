@@ -16,10 +16,7 @@ const CaseDetailList: React.FC<CaseDetailListProps> = props => {
   const closeModal = () => setDialog(false);
 
   if (props.isLoading) {
-    return <p>Loading...</p>;
-  }
-  if (props.caseDetails.length === 0) {
-    return <p>No case history.</p>;
+    return <span>Loading...</span>;
   }
   return (
     <React.Fragment>
@@ -63,11 +60,11 @@ const CaseDetailList: React.FC<CaseDetailListProps> = props => {
           })}
         </div>
       </ActionModal>
-      <div className="remove-button-margin">
+      <span className="remove-button-margin">
         <UsaButton onClick={openModal} buttonStyle="unstyled">
           Case History
         </UsaButton>
-      </div>
+      </span>
     </React.Fragment>
   );
 };

@@ -75,9 +75,7 @@ const TriageFormWrapper = (props: Props) => {
         />
       </ActionModal>
       <div className="remove-button-margin">
-        <UsaButton onClick={openModal} buttonStyle="outline">
-          Triage
-        </UsaButton>
+        <UsaButton onClick={openModal}>Edit</UsaButton>
       </div>
     </React.Fragment>
   );

@@ -22,8 +22,7 @@ const initialCases: Case[] = [
       caseAge: "94 days",
       caseId: "ABC123"
     },
-    previouslySnoozed: false,
-    showDetails: false
+    previouslySnoozed: false
   }
 ];
 const newCases: Case[] = [
@@ -40,8 +39,7 @@ const newCases: Case[] = [
       caseAge: "94 days",
       caseId: "DEF567"
     },
-    previouslySnoozed: false,
-    showDetails: false
+    previouslySnoozed: false
   }
 ];
 const snoozedCases: Case[] = [
@@ -80,8 +78,7 @@ const snoozedCases: Case[] = [
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   },
   {
     notes: [],
@@ -106,8 +103,7 @@ const snoozedCases: Case[] = [
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   },
   {
     notes: [],
@@ -132,8 +128,7 @@ const snoozedCases: Case[] = [
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   }
 ];
 
@@ -155,7 +150,6 @@ describe("redux - cases", () => {
     removeCase,
     updateSnooze,
     clearCases,
-    toggleDetails,
     setIsLoading,
     setCaseSummary,
     setLastUpdated,
@@ -349,20 +343,6 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(setSnoozeState("TRIAGED"));
     expect(testStore.getState().caseFilters.snoozeState).toBe("TRIAGED");
-  });
-  it("toggles case details", () => {
-    const { dispatch } = testStore;
-    dispatch(clearCases());
-    dispatch(addCases(initialCases));
-    dispatch(addCases(newCases));
-    dispatch(toggleDetails("ABC123"));
-    const expected = [...initialCases, ...newCases].map(c => {
-      if (c.receiptNumber === "ABC123") {
-        c.showDetails = !c.showDetails;
-      }
-      return c;
-    });
-    expect(testStore.getState().cases.caselist).toEqual(expected);
   });
   it("sets cases loading state", () => {
     const { dispatch } = testStore;

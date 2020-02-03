@@ -23,7 +23,7 @@ export const Actions: React.FC<Props> = ({
   removeCase,
   onSnoozeUpdate
 }) => {
-  if (!CaseUtils.getProblem(caseData) || CaseUtils.isOverDue(caseData)) {
+  if (!CaseUtils.getProblem(caseData) || CaseUtils.isResolved(caseData)) {
     return (
       <TriageFormWrapper
         rowData={caseData}

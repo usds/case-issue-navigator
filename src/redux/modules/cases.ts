@@ -17,8 +17,6 @@ export const casesActionCreators = {
       snoozeInformation
     }),
   clearCases: () => action("cases/CLEAR_CASES"),
-  toggleDetails: (receiptNumber: string) =>
-    action("cases/TOGGLE_DETAILS", receiptNumber),
   setIsLoading: (isLoading: boolean) =>
     action("cases/SET_IS_LOADING", isLoading),
   setCaseSummary: (summary: Summary) =>
@@ -108,19 +106,6 @@ export default function reducer(
       return {
         ...state,
         caselist: []
-      };
-    case "cases/TOGGLE_DETAILS":
-      return {
-        ...state,
-        caselist: state.caselist.map(c => {
-          if (c.receiptNumber === action.payload) {
-            return {
-              ...c,
-              showDetails: !c.showDetails
-            };
-          }
-          return c;
-        })
       };
     case "cases/SET_IS_LOADING":
       return {

@@ -1,11 +1,48 @@
-td.min {
-  padding-right: 0;
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+
+  .receiptNumber {
+    font-size: 20px;
+  }
 }
 
-td.nowrap {
-  white-space: nowrap;
+.case-data {
+  display: flex;
+
+  .case-state,
+  .case-problem,
+  .case-creation {
+    margin-right: 3px;
+  }
+  .case-reason {
+
+  }
 }
 
-.usa-table th, .usa-prose > table th, .usa-table td, .usa-prose > table td {
-  padding: 0.5em 0.7em;
+.case-metadata {
+  margin: 15px 0 0 0;
+  font-size: 14px;
+  .status, .platform {
+    margin-bottom: 5px;
+  }
+}
+
+.case-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 14px;
+  height: 40px;
+
+  .usa-button.usa-button--unstyled {
+    font-size: 15px;
+  }
+
+  .case-links {
+    display: flex;
+  }
+
 }

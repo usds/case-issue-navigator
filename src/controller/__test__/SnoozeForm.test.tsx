@@ -10,7 +10,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const snooze = jest.fn();
@@ -31,7 +30,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const closeDialog = jest.fn();
@@ -52,7 +50,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
@@ -79,7 +76,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
@@ -99,7 +95,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
@@ -121,7 +116,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: {
         snoozeReason: "technical_issue",
         snoozeEnd: "",

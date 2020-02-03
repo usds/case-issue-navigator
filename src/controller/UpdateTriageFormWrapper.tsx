@@ -4,7 +4,6 @@ import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import { ResolveForm } from "./ResolveForm";
 import { RootState } from "../redux/create";
 import { connect } from "react-redux";
 import TriageForm from "./TriageForm";
@@ -24,8 +23,6 @@ const UpdateTriageFormWrapper: React.FC<Props> = ({
   setError,
   currentUser,
   onSnoozeUpdate,
-  updateSummaryData,
-  removeCase,
   rowData
 }) => {
   const [showDialog, setDialog] = useState(false);
@@ -78,30 +75,6 @@ const UpdateTriageFormWrapper: React.FC<Props> = ({
     }
   };
 
-  const deSnooze = async (receiptNumber: string) => {
-    const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
-      receiptNumber
-    );
-
-    if (response.succeeded) {
-      updateSummaryData();
-      removeCase(receiptNumber);
-      trackEvent("snooze", "deSnooze", "desnoozed");
-      setNotification({
-        message: `${receiptNumber} has been resolved.`,
-        type: "info"
-      });
-      return;
-    }
-
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
-  };
-
   const openModal = () => setDialog(true);
   const closeModal = () => setDialog(false);
 
@@ -118,10 +91,7 @@ const UpdateTriageFormWrapper: React.FC<Props> = ({
           rowData={rowData}
         />
       </ActionModal>
-      <UsaButton onClick={openModal} buttonStyle="outline">
-        Update
-      </UsaButton>
-      <ResolveForm rowData={rowData} deSnooze={deSnooze} />
+      <UsaButton onClick={openModal}>Edit</UsaButton>
     </React.Fragment>
   );
 };

@@ -52,13 +52,6 @@ interface RowData {
   receiptNumber: string;
 }
 
-interface ShowDetails {
-  key: "showDetails";
-  props: {
-    toggleDetails: (receiptNumber: string) => void;
-  };
-}
-
 interface ReceiptNumber {
   key: "receiptNumber";
   props?;
@@ -182,7 +175,6 @@ interface Case {
   notes?: Array<Note>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
-  showDetails: boolean;
 }
 
 interface UserInformation {
@@ -194,6 +186,7 @@ type SnoozeInformation = {
   snoozeEnd: string;
   snoozeReason: CaseProblem;
   snoozeStart: string;
+  snoozeResolved: string | "null";
   user: UserInformation;
 };
 
