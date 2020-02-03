@@ -138,7 +138,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                   <ServiceNowTicket caseData={caseData} />
                   <CaseDetails rowData={caseData} />
                 </div>
-                <ResolveForm rowData={caseData} deSnooze={deSnooze} />
+                <ResolveForm rowData={caseData} resolve={deSnooze} />
               </div>
             </Card>
           </div>

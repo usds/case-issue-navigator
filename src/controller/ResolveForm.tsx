@@ -7,23 +7,23 @@ import CaseUtils from "../utils/CaseUtils";
 
 interface Props {
   rowData: Case;
-  deSnooze: (receiptNumber: string) => void;
+  resolve: (receiptNumber: string) => void;
 }
 
-const ResolveForm = ({ rowData, deSnooze }: Props) => {
+const ResolveForm = ({ rowData, resolve }: Props) => {
   const [showDialog, setDialog] = useState(false);
 
   if (!CaseUtils.getProblem(rowData) || CaseUtils.isResolved(rowData)) {
     return null;
   }
 
-  const desnooze = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!rowData) {
       console.error("resnooze called with out a vaild snooze option selected");
       return;
     }
-    deSnooze(rowData.receiptNumber);
+    resolve(rowData.receiptNumber);
     closeModal();
   };
 
@@ -49,7 +49,7 @@ const ResolveForm = ({ rowData, deSnooze }: Props) => {
           </li>
         </ul>
         <div style={{ paddingTop: "15px" }}>
-          <UsaButton onClick={desnooze}>Confirm</UsaButton>
+          <UsaButton onClick={onConfirm}>Confirm</UsaButton>
         </div>
       </ActionModal>
       <div className="remove-button-margin">
