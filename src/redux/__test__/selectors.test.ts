@@ -13,11 +13,6 @@ const baseState: RootState = {
   cases: {
     caselist: [],
     isLoading: false,
-    summary: {
-      CASES_TO_WORK: 0,
-      PREVIOUSLY_SNOOZED: 0,
-      SNOOZED_CASES: 0
-    },
     hasMoreCases: false
   },
   caseFilters: {

@@ -3,7 +3,6 @@ import { CaseDetails } from "../CaseDetails";
 import { connect } from "react-redux";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../../../redux/modules/cases";
-import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 import { Problem } from "./Problem";
@@ -22,6 +21,8 @@ import { trackEvent } from "../../../matomo-setup";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
+  totalCount: state.cases.totalCount,
+  queryCount: state.cases.queryCount,
   isLoading: state.cases.isLoading,
   hasFilters: hasFilters(state),
   snoozeState: state.caseFilters.snoozeState
@@ -30,7 +31,6 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      updateSummaryData: getCaseSummary,
       setError: appStatusActionCreators.setDataLoadError,
       setNotification: appStatusActionCreators.setNotification,
       removeCase: casesActionCreators.removeCase,
@@ -46,11 +46,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
   caselist,
   isLoading,
   hasFilters,
-  updateSummaryData,
   setError,
   setNotification,
   removeCase,
-  onSnoozeUpdate
+  onSnoozeUpdate,
+  totalCount,
+  queryCount
 }) => {
   if (caselist.length === 0 && isLoading) {
     return null;
@@ -66,7 +67,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     );
 
     if (response.succeeded) {
-      updateSummaryData();
       removeCase(receiptNumber);
       trackEvent("snooze", "deSnooze", "desnoozed");
       setNotification({
@@ -86,6 +86,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
 
   return (
     <React.Fragment>
+      <div className="text-gray-50" style={{textAlign: "right", fontSize: "14px"}}>Showing {queryCount} of {totalCount} cases </div>
       {caselist.map(caseData => {
         return (
           <div style={{ margin: "10px 0" }}>
@@ -100,7 +101,6 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                 </a>
                 <Actions
                   caseData={caseData}
-                  updateSummaryData={updateSummaryData}
                   setError={setError}
                   setNotification={setNotification}
                   removeCase={removeCase}

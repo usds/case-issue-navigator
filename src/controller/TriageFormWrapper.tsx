@@ -30,7 +30,6 @@ const TriageFormWrapper = (props: Props) => {
       }
     );
     if (response.succeeded) {
-      props.updateSummaryData();
       setNotification({
         message: `${receiptNumber} has been Snoozed for ${
           snoozeOption.duration
@@ -40,7 +39,7 @@ const TriageFormWrapper = (props: Props) => {
         type: "success"
       });
       trackEvent("snooze", "createSnooze", snoozeOption.snoozeReason);
-      props.removeCase(receiptNumber);
+      // props.removeCase(receiptNumber);
       return;
     }
 

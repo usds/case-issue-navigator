@@ -112,7 +112,6 @@ interface CasesActionCreators {
 }
 
 interface ActionsProps {
-  updateSummaryData: () => Dispatch<AnyAction>;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<AnyAction>;
   removeCase: Dispatch<CasesActionCreators["removeCase"]>;
@@ -124,7 +123,6 @@ interface Actions {
 }
 
 interface SnoozeActionsProps {
-  updateSummaryData: () => void;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<React.SetStateAction<AppNotification>>;
   onSnoozeUpdate: ReturnType<CasesActionCreators["updateSnooze"]>;

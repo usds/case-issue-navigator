@@ -83,7 +83,6 @@ const mapStateToProps = (state: RootState) => ({
   snoozeReasonFilter: state.caseFilters.snoozeReasonFilter,
   serviceNowFilter: state.caseFilters.serviceNowFilter,
   snoozeState: state.caseFilters.snoozeState,
-  summary: state.cases.summary,
   search: state.caseFilters.search,
   activeSearch: state.caseFilters.activeSearch,
   caseStatus: state.caseFilters.caseStatus,

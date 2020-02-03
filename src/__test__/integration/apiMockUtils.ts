@@ -24,20 +24,11 @@ export const successfulLoadAPIMock = () => {
   });
 
   apiMock
-    .get(`/api/cases/${caseManagementSystem}/${caseType}/summary`)
-    .reply(200, {
-      CURRENTLY_SNOOZED: 14,
-      PREVIOUSLY_SNOOZED: 3,
-      NEVER_SNOOZED: 283
-    })
-    .persist();
-
-  apiMock
     .get(
       `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ALL&size=${RESULTS_PER_PAGE +
         1}`
     )
-    .reply(200, activeCases);
+    .reply(200, {cases: activeCases, totalCount: activeCases.length, queryCount: activeCases.length});
 
   return apiMock;
 };
@@ -51,10 +42,6 @@ export const unsuccessfulLoadAPIMock = () => {
   apiMock.get("/api/users").reply(401, {});
 
   apiMock.get("/csrf").reply(401, {});
-
-  apiMock
-    .get(`/api/cases/${caseManagementSystem}/${caseType}/summary`)
-    .reply(401, {});
 
   apiMock
     .get(
