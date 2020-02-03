@@ -86,7 +86,12 @@ export const UnconnectedI90Table: React.FC<Props> = ({
 
   return (
     <React.Fragment>
-      <div className="text-gray-50" style={{textAlign: "right", fontSize: "14px"}}>Showing {queryCount} of {totalCount} cases </div>
+      <div
+        className="text-gray-50"
+        style={{ textAlign: "right", fontSize: "14px" }}
+      >
+        Showing {queryCount} of {totalCount} cases{" "}
+      </div>
       {caselist.map(caseData => {
         return (
           <div style={{ margin: "10px 0" }}>

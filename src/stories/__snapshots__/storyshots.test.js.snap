@@ -119,6 +119,20 @@ exports[`Storyshots I90Table Empty Table - With Filter On 1`] = `null`;
 exports[`Storyshots I90Table Triaged case view 1`] = `
 Array [
   <div
+    className="text-gray-50"
+    style={
+      Object {
+        "fontSize": "14px",
+        "textAlign": "right",
+      }
+    }
+  >
+    Showing 
+     of 
+     cases
+     
+  </div>,
+  <div
     style={
       Object {
         "margin": "10px 0",
@@ -250,7 +264,8 @@ Array [
                   onClick={[Function]}
                   type="button"
                 >
-                  Notes
+                  Note
+                  s
                 </button>
               </span>
               <span
@@ -471,7 +486,8 @@ Array [
                   onClick={[Function]}
                   type="button"
                 >
-                  Notes
+                  Note
+                  s
                 </button>
               </span>
               <span
@@ -507,6 +523,20 @@ Array [
 exports[`Storyshots I90Table Unchecked case view 1`] = `
 Array [
   <div
+    className="text-gray-50"
+    style={
+      Object {
+        "fontSize": "14px",
+        "textAlign": "right",
+      }
+    }
+  >
+    Showing 
+     of 
+     cases
+     
+  </div>,
+  <div
     style={
       Object {
         "margin": "10px 0",
@@ -638,7 +668,8 @@ Array [
                   onClick={[Function]}
                   type="button"
                 >
-                  Notes
+                  Note
+                  s
                 </button>
               </span>
               <span
@@ -859,7 +890,8 @@ Array [
                   onClick={[Function]}
                   type="button"
                 >
-                  Notes
+                  Note
+                  s
                 </button>
               </span>
               <span

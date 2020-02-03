@@ -12,7 +12,7 @@ interface SummarySuccess {
 interface CaseList {
   totalCount: number;
   queryCount: number;
-  cases: Case[]
+  cases: Case[];
 }
 
 class CaseIssueAPIClient extends ClientBase {

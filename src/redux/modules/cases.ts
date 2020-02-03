@@ -94,8 +94,8 @@ export default function reducer(
           );
         });
       if (
-        caselist[caselist.length - 1].receiptNumber === receiptNumber //&&
-        //TODO?caselist.length < state.summary["SNOOZED_CASES"]
+        caselist[caselist.length - 1].receiptNumber === receiptNumber &&
+        caselist.length < (state.queryCount ? state.queryCount : 0)
       ) {
         caselist.pop();
       }

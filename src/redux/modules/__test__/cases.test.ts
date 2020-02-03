@@ -74,6 +74,7 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2018-11-12T03:00:00-05:00",
       snoozeStart: "2017-11-13T10:15:26.70979-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
@@ -99,6 +100,7 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2019-11-12T03:00:00-05:00",
       snoozeStart: "2017-11-13T10:27:57.319233-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
@@ -124,6 +126,7 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
       snoozeStart: "2019-11-13T10:27:59.495681-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
@@ -152,7 +155,8 @@ describe("redux - cases", () => {
     clearCases,
     setIsLoading,
     setLastUpdated,
-    setHasMoreCases
+    setHasMoreCases,
+    setQueryCaseCount
   } = casesActionCreators;
   const {
     setSnoozeState,
@@ -217,6 +221,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2020-11-12T03:00:00-05:00",
           snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -246,6 +251,7 @@ describe("redux - cases", () => {
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
       snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
         name: "John Kennedy"
@@ -256,6 +262,7 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(clearCases());
     dispatch(addCases(snoozedCases));
+    dispatch(setQueryCaseCount(2));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -276,6 +283,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
           snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -292,6 +300,7 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(clearCases());
     dispatch(addCases(snoozedCases));
+    dispatch(setQueryCaseCount(5));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -312,6 +321,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
           snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -350,7 +360,13 @@ describe("redux - cases", () => {
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        json: () => initialCases
+        json: () => {
+          return {
+            cases: initialCases,
+            totalCount: 0,
+            queueCount: 0
+          };
+        }
       })
     );
     const { dispatch, getState } = testAsyncStore;
@@ -479,7 +495,9 @@ describe("redux - cases", () => {
   it("sets hasMoreCases to true if there is an extra case on the response", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE + 1).fill(sampleCase);
+    const response = {
+      cases: new Array(RESULTS_PER_PAGE + 1).fill(sampleCase)
+    };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
@@ -494,7 +512,7 @@ describe("redux - cases", () => {
   it("sets hasMoreCases to false if the response is equal to resultsPerPage", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE).fill(sampleCase);
+    const response = { cases: new Array(RESULTS_PER_PAGE).fill(sampleCase) };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
@@ -509,7 +527,9 @@ describe("redux - cases", () => {
   it("sets hasMoreCases to false if the response is less than resultsPerPage", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE - 1).fill(sampleCase);
+    const response = {
+      cases: new Array(RESULTS_PER_PAGE - 1).fill(sampleCase)
+    };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({

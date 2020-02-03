@@ -28,7 +28,11 @@ export const successfulLoadAPIMock = () => {
       `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ALL&size=${RESULTS_PER_PAGE +
         1}`
     )
-    .reply(200, {cases: activeCases, totalCount: activeCases.length, queryCount: activeCases.length});
+    .reply(200, {
+      cases: activeCases,
+      totalCount: activeCases.length,
+      queryCount: activeCases.length
+    });
 
   return apiMock;
 };
@@ -47,7 +51,7 @@ export const unsuccessfulLoadAPIMock = () => {
     .get(
       `/api/cases/${caseManagementSystem}/${caseType}?mainFilter=ALL&size=20`
     )
-    .reply(401, []);
+    .reply(401, { cases: [] });
 
   return apiMock;
 };

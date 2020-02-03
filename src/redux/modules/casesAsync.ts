@@ -23,7 +23,13 @@ export const loadCases = (reciptnumber?: string) => async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
   getState: () => RootState
 ) => {
-  const { setIsLoading, addCases, setHasMoreCases, setTotalCaseCount, setQueryCaseCount } = casesActionCreators;
+  const {
+    setIsLoading,
+    addCases,
+    setHasMoreCases,
+    setTotalCaseCount,
+    setQueryCaseCount
+  } = casesActionCreators;
   const { cases, caseFilters } = getState();
   const { caselist } = cases;
   const {

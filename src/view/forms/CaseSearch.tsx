@@ -10,9 +10,9 @@ interface Props {
 const CaseSearch: React.FunctionComponent<Props> = props => {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      props.onSearchSubmit()
+      props.onSearchSubmit();
     }
-  }
+  };
   return (
     <div role="search" className="usa-search usa-search--small">
       <div className="margin-top-1">

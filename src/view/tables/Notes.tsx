@@ -59,7 +59,8 @@ const Notes: React.FC<Props> = props => {
       </ActionModal>
       <span className="remove-button-margin">
         <UsaButton onClick={openModal} buttonStyle="unstyled">
-          {numberOfNotes > 0 ? `${numberOfNotes} `: null}Note{numberOfNotes === 1 ? null : "s"}
+          {numberOfNotes > 0 ? `${numberOfNotes} ` : null}Note
+          {numberOfNotes === 1 ? null : "s"}
         </UsaButton>
       </span>
     </React.Fragment>
