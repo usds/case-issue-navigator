@@ -8,6 +8,11 @@ interface Props {
 }
 
 const CaseSearch: React.FunctionComponent<Props> = props => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      props.onSearchSubmit()
+    }
+  }
   return (
     <div role="search" className="usa-search usa-search--small">
       <div className="margin-top-1">
@@ -17,6 +22,7 @@ const CaseSearch: React.FunctionComponent<Props> = props => {
           type="search"
           name="search"
           value={props.search || ""}
+          onKeyPress={handleKeyPress}
           onChange={e => props.onSearchChange(e.target.value)}
           placeholder="Search Receipt/INC"
           style={{ width: "160px" }}
