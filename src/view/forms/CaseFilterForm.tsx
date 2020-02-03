@@ -205,6 +205,8 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
   };
 
   const onSearch = () => {
+    props.setSearch("");
+    props.setActiveSearch(false);
     Object.keys(filters).forEach(key => {
       switch (key) {
         case "Case Created":
@@ -267,6 +269,8 @@ const CaseFilterForm: React.FunctionComponent<Props> = props => {
       props.clearCases();
       props.setActiveSearch(true);
       props.loadSearchResults();
+      setFilters({});
+      setAddingFilter(true);
     } else {
       onClear();
     }
