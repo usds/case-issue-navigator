@@ -16,7 +16,7 @@ const Notes: React.FC<Props> = props => {
   const [showDialog, setDialog] = useState(false);
   const openModal = () => setDialog(true);
   const closeModal = () => setDialog(false);
-
+  let numberOfNotes = 0;
   if (props.isLoading) {
     return <p>Loading...</p>;
   }
@@ -31,6 +31,7 @@ const Notes: React.FC<Props> = props => {
             ) {
               return null;
             }
+            numberOfNotes = numberOfNotes + 1;
             return (
               <React.Fragment key={index}>
                 <span className="case-detail-creator">
@@ -58,7 +59,7 @@ const Notes: React.FC<Props> = props => {
       </ActionModal>
       <span className="remove-button-margin">
         <UsaButton onClick={openModal} buttonStyle="unstyled">
-          Notes
+          {numberOfNotes > 0 ? `${numberOfNotes} `: null}Note{numberOfNotes === 1 ? null : "s"}
         </UsaButton>
       </span>
     </React.Fragment>
