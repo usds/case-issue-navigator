@@ -16,6 +16,8 @@ export const ServiceNowTicket: React.FC<Props> = ({ caseData }) => {
         href={ticket.href ? ticket.href : undefined}
         target="_blank"
         rel="noopener noreferrer"
+        className="usa-button  usa-button--unstyled"
+        style={{ height: "14px", marginTop: "2px" }}
       >
         {ticket.content}
       </a>

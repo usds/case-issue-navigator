@@ -135,7 +135,7 @@ Array [
           className="case-header"
         >
           <a
-            className="receiptNumber"
+            className="usa-button  usa-button--unstyled receiptNumber"
             href="https://example.com/FKE5381523"
             target="_elis_viewer"
           >
@@ -164,17 +164,23 @@ Array [
               style={
                 Object {
                   "marginRight": "5px",
+                  "marginTop": "-3px",
                 }
               }
             >
-              <span
+              <div
                 className="usa-tag bg-base-lighter"
                 data-for="Untouched"
                 data-tip="Unkown aging case"
                 style={
                   Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "25px",
+                    "justifyContent": "center",
                     "textTransform": "none",
                     "whiteSpace": "nowrap",
+                    "width": "25px",
                   }
                 }
               >
@@ -184,7 +190,7 @@ Array [
                   data-id="tooltip"
                   id="Untouched"
                 />
-              </span>
+              </div>
             </div>
           </div>
           <div
@@ -291,7 +297,7 @@ Array [
           className="case-header"
         >
           <a
-            className="receiptNumber"
+            className="usa-button  usa-button--unstyled receiptNumber"
             href="https://example.com/FKE8206743"
             target="_elis_viewer"
           >
@@ -320,17 +326,23 @@ Array [
               style={
                 Object {
                   "marginRight": "5px",
+                  "marginTop": "-3px",
                 }
               }
             >
-              <span
-                className="usa-tag"
+              <div
+                className="usa-tag bg-green"
                 data-for="resolved"
                 data-tip="Resolved"
                 style={
                   Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "25px",
+                    "justifyContent": "center",
                     "textTransform": "none",
                     "whiteSpace": "nowrap",
+                    "width": "25px",
                   }
                 }
               >
@@ -356,7 +368,7 @@ Array [
                   data-id="tooltip"
                   id="resolved"
                 />
-              </span>
+              </div>
             </div>
           </div>
           <div
@@ -421,8 +433,15 @@ Array [
             className="case-links"
           >
             <a
+              className="usa-button  usa-button--unstyled"
               href="http://www.example.com/1234"
               rel="noopener noreferrer"
+              style={
+                Object {
+                  "height": "14px",
+                  "marginTop": "2px",
+                }
+              }
               target="_blank"
             >
               1234
@@ -504,7 +523,7 @@ Array [
           className="case-header"
         >
           <a
-            className="receiptNumber"
+            className="usa-button  usa-button--unstyled receiptNumber"
             href="https://example.com/FKE5381523"
             target="_elis_viewer"
           >
@@ -533,17 +552,23 @@ Array [
               style={
                 Object {
                   "marginRight": "5px",
+                  "marginTop": "-3px",
                 }
               }
             >
-              <span
+              <div
                 className="usa-tag bg-base-lighter"
                 data-for="Untouched"
                 data-tip="Unkown aging case"
                 style={
                   Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "25px",
+                    "justifyContent": "center",
                     "textTransform": "none",
                     "whiteSpace": "nowrap",
+                    "width": "25px",
                   }
                 }
               >
@@ -553,7 +578,7 @@ Array [
                   data-id="tooltip"
                   id="Untouched"
                 />
-              </span>
+              </div>
             </div>
           </div>
           <div
@@ -660,7 +685,7 @@ Array [
           className="case-header"
         >
           <a
-            className="receiptNumber"
+            className="usa-button  usa-button--unstyled receiptNumber"
             href="https://example.com/FKE8206743"
             target="_elis_viewer"
           >
@@ -689,17 +714,23 @@ Array [
               style={
                 Object {
                   "marginRight": "5px",
+                  "marginTop": "-3px",
                 }
               }
             >
-              <span
-                className="usa-tag"
+              <div
+                className="usa-tag bg-green"
                 data-for="resolved"
                 data-tip="Resolved"
                 style={
                   Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "height": "25px",
+                    "justifyContent": "center",
                     "textTransform": "none",
                     "whiteSpace": "nowrap",
+                    "width": "25px",
                   }
                 }
               >
@@ -725,7 +756,7 @@ Array [
                   data-id="tooltip"
                   id="resolved"
                 />
-              </span>
+              </div>
             </div>
           </div>
           <div
@@ -790,8 +821,15 @@ Array [
             className="case-links"
           >
             <a
+              className="usa-button  usa-button--unstyled"
               href="http://www.example.com/1234"
               rel="noopener noreferrer"
+              style={
+                Object {
+                  "height": "14px",
+                  "marginTop": "2px",
+                }
+              }
               target="_blank"
             >
               1234

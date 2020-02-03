@@ -92,9 +92,9 @@ export const UnconnectedI90Table: React.FC<Props> = ({
             <Card>
               <div className="case-header">
                 <a
+                  className="usa-button  usa-button--unstyled receiptNumber"
                   href={ELIS_CASE_BASE_URL + caseData.receiptNumber}
                   target="_elis_viewer"
-                  className="receiptNumber"
                 >
                   {caseData.receiptNumber}
                 </a>

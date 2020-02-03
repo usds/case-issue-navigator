@@ -14,72 +14,92 @@ export const CaseState: React.FC<Props> = ({ caseData }) => {
   const reason = CaseUtils.getProblem(caseData);
   if (!reason) {
     return (
-      <div style={{ marginRight: "5px" }}>
-        <span
+      <div style={{ marginRight: "5px", marginTop: "-3px" }}>
+        <div
           className={`usa-tag bg-base-lighter`}
           style={{
             textTransform: "none",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            height: "25px",
+            width: "25px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
           }}
           data-tip={`Unkown aging case`}
           data-for="Untouched"
         >
           &nbsp;
           <ReactTooltip id="Untouched"></ReactTooltip>
-        </span>
+        </div>
       </div>
     );
   }
   if (CaseUtils.isResolved(caseData)) {
     return (
-      <div style={{ marginRight: "5px" }}>
-        <span
-          className={`usa-tag`}
+      <div style={{ marginRight: "5px", marginTop: "-3px" }}>
+        <div
+          className={`usa-tag bg-green`}
           style={{
             textTransform: "none",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            height: "25px",
+            width: "25px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
           }}
           data-tip={`Resolved`}
           data-for="resolved"
         >
           <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           <ReactTooltip id="resolved"></ReactTooltip>
-        </span>
+        </div>
       </div>
     );
   }
   if (CaseUtils.isOverDue(caseData)) {
     return (
-      <div style={{ marginRight: "5px" }}>
-        <span
-          className={`usa-tag bg-accent-warm`}
+      <div style={{ marginRight: "5px", marginTop: "-3px" }}>
+        <div
+          className={`usa-tag bg-accent-warm-dark`}
           style={{
             textTransform: "none",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            height: "25px",
+            width: "25px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
           }}
           data-tip={`overdue`}
           data-for="overdue"
         >
           <FontAwesomeIcon icon={faExclamation}></FontAwesomeIcon>
           <ReactTooltip id="overdue"></ReactTooltip>
-        </span>
+        </div>
       </div>
     );
   }
   return (
-    <div style={{ marginRight: "5px" }}>
-      <span
+    <div style={{ marginRight: "5px", marginTop: "-3px" }}>
+      <div
         className={`usa-tag`}
         style={{
           textTransform: "none",
-          whiteSpace: "nowrap"
+          whiteSpace: "nowrap",
+          height: "25px",
+          width: "25px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
         }}
         data-tip={`identified`}
         data-for="identified"
       >
         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
         <ReactTooltip id="identified"></ReactTooltip>
-      </span>
+      </div>
     </div>
   );
 };
