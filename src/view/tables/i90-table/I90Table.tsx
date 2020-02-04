@@ -138,13 +138,17 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                   Platform
                 </div>
               </div>
-              <div className="case-footer">
-                <div className="case-links">
-                  <ServiceNowTicket caseData={caseData} />
-                  <CaseDetails rowData={caseData} />
+              {caseData.snoozeInformation &&
+              caseData.snoozeInformation.snoozeReason ? (
+                <div className="case-footer">
+                  <div className="case-links">
+                    <ServiceNowTicket caseData={caseData} />
+                    <CaseDetails rowData={caseData} />
+                  </div>
+
+                  <ResolveForm rowData={caseData} resolve={deSnooze} />
                 </div>
-                <ResolveForm rowData={caseData} resolve={deSnooze} />
-              </div>
+              ) : null}
             </Card>
           </div>
         );
