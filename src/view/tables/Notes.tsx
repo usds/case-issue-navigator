@@ -37,7 +37,7 @@ const Notes: React.FC<Props> = props => {
                 <span className="case-detail-creator">
                   {caseDetail.creator}{" "}
                 </span>
-                <span className="case-detail-date" style={{fontSize: "13px"}}>
+                <span className="case-detail-date" style={{ fontSize: "13px" }}>
                   {DateUtils.badgeFormat(caseDetail.date.toString()) +
                     ", " +
                     caseDetail.date.toLocaleString("en-US", {
@@ -45,7 +45,10 @@ const Notes: React.FC<Props> = props => {
                       minute: "2-digit"
                     })}
                 </span>
-                <div className="case-detail-content" style={{margin: "6px 0 15px 0"}}>
+                <div
+                  className="case-detail-content"
+                  style={{ margin: "6px 0 15px 0" }}
+                >
                   {caseDetail.content ? caseDetail.content : ""}
                 </div>
               </React.Fragment>

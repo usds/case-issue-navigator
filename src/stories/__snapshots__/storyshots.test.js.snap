@@ -242,56 +242,6 @@ Array [
             Platform
           </div>
         </div>
-        <div
-          className="case-footer"
-        >
-          <div
-            className="case-links"
-          >
-            <div
-              style={
-                Object {
-                  "display": "flex",
-                }
-              }
-            >
-              <span
-                className="remove-button-margin"
-              >
-                <button
-                  className=" usa-button usa-button--unstyled"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Note
-                  s
-                </button>
-              </span>
-              <span
-                style={
-                  Object {
-                    "margin": "0 5px",
-                  }
-                }
-              >
-                 · 
-              </span>
-              <span
-                className="remove-button-margin"
-              >
-                <button
-                  className=" usa-button usa-button--unstyled"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Case History
-                </button>
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>,
@@ -644,56 +594,6 @@ Array [
             Legacy
              
             Platform
-          </div>
-        </div>
-        <div
-          className="case-footer"
-        >
-          <div
-            className="case-links"
-          >
-            <div
-              style={
-                Object {
-                  "display": "flex",
-                }
-              }
-            >
-              <span
-                className="remove-button-margin"
-              >
-                <button
-                  className=" usa-button usa-button--unstyled"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Note
-                  s
-                </button>
-              </span>
-              <span
-                style={
-                  Object {
-                    "margin": "0 5px",
-                  }
-                }
-              >
-                 · 
-              </span>
-              <span
-                className="remove-button-margin"
-              >
-                <button
-                  className=" usa-button usa-button--unstyled"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Case History
-                </button>
-              </span>
-            </div>
           </div>
         </div>
       </div>

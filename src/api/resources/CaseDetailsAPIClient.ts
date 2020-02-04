@@ -47,7 +47,6 @@ class CaseDetailsAPIClient extends ClientBase {
     )) as any;
   }
 
-
   public async addANote(
     receiptNumber: string,
     note: PartialNote
