@@ -3,6 +3,7 @@ import { CaseDetails } from "../CaseDetails";
 import { connect } from "react-redux";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../../../redux/modules/cases";
+import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
 import { Problem } from "./Problem";
@@ -31,6 +32,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
+      updateSummaryData: getCaseSummary,
       setError: appStatusActionCreators.setDataLoadError,
       setNotification: appStatusActionCreators.setNotification,
       removeCase: casesActionCreators.removeCase,
@@ -46,6 +48,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
   caselist,
   isLoading,
   hasFilters,
+  updateSummaryData,
   setError,
   setNotification,
   removeCase,
@@ -106,6 +109,7 @@ export const UnconnectedI90Table: React.FC<Props> = ({
                 </a>
                 <Actions
                   caseData={caseData}
+                  updateSummaryData={updateSummaryData}
                   setError={setError}
                   setNotification={setNotification}
                   removeCase={removeCase}

@@ -15,6 +15,10 @@ describe("URLs", () => {
     expectURLEquals(URLs.users(), "/api/users");
   });
 
+  it("should producte the correct cases summary path", () => {
+    expectURLEquals(URLs.casesSummary(), "/api/cases/DEFAULT/STANDARD/summary");
+  });
+
   it("should producte the correct all cases path", () => {
     expectURLEquals(
       URLs.cases("ALL", "ABC1234567890"),

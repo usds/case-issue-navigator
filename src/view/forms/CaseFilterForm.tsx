@@ -3,7 +3,11 @@ import { RootState } from "../../redux/create";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 import { casesActionCreators } from "../../redux/modules/cases";
 import { caseFilterActionCreators } from "../../redux/modules/caseFilters";
-import { loadCases, loadSearchResults } from "../../redux/modules/casesAsync";
+import {
+  loadCases,
+  loadSearchResults,
+  getCaseSummary
+} from "../../redux/modules/casesAsync";
 import { connect } from "react-redux";
 import { CaseSearch } from "./CaseSearch";
 import { Card } from "../util/Card";
@@ -93,6 +97,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
+      updateDateRefresh: getCaseSummary,
       loadCases: loadCases,
       loadSearchResults: loadSearchResults,
       clearCases: casesActionCreators.clearCases,
@@ -114,6 +119,7 @@ type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const CaseFilterForm: React.FunctionComponent<Props> = props => {
+  props.updateDateRefresh();
   const isCaseAgeSelected = () => {
     if (!props.start || !props.end) {
       return false;

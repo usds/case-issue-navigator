@@ -21,6 +21,7 @@ type Props = ReturnType<typeof mapStateToProps> & PassedProps;
 const UpdateTriageFormWrapper: React.FC<Props> = ({
   setNotification,
   setError,
+  updateSummaryData,
   currentUser,
   onSnoozeUpdate,
   rowData
@@ -46,6 +47,7 @@ const UpdateTriageFormWrapper: React.FC<Props> = ({
     );
 
     if (response.succeeded) {
+      updateSummaryData();
       setNotification({
         message: `${receiptNumber} has been Snoozed for ${
           snoozeOption.duration

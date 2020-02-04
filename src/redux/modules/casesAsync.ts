@@ -1,5 +1,5 @@
 import { RootState } from "../create";
-import { AnyAction } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
 import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
@@ -115,6 +115,25 @@ export const loadSearchResults = () => async (
   if (response.succeeded) {
     dispatch(clearCases());
     dispatch(addCases(response.payload));
+    return;
+  }
+
+  if (response.responseReceived) {
+    const errorJson = await response.responseError.getJson();
+    console.error(errorJson);
+  } else {
+    console.error(response);
+  }
+};
+
+export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {
+  const response = await RestAPIClient.cases.getCaseSummary();
+  const { setLastUpdated } = casesActionCreators;
+
+  if (response.succeeded) {
+    if (response.payload.lastUpdated) {
+      dispatch(setLastUpdated(response.payload.lastUpdated));
+    }
     return;
   }
 

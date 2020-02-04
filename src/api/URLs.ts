@@ -36,6 +36,12 @@ class URLs {
     );
   }
 
+  public static casesSummary(): URL {
+    const url = URLs.casesBase();
+    url.pathname += "/summary";
+    return url;
+  }
+
   public static cases(
     filter: SnoozeState,
     receiptNumber?: string,

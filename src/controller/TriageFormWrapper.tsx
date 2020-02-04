@@ -30,6 +30,7 @@ const TriageFormWrapper = (props: Props) => {
       }
     );
     if (response.succeeded) {
+      props.updateSummaryData();
       setNotification({
         message: `${receiptNumber} has been Snoozed for ${
           snoozeOption.duration
