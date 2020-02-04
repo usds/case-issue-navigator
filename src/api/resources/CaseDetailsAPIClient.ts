@@ -46,6 +46,18 @@ class CaseDetailsAPIClient extends ClientBase {
       snoozeInputs
     )) as any;
   }
+
+
+  public async addANote(
+    receiptNumber: string,
+    note: PartialNote
+  ): Promise<c.ApiResponse<UpdateSnoozeSuccess, APIError>> {
+    this.setCsrf();
+    return (await this.post(
+      URLs.caseDetailsAddAttachment(receiptNumber),
+      note
+    )) as any;
+  }
 }
 
 export default CaseDetailsAPIClient;
