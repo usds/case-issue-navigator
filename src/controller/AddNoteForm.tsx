@@ -39,6 +39,7 @@ const AddNoteForm = (props: Props) => {
     );
     if (response.succeeded) {
       props.getCaseDetails();
+      setNote("");
       return;
     }
     if (response.responseReceived) {
