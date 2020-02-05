@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import { SNOOZE_OPTIONS } from "./config";
 import "./ResolveForm.scss";
 import CaseUtils from "../utils/CaseUtils";
 
@@ -41,12 +40,7 @@ const ResolveForm = ({ rowData, resolve }: Props) => {
           Please confirm that the following issue has been resolved
         </p>
         <ul>
-          <li>
-            Problem:{" "}
-            {rowData.snoozeInformation
-              ? SNOOZE_OPTIONS[rowData.snoozeInformation.snoozeReason].shortText
-              : ""}
-          </li>
+          <li>Problem: {CaseUtils.getProblemShortText(rowData) || ""}</li>
         </ul>
         <div style={{ paddingTop: "15px" }}>
           <UsaButton onClick={onConfirm}>Confirm</UsaButton>

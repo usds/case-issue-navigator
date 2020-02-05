@@ -1,3 +1,5 @@
+import { SNOOZE_OPTIONS } from "../controller/config";
+
 export default class CaseUtils {
   static isOverDue(c: Case): boolean {
     if (!c.snoozeInformation) {
@@ -32,5 +34,17 @@ export default class CaseUtils {
       return undefined;
     }
     return c.snoozeInformation.snoozeReason;
+  }
+
+  static getProblemShortText(c: Case): string | undefined {
+    if (!c.snoozeInformation) {
+      return undefined;
+    }
+    const option = SNOOZE_OPTIONS[c.snoozeInformation.snoozeReason];
+    if (!option) {
+      console.error("Problem exists in DB but not in options");
+      return undefined;
+    }
+    return option.shortText;
   }
 }
