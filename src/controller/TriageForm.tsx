@@ -162,7 +162,7 @@ class TriageForm extends Component<Props, State> {
           <React.Fragment>
             Previously triaged on:{" "}
             {new Date(triagedOn).toLocaleDateString("en-US")}.<br />
-            Problem given: {SNOOZE_OPTIONS[problem].shortText}.
+            Problem given: {CaseUtils.getProblemShortText(c)}.
           </React.Fragment>
         }
       />
