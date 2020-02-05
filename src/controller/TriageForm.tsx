@@ -54,7 +54,9 @@ class TriageForm extends Component<Props, State> {
       snoozeReason: snoozeReason,
       subreason: this.getSubReason(snoozeReason, rowData.notes),
       duration: CaseUtils.isOverDue(rowData)
-        ? SNOOZE_OPTIONS[snoozeReason].duration
+        ? SNOOZE_OPTIONS[snoozeReason] !== undefined
+          ? SNOOZE_OPTIONS[snoozeReason].duration
+          : SNOOZE_OPTIONS_SELECT[0].duration
         : DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd),
       followUp: TriageForm.getFollowUp(rowData),
       caseIssueNotes: ""
