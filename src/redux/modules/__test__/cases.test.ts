@@ -22,7 +22,6 @@ const initialCases: Case[] = [
       caseAge: "94 days",
       caseId: "ABC123"
     },
-    previouslySnoozed: false,
     showDetails: false
   }
 ];
@@ -40,7 +39,6 @@ const newCases: Case[] = [
       caseAge: "94 days",
       caseId: "DEF567"
     },
-    previouslySnoozed: false,
     showDetails: false
   }
 ];
@@ -71,7 +69,6 @@ const snoozedCases: Case[] = [
       applicationReason: "Boredom",
       i90SP: "true"
     },
-    previouslySnoozed: false,
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2018-11-12T03:00:00-05:00",
@@ -97,7 +94,6 @@ const snoozedCases: Case[] = [
       applicationReason: "Enthusiasm",
       i90SP: "false"
     },
-    previouslySnoozed: false,
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2019-11-12T03:00:00-05:00",
@@ -123,7 +119,6 @@ const snoozedCases: Case[] = [
       applicationReason: "Boredom",
       i90SP: "false"
     },
-    previouslySnoozed: false,
     snoozeInformation: {
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
