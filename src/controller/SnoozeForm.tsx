@@ -56,7 +56,9 @@ class SnoozeForm extends Component<Props, State> {
       duration:
         SNOOZE_OPTIONS[snoozeReason] !== undefined
           ? SNOOZE_OPTIONS[snoozeReason].duration
-          : rowData.snoozeInformation.snoozeEnd ? DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd) : SNOOZE_OPTIONS_SELECT[0].duration,
+          : rowData.snoozeInformation.snoozeEnd
+          ? DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd)
+          : SNOOZE_OPTIONS_SELECT[0].duration,
       followUp: SnoozeForm.getFollowUp(rowData),
       caseIssueNotes: ""
     };
