@@ -38,7 +38,7 @@ class SnoozeForm extends Component<Props, State> {
   }
 
   getSnoozeInformation(): CallbackState {
-    const { rowData, caseType } = this.props;
+    const { rowData } = this.props;
     if (!rowData || !rowData.snoozeInformation) {
       return {
         snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
@@ -54,9 +54,9 @@ class SnoozeForm extends Component<Props, State> {
       snoozeReason: snoozeReason,
       subreason: this.getSubReason(snoozeReason, rowData.notes),
       duration:
-        caseType === "ACTIVE"
+        SNOOZE_OPTIONS[snoozeReason] !== undefined
           ? SNOOZE_OPTIONS[snoozeReason].duration
-          : DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd),
+          : rowData.snoozeInformation.snoozeEnd ? DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd) : SNOOZE_OPTIONS_SELECT[0].duration,
       followUp: SnoozeForm.getFollowUp(rowData),
       caseIssueNotes: ""
     };
