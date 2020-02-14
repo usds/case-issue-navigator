@@ -675,7 +675,7 @@ exports[`Storyshots SnoozeForm Basic re-snooze form 1`] = `
     name="duration"
     onChange={[Function]}
     type="number"
-    value={313}
+    value={5}
   />
   <div>
     <button
