@@ -56,7 +56,7 @@ const AddNoteForm = (props: Props) => {
   const openModal = () => setDialog(true);
   const closeModal = () => setDialog(false);
 
-  if (!rowData.snoozeInformation) {
+  if (!rowData.snoozeInformation || !rowData.snoozeInformation.snoozeReason) {
     return null;
   }
 

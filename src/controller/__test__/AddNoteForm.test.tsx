@@ -27,7 +27,15 @@ describe("AddNoteForm", () => {
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
       showDetails: false,
-      snoozeInformation: {}
+      snoozeInformation: {
+        snoozeStart: new Date().toString(),
+        snoozeEnd: new Date().toString(),
+        snoozeReason: "technical_issue",
+        user: {
+          id: "",
+          name: ""
+        }
+      }
     };
     const wrapper = mount(
       <AddNoteForm rowData={rowData} getCaseDetails={() => undefined} />
@@ -50,7 +58,7 @@ describe("AddNoteForm", () => {
       snoozeInformation: {
         snoozeStart: new Date().toString(),
         snoozeEnd: snoozeEnd.toString(),
-        snoozeReason: "assigned_case",
+        snoozeReason: "technical_issue",
         user: {
           id: "",
           name: ""
@@ -78,7 +86,7 @@ describe("AddNoteForm", () => {
       "ABC123",
       {
         duration: 1,
-        reason: "assigned_case",
+        reason: "technical_issue",
         notes: [
           {
             content: "I am a note.",
