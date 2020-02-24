@@ -11,6 +11,8 @@ import I90Table from "./tables/i90-table/I90Table";
 import CaseFilterForm from "./forms/CaseFilterForm";
 import {
   SNOOZE_OPTIONS,
+  CASE_STATUS,
+  CASE_SUBSTATUS,
   CASE_CREATION_START,
   CASE_CREATION_END,
   SNOOOZE_REASON,
@@ -42,7 +44,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setServiceNowFilter: caseFilterActionCreators.setServiceNowFilter,
       clearFilters: caseFilterActionCreators.clearFilters,
       setActiveSearch: caseFilterActionCreators.setActiveSearch,
-      setSearch: caseFilterActionCreators.setSearch
+      setSearch: caseFilterActionCreators.setSearch,
+      setCaseStatus: caseFilterActionCreators.setCaseStatus,
+      setCaseSubstatus: caseFilterActionCreators.setCaseSubstatus
     },
     dispatch
   );
@@ -78,6 +82,16 @@ class CaseList extends React.Component<Props, State> {
         if (!isNaN(endDate.getTime())) {
           this.props.setEnd(endDate);
         }
+      }
+
+      const status = urlParams.get(CASE_STATUS);
+      if (status) {
+        this.props.setCaseStatus(status as CaseStatusOptions);
+      }
+
+      const substatus = urlParams.get(CASE_SUBSTATUS);
+      if (substatus) {
+        this.props.setCaseSubstatus(substatus as CaseSubstatusOptions);
       }
 
       const reason = urlParams.get(SNOOOZE_REASON);
