@@ -4,22 +4,6 @@ import { AddNoteForm } from "../AddNoteForm";
 import RestAPIClient from "../../api/RestAPIClient";
 
 describe("AddNoteForm", () => {
-  it("does not render when snoozeInformation is missing", () => {
-    const rowData: Case = {
-      receiptNumber: "",
-      caseCreation: "",
-      extraData: {} as CaseExtraData,
-      previouslySnoozed: false,
-      showDetails: false,
-      snoozeInformation: undefined
-    };
-    const wrapper = mount(
-      <AddNoteForm rowData={rowData} getCaseDetails={() => undefined} />
-    );
-
-    expect(wrapper.isEmptyRender()).toBe(true);
-  });
-
   it("renders an add a note button", () => {
     const rowData: Case = {
       receiptNumber: "",
@@ -41,7 +25,7 @@ describe("AddNoteForm", () => {
       <AddNoteForm rowData={rowData} getCaseDetails={() => undefined} />
     );
 
-    expect(wrapper.find("button").text()).toBe("Add A Note");
+    expect(wrapper.find("button").text()).toBe("Add Note");
   });
 
   it("Adding a note preserves snooze data", () => {
@@ -78,15 +62,9 @@ describe("AddNoteForm", () => {
       "ABC123",
 
       {
-        duration: 1,
-        reason: "technical_issue",
-        notes: [
-          {
-            content: "I am a note.",
-            subType: null,
-            type: "COMMENT"
-          }
-        ]
+        content: "I am a note.",
+        subType: null,
+        type: "COMMENT"
       }
     );
   });
