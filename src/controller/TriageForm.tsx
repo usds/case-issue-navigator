@@ -39,7 +39,11 @@ class TriageForm extends Component<Props, State> {
 
   getSnoozeInformation(): CallbackState {
     const { rowData } = this.props;
-    if (!rowData || !rowData.snoozeInformation) {
+    if (
+      !rowData ||
+      !rowData.snoozeInformation ||
+      !rowData.snoozeInformation.snoozeReason
+    ) {
       return {
         snoozeReason: SNOOZE_OPTIONS_SELECT[0].value,
         subreason: undefined,
