@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { formatNotes } from "../view/util/formatNotes";
 import RestAPIClient from "../api/RestAPIClient";
-import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import AddNoteInput from "../view/forms/AddNoteInput";
-import DateUtils from "../utils/DateUtils";
+import UsaTextInput from "../view/forms/UsaTextInput";
+import "./AddNoteForm.scss";
 
 interface Props {
   rowData: Case;
@@ -12,35 +10,23 @@ interface Props {
 }
 
 const AddNoteForm = (props: Props) => {
-  const [showDialog, setDialog] = useState(false);
   const [note, setNote] = useState("");
 
   const { rowData } = props;
 
   const addNote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!rowData.snoozeInformation) {
-      return;
-    }
-    const duration = DateUtils.numberOfDaysUntil(
-      rowData.snoozeInformation.snoozeEnd
-    );
-    const reason = rowData.snoozeInformation.snoozeReason;
-    const snoozeOption = {
-      snoozeReason: reason,
-      subreason: undefined,
-      followUp: "",
-      caseIssueNotes: note,
-      duration
-    };
-    const notes = formatNotes(snoozeOption);
-    const response = await RestAPIClient.caseDetails.updateActiveSnooze(
+    const response = await RestAPIClient.caseDetails.addANote(
       rowData.receiptNumber,
-      { duration, reason, notes }
+      {
+        type: "COMMENT",
+        content: note,
+        subType: null
+      }
     );
     if (response.succeeded) {
       props.getCaseDetails();
-      closeModal();
+      setNote("");
       return;
     }
     if (response.responseReceived) {
@@ -50,32 +36,13 @@ const AddNoteForm = (props: Props) => {
     } else {
       console.error(response);
     }
-    closeModal();
   };
 
-  const openModal = () => setDialog(true);
-  const closeModal = () => setDialog(false);
-
-  if (!rowData.snoozeInformation || !rowData.snoozeInformation.snoozeReason) {
-    return null;
-  }
-
   return (
-    <React.Fragment>
-      <ActionModal
-        isOpen={showDialog}
-        title={props.rowData.receiptNumber}
-        closeModal={closeModal}
-      >
-        <form className="usa-form">
-          <AddNoteInput onChange={setNote} value={note} defaultShow={true} />
-          <UsaButton onClick={addNote}>Add Note</UsaButton>
-        </form>
-      </ActionModal>
-      <UsaButton onClick={openModal} buttonStyle="unstyled">
-        Add A Note
-      </UsaButton>
-    </React.Fragment>
+    <div className="add-note-form">
+      <UsaTextInput name="caseIssueNotes" onChange={setNote} value={note} />
+      <UsaButton onClick={addNote}>Add Note</UsaButton>
+    </div>
   );
 };
 

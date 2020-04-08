@@ -17,16 +17,16 @@ export const casesActionCreators = {
       snoozeInformation
     }),
   clearCases: () => action("cases/CLEAR_CASES"),
-  toggleDetails: (receiptNumber: string) =>
-    action("cases/TOGGLE_DETAILS", receiptNumber),
   setIsLoading: (isLoading: boolean) =>
     action("cases/SET_IS_LOADING", isLoading),
-  setCaseSummary: (summary: Summary) =>
-    action("cases/SET_CASE_SUMMARY", summary),
   setLastUpdated: (lastUpdated: string) =>
     action("cases/SET_LAST_UPDATED", lastUpdated),
   setHasMoreCases: (hasMoreCases: boolean) =>
-    action("cases/SET_HAS_MORE_CASES", hasMoreCases)
+    action("cases/SET_HAS_MORE_CASES", hasMoreCases),
+  setTotalCaseCount: (count: number) =>
+    action("cases/SET_TOTAL_CASE_COUNT", count),
+  setQueryCaseCount: (count: number) =>
+    action("cases/SET_QUERY_CASE_COUNT", count)
 };
 
 export type ActionCreator = typeof casesActionCreators;
@@ -37,19 +37,15 @@ export type CasesAction = ReturnType<ActionCreator[keyof ActionCreator]>;
 export type CasesState = {
   caselist: Case[];
   isLoading: boolean;
-  summary: Summary;
   hasMoreCases: boolean;
   lastUpdated?: string;
+  totalCount?: number;
+  queryCount?: number;
 };
 
 export const initialState: CasesState = {
   caselist: [],
   isLoading: false,
-  summary: {
-    CASES_TO_WORK: 0,
-    SNOOZED_CASES: 0,
-    PREVIOUSLY_SNOOZED: 0
-  },
   hasMoreCases: true
 };
 
@@ -99,7 +95,7 @@ export default function reducer(
         });
       if (
         caselist[caselist.length - 1].receiptNumber === receiptNumber &&
-        caselist.length < state.summary["SNOOZED_CASES"]
+        caselist.length < (state.queryCount ? state.queryCount : 0)
       ) {
         caselist.pop();
       }
@@ -109,30 +105,19 @@ export default function reducer(
         ...state,
         caselist: []
       };
-    case "cases/TOGGLE_DETAILS":
-      return {
-        ...state,
-        caselist: state.caselist.map(c => {
-          if (c.receiptNumber === action.payload) {
-            return {
-              ...c,
-              showDetails: !c.showDetails
-            };
-          }
-          return c;
-        })
-      };
     case "cases/SET_IS_LOADING":
       return {
         ...state,
         isLoading: action.payload
       };
-    case "cases/SET_CASE_SUMMARY":
-      return { ...state, summary: action.payload };
     case "cases/SET_LAST_UPDATED":
       return { ...state, lastUpdated: action.payload };
     case "cases/SET_HAS_MORE_CASES":
       return { ...state, hasMoreCases: action.payload };
+    case "cases/SET_TOTAL_CASE_COUNT":
+      return { ...state, totalCount: action.payload };
+    case "cases/SET_QUERY_CASE_COUNT":
+      return { ...state, queryCount: action.payload };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import { RootState } from "../create";
-import { Dispatch, AnyAction } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import RestAPIClient from "../../api/RestAPIClient";
 import { casesActionCreators } from "./cases";
 import { ThunkDispatch } from "redux-thunk";
@@ -23,7 +23,13 @@ export const loadCases = (reciptnumber?: string) => async (
   dispatch: ThunkDispatch<RootState, {}, AnyAction>,
   getState: () => RootState
 ) => {
-  const { setIsLoading, addCases, setHasMoreCases } = casesActionCreators;
+  const {
+    setIsLoading,
+    addCases,
+    setHasMoreCases,
+    setTotalCaseCount,
+    setQueryCaseCount
+  } = casesActionCreators;
   const { cases, caseFilters } = getState();
   const { caselist } = cases;
   const {
@@ -42,40 +48,42 @@ export const loadCases = (reciptnumber?: string) => async (
       : undefined;
 
   dispatch(setIsLoading(true));
-  dispatch(getCaseSummary());
   const response = await RestAPIClient.cases.getCases(
     snoozeState,
     reciptnumber ? reciptnumber : lastReceiptNumber,
     caseCreationStart,
     caseCreationEnd,
-    snoozeState === "SNOOZED" ? snoozeReasonFilter : undefined,
+    snoozeReasonFilter,
     caseStatus,
     caseSubstatus
   );
   dispatch(setIsLoading(false));
 
   if (response.succeeded) {
-    if (response.payload.length > RESULTS_PER_PAGE) {
-      response.payload.pop();
+    dispatch(setTotalCaseCount(response.payload.totalCount));
+    dispatch(setQueryCaseCount(response.payload.queryCount));
+    const cases = response.payload.cases;
+    if (cases.length > RESULTS_PER_PAGE) {
+      cases.pop();
       dispatch(setHasMoreCases(true));
     } else {
       dispatch(setHasMoreCases(false));
     }
-    if (snoozeState === "SNOOZED" && serviceNowFilter !== undefined) {
-      const cases = serviceNowFilter
-        ? response.payload.filter((c: Case) => {
+    if (serviceNowFilter !== undefined) {
+      const sNCases = serviceNowFilter
+        ? response.payload.cases.filter((c: Case) => {
             return serviceNowCaseFilter(c);
           })
-        : response.payload.filter((c: Case) => {
+        : response.payload.cases.filter((c: Case) => {
             return !serviceNowCaseFilter(c);
           });
-      if (cases.length === 0 && response.payload.length > 0) {
-        const r = response.payload[response.payload.length - 1].receiptNumber;
+      if (sNCases.length === 0 && cases.length > 0) {
+        const r = cases[cases.length - 1].receiptNumber;
         dispatch(loadCases(r));
       }
-      dispatch(addCases(cases));
+      dispatch(addCases(sNCases));
     } else {
-      dispatch(addCases(response.payload));
+      dispatch(addCases(cases));
     }
 
     return;
@@ -120,22 +128,13 @@ export const loadSearchResults = () => async (
 
 export const getCaseSummary = () => async (dispatch: Dispatch<AnyAction>) => {
   const response = await RestAPIClient.cases.getCaseSummary();
-  const { setCaseSummary, setLastUpdated } = casesActionCreators;
+  const { setLastUpdated } = casesActionCreators;
 
   if (response.succeeded) {
-    const currentlySnoozed = response.payload.CURRENTLY_SNOOZED || 0;
-    const neverSnoozed = response.payload.NEVER_SNOOZED || 0;
-    const previouslySnoozed = response.payload.PREVIOUSLY_SNOOZED || 0;
     if (response.payload.lastUpdated) {
       dispatch(setLastUpdated(response.payload.lastUpdated));
     }
-    return dispatch(
-      setCaseSummary({
-        CASES_TO_WORK: neverSnoozed + previouslySnoozed,
-        SNOOZED_CASES: currentlySnoozed,
-        PREVIOUSLY_SNOOZED: previouslySnoozed
-      })
-    );
+    return;
   }
 
   if (response.responseReceived) {

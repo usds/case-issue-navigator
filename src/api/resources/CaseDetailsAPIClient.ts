@@ -4,14 +4,14 @@ import URLs from "../URLs";
 
 interface SnoozeInputs {
   duration: number;
-  reason: SnoozeReason;
+  reason: CaseProblem;
   notes: PartialNote[];
 }
 
 interface UpdateSnoozeSuccess {
   notes: Note[];
   snoozeEnd: string;
-  snoozeReason: SnoozeReason;
+  snoozeReason: CaseProblem;
   snoozeStart: string;
 }
 
@@ -44,6 +44,17 @@ class CaseDetailsAPIClient extends ClientBase {
     return (await this.put(
       URLs.caseDetailsActiveSnooze(receiptNumber),
       snoozeInputs
+    )) as any;
+  }
+
+  public async addANote(
+    receiptNumber: string,
+    note: PartialNote
+  ): Promise<c.ApiResponse<UpdateSnoozeSuccess, APIError>> {
+    this.setCsrf();
+    return (await this.post(
+      URLs.caseDetailsAddAttachment(receiptNumber),
+      note
     )) as any;
   }
 }

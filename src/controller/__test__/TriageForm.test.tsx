@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import SnoozeForm from "../SnoozeForm";
+import TriageForm from "../TriageForm";
 import { SNOOZE_OPTIONS_SELECT, SNOOZE_OPTIONS } from "../config";
 
 describe("SnoozeForm", () => {
@@ -10,12 +10,11 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const snooze = jest.fn();
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={snooze}
         closeDialog={jest.fn()}
@@ -31,12 +30,11 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const closeDialog = jest.fn();
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={closeDialog}
@@ -52,11 +50,10 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -79,11 +76,10 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -99,11 +95,10 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: undefined
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}
@@ -121,7 +116,6 @@ describe("SnoozeForm", () => {
       caseCreation: "",
       extraData: {} as CaseExtraData,
       previouslySnoozed: false,
-      showDetails: false,
       snoozeInformation: {
         snoozeReason: "technical_issue",
         snoozeEnd: "",
@@ -140,7 +134,7 @@ describe("SnoozeForm", () => {
       ]
     };
     const wrapper = mount(
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={jest.fn()}
         closeDialog={jest.fn()}

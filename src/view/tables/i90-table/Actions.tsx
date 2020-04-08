@@ -1,15 +1,15 @@
 import React from "react";
-import { SnoozeFormWrapper } from "../../../controller/SnoozeFormWrapper";
-import UpdateSnoozeFormWrapper from "../../../controller/UpdateSnoozeFormWrapper";
+import { TriageFormWrapper } from "../../../controller/TriageFormWrapper";
+import UpdateTriageFormWrapper from "../../../controller/UpdateTriageFormWrapper";
 import { casesActionCreators } from "../../../redux/modules/cases";
 import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
+import CaseUtils from "../../../utils/CaseUtils";
 
 interface Props {
   caseData: Case;
-  caseType: SnoozeState;
-  updateSummaryData: typeof getCaseSummary;
   setError: typeof appStatusActionCreators.setDataLoadError;
+  updateSummaryData: typeof getCaseSummary;
   setNotification: typeof appStatusActionCreators.setNotification;
   removeCase: typeof casesActionCreators.removeCase;
   onSnoozeUpdate: typeof casesActionCreators.updateSnooze;
@@ -17,31 +17,31 @@ interface Props {
 
 export const Actions: React.FC<Props> = ({
   caseData,
-  caseType,
-  updateSummaryData,
   setError,
+  updateSummaryData,
   setNotification,
   removeCase,
   onSnoozeUpdate
-}) => (
-  <React.Fragment>
-    {["ACTIVE", "ALARMED"].includes(caseType) ? (
-      <SnoozeFormWrapper
+}) => {
+  if (!CaseUtils.getProblem(caseData) || CaseUtils.isResolved(caseData)) {
+    return (
+      <TriageFormWrapper
         rowData={caseData}
         updateSummaryData={updateSummaryData}
         setError={setError}
         setNotification={setNotification}
         removeCase={removeCase}
       />
-    ) : (
-      <UpdateSnoozeFormWrapper
-        rowData={caseData}
-        updateSummaryData={updateSummaryData}
-        setError={setError}
-        setNotification={setNotification}
-        removeCase={removeCase}
-        onSnoozeUpdate={onSnoozeUpdate}
-      />
-    )}
-  </React.Fragment>
-);
+    );
+  }
+  return (
+    <UpdateTriageFormWrapper
+      rowData={caseData}
+      updateSummaryData={updateSummaryData}
+      setError={setError}
+      setNotification={setNotification}
+      removeCase={removeCase}
+      onSnoozeUpdate={onSnoozeUpdate}
+    />
+  );
+};

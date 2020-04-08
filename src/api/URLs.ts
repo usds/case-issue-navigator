@@ -95,6 +95,12 @@ class URLs {
     url.pathname += "/activeSnooze";
     return url;
   }
+
+  public static caseDetailsAddAttachment(receiptNumber: string): URL {
+    const url = URLs.caseDetailsActiveSnooze(receiptNumber);
+    url.pathname += "/notes";
+    return url;
+  }
 }
 
 export default URLs;

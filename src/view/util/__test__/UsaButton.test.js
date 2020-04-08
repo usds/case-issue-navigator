@@ -7,7 +7,7 @@ describe("UsaButton", () => {
     const wrapper = mount(<UsaButton>Click Me</UsaButton>);
     expect(
       wrapper.containsMatchingElement(
-        <button className="usa-button" type="button">
+        <button className=" usa-button" type="button">
           Click Me
         </button>
       )
@@ -19,7 +19,7 @@ describe("UsaButton", () => {
     );
     expect(
       wrapper.containsMatchingElement(
-        <button className="usa-button usa-button--secondary" type="button">
+        <button className=" usa-button usa-button--secondary" type="button">
           Click Me
         </button>
       )
@@ -29,7 +29,7 @@ describe("UsaButton", () => {
     const wrapper = mount(<UsaButton disabled={true}>Click Me</UsaButton>);
     expect(
       wrapper.containsMatchingElement(
-        <button className="usa-button" type="button" disabled>
+        <button className=" usa-button" type="button" disabled>
           Click Me
         </button>
       )

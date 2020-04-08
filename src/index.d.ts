@@ -41,7 +41,7 @@ interface TechnicalSubtype {
 }
 
 interface CallbackState {
-  snoozeReason: SnoozeReason;
+  snoozeReason: CaseProblem;
   subreason: Subreason | undefined;
   followUp: string;
   caseIssueNotes: string;
@@ -50,13 +50,6 @@ interface CallbackState {
 
 interface RowData {
   receiptNumber: string;
-}
-
-interface ShowDetails {
-  key: "showDetails";
-  props: {
-    toggleDetails: (receiptNumber: string) => void;
-  };
 }
 
 interface ReceiptNumber {
@@ -131,7 +124,7 @@ interface Actions {
 }
 
 interface SnoozeActionsProps {
-  updateSummaryData: () => void;
+  updateSummaryData: () => Dispatch<AnyAction>;
   setError: Dispatch<APIError>;
   setNotification: Dispatch<React.SetStateAction<AppNotification>>;
   onSnoozeUpdate: ReturnType<CasesActionCreators["updateSnooze"]>;
@@ -182,7 +175,6 @@ interface Case {
   notes?: Array<Note>;
   previouslySnoozed: boolean;
   snoozeInformation?: SnoozeInformation;
-  showDetails: boolean;
 }
 
 interface UserInformation {
@@ -192,8 +184,9 @@ interface UserInformation {
 
 type SnoozeInformation = {
   snoozeEnd: string;
-  snoozeReason: SnoozeReason;
+  snoozeReason: CaseProblem;
   snoozeStart: string;
+  snoozeResolved: string | "null";
   user: UserInformation;
 };
 
@@ -244,11 +237,12 @@ interface Note extends PartialNote {
   timestamp: string;
 }
 
-type SnoozeReason =
+type CaseProblem =
   | "test_data"
   | "fo_referral"
   | "technical_issue"
   | "record_analysis";
+type ProblemSelection = CaseProblem | "all" | "exists" | "doesn't exist";
 
 interface SnoozeOption {
   snoozeReason: string;
@@ -261,15 +255,15 @@ interface SnoozeOption {
 }
 
 interface SnoozeOptionValue extends SnoozeOption {
-  value: SnoozeReason;
+  value: CaseProblem;
 }
 
-type SnoozeState = "ACTIVE" | "SNOOZED" | "ALARMED";
+type SnoozeState = "ALL" | "TRIAGED" | "ALARMED" | "UNCHECKED";
 
 type SnoozeEvent = {
   date: Date;
   startOrEnd: "start" | "end";
-  snoozeReason: SnoozeReason;
+  snoozeReason: CaseProblem;
 };
 
 type CaseDetail = {
@@ -277,7 +271,7 @@ type CaseDetail = {
   noteOrSnooze: "note" | "snooze";
   type: string | null;
   subType?: SubType | null;
-  snoozeReason?: SnoozeReason;
+  snoozeReason?: CaseProblem;
   href?: string | null;
   content?: string;
   creator: string;

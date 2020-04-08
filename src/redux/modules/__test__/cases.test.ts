@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { rootReducer, Store, store } from "../../create";
 import { casesActionCreators, initialState } from "../cases";
 import { caseFilterActionCreators } from "../caseFilters";
-import { loadCases, getCaseSummary } from "../casesAsync";
+import { loadCases } from "../casesAsync";
 import RestAPIClient from "../../../api/RestAPIClient";
 import { RESULTS_PER_PAGE } from "../../../api/URLs";
 import thunk from "redux-thunk";
@@ -22,8 +22,7 @@ const initialCases: Case[] = [
       caseAge: "94 days",
       caseId: "ABC123"
     },
-    previouslySnoozed: false,
-    showDetails: false
+    previouslySnoozed: false
   }
 ];
 const newCases: Case[] = [
@@ -40,8 +39,7 @@ const newCases: Case[] = [
       caseAge: "94 days",
       caseId: "DEF567"
     },
-    previouslySnoozed: false,
-    showDetails: false
+    previouslySnoozed: false
   }
 ];
 const snoozedCases: Case[] = [
@@ -76,12 +74,12 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2018-11-12T03:00:00-05:00",
       snoozeStart: "2017-11-13T10:15:26.70979-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   },
   {
     notes: [],
@@ -102,12 +100,12 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2019-11-12T03:00:00-05:00",
       snoozeStart: "2017-11-13T10:27:57.319233-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   },
   {
     notes: [],
@@ -128,12 +126,12 @@ const snoozedCases: Case[] = [
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
       snoozeStart: "2019-11-13T10:27:59.495681-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "admin",
         name: "admin"
       }
-    },
-    showDetails: false
+    }
   }
 ];
 
@@ -155,17 +153,16 @@ describe("redux - cases", () => {
     removeCase,
     updateSnooze,
     clearCases,
-    toggleDetails,
     setIsLoading,
-    setCaseSummary,
     setLastUpdated,
-    setHasMoreCases
+    setHasMoreCases,
+    setQueryCaseCount
   } = casesActionCreators;
   const {
     setSnoozeState,
     setCaseCreationStart,
     setCaseCreationEnd,
-    setSnoozeReasonFilter
+    setProblemFilter
   } = caseFilterActionCreators;
 
   beforeEach(() => {
@@ -224,6 +221,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2020-11-12T03:00:00-05:00",
           snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -253,6 +251,7 @@ describe("redux - cases", () => {
       snoozeReason: "test_data",
       snoozeEnd: "2020-11-12T03:00:00-05:00",
       snoozeStart: "2019-11-13T10:15:26.70979-05:00",
+      snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
       user: {
         id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
         name: "John Kennedy"
@@ -263,6 +262,7 @@ describe("redux - cases", () => {
     const { dispatch } = testStore;
     dispatch(clearCases());
     dispatch(addCases(snoozedCases));
+    dispatch(setQueryCaseCount(2));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -283,6 +283,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
           snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -297,14 +298,9 @@ describe("redux - cases", () => {
   });
   it("removes the updated case if its order is unknown", () => {
     const { dispatch } = testStore;
-    const summary: Summary = {
-      CASES_TO_WORK: 0,
-      SNOOZED_CASES: 500,
-      PREVIOUSLY_SNOOZED: 0
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(snoozedCases));
+    dispatch(setQueryCaseCount(5));
     dispatch(
       updateSnooze(
         "FKE5369954",
@@ -325,6 +321,7 @@ describe("redux - cases", () => {
           snoozeReason: "test_data",
           snoozeEnd: "2030-01-12T03:00:00-05:00",
           snoozeStart: "2019-12-13T10:15:26.70979-05:00",
+          snoozeResolved: "2017-11-13T10:15:26.70979-05:00",
           user: {
             id: "911d26ef-df04-4101-a7cd-de823c0c18f4",
             name: "John Kennedy"
@@ -347,22 +344,8 @@ describe("redux - cases", () => {
   });
   it("sets the case type", () => {
     const { dispatch } = testStore;
-    dispatch(setSnoozeState("SNOOZED"));
-    expect(testStore.getState().caseFilters.snoozeState).toBe("SNOOZED");
-  });
-  it("toggles case details", () => {
-    const { dispatch } = testStore;
-    dispatch(clearCases());
-    dispatch(addCases(initialCases));
-    dispatch(addCases(newCases));
-    dispatch(toggleDetails("ABC123"));
-    const expected = [...initialCases, ...newCases].map(c => {
-      if (c.receiptNumber === "ABC123") {
-        c.showDetails = !c.showDetails;
-      }
-      return c;
-    });
-    expect(testStore.getState().cases.caselist).toEqual(expected);
+    dispatch(setSnoozeState("TRIAGED"));
+    expect(testStore.getState().caseFilters.snoozeState).toBe("TRIAGED");
   });
   it("sets cases loading state", () => {
     const { dispatch } = testStore;
@@ -377,28 +360,28 @@ describe("redux - cases", () => {
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        json: () => initialCases
+        json: () => {
+          return {
+            cases: initialCases,
+            totalCount: 0,
+            queueCount: 0
+          };
+        }
       })
     );
     const { dispatch, getState } = testAsyncStore;
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith(addCases(initialCases));
   });
   it("calls getCases without a receiptNumber when there are no cases", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       undefined,
       undefined,
       undefined,
@@ -410,18 +393,12 @@ describe("redux - cases", () => {
   it("calls getCases with a receiptNumber when there is a case", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       initialCases[initialCases.length - 1].receiptNumber,
       undefined,
       undefined,
@@ -433,20 +410,14 @@ describe("redux - cases", () => {
   it("calls getCases with a snooze reason when there is a case", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
-    dispatch(setSnoozeReasonFilter("test_data"));
+    dispatch(setProblemFilter("test_data"));
 
-    dispatch(setSnoozeState("SNOOZED"));
+    dispatch(setSnoozeState("TRIAGED"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "SNOOZED",
+      "TRIAGED",
       initialCases[initialCases.length - 1].receiptNumber,
       undefined,
       undefined,
@@ -458,19 +429,14 @@ describe("redux - cases", () => {
   it("calls getCases without a receiptNumber and with a date filter", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
+    dispatch(setProblemFilter());
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       undefined,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
@@ -482,20 +448,14 @@ describe("redux - cases", () => {
   it("calls getCases with a receiptNumber and with a date filter", async () => {
     jest.spyOn(RestAPIClient.cases, "getCases");
     const { dispatch, getState } = store;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
     dispatch(clearCases());
     dispatch(addCases(initialCases));
     dispatch(setCaseCreationStart(new Date("1/1/2018")));
     dispatch(setCaseCreationEnd(new Date("1/1/2019")));
-    dispatch(setSnoozeState("ACTIVE"));
+    dispatch(setSnoozeState("ALL"));
     await loadCases()(dispatch, getState);
     expect(RestAPIClient.cases.getCases).toHaveBeenCalledWith(
-      "ACTIVE",
+      "ALL",
       initialCases[initialCases.length - 1].receiptNumber,
       new Date("1/1/2018"),
       new Date("1/1/2019"),
@@ -503,16 +463,6 @@ describe("redux - cases", () => {
       undefined,
       undefined
     );
-  });
-  it("sets the case summary", () => {
-    const { dispatch } = testStore;
-    const summary: Summary = {
-      CASES_TO_WORK: 15,
-      SNOOZED_CASES: 5,
-      PREVIOUSLY_SNOOZED: 2
-    };
-    dispatch(setCaseSummary(summary));
-    expect(testStore.getState().cases.summary).toBe(summary);
   });
   it("sets last updated", () => {
     const { dispatch } = testStore;
@@ -537,39 +487,17 @@ describe("redux - cases", () => {
   });
   it("sets snooze reason filter", () => {
     const { dispatch } = testStore;
-    dispatch(setSnoozeReasonFilter("test_data"));
+    dispatch(setProblemFilter("test_data"));
     expect(testStore.getState().caseFilters.snoozeReasonFilter).toBe(
       "test_data"
     );
   });
-  it("asynchronously loads case summary", async () => {
-    const testAsyncStore = store;
-    const expected: Summary = {
-      CASES_TO_WORK: 7,
-      SNOOZED_CASES: 15,
-      PREVIOUSLY_SNOOZED: 5
-    };
-    const response = {
-      CURRENTLY_SNOOZED: 15,
-      NEVER_SNOOZED: 2,
-      PREVIOUSLY_SNOOZED: 5
-    };
-
-    jest.spyOn(testAsyncStore, "dispatch");
-    jest.spyOn(global as any, "fetch").mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => response
-      })
-    );
-    const { dispatch } = testAsyncStore;
-    await getCaseSummary()(dispatch);
-    expect(dispatch).toHaveBeenCalledWith(setCaseSummary(expected));
-  });
   it("sets hasMoreCases to true if there is an extra case on the response", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE + 1).fill(sampleCase);
+    const response = {
+      cases: new Array(RESULTS_PER_PAGE + 1).fill(sampleCase)
+    };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
@@ -584,7 +512,7 @@ describe("redux - cases", () => {
   it("sets hasMoreCases to false if the response is equal to resultsPerPage", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE).fill(sampleCase);
+    const response = { cases: new Array(RESULTS_PER_PAGE).fill(sampleCase) };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({
@@ -599,7 +527,9 @@ describe("redux - cases", () => {
   it("sets hasMoreCases to false if the response is less than resultsPerPage", async () => {
     const testAsyncStore = createTestStore();
     const sampleCase: Case = initialCases[0];
-    const response = new Array(RESULTS_PER_PAGE - 1).fill(sampleCase);
+    const response = {
+      cases: new Array(RESULTS_PER_PAGE - 1).fill(sampleCase)
+    };
     jest.spyOn(testAsyncStore, "dispatch");
     jest.spyOn(global as any, "fetch").mockImplementation(() =>
       Promise.resolve({

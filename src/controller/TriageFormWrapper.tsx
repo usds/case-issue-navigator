@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import SnoozeForm from "./SnoozeForm";
+import TriageForm from "./TriageForm";
 import { formatNotes } from "../view/util/formatNotes";
 import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import "./SnoozeFormWrapper.scss";
+import "./TriageFormWrapper.scss";
 
 interface Props extends ActionsProps {
   rowData: Case;
 }
 
-const SnoozeFormWrapper = (props: Props) => {
+const TriageFormWrapper = (props: Props) => {
   const [dialog, setDialog] = useState({
     show: false,
     title: ""
@@ -40,7 +40,7 @@ const SnoozeFormWrapper = (props: Props) => {
         type: "success"
       });
       trackEvent("snooze", "createSnooze", snoozeOption.snoozeReason);
-      props.removeCase(receiptNumber);
+      // props.removeCase(receiptNumber);
       return;
     }
 
@@ -68,20 +68,17 @@ const SnoozeFormWrapper = (props: Props) => {
         title={dialog.title}
         closeModal={closeModal}
       >
-        <SnoozeForm
+        <TriageForm
           snooze={snooze}
           closeDialog={closeModal}
           rowData={props.rowData}
-          caseType="ACTIVE"
         />
       </ActionModal>
       <div className="remove-button-margin">
-        <UsaButton onClick={openModal} buttonStyle="outline">
-          Triage
-        </UsaButton>
+        <UsaButton onClick={openModal}>Edit</UsaButton>
       </div>
     </React.Fragment>
   );
 };
 
-export { SnoozeFormWrapper };
+export { TriageFormWrapper };

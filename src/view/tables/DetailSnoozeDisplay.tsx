@@ -10,8 +10,8 @@ const DetailSnoozeDisplay: React.FunctionComponent<
 > = props => {
   const { caseDetail } = props;
   const snoozeReason = caseDetail.snoozeReason;
-  const translatedReason = SNOOZE_OPTIONS[snoozeReason as SnoozeReason]
-    ? SNOOZE_OPTIONS[snoozeReason as SnoozeReason].snoozeReason
+  const translatedReason = SNOOZE_OPTIONS[snoozeReason as CaseProblem]
+    ? SNOOZE_OPTIONS[snoozeReason as CaseProblem].snoozeReason
     : caseDetail.snoozeReason;
   return (
     <React.Fragment>

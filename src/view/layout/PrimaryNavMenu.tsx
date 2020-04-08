@@ -2,16 +2,31 @@ import React from "react";
 import "./PrimaryNavMenu.css";
 import { RootState } from "../../redux/create";
 import { connect } from "react-redux";
-import FormattedDate from "../util/FormattedDate";
+import ReactTooltip from "react-tooltip";
+import Roxy from "./roxy.svg";
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.appStatus.user,
-  lastUpdated: state.cases.lastUpdated
+  user: state.appStatus.user
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
 
-const UnconnectedPrimaryNavMenu: React.FC<Props> = ({ user, lastUpdated }) => {
+const UnconnectedPrimaryNavMenu: React.FC<Props> = ({ user }) => {
+  const renderInitials = () => {
+    if (!user) {
+      return null;
+    }
+    return (
+      <span
+        className="signed-in-as"
+        data-tip={`Signed in as: ${user.name}`}
+        data-for="username"
+      >
+        <span className="signed-in-as-content">{user.name.charAt(0)}</span>
+        <ReactTooltip id="username"></ReactTooltip>
+      </span>
+    );
+  };
   return (
     <React.Fragment>
       <div className="usa-overlay"></div>
@@ -20,18 +35,17 @@ const UnconnectedPrimaryNavMenu: React.FC<Props> = ({ user, lastUpdated }) => {
         role="banner"
       >
         <div className="usa-navbar">
-          <div className="usa-logo" id="extended-logo">
-            <em className="usa-logo__text">ELIS Search Party</em>
+          <div style={{ display: "flex" }}>
+            <img
+              src={Roxy}
+              alt="Roxy the a geometric rescue dog and the Search Party Logo"
+              style={{ width: "38px" }}
+            />
+            <h1 className="site-title" style={{ marginLeft: "10px" }}>
+              Search Party
+            </h1>
           </div>
-          <div>
-            {user ? (
-              <React.Fragment>
-                <span className="signed-in-as">Signed in as: {user.name}</span>
-                <br />
-              </React.Fragment>
-            ) : null}
-            <FormattedDate label="Last Refresh" date={lastUpdated} />
-          </div>
+          {renderInitials()}
         </div>
         <nav role="navigation" className="usa-nav "></nav>
       </header>

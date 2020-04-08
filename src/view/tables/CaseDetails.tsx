@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import RestAPIClient from "../../api/RestAPIClient";
-import { AddNoteForm } from "../../controller/AddNoteForm";
 import { CaseDetailList } from "./CaseDetailList";
+import { Notes } from "./Notes";
 import "./CaseDetails.scss";
 
 interface CaseDetailsProps {
   rowData: Case;
-  numberOfColumns: number;
 }
 
 const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
@@ -61,31 +60,17 @@ const CaseDetails: React.FunctionComponent<CaseDetailsProps> = props => {
     getCaseDetails();
   }, [props.rowData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const detailsSection = () => {
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-    return caseDetails.length === 0 ? (
-      <p>No case details.</p>
-    ) : (
-      <CaseDetailList caseDetails={caseDetails} />
-    );
-  };
-
   return (
-    <React.Fragment>
-      <tr className="row--detail-display">
-        <td colSpan={1}></td>
-        <td colSpan={props.numberOfColumns - 1}>
-          <h3>Case Details</h3>
-          <AddNoteForm
-            rowData={props.rowData}
-            getCaseDetails={getCaseDetails}
-          />
-          {detailsSection()}
-        </td>
-      </tr>
-    </React.Fragment>
+    <div style={{ display: "flex" }}>
+      <Notes
+        caseDetails={caseDetails}
+        isLoading={isLoading}
+        rowData={props.rowData}
+        getCaseDetails={getCaseDetails}
+      />
+      <span style={{ margin: "0 5px" }}> · </span>
+      <CaseDetailList caseDetails={caseDetails} isLoading={isLoading} />
+    </div>
   );
 };
 

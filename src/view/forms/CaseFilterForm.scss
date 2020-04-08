@@ -1,19 +1,27 @@
 .filter-form {
-  overflow: auto;
-  display: flex;
-  flex-wrap: wrap;
-
-  .usa-label {
-    margin-top: 0;
+  margin-bottom: 30px;
+  .filter-form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   }
 
-  .filter-input {
-    margin-right: 0.5rem;
-  }
-}
-
-.clear-filter-button {
-  button {
-    background-color: #fff;
+  .filter-form-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    grid-column-gap: 8px;
+    .remove-filter {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .usa-button {
+        width: 10px;
+        text-decoration: none;
+        color: #d63b39;
+        &:hover {
+          color: #880d0c;
+        }
+      }
+    }
   }
 }

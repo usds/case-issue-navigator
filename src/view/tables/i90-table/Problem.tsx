@@ -1,5 +1,6 @@
 import React from "react";
 import { SNOOZE_OPTIONS } from "../../../controller/config";
+import "./Problem.scss";
 
 interface Props {
   caseData: Case;
@@ -12,12 +13,24 @@ export const Problem: React.FC<Props> = ({ caseData }) => {
     ? caseData.snoozeInformation.snoozeReason
     : undefined;
   if (!reason) {
-    console.error("Snooze information not found");
+    return null;
   } else {
     problem = SNOOZE_OPTIONS[reason]
       ? SNOOZE_OPTIONS[reason].shortText
       : reason;
   }
 
-  return <React.Fragment>{problem}</React.Fragment>;
+  return (
+    <div style={{ marginRight: "5px" }}>
+      <span
+        className={`usa-tag ${reason}`}
+        style={{
+          textTransform: "none",
+          whiteSpace: "nowrap"
+        }}
+      >
+        {problem}
+      </span>
+    </div>
+  );
 };

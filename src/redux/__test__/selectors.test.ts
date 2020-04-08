@@ -13,15 +13,10 @@ const baseState: RootState = {
   cases: {
     caselist: [],
     isLoading: false,
-    summary: {
-      CASES_TO_WORK: 0,
-      PREVIOUSLY_SNOOZED: 0,
-      SNOOZED_CASES: 0
-    },
     hasMoreCases: false
   },
   caseFilters: {
-    snoozeState: "ACTIVE",
+    snoozeState: "ALL",
     activeSearch: false
   }
 };
@@ -61,7 +56,7 @@ describe("selectors", () => {
       };
       expect(hasFilters(filteredState)).toBe(true);
     });
-    it("should indicate having a filter for SnoozeReasonFilter", () => {
+    it("should indicate having a filter for ProblemFilter", () => {
       const filteredState: RootState = {
         ...baseState,
         caseFilters: {
@@ -81,12 +76,12 @@ describe("selectors", () => {
       };
       expect(hasFilters(filteredState)).toBe(true);
     });
-    it("should indicate having a filter when snoozeState is not active", () => {
+    it("should indicate having a filter when snoozeState is not all", () => {
       const filteredState: RootState = {
         ...baseState,
         caseFilters: {
           ...baseState.caseFilters,
-          snoozeState: "SNOOZED"
+          snoozeState: "TRIAGED"
         }
       };
       expect(hasFilters(filteredState)).toBe(true);

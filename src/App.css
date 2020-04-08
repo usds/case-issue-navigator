@@ -26,11 +26,11 @@
   width: fit-content;
 }
 
-body {
-  padding: 0.5em 1.5em;
-}
-
 /* Fix for USWDS issue */
 .usa-alert--success {
   background-position: 1.25rem 0.6em;
+}
+
+main {
+  margin: 0 1em;
 }

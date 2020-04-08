@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import SnoozeForm from "../controller/SnoozeForm";
+import TriageForm from "../controller/TriageForm";
 
 storiesOf("SnoozeForm", module)
   .add("Basic snooze form", () => {
@@ -9,7 +9,7 @@ storiesOf("SnoozeForm", module)
       previouslySnoozed: false
     };
     return (
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={action("snooze")}
         closeDialog={action("close")}
@@ -40,7 +40,7 @@ storiesOf("SnoozeForm", module)
     };
 
     return (
-      <SnoozeForm
+      <TriageForm
         rowData={rowData}
         snooze={action("snooze")}
         closeDialog={action("close")}

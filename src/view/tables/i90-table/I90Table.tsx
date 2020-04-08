@@ -6,23 +6,24 @@ import { casesActionCreators } from "../../../redux/modules/cases";
 import { getCaseSummary } from "../../../redux/modules/casesAsync";
 import { RootState } from "../../../redux/create";
 import { appStatusActionCreators } from "../../../redux/modules/appStatus";
-import { DetailToggle } from "./DetailToggle";
-import { ReceiptNumberLink } from "./ReceiptNumberLink";
-import { CaseCreation } from "./CaseCreation";
-import { ApplicationReason } from "./ApplicationReason";
-import { CaseStatus } from "./CaseStatus";
-import { CaseSubstatus } from "./CaseSubstatus";
-import { Platform } from "./Platform";
 import { Problem } from "./Problem";
-import { SnoozeDaysLeft } from "./SnoozeDaysLeft";
+import { CaseState } from "./CaseState";
 import { ServiceNowTicket } from "./ServiceNowTicket";
 import { Actions } from "./Actions";
+import { Card } from "../../util/Card";
 import "./ReceiptDisplayRow.scss";
 import "./TableCell.scss";
 import { hasFilters } from "../../../redux/selectors";
+import { ELIS_CASE_BASE_URL } from "../../../controller/config";
+import DateUtils from "../../../utils/DateUtils";
+import { ResolveForm } from "../../../controller/ResolveForm";
+import RestAPIClient from "../../../api/RestAPIClient";
+import { trackEvent } from "../../../matomo-setup";
 
 const mapStateToProps = (state: RootState) => ({
   caselist: state.cases.caselist,
+  totalCount: state.cases.totalCount,
+  queryCount: state.cases.queryCount,
   isLoading: state.cases.isLoading,
   hasFilters: hasFilters(state),
   snoozeState: state.caseFilters.snoozeState
@@ -31,7 +32,6 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
-      toggleDetails: casesActionCreators.toggleDetails,
       updateSummaryData: getCaseSummary,
       setError: appStatusActionCreators.setDataLoadError,
       setNotification: appStatusActionCreators.setNotification,
@@ -46,15 +46,15 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 export const UnconnectedI90Table: React.FC<Props> = ({
   caselist,
-  snoozeState,
   isLoading,
   hasFilters,
-  toggleDetails,
   updateSummaryData,
   setError,
   setNotification,
   removeCase,
-  onSnoozeUpdate
+  onSnoozeUpdate,
+  totalCount,
+  queryCount
 }) => {
   if (caselist.length === 0 && isLoading) {
     return null;
@@ -64,112 +64,100 @@ export const UnconnectedI90Table: React.FC<Props> = ({
     return <p>No cases found.{hasFilters && " Check your filters."}</p>;
   }
 
-  const viewElements: Array<{
-    header: string;
-    Cell: React.FC<{ caseData: Case; snoozeState: SnoozeState }>;
-    className?: string;
-    align?: "left" | "right";
-  }> = [
-    {
-      header: "",
-      Cell: ({ caseData }) => (
-        <DetailToggle caseData={caseData} toggleDetails={toggleDetails} />
-      ),
-      className: "min"
-    },
-    {
-      header: "Receipt Number",
-      Cell: ReceiptNumberLink
-    },
-    {
-      header: "Case Creation",
-      Cell: CaseCreation
-    },
-    {
-      header: "Application Reason",
-      Cell: ApplicationReason
-    },
-    {
-      header: "Case Status",
-      Cell: CaseStatus
-    },
-    {
-      header: "Case Substatus",
-      Cell: CaseSubstatus
-    },
-    {
-      header: "Platform",
-      Cell: Platform
-    },
-    {
-      header: "Problem",
-      Cell: Problem
-    },
-    {
-      header: "Due Date",
-      Cell: SnoozeDaysLeft
-    },
-    {
-      header: "SN Ticket",
-      Cell: ServiceNowTicket
-    },
-    {
-      header: "Actions",
-      Cell: ({ caseData }) => (
-        <Actions
-          caseData={caseData}
-          caseType={snoozeState}
-          updateSummaryData={updateSummaryData}
-          setError={setError}
-          setNotification={setNotification}
-          removeCase={removeCase}
-          onSnoozeUpdate={onSnoozeUpdate}
-        />
-      )
+  const deSnooze = async (receiptNumber: string) => {
+    const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
+      receiptNumber
+    );
+
+    if (response.succeeded) {
+      removeCase(receiptNumber);
+      trackEvent("snooze", "deSnooze", "desnoozed");
+      setNotification({
+        message: `${receiptNumber} has been resolved.`,
+        type: "info"
+      });
+      return;
     }
-  ];
+
+    if (response.responseReceived) {
+      const errorJson = await response.responseError.getJson();
+      setError(errorJson);
+    } else {
+      console.error(response);
+    }
+  };
 
   return (
-    <table className="usa-table usa-table--borderless width-full">
-      <thead>
-        <tr>
-          {viewElements.map(({ header, className, align }) => (
-            <td key={header} className={className} align={align}>
-              {header}
-            </td>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {caselist.map(caseData => {
-          return (
-            <React.Fragment key={caseData.receiptNumber}>
-              <tr
-                className={
-                  caseData.showDetails ? "row--show-details" : undefined
-                }
-              >
-                {viewElements.map(({ header, Cell, className, align }) => (
-                  <td
-                    key={`${header}-${caseData.receiptNumber}`}
-                    className={className}
-                    align={align}
-                  >
-                    <Cell caseData={caseData} snoozeState={snoozeState} />
-                  </td>
-                ))}
-              </tr>
-              {caseData.showDetails && (
-                <CaseDetails
-                  numberOfColumns={viewElements.length}
-                  rowData={caseData}
+    <React.Fragment>
+      <div
+        className="text-gray-50"
+        style={{ textAlign: "right", fontSize: "14px" }}
+      >
+        Showing {queryCount} of {totalCount} cases{" "}
+      </div>
+      {caselist.map(caseData => {
+        return (
+          <div style={{ margin: "10px 0" }}>
+            <Card>
+              <div className="case-header">
+                <a
+                  className="usa-button  usa-button--unstyled receiptNumber"
+                  href={ELIS_CASE_BASE_URL + caseData.receiptNumber}
+                  target="_elis_viewer"
+                >
+                  {caseData.receiptNumber}
+                </a>
+                <Actions
+                  caseData={caseData}
+                  updateSummaryData={updateSummaryData}
+                  setError={setError}
+                  setNotification={setNotification}
+                  removeCase={removeCase}
+                  onSnoozeUpdate={onSnoozeUpdate}
                 />
-              )}
-            </React.Fragment>
-          );
-        })}
-      </tbody>
-    </table>
+              </div>
+              <div className="case-data">
+                <div className="case-state">
+                  <CaseState caseData={caseData} />
+                </div>
+                <div className="case-problem">
+                  <Problem caseData={caseData} />
+                </div>
+                <div className="case-creation">
+                  {DateUtils.badgeFormat(caseData.caseCreation)}
+                </div>
+                <div className="case-reason text-gray-50">
+                  ({caseData.extraData.applicationReason})
+                </div>
+              </div>
+              <div className="case-metadata text-gray-70">
+                <div className="status">
+                  {caseData.extraData.caseStatus} -{" "}
+                  {caseData.extraData.caseSubstatus}
+                </div>
+                <div className="platform">
+                  {String(caseData.extraData.i90SP) === "true"
+                    ? "SP"
+                    : "Legacy"}{" "}
+                  Platform
+                </div>
+              </div>
+              {caseData.snoozeInformation &&
+              caseData.snoozeInformation.snoozeReason ? (
+                <div className="case-footer">
+                  <div className="case-links">
+                    <ServiceNowTicket caseData={caseData} />
+                    <CaseDetails rowData={caseData} />
+                  </div>
+
+                  <ResolveForm rowData={caseData} resolve={deSnooze} />
+                </div>
+              ) : null}
+            </Card>
+          </div>
+        );
+      })}
+    </React.Fragment>
   );
 };
 

@@ -133,7 +133,9 @@ describe("SnoozeInputs", () => {
       />
     );
 
-    (wrapper.find("AddNoteInput").prop("onChange") as any)("Some entry");
+    (wrapper.find("#caseIssueNotes").prop("onChange") as any)({
+      target: { value: "Some entry" }
+    });
     expect(spy).toBeCalledWith("Some entry");
     expect(spy).toHaveBeenCalledTimes(1);
   });

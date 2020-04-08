@@ -5,19 +5,19 @@ import { UsaAlert } from "../view/util/UsaAlert";
 import UsaButton from "../view/util/UsaButton";
 import NoteUtils from "../utils/NoteUtils";
 import DateUtils from "../utils/DateUtils";
+import CaseUtils from "../utils/CaseUtils";
 
 interface Props {
   rowData?: Case;
   snooze: (receiptNumber: string, state: CallbackState) => void;
   closeDialog: () => void;
-  caseType: SnoozeState;
 }
 
 type State = {
   fieldErrors: { [key: string]: string };
 } & CallbackState;
 
-class SnoozeForm extends Component<Props, State> {
+class TriageForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class SnoozeForm extends Component<Props, State> {
   }
 
   getSubReason(
-    snoozeReason: SnoozeReason,
+    snoozeReason: CaseProblem,
     notes: Note[] | undefined
   ): Subreason | undefined {
     if (snoozeReason !== "technical_issue") {
@@ -57,13 +57,12 @@ class SnoozeForm extends Component<Props, State> {
     return {
       snoozeReason: snoozeReason,
       subreason: this.getSubReason(snoozeReason, rowData.notes),
-      duration:
-        SNOOZE_OPTIONS[snoozeReason] !== undefined
+      duration: CaseUtils.isOverDue(rowData)
+        ? SNOOZE_OPTIONS[snoozeReason] !== undefined
           ? SNOOZE_OPTIONS[snoozeReason].duration
-          : rowData.snoozeInformation.snoozeEnd
-          ? DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd)
-          : SNOOZE_OPTIONS_SELECT[0].duration,
-      followUp: SnoozeForm.getFollowUp(rowData),
+          : SNOOZE_OPTIONS_SELECT[0].duration
+        : DateUtils.numberOfDaysUntil(rowData.snoozeInformation.snoozeEnd),
+      followUp: TriageForm.getFollowUp(rowData),
       caseIssueNotes: ""
     };
   }
@@ -83,7 +82,7 @@ class SnoozeForm extends Component<Props, State> {
     return followUp ? followUp.content : "";
   }
 
-  snoozeReasonChange(snoozeReason: SnoozeReason) {
+  snoozeReasonChange(snoozeReason: CaseProblem) {
     const duration = SNOOZE_OPTIONS[snoozeReason].duration;
     this.setState({ snoozeReason, duration });
   }
@@ -151,34 +150,23 @@ class SnoozeForm extends Component<Props, State> {
   }
 
   deSnoozeCheck() {
-    if (!this.props.rowData) {
-      return;
+    const c = this.props.rowData;
+    if (!c || !CaseUtils.isOverDue(c)) {
+      return null;
     }
-    if (
-      !this.props.rowData.snoozeInformation ||
-      !this.props.rowData.snoozeInformation.snoozeStart
-    ) {
-      console.error(
-        "Missing snooze information when previously snoozed",
-        this.props.rowData
-      );
-      return;
+    const triagedOn = CaseUtils.getTriagedOn(c);
+    const problem = CaseUtils.getProblem(c);
+    if (!triagedOn || !problem) {
+      return null;
     }
-    const snoozeStart = new Date(
-      this.props.rowData.snoozeInformation.snoozeStart
-    ).toLocaleDateString("en-US");
     return (
       <UsaAlert
         alertType="warning"
         text={
           <React.Fragment>
-            Previously triaged on: {snoozeStart}.<br />
-            Problem given:{" "}
-            {
-              SNOOZE_OPTIONS[this.props.rowData.snoozeInformation.snoozeReason]
-                .shortText
-            }
-            .
+            Previously triaged on:{" "}
+            {new Date(triagedOn).toLocaleDateString("en-US")}.<br />
+            Problem given: {CaseUtils.getProblemShortText(c)}.
           </React.Fragment>
         }
       />
@@ -188,7 +176,7 @@ class SnoozeForm extends Component<Props, State> {
   render() {
     return (
       <form className="usa-form">
-        {this.props.caseType === "ACTIVE" ? this.deSnoozeCheck() : null}
+        {this.deSnoozeCheck()}
         <SnoozeInputs
           options={SNOOZE_OPTIONS_SELECT}
           selectedOption={this.getSelectedOption()}
@@ -209,4 +197,4 @@ class SnoozeForm extends Component<Props, State> {
   }
 }
 
-export default SnoozeForm;
+export default TriageForm;

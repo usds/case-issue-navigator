@@ -4,10 +4,9 @@ import RestAPIClient from "../api/RestAPIClient";
 import { trackEvent } from "../matomo-setup";
 import { ActionModal } from "../view/util/ActionModal";
 import UsaButton from "../view/util/UsaButton";
-import { EndSnoozeForm } from "./EndSnoozeForm";
 import { RootState } from "../redux/create";
 import { connect } from "react-redux";
-import SnoozeForm from "./SnoozeForm";
+import TriageForm from "./TriageForm";
 
 const mapStateToProps = (state: RootState) => ({
   currentUser: state.appStatus.user
@@ -19,13 +18,12 @@ interface PassedProps extends SnoozeActionsProps {
 
 type Props = ReturnType<typeof mapStateToProps> & PassedProps;
 
-const UpdateSnoozeFormWrapper: React.FC<Props> = ({
+const UpdateTriageFormWrapper: React.FC<Props> = ({
   setNotification,
   setError,
+  updateSummaryData,
   currentUser,
   onSnoozeUpdate,
-  updateSummaryData,
-  removeCase,
   rowData
 }) => {
   const [showDialog, setDialog] = useState(false);
@@ -49,6 +47,7 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
     );
 
     if (response.succeeded) {
+      updateSummaryData();
       setNotification({
         message: `${receiptNumber} has been Snoozed for ${
           snoozeOption.duration
@@ -78,30 +77,6 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
     }
   };
 
-  const deSnooze = async (receiptNumber: string) => {
-    const response = await RestAPIClient.caseDetails.deleteActiveSnooze(
-      receiptNumber
-    );
-
-    if (response.succeeded) {
-      updateSummaryData();
-      removeCase(receiptNumber);
-      trackEvent("snooze", "deSnooze", "desnoozed");
-      setNotification({
-        message: `${receiptNumber} has been resolved.`,
-        type: "info"
-      });
-      return;
-    }
-
-    if (response.responseReceived) {
-      const errorJson = await response.responseError.getJson();
-      setError(errorJson);
-    } else {
-      console.error(response);
-    }
-  };
-
   const openModal = () => setDialog(true);
   const closeModal = () => setDialog(false);
 
@@ -112,19 +87,15 @@ const UpdateSnoozeFormWrapper: React.FC<Props> = ({
         title={`Update Case (${rowData.receiptNumber})`}
         closeModal={closeModal}
       >
-        <SnoozeForm
+        <TriageForm
           snooze={reSnooze}
           closeDialog={closeModal}
           rowData={rowData}
-          caseType="SNOOZED"
         />
       </ActionModal>
-      <UsaButton onClick={openModal} buttonStyle="outline">
-        Update
-      </UsaButton>
-      <EndSnoozeForm rowData={rowData} deSnooze={deSnooze} />
+      <UsaButton onClick={openModal}>Edit</UsaButton>
     </React.Fragment>
   );
 };
 
-export default connect(mapStateToProps)(UpdateSnoozeFormWrapper);
+export default connect(mapStateToProps)(UpdateTriageFormWrapper);

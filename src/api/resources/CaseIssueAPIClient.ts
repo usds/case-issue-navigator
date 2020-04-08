@@ -3,10 +3,13 @@ import ClientBase from "../ClientBase";
 import URLs from "../URLs";
 
 interface SummarySuccess {
-  CURRENTLY_SNOOZED: number;
-  NEVER_SNOOZED: number;
-  PREVIOUSLY_SNOOZED: number;
   lastUpdated: string | null;
+}
+
+interface CaseList {
+  totalCount: number;
+  queryCount: number;
+  cases: Case[];
 }
 
 class CaseIssueAPIClient extends ClientBase {
@@ -18,12 +21,7 @@ class CaseIssueAPIClient extends ClientBase {
     snoozeReason?: string,
     caseStatus?: CaseStatusOptions,
     caseSubstatus?: CaseSubstatusOptions
-  ): Promise<c.ApiResponse<Case[], APIError>> {
-    if (filter !== "SNOOZED" && snoozeReason) {
-      console.error(
-        `Invalid api call. get ${filter} cases with a snoozeReason filter`
-      );
-    }
+  ): Promise<c.ApiResponse<CaseList, APIError>> {
     return (await this.getAsJson(
       URLs.cases(
         filter,
@@ -40,7 +38,7 @@ class CaseIssueAPIClient extends ClientBase {
   public async getSearch(
     query: string
   ): Promise<c.ApiResponse<Case[], APIError>> {
-    return (await this.getAsJson(URLs.casesSearch(query))) as any;
+    return (await this.getAsJson(URLs.casesSearch(query.trim()))) as any;
   }
 
   public async getCaseSummary(): Promise<c.ApiResponse<SummarySuccess, {}>> {

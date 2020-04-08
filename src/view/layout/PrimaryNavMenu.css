@@ -4,12 +4,26 @@
   justify-content: space-between;
   align-items: center;
   max-width: 100%;
-  padding-left: 0 !important;
-  padding-right: 0;
+  padding: 0.5em 1em !important;
   margin-left: 0;
   margin-right: 0;
+  background-color: #252f3e;
+  color: #FFF;
+}
+
+.site-title {
+  margin: 0px;
+  font-size: 1.5em;
 }
 
 .signed-in-as {
-  font-size: 0.8em;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffbe2e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
