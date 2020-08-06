@@ -30,8 +30,3 @@ For information about setting up and using Search Party, see the *Search Party*[
 
 Please read our [Code of Conduct](https://github.com/usds/case-issue-navigator/blob/master/CODE_OF_CONDUCT.md) and [CONTRIBUTING.md](https://github.com/usds/case-issue-navigator/blob/master/CONTRIBUTING.md) for more details.
 
-
-
-**Contact the project team:**
-
-If you want to directly contact the project team, you can send your questions to search-party-group@usds.dhs.gov.
