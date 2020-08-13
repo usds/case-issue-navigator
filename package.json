@@ -96,6 +96,7 @@
     "node": ">=v10 <v13"
   },
   "resolutions": {
+    "@storybook/**/prismjs": "^1.21.0",
     "**/**/set-value": "^2.0.1"
   }
 }
