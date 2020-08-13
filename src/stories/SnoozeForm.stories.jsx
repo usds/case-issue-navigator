@@ -5,9 +5,7 @@ import SnoozeForm from "../controller/SnoozeForm";
 
 storiesOf("SnoozeForm", module)
   .add("Basic snooze form", () => {
-    const rowData = {
-      previouslySnoozed: false
-    };
+    const rowData = {};
     return (
       <SnoozeForm
         rowData={rowData}

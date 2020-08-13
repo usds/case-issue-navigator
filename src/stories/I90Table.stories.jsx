@@ -20,7 +20,6 @@ const sampleCases = [
       i90SP: "false",
       applicationReason: "Boredom"
     },
-    previouslySnoozed: true,
     notes: [{ type: "comment", subType: "fieldoffice", content: "Phil" }]
   },
   {
